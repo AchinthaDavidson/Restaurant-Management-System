@@ -84,21 +84,21 @@ router.route("/").get((req,res)=>{
     })
 })
 
- router.route("/update/:id").put(async (req, res) => {
+//  router.route("/update/:id").put(async (req, res) => {
   
-    let userId = req.params.id;
-    const Quantity =req.body.quantity;
-    const Total_Cost = req.body.totalCost;
-    const Re_Order_Level = req.body.reorderlevel;
-    const updateRestaurant = {Quantity,Total_Cost,Re_Order_Level};
-    const update = await Customer.updateOne({Item_Id:userId}, updateRestaurant)
+//     let userId = req.params.id;
+//     const Quantity =req.body.quantity;
+//     const Total_Cost = req.body.totalCost;
+//     const Re_Order_Level = req.body.reorderlevel;
+//     const updateRestaurant = {Quantity,Total_Cost,Re_Order_Level};
+//     const update = await Customer.updateOne({Item_Id:userId}, updateRestaurant)
      
-   .then(() => {
-       res.status(200).send({ status: "user update", user: update });
-     })
-     .catch((err) => {
-       console.log(err);
-     });
- });
+//    .then(() => {
+//        res.status(200).send({ status: "user update", user: update });
+//      })
+//      .catch((err) => {
+//        console.log(err);
+//      });
+//  });
 
  module.exports = router;
