@@ -22,25 +22,7 @@ const Menu = () => {
             </table>
         </div>
 
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <tbody>
-        <tr>
-          <td>P001</td>
-          <td>
-            <img src='src\pages\Menu\soup.jpeg'/>
-          </td>
-          <td>Soup</td>
-          <td>Rs.850</td>
-          <td>
-            <button className='edit'>Edit</button>
-            <button className='del'>Delete</button>
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
+  
   </div>
     );
 };
