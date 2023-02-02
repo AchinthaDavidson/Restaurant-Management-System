@@ -72,16 +72,18 @@ const RestaurantDelete = () => {
                 <td className="del-tbl-head">Time</td>
                 <td className="del-tbl-head">Buy Date</td>
                 <td className="del-tbl-head">Quantity</td>
+                <td className="del-tbl-head">Unit Cost</td>
                 <td className="del-tbl-head">Buy Cost</td>
                 <td className="del-tbl-head"></td>
               </tr>
               {items.map((items, index) => (
               <tr key={index}>
              
+                <td className="del-tbl-data">{items.time}</td>
+                <td className="del-tbl-data">{items.date}</td>
                 <td className="del-tbl-data">{items.Quantity}</td>
                 <td className="del-tbl-data">{items.Unit_Price}</td>
-                <td className="del-tbl-data">{items.Supplier}</td>
-                <td className="del-tbl-data">{items.date}</td>
+                <td className="del-tbl-data">{Number(items.Quantity*items.Unit_Price)}</td>
                 <td className="del-tbl-data">
                   <input type="checkbox" />
                 </td>
