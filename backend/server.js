@@ -50,6 +50,12 @@ app.use("/resInventory", ResRouter);
 const InvtRouter = require("./routes/Inventoryfood");
 app.use("/Inventoryfood", InvtRouter);
 
+const barRouter = require("./routes/barinventory.js");
+app.use("/BarInventory", barRouter);
+
+const bardataRouter = require("./routes/barinventory_data.js");
+app.use("/Bardata", bardataRouter);
+
 
 app.listen(PORT,()=>{
     console.log('Sever is runing on port 8070')

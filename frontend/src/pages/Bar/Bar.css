@@ -1,0 +1,68 @@
+.cardinv {
+    display: inline-block;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px rgb(0, 0, 0, 0.3);
+    width: 95%;
+    padding: 10px;
+    margin: 20px;
+    background-color: #fff;
+}
+
+.barinvadd{
+    display:inline-block;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color:#fff;
+    background-color: rgba(53, 39, 68, 1);
+    border-radius: 5px;
+    margin: 25px 0;
+    transition: 0.3s ease-out;
+    cursor: pointer;
+    font-size: 15px;
+}
+.barinvadd:hover{
+    background-color: #ff8243;
+}
+.barinvdel{
+    display:inline;
+    align-items: center;
+    justify-content: center;
+    float:right;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: rgba(53, 39, 68, 1);
+    border-radius: 5px;
+    margin: 25px 0;
+    margin-right: 25px;
+    transition: 0.3s ease-out;
+    cursor: pointer;
+    font-size: 15px;
+}
+.barinvdel:hover{
+    background-color: #ff8243;
+}
+
+.barstatus{
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+}
+.barstatus .tbl-head{
+    font-weight: bold;
+}
+
+.view-bar-inv{
+    text-align: center;
+    padding: 10px;
+}
