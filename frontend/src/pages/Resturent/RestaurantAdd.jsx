@@ -27,7 +27,7 @@ const RestaurantAdd = () => {
   const show = ()=>{
 
     const Inventoryfood = {id,quantity,unitPrice,supplier,expiredate};
-    axios.post("http://localhost:8090/Inventoryfood/add",Inventoryfood)
+    axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood)
     .then(()=>{
       alert("data added inventoryfood");
     })
@@ -40,7 +40,7 @@ const RestaurantAdd = () => {
      const newres_add = {
        id,name,quantity,totalCost,reorderlevel
      };
-     axios.post("http://localhost:8090/resInventory/add",newres_add)
+     axios.post("http://localhost:8070/resInventory/add",newres_add)
      .then(()=>{
       alert("data added successfully");
      })
@@ -51,7 +51,7 @@ const RestaurantAdd = () => {
 
     var qty=Number(quantity)+Number(Stock)
       const Inventoryfood = {name,qty,totalCost,reorderlevel};
-      const url="http://localhost:8090/resInventory/update/" + Item_Id1
+      const url="http://localhost:8070/resInventory/update/" + Item_Id1
     axios.put(url,Inventoryfood)
     .then(()=>{
       alert("data updated");
@@ -65,7 +65,7 @@ const RestaurantAdd = () => {
 const [items, setItems] = useState([]);
     useEffect(() => {
       function getItems() {
-        axios.get("http://localhost:8090/resInventory/").then((res) => {
+        axios.get("http://localhost:8070/resInventory/").then((res) => {
           // console.log(res.data);
           setItems(res.data);
           // console.log(orders[1]);
