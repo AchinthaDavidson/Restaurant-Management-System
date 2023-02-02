@@ -41,8 +41,14 @@ app.use("/food", foodRouter);
 const waiterRouter= require("./routes/waiter");
 app.use("/waiter", waiterRouter);
 
-const menuRouter= require("./routes/menu ");
-app.use("/Menu", menuRouter);
+const ResMenu = require("./routes/menu.js");
+app.use("/menu", ResMenu);
+
+const ResRouter = require("./Routes/restaurant.js");
+app.use("/resInventory", ResRouter);
+
+const InvtRouter = require("./routes/Inventoryfood");
+app.use("/Inventoryfood", InvtRouter);
 
 
 app.listen(PORT,()=>{
