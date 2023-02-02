@@ -1,6 +1,6 @@
 const router = require('express').Router();
 let Inventoryfood = require('../models/Inventoryfood');
-const d = new Date();
+
 
 /*add*/
 router.route("/add").post((req,res)=>{
@@ -37,5 +37,16 @@ router.route("/add").post((req,res)=>{
         console.log(err);
     })
 })
+
+router.route("/find/:id").get((req,res)=>{
+
+    let Id = req.params.id;
+    Inventoryfood.find({Item_Id:Id}).then((Inventoryfood)=>{
+        res.json(Inventoryfood)
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
+
 
 module.exports = router;
