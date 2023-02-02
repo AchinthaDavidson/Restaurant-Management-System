@@ -13,7 +13,7 @@ const AddMenu = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
   const Menu = {id,name,Image};
-    axios.post("http://localhost:8090/menu/add",Menu)
+    axios.post("http://localhost:8070/menu/add",Menu)
     .then(()=>{
       alert("Added successfully");
       setid('')

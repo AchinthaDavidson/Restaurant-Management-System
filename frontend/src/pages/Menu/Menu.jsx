@@ -8,7 +8,7 @@ const Menu = () => {
   const [product, setProduct] = useState([]);
   useEffect(() => {
     function getproduct() {
-      axios.get("http://localhost:8090/menu/").then((res) => {
+      axios.get("http://localhost:8070/menu/").then((res) => {
         // console.log(res.data);
         setProduct(res.data);
         // console.log(orders[1]);
@@ -19,7 +19,7 @@ const Menu = () => {
 
   function deleteRow(category_Id){
     const dlte =
-    "http://localhost:8090/menu/delete/" + category_Id ;
+    "http://localhost:8070/menu/delete/" + category_Id ;
     // alert(dlte);
 
     axios
