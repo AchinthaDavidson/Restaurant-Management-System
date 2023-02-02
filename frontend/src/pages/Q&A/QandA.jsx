@@ -16,7 +16,7 @@ const QandA = () => {
         <div>
         <Niv name='Question & Answer'/>
         <div className='data'>
-        <h1>hhhhhsdklhklvh<br/></h1>
+        <h1>hhhhh<br/></h1>
 
     </div>
 
