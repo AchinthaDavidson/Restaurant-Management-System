@@ -1,0 +1,37 @@
+
+
+
+
+
+/* .input-field input[type="file"] {
+    border: none;
+} */
+
+
+
+.ResDelDesc{
+    border-collapse: collapse;
+    width: 100%;
+    /* border: 1px solid rgb(255, 255, 255); */
+    border-radius: 5px;
+    text-align: center;
+
+}
+
+.ResDelDesc .del-tbl-head{
+    font-weight: bold;
+    background-color: white;
+}
+
+.del-tbl-data{
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    
+}
+
+tr:hover td {
+    color: black;
+    cursor: pointer;
+    background-color: #c4c4c4;
+  }
