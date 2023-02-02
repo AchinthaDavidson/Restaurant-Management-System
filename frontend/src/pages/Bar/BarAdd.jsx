@@ -41,18 +41,18 @@ function BarAdd() {
 
   const show = () => {
     const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice};
-    axios.post("http://localhost:8090/Bardata/add", Bardata)
+    axios.post("http://localhost:8070/Bardata/add", Bardata)
       .then(() => { alert("data added to Bardata table successfully"); })
       .catch((err) => { alert(err); })
 
     if (isEditing===false) {
       const BarInventory = { code,name , type, catogary, quantity,Totalcost,Reorderlevel};
-      axios.post("http://localhost:8090/BarInventory/add", BarInventory)
+      axios.post("http://localhost:8070/BarInventory/add", BarInventory)
         .then(() => { alert("data added successfully"); })
         .catch((err) => { alert(err); });
     }
     else {
-      const url = "http://localhost:8090/BarInventory/update/"+ Product_Code1 ; 
+      const url = "http://localhost:8070/BarInventory/update/"+ Product_Code1 ; 
       const BarInventory = { code,name , type, catogary, quantity,Totalcost,Reorderlevel};
       axios.put(url, BarInventory)
         .then(() => { alert("data updated successfully"); })
@@ -64,7 +64,7 @@ function BarAdd() {
 
   useEffect(()=>{
     const getbarval = () =>{
-      axios.get("http://localhost:8090/barInventory/")
+      axios.get("http://localhost:8070/barInventory/")
       .then((barinventories)=>{
         setbar(barinventories.data);
       }).catch((err)=>{

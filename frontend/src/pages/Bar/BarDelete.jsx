@@ -22,7 +22,7 @@ function BarDelete() {
 
   useEffect(()=>{
     const getbarval = () =>{
-      axios.get("http://localhost:8090/barInventory/")
+      axios.get("http://localhost:8070/barInventory/")
       .then((barinventories)=>{
         setbar(barinventories.data);
       }).catch((err)=>{
