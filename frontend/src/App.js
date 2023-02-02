@@ -8,6 +8,8 @@ import Restaurant from './pages/Restaurant/Restaurant.jsx';
 import RestaurantAdd from './pages/Restaurant/RestaurantAdd';
 import RestaurantDelete from './pages/Restaurant/RestaurantDelete';
 import Bar from './pages/Bar/Bar.jsx';
+import BarAdd from "./pages/Bar/BarAdd.jsx";
+import BarDelete from "./pages/Bar/BarDelete.jsx";
 import Food from './pages/Food/Food.jsx';
 import Waiter from './pages/Waiter/Waiter.jsx';
 import QandA from './pages/Q&A/QandA.jsx';
@@ -27,7 +29,11 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/Order" element={<Order />} />
           <Route path="/Order/history" element={<History />} />
+
           <Route path="/Bar" element={<Bar />} />
+          <Route path="Bar/BarAdd" element={<BarAdd />} />
+          <Route path="Bar/BarDelete" element={<BarDelete />} />
+
           <Route path="/Restaurant" element={<Restaurant/>} />
           <Route path="/Restaurant/RestaurantAdd" element={<RestaurantAdd/>} />
           <Route path="/Restaurant/RestaurantDelete" element={<RestaurantDelete/>} />
