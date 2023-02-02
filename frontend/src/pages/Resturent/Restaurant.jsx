@@ -7,7 +7,7 @@ import "./stockView.css";
     const [items, setItems] = useState([]);
     useEffect(() => {
       function getItems() {
-        axios.get("http://localhost:8090/resInventory/").then((res) => {
+        axios.get("http://localhost:8070/resInventory/").then((res) => {
           // console.log(res.data);
           setItems(res.data);
           // console.log(orders[1]);
