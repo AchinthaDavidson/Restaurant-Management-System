@@ -9,6 +9,7 @@ import axios from "axios";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
+import { color } from "@mui/system";
 // import { display } from "@mui/system";
 
 function Order() {
@@ -108,6 +109,7 @@ function Order() {
     document.getElementsByClassName("Delivery")[1].hidden = true;
     document.getElementsByClassName("Delivery")[2].hidden = true;
     document.getElementsByClassName("Delivery")[3].hidden = true;
+    
   };
 
   const Takeaway = () => {
@@ -406,7 +408,7 @@ function Order() {
               </div>
             </div>
             <form onSubmit={handleSubmit}>
-              <div style={{ paddingTop: "10px", position: "absolute" }}>
+              <div style={{ paddingTop: "10px",  }}>
                 <div>
                   <label htmlFor="description">Food Name</label>
                   <br />
@@ -415,7 +417,7 @@ function Order() {
                     id="Fname"
                     type="text"
                     placeholder="search food....."
-                    style={{ padding: "5px", minWidth: "100%" }}
+                    style={{ padding: "5px", minWidth: "90%" }}
                     onChange={(event) => {
                       setSearchTerm(event.target.value);
                     }}
@@ -429,11 +431,11 @@ function Order() {
                     maxHeight: "100px",
                     background: "#F4F0F0",
                     overflowY: "auto",
-
+                    position: "absolute",
                     // position: "relative",
                     opacity: "0.85",
                     visibility: "hidden",
-                    minWidth: "100%",
+                minWidth:"40%"
                   }}
                   id="Iname"
                 >
@@ -461,8 +463,8 @@ function Order() {
                     ))}
                 </div>
               </div>
-              <div style={{ paddingTop: "15%", display: "flex" }}>
-                <div style={{}}>
+              <div style={{ paddingTop: "5%", display: "flex" }}>
+                <div style={{ }}>
                   <label htmlFor="quantity">Quantity :</label>
                   <input
                     type="number"
