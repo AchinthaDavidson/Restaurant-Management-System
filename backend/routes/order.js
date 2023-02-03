@@ -60,6 +60,13 @@ order.find({date:{$regex :date1 }}).count().then((orders)=>{
     })
 })
 
+router.route("/sum").get((req,res)=>{
+    order.aggregate([{},{sub:{$sum:"$amout"}}]).then((orders)=>{
+            res.json(orders)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    })
 
 router.route("/orderId").get((req,res)=>{
     order.find({},{order_id:1}).sort({_id:-1}).limit(1).then((orders)=>{

@@ -146,8 +146,8 @@ const [items, setItems] = useState([]);
 
                 <div class="input-field">
                   <label className="ResturantaddBuyCost">Total Cost</label>
-                  <input type="text" placeholder="Total Cost" value={totalCost}
-                  onChange={(e) => settotalCost(e.target.value)}/>
+                  <input type="text" placeholder="Total Cost" value={(quantity*unitPrice)||0}
+                  />
                 </div>
 
                 <div class="input-field">
@@ -169,7 +169,7 @@ const [items, setItems] = useState([]);
                 </div>
               </div>
 
-              <button class="Resturantbtn" type="submit" >
+              <button class="Resturantbtn" type="submit" onClick={() => settotalCost(quantity*unitPrice)}>
                 <span>{isEditing ? "Edit" : "Add "}</span>
               </button>
             </div>
