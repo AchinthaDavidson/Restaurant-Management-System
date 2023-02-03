@@ -46,8 +46,8 @@ button {
 input {
   font-family: "Poppins", sans-serif;
   padding: 10px, 20px;
-  margin: 0 10px;
-  outline: none;
+  /* margin: 0 10px; */
+  outline: none; 
   border: 2px solid #f1f2f4;
   border-radius: 6px;
   color: #060606;
@@ -120,8 +120,12 @@ tr:nth-child(odd) {
 }
 
 tr:hover td {
-  color: #587eee;
+ 
   cursor: pointer;
+  background-color: #d2d3d5;
+}
+.fooddata:hover {
+   cursor: pointer;
   background-color: #d2d3d5;
 }
 

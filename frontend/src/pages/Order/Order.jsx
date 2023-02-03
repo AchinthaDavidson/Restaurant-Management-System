@@ -417,7 +417,7 @@ function Order() {
                     id="Fname"
                     type="text"
                     placeholder="search food....."
-                    style={{ padding: "5px", minWidth: "90%" }}
+                    style={{ padding: "5px", minWidth: "92%" }}
                     onChange={(event) => {
                       setSearchTerm(event.target.value);
                     }}
@@ -454,7 +454,7 @@ function Order() {
                       }
                     })
                     .map((order, index) => (
-                      <p
+                      <p className="fooddata"
                         key={index}
                         onClick={() => setdata(order.Price, order.name)}
                       >
