@@ -8,8 +8,9 @@ import axios from "axios";
 
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "react-toastify";
-import { color } from "@mui/system";
+import { toast ,ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+// import { color } from "@mui/system";
 // import { display } from "@mui/system";
 
 function Order() {
@@ -61,7 +62,7 @@ function Order() {
   }, []);
 
   function setdata(fprice, fname) {
-    alert(fname + " " + fprice);
+    // alert(fname + " " + fprice);
     document.getElementById("Iname").style.visibility = "hidden";
     document.getElementById("radio").style.visibility = "visible";
     document.getElementById("Fname").value = fname;
@@ -134,6 +135,7 @@ function Order() {
     if (!description || !quantity || !price) {
       toast.error("Please fill in all inputs");
     } else {
+      // toast.success("data added");
       const newItems = {
         id: uuidv4(),
         description,
@@ -151,7 +153,9 @@ function Order() {
       axios
         .post("http://localhost:8070/orderfood/add", neworder_food)
         .then(() => {
-          alert("food add");
+          // alert("food add");
+          toast.success("food added");
+
           document.getElementById("print").hidden = false;
         })
         .catch((err) => {
@@ -223,10 +227,10 @@ function Order() {
     axios
       .delete(deletee)
       .then(() => {
-        alert("delete");
+        // alert("delete");
       })
       .catch((err) => {
-        alert(err);
+        toast.error("cannot edit data");
       });
   };
 
@@ -240,36 +244,38 @@ function Order() {
       order_id +
       "/" +
       editingRow.description;
-    alert(deletee);
-
+   
     axios
       .delete(deletee)
       .then(() => {
-        alert("delete");
+        toast.success("food delete");
       })
       .catch((err) => {
-        alert(err);
+        // alert(err);
+        toast.error("food deleted unsuccessfull");
       });
   };
   // deletedata
   const deletedata = () => {
     const deletee = "http://localhost:8070/orderfood/delete/" + order_id;
 
-    alert(deletee);
+    // alert(deletee);
 
     axios
       .delete(deletee)
       .then(() => {
-        alert("delete");
+        // alert("delete");
+       
       })
       .catch((err) => {
         alert(err);
+
       });
     window.location.reload(false);
   };
   // save database
   function sendorder(e) {
-    alert(cus_id);
+    // alert(cus_id);
     e.preventDefault();
     setName("");
     setAddress("");
@@ -286,7 +292,8 @@ function Order() {
       axios
         .post("http://localhost:8070/order/add", neworder)
         .then(() => {
-          alert("order add");
+          // alert("order add");
+          
         })
         .catch((err) => {
           alert(err);
@@ -302,10 +309,13 @@ function Order() {
         axios
           .post("http://localhost:8070/customer/add", neworder_cus)
           .then(() => {
-            alert("cus add");
+            // alert("cus add");
+            toast.success("customer addes successfull");
+
           })
           .catch((err) => {
-            alert(err);
+            // alert(err);
+            toast.error("customer addes unsuccessfull");
           });
       }
     }
@@ -354,7 +364,10 @@ function Order() {
     }
   }
   return (
+
+   
     <div>
+        <ToastContainer position="top-right" theme="colored" />
       <Niv name="Order" />
       <div className="data">
         <div style={{ display: "flex", position: "relative" }}>
@@ -715,7 +728,7 @@ function Order() {
                     <td>
                       <Button onClick={() => editRow(id)}>
                         <AiOutlineEdit
-                          style={{ fontSize: "3- 0px", color: "black" }}
+                          style={{ fontSize: "30px", color: "black" }}
                         />
                       </Button>
                     </td>
