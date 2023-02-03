@@ -33,4 +33,15 @@ router.route("/add").post((req,res)=>{
         console.log(err);
     })
 })
+
+router.route("/").get((req,res)=>{
+
+    barInv.aggregate([{$group:{_id:"$Product_Code",price:{$min:"$Sell_Price"}}}]).then((bars)=>{
+        res.json(bars)
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
+
+
 module.exports = router;

@@ -49,6 +49,7 @@ function Order() {
   const [istype, setIstype] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [orders, setOrders] = useState([]);
+  const [bar, setBar] = useState([]);
   const [waiter, setwaiter] = useState([]);
   const [staytus, setstaytus] = useState("0");
 
@@ -64,6 +65,17 @@ function Order() {
     getorder();
   }, []);
 
+  useEffect(() => {
+    function getbar() {
+      axios.get("http://localhost:8070/Bardata").then((res) => {
+        // console.log(res.data);
+        setBar(res.data);
+        // console.log(orders[1]);
+      });
+    }
+    getbar();
+  }, []);
+
   function setdata(fprice, fname) {
     // alert(fname + " " + fprice);
     document.getElementById("Iname").style.visibility = "hidden";
@@ -74,7 +86,7 @@ function Order() {
   }
 
   function setSearch() {
-    // alert('ho')
+    // // alert('ho')
     if (document.getElementById("Iname").style.visibility === "visible") {
       document.getElementById("Iname").style.visibility = "hidden";
       document.getElementById("radio").style.visibility = "visible";
@@ -510,7 +522,29 @@ alert(istype)
                         {order.name}
                       </p>
                     ))
-                    : "Add "}
+                    : bar
+                    .filter((val) => {
+                      if (searchTerm === "") {
+                        return val;
+                      } else if (
+                        val._id
+                          .toLowerCase()
+                          .includes(searchTerm.toLowerCase())
+                      ) {
+                        document.getElementById("Iname").style.visibility =
+                          "visible";
+                        return val;
+                      }
+                    })
+                    .map((bar, index) => (
+                      <p
+                        className="fooddata"
+                        key={index}
+                        onClick={() => setdata(bar.price, bar._id)}
+                      >
+                        {bar._id}
+                      </p>
+                    ))}
                 </div>
               </div>
               <div style={{ paddingTop: "5%", display: "flex" }}>
