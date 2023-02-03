@@ -23,7 +23,7 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
     <div>
       <Niv name="Restaurant Inventory" />
       <div className="data">
-      <div style={{display:'flex', margin: '1em',borderStyle:"solid",borderLeftWidth:"5px",width:'25%', borderColor:" white white white #ff8243",backgroundColor:"white",borderRadius:"9px"}}>
+      <div style={{display:'flex', margin: '1em',borderStyle:"solid",borderLeftWidth:"5px",width:'25%',borderColor:" white white white #ff8243",backgroundColor:"white",borderRadius:"9px"}}>
     <div style={{flexGrow: '1' ,paddingTop:"5px",paddingLeft:"5px",fontSize:'30px'}}>
     Stock Summary
     </div>     
