@@ -47,7 +47,7 @@ router.route("/update/:id").put(async(req,res)=>{
 
     const Item_Name  = req.body.name;
     const Quantity =req.body.qty;
-    const Total_Cost = req.body.totalCost;
+    const Total_Cost = req.body.totalCost1;
     const Re_Order_Level = req.body.reorderlevel;
 
     const updatebar = {Item_Name,Quantity,Total_Cost,Re_Order_Level}  

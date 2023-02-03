@@ -50,7 +50,8 @@ const RestaurantAdd = () => {
     }else{
 
     var qty=Number(quantity)+Number(Stock)
-      const Inventoryfood = {name,qty,totalCost,reorderlevel};
+    var totalCost1=(Number(Total))+totalCost
+      const Inventoryfood = {name,qty,totalCost1,reorderlevel};
       const url="http://localhost:8070/resInventory/update/" + Item_Id1
     axios.put(url,Inventoryfood)
     .then(()=>{

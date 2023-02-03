@@ -50,6 +50,7 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
                   <th className="stk-view-tbl">Item Id</th>
                   <th className="stk-view-tbl">Item Name</th>
                   <th className="stk-view-tbl">Current Stock</th>
+                  <th className="stk-view-tbl">Total Cost</th>
                   <th className="stk-view-tbl">Re-order level</th>
                   <th className="stk-view-tbl">Status</th>
                 </tr>
@@ -60,6 +61,7 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
                     <td>{items.Item_Id}</td>
                     <td>{items.Item_Name}</td>
                     <td>{items.Quantity}{items.Unit}</td>
+                    <td>{items.Total_Cost}</td>
                     <td>{items.Re_Order_Level}</td>
                     <td>{items.Re_Order_Level}</td>
                   </tr>
