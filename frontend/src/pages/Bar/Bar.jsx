@@ -26,7 +26,7 @@ const Bar = () => {
       <Niv name="Bar Inventory" />
       <div className="data">
       <div style={{display:'flex', margin: '1em',borderStyle:"solid",borderLeftWidth:"5px",width:'25%',borderColor:" white white white #ff8243",backgroundColor:"white",borderRadius:"9px"}}>
-          <div style={{flexGrow: '1' ,paddingTop:"5px",paddingLeft:"5px",fontSize:'30px'}}>Stock Summary</div>
+          <div style={{flexGrow: '1' ,paddingTop:"5px",paddingLeft:"5px",fontSize:'25px'}}>Stock Summary</div>
           <div style={{flexGrow: '1',textAlign:'center' ,padding:'6px' ,borderLeft:"5px solid #DEE1E5"}}>
             <div style={{fontSize:'30px'}}>{count}</div>
             <div style={{fontSize:'10px'}}> Available Product In Stock</div>
