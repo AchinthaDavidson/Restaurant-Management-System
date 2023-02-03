@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Niv from "../../components/Niv";
 import Table from "./Table";
 import axios from "axios";
+import "./Order.css";
 
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
@@ -45,10 +46,12 @@ function Order() {
   const componentRef = useRef();
   const [isEditing, setIsEditing] = useState(false);
   const [isdining, setDining] = useState(true);
+  const [istype, setIstype] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [orders, setOrders] = useState([]);
   const [waiter, setwaiter] = useState([]);
   const [staytus, setstaytus] = useState("0");
+
   // must be change for food
   useEffect(() => {
     function getorder() {
@@ -131,7 +134,7 @@ function Order() {
   // Submit form function
   const handleSubmit = (e) => {
     e.preventDefault();
-
+alert(istype)
     if (!description || !quantity || !price) {
       toast.error("Please fill in all inputs");
     } else {
@@ -364,10 +367,8 @@ function Order() {
     }
   }
   return (
-
-   
     <div>
-        <ToastContainer position="top-right" theme="colored" />
+      <ToastContainer position="top-right" theme="colored" />
       <Niv name="Order" />
       <div className="data">
         <div style={{ display: "flex", position: "relative" }}>
@@ -403,10 +404,43 @@ function Order() {
               borderRadius: "9px",
               marginTop: "80px",
               flexGrow: "1",
+
               maxWidth: "47%",
               padding: "30px",
             }}
           >
+            <div  style={{ display: "flex", position: "relative" }}>
+              <div style={{ width:'50%' }}>
+              <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#01BC90",
+                color: "black",
+                width: "100%",
+
+              }}
+             onClick={() =>setIstype(true)}
+
+            >
+              <b>Resturent</b>
+            </Button>
+              </div>
+
+              <div style={{  position: "absolute", right: "0px" ,width:'50%' }}>
+              <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#01BC90",
+                color: "black",
+                width: "100%",
+              }}
+              onClick={() =>setIstype(false)}
+              
+            >
+              <b>Bar</b>
+            </Button>
+              </div>
+            </div>
             <div style={{ display: "flex", position: "relative" }}>
               <div>
                 <label htmlFor="invoiceNumber">
@@ -421,9 +455,9 @@ function Order() {
               </div>
             </div>
             <form onSubmit={handleSubmit}>
-              <div style={{ paddingTop: "10px",  }}>
+              <div style={{ paddingTop: "10px" }}>
                 <div>
-                  <label htmlFor="description">Food Name</label>
+                  <label htmlFor="description">Name</label>
                   <br />
 
                   <input
@@ -448,11 +482,12 @@ function Order() {
                     // position: "relative",
                     opacity: "0.85",
                     visibility: "hidden",
-                minWidth:"40%"
+                    minWidth: "40%",
                   }}
                   id="Iname"
                 >
-                  {orders
+                  {istype ?
+                  orders
                     .filter((val) => {
                       if (searchTerm === "") {
                         return val;
@@ -467,17 +502,19 @@ function Order() {
                       }
                     })
                     .map((order, index) => (
-                      <p className="fooddata"
+                      <p
+                        className="fooddata"
                         key={index}
                         onClick={() => setdata(order.Price, order.name)}
                       >
                         {order.name}
                       </p>
-                    ))}
+                    ))
+                    : "Add "}
                 </div>
               </div>
               <div style={{ paddingTop: "5%", display: "flex" }}>
-                <div style={{ }}>
+                <div style={{}}>
                   <label htmlFor="quantity">Quantity :</label>
                   <input
                     type="number"
@@ -657,12 +694,13 @@ function Order() {
               backgroundColor: "white",
               borderRadius: "9px",
               marginTop: "80px",
-              right: "10px",
+              right: 0,
               flexGrow: "1",
               marginLeft: "100px",
               maxWidth: "47%",
               minWidth: "45%",
               padding: "10px",
+
               whiteSpace: "nowrap",
               overflowY: "auto",
             }}
