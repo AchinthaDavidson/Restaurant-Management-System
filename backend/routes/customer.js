@@ -7,16 +7,17 @@ let Customer =require("../models/customer");
 router.route("/add").post((req,res)=>{
 
     console.log("hi");
-    // const  name     =req.body.name;
-    // const  Email    =req.body.email;
-    // const  address  =req.body.address;
-    // const  phone_no =req.body.phone;
-    // const  password =req.body.pasword;
-    const  name     ="isuru"
-    const  Email    ="isu@gmail.com"
-    const  address  ="191 katugastota Rd kandy"
-    const  phone_no =718922774
-    const  password ="xghch123"
+    const  name     =req.body.name;
+    const  Email    =req.body.email;
+    const  address  =req.body.address;
+    const  phone_no =req.body.phone;
+    const  password =req.body.pasword;
+    
+    // const  name     ="isuru"
+    // const  Email    ="isu@gmail.com"
+    // const  address  ="191 katugastota Rd kandy"
+    // const  phone_no =718922774
+    // const  password ="xghch123"
 
     const newCustomer =new  Customer({
     

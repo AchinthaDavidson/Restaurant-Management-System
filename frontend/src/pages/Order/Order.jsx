@@ -11,15 +11,13 @@ import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 // import { display } from "@mui/system";
 
-
-
 function Order() {
   const d = new Date();
   // function addComponent() {
   // const order_id = '008';
-  const [w_id,setW_id] = useState("-");;
-  const [cus_id,setcus_id] = useState("-");
-  const [type,settype] = useState("Takeaway");
+  const [w_id, setW_id] = useState("-");
+  const [cus_id, setcus_id] = useState("-");
+  const [type, settype] = useState("Takeaway");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -28,9 +26,8 @@ function Order() {
   const invoiceDate = useState(
     d.getDate() +
       "/" +
-      (d.getMonth() +1)
-    
-      +"/" +
+      (d.getMonth() + 1) +
+      "/" +
       d.getFullYear() +
       " - " +
       d.getHours() +
@@ -84,60 +81,54 @@ function Order() {
   const delivery = () => {
     // alert("hi")
     setDining(true);
-    settype("Delivery")
-    document.getElementById('name').hidden=false
-    document.getElementById('id').hidden=false
-    document.getElementById('email').hidden=false
-    document.getElementById('address').hidden=false
-    document.getElementById('name').innerHTML='Customer Name';
-    document.getElementsByClassName("Delivery")[0].hidden=false
-    document.getElementsByClassName("Delivery")[1].hidden=false
-    document.getElementsByClassName("Delivery")[2].hidden=false
-    document.getElementsByClassName("Delivery")[3].hidden=false
-    document.getElementById('T_no').hidden=false;
-    document.getElementById("Address").hidden=false;
-   
- 
+    settype("Delivery");
+    document.getElementById("name").hidden = false;
+    document.getElementById("id").hidden = false;
+    document.getElementById("email").hidden = false;
+    document.getElementById("address").hidden = false;
+    document.getElementById("name").innerHTML = "Customer Name";
+    document.getElementsByClassName("Delivery")[0].hidden = false;
+    document.getElementsByClassName("Delivery")[1].hidden = false;
+    document.getElementsByClassName("Delivery")[2].hidden = false;
+    document.getElementsByClassName("Delivery")[3].hidden = false;
+    document.getElementById("T_no").hidden = false;
+    document.getElementById("Address").hidden = false;
   };
-const Dining = () => {
+  const Dining = () => {
     // alert("hi")
-    settype("Dining")
-    setDining(false)
-    document.getElementById('name').hidden=true
-    
-    document.getElementById('id').hidden=true
-    document.getElementById('email').hidden=true
-    document.getElementById('address').hidden=true
-  
-    document.getElementsByClassName("Delivery")[0].hidden=true
-    document.getElementsByClassName("Delivery")[1].hidden=true
-    document.getElementsByClassName("Delivery")[2].hidden=true
-    document.getElementsByClassName("Delivery")[3].hidden=true
-    
+    settype("Dining");
+    setDining(false);
+    document.getElementById("name").hidden = true;
+
+    document.getElementById("id").hidden = true;
+    document.getElementById("email").hidden = true;
+    document.getElementById("address").hidden = true;
+
+    document.getElementsByClassName("Delivery")[0].hidden = true;
+    document.getElementsByClassName("Delivery")[1].hidden = true;
+    document.getElementsByClassName("Delivery")[2].hidden = true;
+    document.getElementsByClassName("Delivery")[3].hidden = true;
   };
 
- const Takeaway= () => {
+  const Takeaway = () => {
     // alert("hi")
-    setDining(true)
-    settype("Takeaway")
-    document.getElementById('name').hidden=true
-    document.getElementById('id').hidden=true
-    document.getElementById('email').hidden=true
-    document.getElementById('address').hidden=true
+    setDining(true);
+    settype("Takeaway");
+    document.getElementById("name").hidden = true;
+    document.getElementById("id").hidden = true;
+    document.getElementById("email").hidden = true;
+    document.getElementById("address").hidden = true;
 
-    
-    document.getElementsByClassName("Delivery")[0].hidden=true
-    document.getElementsByClassName("Delivery")[1].hidden=true
-    document.getElementsByClassName("Delivery")[2].hidden=true
-    document.getElementsByClassName("Delivery")[3].hidden=true
+    document.getElementsByClassName("Delivery")[0].hidden = true;
+    document.getElementsByClassName("Delivery")[1].hidden = true;
+    document.getElementsByClassName("Delivery")[2].hidden = true;
+    document.getElementsByClassName("Delivery")[3].hidden = true;
   };
-
 
   // Submit form function
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
     if (!description || !quantity || !price) {
       toast.error("Please fill in all inputs");
     } else {
@@ -165,28 +156,6 @@ const Dining = () => {
           alert(err);
         });
 
-        
-     
-
-        if(staytus==="0"){
-
-          const neworder_cus = {
-            name,
-            email,
-            address,
-            phone 
-          };
-          axios
-            .post("http://localhost:8070/coustomer/add", neworder_cus)
-            .then(() => {
-              alert("cus add");
-             
-            })
-            .catch((err) => {
-              alert(err);
-            });
-        }
-     
       setDescription("");
       setQuantity("1");
       setPrice("");
@@ -194,22 +163,21 @@ const Dining = () => {
       setSearchTerm("");
       setList([...list, newItems]);
       // setIsEditing(false);
-      document.getElementById("Fname").value = ("");
+      document.getElementById("Fname").value = "";
     }
   };
 
-//  select waiter
-useEffect(() => {
-  function getwaiter() {
-    axios.get("http://localhost:8070/waiter/").then((res) => {
-      // console.log(res.data);
-      setwaiter(res.data);
-      // console.log(orders[1]);
-    });
-  }
-  getwaiter();
-}, []);
-
+  //  select waiter
+  useEffect(() => {
+    function getwaiter() {
+      axios.get("http://localhost:8070/waiter/").then((res) => {
+        // console.log(res.data);
+        setwaiter(res.data);
+        // console.log(orders[1]);
+      });
+    }
+    getwaiter();
+  }, []);
 
   // Calculate items amount function
   useEffect(() => {
@@ -283,11 +251,8 @@ useEffect(() => {
   };
   // deletedata
   const deletedata = () => {
-   
-    const deletee =
-      "http://localhost:8070/orderfood/delete/" +
-      order_id 
-     
+    const deletee = "http://localhost:8070/orderfood/delete/" + order_id;
+
     alert(deletee);
 
     axios
@@ -298,7 +263,7 @@ useEffect(() => {
       .catch((err) => {
         alert(err);
       });
-      window.location.reload(false)
+    window.location.reload(false);
   };
   // save database
   function sendorder(e) {
@@ -314,8 +279,7 @@ useEffect(() => {
         w_id,
         cus_id,
         type,
-        total
-        
+        total,
       };
       axios
         .post("http://localhost:8070/order/add", neworder)
@@ -325,6 +289,23 @@ useEffect(() => {
         .catch((err) => {
           alert(err);
         });
+
+      if (staytus === "0") {
+        const neworder_cus = {
+          name,
+          email,
+          address,
+          phone,
+        };
+        axios
+          .post("http://localhost:8070/customer/add", neworder_cus)
+          .then(() => {
+            alert("cus add");
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      }
     }
   }
 
@@ -339,39 +320,37 @@ useEffect(() => {
   let id = orderid.map((item) => item.order_id);
   //  console.log(id[0]);
   const order_id = Number(id[0]) + 1;
-//get cus details
-const [customer, setcustomer] = useState([]);
+  //get cus details
+  const [customer, setcustomer] = useState([]);
 
-useEffect(() => {
-  axios.get("http://localhost:8070/customer").then((res) => {
-    // console.log(res.data);
-    setcustomer(res.data);
-  });
-}, []);
+  useEffect(() => {
+    axios.get("http://localhost:8070/customer").then((res) => {
+      // console.log(res.data);
+      setcustomer(res.data);
+    });
+  }, []);
 
-//find data
+  //find data
 
- function findData(phone) {
-  setPhone(phone)
- 
-  if (phone.length === 9) {
-    // alert("hi");
-    setPhone(phone)
-   customer.map((customer) => {
-// alert(customer.phone_no)
-      if(customer.phone_no.includes(phone)===true){
+  function findData(phone) {
+    setPhone(phone);
+
+    if (phone.length === 9) {
+      // alert("hi");
+      setPhone(phone);
+      customer.map((customer) => {
         // alert(customer.phone_no)
-        setstaytus("1");
-        setName(customer.name)
-        setAddress(customer.address)
-        setEmail(customer.Email)
-        setcus_id(customer.name)
-        
-      }
-    })
+        if (customer.phone_no.includes(phone) === true) {
+          // alert(customer.phone_no)
+          setstaytus("1");
+          setName(customer.name);
+          setAddress(customer.address);
+          setEmail(customer.Email);
+          setcus_id(customer.name);
+        }
+      });
+    }
   }
-  
-}
   return (
     <div>
       <Niv name="Order" />
@@ -508,116 +487,131 @@ useEffect(() => {
                   />
                 </div>
               </div>
-              <form
-                action=""
-                style={{ paddingTop: "20px" }}
-                id="radio"
-              >
-                <input type="radio" name="language"onClick={Takeaway} />
+              <form action="" style={{ paddingTop: "20px" }} id="radio">
+                <input type="radio" name="language" onClick={Takeaway} />
                 <label for="javascript">Takeaway</label>
-                <input type="radio" name="language" onClick={Dining} style={{marginLeft:'15%'}}/>
+                <input
+                  type="radio"
+                  name="language"
+                  onClick={Dining}
+                  style={{ marginLeft: "15%" }}
+                />
                 <label for="javascript">Dining</label>
-                <input type="radio" name="language" onClick={delivery} style={{marginLeft:'15%'}}/>
+                <input
+                  type="radio"
+                  name="language"
+                  onClick={delivery}
+                  style={{ marginLeft: "15%" }}
+                />
                 <label for="javascript">Delivery</label>
               </form>
               <hr style={{ borderColor: "black", marginTop: "20px" }}></hr>
-              {isdining?  
-              <div
-                style={{
-                  display: "flex",
-                  marginTop: "20px",
-                  // position: "relative",
-                  // display:"none"
-                }}
-               
-              >
-               
-                <div  id='T_no'  hidden>
-                <div style={{ padding: "10px" }}>
-                    <label htmlFor="phone" id='id'>Enter phone : </label>
-                    <input
-                      // disabled
-                      className="Delivery"
-                      type="text"
-                      name="phone"
-                      id="phone"
-                      placeholder="Enter your phone"
-                      autoComplete="off"
-                      value={phone}
-                      onChange={(e) => findData(e.target.value)}
-                    />
-                  </div>
-                  <div style={{ padding: "10px" }}>
-                    <label htmlFor="name" id='name'>Enter Name :</label>
-                    <input
-                      // disabled
-                      className="Delivery"
-                      type="text"
-                      name="text"
-                      id="name"
-                      placeholder="Enter your name"
-                      autoComplete="off"
-                      value={name}
-                      onChange={(e) =>((setName(e.target.value), setcus_id(e.target.value) ))}
-                      style={{ marginLeft: "5px" }}
-                    />
-                  </div>
-
-                  <div style={{ padding: "10px" }}>
-                    <label htmlFor="email" id='email'>Enter email : </label>
-                    <input
-                      // disabled
-                      className="Delivery"
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="Enter your email"
-                      autoComplete="off"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      style={{ marginLeft: "6px" }}
-                    />
-                  </div>
-
-                
-                </div>
+              {isdining ? (
                 <div
                   style={{
-                    position: "absolute",
-                    marginLeft: "25%",
-                    padding: "10px",
+                    display: "flex",
+                    marginTop: "20px",
+                    // position: "relative",
+                    // display:"none"
                   }}
-                  id="Address"
-                  hidden
-                  
                 >
-                  <label htmlFor="address" id='address'>Enter address</label>
-                  <br />
-                  <textarea
-                    // disabled
-                    className="Delivery"
-                    type="text"
-                    rows="4"
-                    cols="30"
-                    name="address"
-                    id="address"
-                    placeholder="Enter your address"
-                    autoComplete="off"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    style={{ paddingTop: "2px" }}
-                  ></textarea>
-                </div>
-              </div>
-                : <div>
-                  Select Waiter : 
-                  <select  value={w_id}  onChange={(e) => setW_id(e.target.value)}>  
-                    {waiter.map((waiter) => 
-                        (<option>{waiter.name}</option> 
-                  ))} 
-                  </select>
+                  <div id="T_no" hidden>
+                    <div style={{ padding: "10px" }}>
+                      <label htmlFor="phone" id="id">
+                        Enter phone :{" "}
+                      </label>
+                      <input
+                        // disabled
+                        className="Delivery"
+                        type="text"
+                        name="phone"
+                        id="phone"
+                        placeholder="Enter your phone"
+                        autoComplete="off"
+                        value={phone}
+                        onChange={(e) => findData(e.target.value)}
+                      />
+                    </div>
+                    <div style={{ padding: "10px" }}>
+                      <label htmlFor="name" id="name">
+                        Enter Name :
+                      </label>
+                      <input
+                        // disabled
+                        className="Delivery"
+                        type="text"
+                        name="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        autoComplete="off"
+                        value={name}
+                        onChange={(e) => (
+                          setName(e.target.value), setcus_id(e.target.value)
+                        )}
+                        style={{ marginLeft: "5px" }}
+                      />
+                    </div>
+
+                    <div style={{ padding: "10px" }}>
+                      <label htmlFor="email" id="email">
+                        Enter email :{" "}
+                      </label>
+                      <input
+                        // disabled
+                        className="Delivery"
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        autoComplete="off"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        style={{ marginLeft: "6px" }}
+                      />
+                    </div>
                   </div>
-                 }
+                  <div
+                    style={{
+                      position: "absolute",
+                      marginLeft: "25%",
+                      padding: "10px",
+                    }}
+                    id="Address"
+                    hidden
+                  >
+                    <label htmlFor="address" id="address">
+                      Enter address
+                    </label>
+                    <br />
+                    <textarea
+                      // disabled
+                      className="Delivery"
+                      type="text"
+                      rows="4"
+                      cols="30"
+                      name="address"
+                      id="address"
+                      placeholder="Enter your address"
+                      autoComplete="off"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      style={{ paddingTop: "2px" }}
+                    ></textarea>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  Select Waiter :
+                  <select
+                    value={w_id}
+                    onChange={(e) => setW_id(e.target.value)}
+                  >
+                    {waiter.map((waiter) => (
+                      <option>{waiter.name}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div
                 style={{
                   display: "flex",
@@ -626,7 +620,9 @@ useEffect(() => {
                 }}
               >
                 <div>
-                  <label htmlFor="amount"><b>Amount : LKR {amount} </b></label>
+                  <label htmlFor="amount">
+                    <b>Amount : LKR {amount} </b>
+                  </label>
                 </div>
                 <div style={{ position: "absolute", right: "0px" }}>
                   <Button
