@@ -15,6 +15,9 @@ import "./stockView.css";
       }
       getItems();
     }, []);
+    var count = 0;
+for (var k in items) if (items.hasOwnProperty(k)) ++count;
+
 
   return (
     <div>
@@ -25,7 +28,7 @@ import "./stockView.css";
     Stock Summary
     </div>     
     <div style={{flexGrow: '1',textAlign:'center' ,padding:'6px' ,borderLeft:"5px solid #DEE1E5"}}>
-    <div style={{fontSize:'30px'}}> 6</div>
+    <div style={{fontSize:'30px'}}> {count}</div>
     <div style={{fontSize:'10px'}}> Available Items In Stock</div>
     </div>  
       </div>
