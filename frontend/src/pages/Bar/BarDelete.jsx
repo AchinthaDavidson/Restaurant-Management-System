@@ -61,6 +61,7 @@ function BarDelete() {
 
   return (
     <div>
+    <ToastContainer position="top-right" theme="colored" />
       <Niv name="Bar Inventory" />
       <div className="data">
         <div className="carddel">
