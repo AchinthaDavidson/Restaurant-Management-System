@@ -10,6 +10,7 @@ function BarDelete() {
   const[items,setbar] = useState("");
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
+  const delete1 = [];
 
   const[Expire_Date1, setExpire_Date1] = useState("");
   const[Quantity1, setQuantity1] = useState("");
