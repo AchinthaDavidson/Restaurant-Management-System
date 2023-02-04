@@ -10,41 +10,47 @@ function BarDelete() {
   const[items,setbar] = useState("");
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
+  const delete1 = [];
 
   const[Expire_Date1, setExpire_Date1] = useState("");
   const[Quantity1, setQuantity1] = useState("");
   const[Buy_Cost1, setBuycost1] = useState("");
   const[Buy_Date1, setBuydate1] = useState();
 
-  const dlt = () =>{
-    
-  }
-
-  useEffect(()=>{
-    const getbarval = () =>{
-      axios.get("http://localhost:8070/barInventory/")
-      .then((barinventories)=>{
-        setbar(barinventories.data);
-      }).catch((err)=>{
-        alert(err);
-      })
-    }
-    getbarval();
-  },[])
+  // useEffect(()=>{
+  //   const getbarval = () =>{
+  //     axios.get("http://localhost:8070/barInventory/")
+  //     .then((barinventories)=>{
+  //       setbar(barinventories.data);
+  //     }).catch((err)=>{
+  //       alert(err);
+  //     })
+  //   }
+  //   getbarval();
+  // },[])
 
   function findcode(code) {
     setCode(code);
     if(code.length === 3){
-      alert(code);
-      items.map((items)=>{
-        if(items.Product_Code.includes(code)===true){
-          setName(items.Product_Name);
-          setBuydate1(items.Buy_Date);
-          setExpire_Date1(items.Expire_Date);
-          setQuantity1(items.Quantity);
-          setBuycost1(items.Buy_Cost);
-        }
-      })
+
+      function getItems(){
+        const url = "http://localhost:8070/barinventory_data/find/"+code;
+
+        axios.get(url).then((res)=>{
+          setbar(res.data);
+        });
+      }
+      getItems();
+      // alert(code);
+      // items.map((items)=>{
+      //   if(items.Product_Code.includes(code)===true){
+      //     setName(items.Product_Name);
+      //     setBuydate1(items.Buy_Date);
+      //     setExpire_Date1(items.Expire_Date);
+      //     setQuantity1(items.Quantity);
+      //     setBuycost1(items.Buy_Cost);
+      //   }
+      // })
     }
   }
 
@@ -81,26 +87,17 @@ function BarDelete() {
                 <td className="del-tbl-head">Quantity</td>
                 <td className="del-tbl-head">Buy Price</td>
               </tr>
-              <tr className="tbl-dta">
-              <td>{name}</td>
-                <td>{Expire_Date1}</td>
-                <td>{Quantity1}</td>
-                <td>{Buy_Cost1}</td>
-                <td>
-                  <input type="checkbox" />
-                </td>
+              {items.map((items,index)=>(
+              <tr className="tbl-dta" key={index}>
+                <td>{items.name}</td>
+                <td>{items.Expire_Date1}</td>
+                <td>{items.Quantity1}</td>
+                <td>{items.Buy_Cost1}</td>
+                <td><input type="checkbox" onClick={()=>delete1.push(items._id)}/></td>
               </tr>
-              {/* <tr className="tbl-dta">
-                <td>2022.05.3</td>
-                <td>2024.05.3</td>
-                <td>100</td>
-                <td>130,000</td>
-                <td>
-                  <input type="checkbox" />
-                </td>
-              </tr> */}
+              ))}
             </table>
-            <button class="Add" type="submit" onClick={dlt}>
+            <button class="Add" type="submit">
               <span class="addbtn">Delete</span>
             </button>
           </form>
