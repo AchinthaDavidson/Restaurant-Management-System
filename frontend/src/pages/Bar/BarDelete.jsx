@@ -42,7 +42,7 @@ function BarDelete() {
         axios.get(url).then((res)=>{
           setbar(res.data);
         })
-        findcode();
+        getItems();
       }
       // alert(code);
       // items.map((items)=>{
