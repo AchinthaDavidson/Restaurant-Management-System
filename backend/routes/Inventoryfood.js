@@ -10,7 +10,7 @@ router.route("/add").post((req,res)=>{
     const Unit_Price = req.body.unitPrice;
     const Supplier = req.body.supplier; 
     const Expire_Date   = req.body.expiredate;
-    const date =  d.getUTCDate()+"/"+d.getUTCMonth()+1+"/"+d.getFullYear();
+    const date =  d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear();
     const time = d.getHours()+":"+d.getMinutes();
 
     // const Item_Id = 'req.body.id';
