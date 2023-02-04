@@ -4,8 +4,6 @@ import Niv from "../../components/Niv";
 import "./RestaurantDelete.css";
 import { useState, useRef, useEffect } from "react";
 
-
-
 const RestaurantDelete = () => {
   const [id,setid] = useState("");
   const [name,setname] = useState("");
@@ -14,12 +12,13 @@ const RestaurantDelete = () => {
   const [Quantity,setQuantity] = useState("");
   const [cost,setcost] = useState("");
   const [items, setItems] = useState([]);
+  const delete1 = [];
+  console.log(delete1)
 
   function Find(id){
     setid(id);
     
       if (id.length===4){
-       
        
           function getItems() {
             const url="http://localhost:8070/Inventoryfood/find/"+id;
@@ -33,8 +32,6 @@ const RestaurantDelete = () => {
           getItems();
         
       }
-   
-
   }
   return (
     <div>
@@ -85,7 +82,7 @@ const RestaurantDelete = () => {
                 <td className="del-tbl-data">{items.Unit_Price}</td>
                 <td className="del-tbl-data">{Number(items.Quantity*items.Unit_Price)}</td>
                 <td className="del-tbl-data">
-                  <input type="checkbox" />
+                  <input type="checkbox" onClick={()=>delete1.push(items._id)}/>
                 </td>
               </tr>
               ))}
