@@ -20,17 +20,17 @@ function BarDelete() {
     
   }
 
-  useEffect(()=>{
-    const getbarval = () =>{
-      axios.get("http://localhost:8070/barInventory/")
-      .then((barinventories)=>{
-        setbar(barinventories.data);
-      }).catch((err)=>{
-        alert(err);
-      })
-    }
-    getbarval();
-  },[])
+  // useEffect(()=>{
+  //   const getbarval = () =>{
+  //     axios.get("http://localhost:8070/barInventory/")
+  //     .then((barinventories)=>{
+  //       setbar(barinventories.data);
+  //     }).catch((err)=>{
+  //       alert(err);
+  //     })
+  //   }
+  //   getbarval();
+  // },[])
 
   function findcode(code) {
     setCode(code);
