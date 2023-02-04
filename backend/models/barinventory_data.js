@@ -29,6 +29,10 @@ const BarInvSchema = new Schema({
         type:String,
         required:true
     },
+    time:{
+        type:String,
+        required:true
+    }
 });
 
 const barinv = mongoose.model("BarInv",BarInvSchema);

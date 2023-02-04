@@ -10,6 +10,7 @@ router.route("/add").post((req,res)=>{
     const Unit_Cost = req.body.Unitcost;
     const Sell_Price = req.body.Sellprice;
     const Buy_Date = d.getDate() +"/" + (d.getMonth() + 1) +"/" +d.getFullYear() ;
+    const time=d.getHours() + ":" + d.getMinutes() 
 
     // const Product_Code = 'req.body.code';
     // const Quantity = 'req.body.quantity';
@@ -24,7 +25,8 @@ router.route("/add").post((req,res)=>{
         Expire_Date,
         Unit_Cost,
         Sell_Price,
-        Buy_Date
+        Buy_Date,
+        time
     })
 
     newbar.save().then(()=>{
