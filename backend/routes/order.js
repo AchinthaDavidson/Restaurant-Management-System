@@ -13,7 +13,7 @@ router.route("/add").post((req,res)=>{
     const  w_id    =req.body.w_id;
     const  cus_id  =req.body.cus_id;
     const  type     = req.body.type;
-    const  date     =d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear();
+    const  date     =d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear();
     const  time     =d.getHours()+":"+d.getMinutes()
     const  amout    = Number( req.body.total);
 
@@ -24,7 +24,7 @@ router.route("/add").post((req,res)=>{
    
     // const  date     =d.getUTCDate()+"/"+d.getUTCMonth()+1+"/"+d.getFullYear();
     // const  time     =d.getHours()+":"+d.getMinutes()
-
+    // const  amout    = "Number( req.body.total)"
     const neworder =new  order({
         order_id,
         w_id,   
@@ -51,7 +51,7 @@ router.route("/").get((req,res)=>{
 })
 
 //count
-const  date1 =d.getMonth()+1+"/"+d.getFullYear();
+const  date1 =d.getMonth()+1+"-"+d.getFullYear();
 router.route("/count").get((req,res)=>{
 order.find({date:{$regex :date1 }}).count().then((orders)=>{
         res.json(orders)
@@ -60,8 +60,9 @@ order.find({date:{$regex :date1 }}).count().then((orders)=>{
     })
 })
 
-router.route("/sum").get((req,res)=>{
-    order.aggregate([{},{sub:{$sum:"$amout"}}]).then((orders)=>{
+router.route("/sum/:id").get((req,res)=>{
+let id=req.params.id
+    order.aggregate([{$match:{date:{$regex :id}}},{$group:{_id:null ,price:{$sum:"$amout"}}}]).then((orders)=>{
             res.json(orders)
         }).catch((err)=>{
             console.log(err)
@@ -85,7 +86,7 @@ router.route("/type").get((req,res)=>{
     })
 })
 
-const  date2 =d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear();
+const  date2 =d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear();
 router.route("/top").get((req,res)=>{
     order.find({date:{$regex :date2 }}).sort({amout:-1}).limit(10).then((orders)=>{
         res.json(orders)

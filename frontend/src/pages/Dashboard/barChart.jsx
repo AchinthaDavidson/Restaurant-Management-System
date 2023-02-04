@@ -34,7 +34,7 @@ const BarChart = () => {
   for (var i=0;i<=6;i++) {
     var date = new Date();
     date.setDate(date.getDate() - i);
-     finalDate.push ( date.getDate()+'/'+ (date.getMonth()+1) +'/'+date.getFullYear());
+     finalDate.push ( date.getDate()+'-'+ (date.getMonth()+1) +'-'+date.getFullYear());
     
     
   }
