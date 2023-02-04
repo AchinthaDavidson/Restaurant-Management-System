@@ -42,8 +42,8 @@ function BarDelete() {
         axios.get(url).then((res)=>{
           setbar(res.data);
         })
-        getItems();
       }
+      getItems();
       // alert(code);
       // items.map((items)=>{
       //   if(items.Product_Code.includes(code)===true){
