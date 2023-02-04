@@ -43,5 +43,19 @@ router.route("/").get((req,res)=>{
     })
 })
 
+router.route("/find/:id").get((req,res)=>{
+    let id = req.params.id;
+    barInv.find({Product_Code:id}).then((barInv)=>{
+        res.json(barInv)
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
+
+/* display*/
+
+router.route("/viewbarInventory").get((req,res)=>{
+})
+
 
 module.exports = router;

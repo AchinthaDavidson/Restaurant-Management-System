@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 
 function BarDelete() {
   const d = new Date();
-  const[items,setbar] = useState("");
+  const[items,setbar] = useState([]);
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
   const delete1 = [];
@@ -34,7 +34,7 @@ function BarDelete() {
     if(code.length === 3){
 
       function getItems(){
-        const url = "http://localhost:8070/barinventory_data/find/"+code;
+        const url = "http://localhost:8070/Bardata/find/"+code;
 
         axios.get(url).then((res)=>{
           setbar(res.data);
@@ -85,14 +85,14 @@ function BarDelete() {
               <td className="del-tbl-head">Product Name</td>
                 <td className="del-tbl-head">Expire Date</td>
                 <td className="del-tbl-head">Quantity</td>
-                <td className="del-tbl-head">Buy Price</td>
+                <td className="del-tbl-head">Sell Price</td>
               </tr>
               {items.map((items,index)=>(
               <tr className="tbl-dta" key={index}>
-                <td>{items.name}</td>
-                <td>{items.Expire_Date1}</td>
-                <td>{items.Quantity1}</td>
-                <td>{items.Buy_Cost1}</td>
+                <td>{items.Product_Code}</td>
+                <td>{items.Expire_Date}</td>
+                <td>{items.Quantity}</td>
+                <td>{items.Sell_Price}</td>
                 <td><input type="checkbox" onClick={()=>delete1.push(items._id)}/></td>
               </tr>
               ))}
