@@ -19,6 +19,7 @@ const year= d.getFullYear()
 const [url,setUrl] =useState("http://localhost:8070/order/sum/"+day)
 
 
+
     function getorder() {
       axios.get(url).then((res) => {
     
@@ -33,7 +34,7 @@ function findmonth() {
 if (state) {
 
     setUrl("http://localhost:8070/order/sum/"+month)
-    getorder();
+    
     setState(false);
     document.getElementById("month").innerHTML="day";
     
@@ -41,7 +42,7 @@ if (state) {
 }
 else{
   setUrl("http://localhost:8070/order/sum/"+day)
-  getorder();
+ 
   setState(true);
   document.getElementById("month").innerHTML="month";
 }
