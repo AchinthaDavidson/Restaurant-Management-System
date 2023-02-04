@@ -92,9 +92,7 @@ function BarDelete() {
                 <td>{items.Expire_Date1}</td>
                 <td>{items.Quantity1}</td>
                 <td>{items.Buy_Cost1}</td>
-                <td>
-                  <input type="checkbox" />
-                </td>
+                <td><input type="checkbox" /></td>
               </tr>
               ))}
               
