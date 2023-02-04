@@ -3,6 +3,8 @@ import axios from "axios";
 import Niv from "../../components/Niv";
 import "./RestaurantDelete.css";
 import { useState, useRef, useEffect } from "react";
+import { toast ,ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const RestaurantDelete = () => {
   const [id,setid] = useState("");
@@ -13,7 +15,7 @@ const RestaurantDelete = () => {
   const [cost,setcost] = useState("");
   const [items, setItems] = useState([]);
   const delete1 = [];
-  console.log(delete1)
+  
 
   function Find(id){
     setid(id);
@@ -33,8 +35,31 @@ const RestaurantDelete = () => {
         
       }
   }
+
+  function  deletedata(){
+    for(var i=0;i<=delete1.length-1;i++){
+     
+      const delete2="http://localhost:8070/Inventoryfood/delete/" +delete1[i]
+    
+    // alert(deletee);
+
+    axios
+      .delete(delete2)
+      .then(() => {
+        toast.success("food delete");
+      })
+      .catch((err) => {
+        toast.error("cannot delete data");
+      });
+
+
+
+
+    }
+  }
   return (
     <div>
+      <ToastContainer position="top-right" theme="colored" />
       <Niv name="Restaurent/ Delete Records" />
       <div className="data">
         <div className="carddel">
@@ -82,12 +107,12 @@ const RestaurantDelete = () => {
                 <td className="del-tbl-data">{items.Unit_Price}</td>
                 <td className="del-tbl-data">{Number(items.Quantity*items.Unit_Price)}</td>
                 <td className="del-tbl-data">
-                  <input type="checkbox" onClick={()=>delete1.push(items._id)}/>
+                  <input type="checkbox" onClick={()=>(delete1.push(items._id),console.log(delete1))}/>
                 </td>
               </tr>
               ))}
             </table>
-            <button class="Add">
+            <button class="Add" onClick={()=>deletedata()}>
               <span class="addbtn">Delete</span>
             </button>
           </form>
