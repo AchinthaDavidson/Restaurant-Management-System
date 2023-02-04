@@ -35,16 +35,25 @@ function BarDelete() {
   function findcode(code) {
     setCode(code);
     if(code.length === 3){
-      alert(code);
-      items.map((items)=>{
-        if(items.Product_Code.includes(code)===true){
-          setName(items.Product_Name);
-          setBuydate1(items.Buy_Date);
-          setExpire_Date1(items.Expire_Date);
-          setQuantity1(items.Quantity);
-          setBuycost1(items.Buy_Cost);
-        }
-      })
+
+      function getItems(){
+        const url = "http://localhost:8070/barinventory_data/find/"+code;
+
+        axios.get(url).then((res)=>{
+          setbar(res.data);
+        })
+        findcode();
+      }
+      // alert(code);
+      // items.map((items)=>{
+      //   if(items.Product_Code.includes(code)===true){
+      //     setName(items.Product_Name);
+      //     setBuydate1(items.Buy_Date);
+      //     setExpire_Date1(items.Expire_Date);
+      //     setQuantity1(items.Quantity);
+      //     setBuycost1(items.Buy_Cost);
+      //   }
+      // })
     }
   }
 
@@ -81,15 +90,18 @@ function BarDelete() {
                 <td className="del-tbl-head">Quantity</td>
                 <td className="del-tbl-head">Buy Price</td>
               </tr>
-              <tr className="tbl-dta">
-              <td>{name}</td>
-                <td>{Expire_Date1}</td>
-                <td>{Quantity1}</td>
-                <td>{Buy_Cost1}</td>
+              {items.map((items,index)=>{
+              <tr className="tbl-dta" key={index}>
+                <td>{items.name}</td>
+                <td>{items.Expire_Date1}</td>
+                <td>{items.Quantity1}</td>
+                <td>{items.Buy_Cost1}</td>
                 <td>
                   <input type="checkbox" />
                 </td>
               </tr>
+              })}
+              
               {/* <tr className="tbl-dta">
                 <td>2022.05.3</td>
                 <td>2024.05.3</td>
