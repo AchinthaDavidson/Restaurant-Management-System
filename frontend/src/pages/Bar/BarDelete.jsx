@@ -16,10 +16,6 @@ function BarDelete() {
   const[Buy_Cost1, setBuycost1] = useState("");
   const[Buy_Date1, setBuydate1] = useState();
 
-  const dlt = () =>{
-    
-  }
-
   // useEffect(()=>{
   //   const getbarval = () =>{
   //     axios.get("http://localhost:8070/barInventory/")
@@ -112,7 +108,7 @@ function BarDelete() {
                 </td>
               </tr> */}
             </table>
-            <button class="Add" type="submit" onClick={dlt}>
+            <button class="Add" type="submit">
               <span class="addbtn">Delete</span>
             </button>
           </form>
