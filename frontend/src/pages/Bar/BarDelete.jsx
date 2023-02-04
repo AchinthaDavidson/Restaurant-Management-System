@@ -95,16 +95,6 @@ function BarDelete() {
                 <td><input type="checkbox" /></td>
               </tr>
               ))}
-              
-              {/* <tr className="tbl-dta">
-                <td>2022.05.3</td>
-                <td>2024.05.3</td>
-                <td>100</td>
-                <td>130,000</td>
-                <td>
-                  <input type="checkbox" />
-                </td>
-              </tr> */}
             </table>
             <button class="Add" type="submit">
               <span class="addbtn">Delete</span>
