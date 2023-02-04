@@ -54,6 +54,16 @@ router.route("/find/:id").get((req,res)=>{
     })
 })
 
+router.route("/delete/:id").delete(async(req,res)=>{
+    await barInv.deleteOne({_code:req.params.id})
+    .then(()=>{
+        res.status(200).send({status:"bar inventory_data deleted"})
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).send({status:"bar inventory_data delete failed"});
+    })
+})
+
 /* display*/
 
 router.route("/viewbarInventory").get((req,res)=>{

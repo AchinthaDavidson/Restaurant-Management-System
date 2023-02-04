@@ -2,7 +2,9 @@ import React from "react";
 import Niv from "../../components/Niv";
 import "./BarDelete.css";
 import axios from "axios";
+import { toast ,ToastContainer } from "react-toastify"
 import { useState, useRef, useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css"
 
 
 function BarDelete() {
@@ -41,21 +43,25 @@ function BarDelete() {
         });
       }
       getItems();
-      // alert(code);
-      // items.map((items)=>{
-      //   if(items.Product_Code.includes(code)===true){
-      //     setName(items.Product_Name);
-      //     setBuydate1(items.Buy_Date);
-      //     setExpire_Date1(items.Expire_Date);
-      //     setQuantity1(items.Quantity);
-      //     setBuycost1(items.Buy_Cost);
-      //   }
-      // })
+    }
+  }
+
+  function deletedata(){
+    for(var i = 0 ; i<=delete1.length-1 ; i++){
+      const delete2 = "http://localhost:8070/Bardata/delete/"+delete[i]
+      axios .delete(delete2)
+      .then(()=>{
+        toast.success("food delete");
+      })
+      .catch((err)=>{
+        toast.error("cannot delete data")
+      });
     }
   }
 
   return (
     <div>
+    <ToastContainer position="top-right" theme="colored" />
       <Niv name="Bar Inventory" />
       <div className="data">
         <div className="carddel">
@@ -82,22 +88,24 @@ function BarDelete() {
             </div>
             <table className="barDelDesc">
               <tr className="tbl-head">
-              <td className="del-tbl-head">Product Name</td>
+              <td className="del-tbl-head">Time</td>
                 <td className="del-tbl-head">Expire Date</td>
                 <td className="del-tbl-head">Quantity</td>
-                <td className="del-tbl-head">Sell Price</td>
+                <td className="del-tbl-head">Unit cost</td>
+                <td className="del-tbl-head">Cost</td>
               </tr>
               {items.map((items,index)=>(
               <tr className="tbl-dta" key={index}>
-                <td>{items.Product_Code}</td>
+                <td>{items.time}</td>
                 <td>{items.Expire_Date}</td>
                 <td>{items.Quantity}</td>
-                <td>{items.Sell_Price}</td>
+                <td>{items.Unit_Cost}</td>
+                <td>{Number(items.Unit_Cost*items.Quantity)}</td>
                 <td><input type="checkbox" onClick={()=>delete1.push(items._id)}/></td>
               </tr>
               ))}
             </table>
-            <button class="Add" type="submit">
+            <button class="Add" onClick={()=>deletedata()}>
               <span class="addbtn">Delete</span>
             </button>
           </form>
