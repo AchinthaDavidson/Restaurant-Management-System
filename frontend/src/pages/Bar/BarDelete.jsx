@@ -41,7 +41,7 @@ function BarDelete() {
 
         axios.get(url).then((res)=>{
           setbar(res.data);
-        })
+        });
       }
       getItems();
       // alert(code);
@@ -90,7 +90,7 @@ function BarDelete() {
                 <td className="del-tbl-head">Quantity</td>
                 <td className="del-tbl-head">Buy Price</td>
               </tr>
-              {items.map((items,index)=>{
+              {items.map((items,index)=>(
               <tr className="tbl-dta" key={index}>
                 <td>{items.name}</td>
                 <td>{items.Expire_Date1}</td>
@@ -100,7 +100,7 @@ function BarDelete() {
                   <input type="checkbox" />
                 </td>
               </tr>
-              })}
+              ))}
               
               {/* <tr className="tbl-dta">
                 <td>2022.05.3</td>
