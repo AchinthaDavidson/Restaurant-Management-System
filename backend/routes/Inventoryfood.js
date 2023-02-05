@@ -6,11 +6,11 @@ let Inventoryfood = require('../models/Inventoryfood');
 router.route("/add").post((req,res)=>{
     const d = new Date();
     const Item_Id = req.body.id;
-    const Quantity =req.body.quantity;
-    const Unit_Price = req.body.unitPrice;
+    const Quantity =Number(req.body.quantity);
+    const Unit_Price = Number(req.body.unitPrice);
     const Supplier = req.body.supplier; 
     const Expire_Date   = req.body.expiredate;
-    const date =  d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear();
+    const date =  d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear();
     const time = d.getHours()+":"+d.getMinutes();
 
     // const Item_Id = 'req.body.id';
@@ -61,4 +61,14 @@ router.route("/delete/:id").delete(async(req,res)=>{
     })
 
 })
+
+
+router.route("/sum/:id").get((req,res)=>{
+    let id=req.params.id
+    Inventoryfood.aggregate([{$match:{date:{$regex :id}}},{$group:{_id:null ,price:{$sum: { $multiply: ["$Quantity","$Unit_Price"]}}}}]).then((orders)=>{
+                res.json(orders)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        })
 module.exports = router;

@@ -9,8 +9,8 @@ import "./Order.css";
 
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
-import { toast ,ToastContainer } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { color } from "@mui/system";
 // import { display } from "@mui/system";
 
@@ -97,6 +97,8 @@ function Order() {
   }
   const delivery = () => {
     // alert("hi")
+    // document.getElementById("Delivery").checked = true;
+
     setDining(true);
     settype("Delivery");
     document.getElementById("name").hidden = false;
@@ -125,7 +127,6 @@ function Order() {
     document.getElementsByClassName("Delivery")[1].hidden = true;
     document.getElementsByClassName("Delivery")[2].hidden = true;
     document.getElementsByClassName("Delivery")[3].hidden = true;
-    
   };
 
   const Takeaway = () => {
@@ -146,7 +147,7 @@ function Order() {
   // Submit form function
   const handleSubmit = (e) => {
     e.preventDefault();
-alert(istype)
+    alert(istype);
     if (!description || !quantity || !price) {
       toast.error("Please fill in all inputs");
     } else {
@@ -259,7 +260,7 @@ alert(istype)
       order_id +
       "/" +
       editingRow.description;
-   
+
     axios
       .delete(deletee)
       .then(() => {
@@ -280,11 +281,9 @@ alert(istype)
       .delete(deletee)
       .then(() => {
         // alert("delete");
-       
       })
       .catch((err) => {
         alert(err);
-
       });
     window.location.reload(false);
   };
@@ -308,7 +307,6 @@ alert(istype)
         .post("http://localhost:8070/order/add", neworder)
         .then(() => {
           // alert("order add");
-          
         })
         .catch((err) => {
           alert(err);
@@ -326,7 +324,6 @@ alert(istype)
           .then(() => {
             // alert("cus add");
             toast.success("customer addes successfull");
-
           })
           .catch((err) => {
             // alert(err);
@@ -416,247 +413,260 @@ alert(istype)
               borderRadius: "9px",
               marginTop: "80px",
               flexGrow: "1",
-
-              maxWidth: "47%",
-              padding: "30px",
+              overflowY: "auto",
+              maxWidth: "50%",
+              // padding: "30px",
             }}
           >
-            <div  style={{ display: "flex", position: "relative" }}>
-              <div style={{ width:'50%' }}>
-              <Button
-              variant="contained"
-              style={{
-                backgroundColor: "rgba(53, 39, 68, 1)",
-                color: "white",
-                width: "100%",
-
-              }}
-             onClick={() =>setIstype(true)}
-
-            >
-              <b>Resturent</b>
-            </Button>
-              </div>
-
-              <div style={{  position: "absolute", right: "0px" ,width:'50%' }}>
-              <Button
-              variant="contained"
-              style={{
-                backgroundColor: "rgba(53, 39, 68, 1)",
-                color: "white",
-                width: "100%",
-              }}
-              onClick={() =>setIstype(false)}
-              
-            >
-              <b>Bar</b>
-            </Button>
-              </div>
-            </div>
             <div style={{ display: "flex", position: "relative" }}>
-              <div>
-                <label htmlFor="invoiceNumber">
-                  Invoice Number : {order_id}
-                </label>
+              <div style={{ width: "50%" }}>
+                <Button
+                  variant="text"
+                  style={{
+                    backgroundColor: "rgba(53, 39, 68, 1)",
+                    color: "white",
+                    width: "100%",
+                    borderRadius: "0px",
+                  }}
+                  onClick={() => setIstype(true)}
+                >
+                  <b>Resturent</b>
+                </Button>
               </div>
 
-              <div style={{ position: "absolute", right: "0px" }}>
-                <label htmlFor="invoiceDate">
-                  Invoice Date : {invoiceDate}{" "}
-                </label>
+              <div style={{ position: "absolute", right: "0px", width: "50%" }}>
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: "rgba(53, 39, 68, 1)",
+                    color: "white",
+                    width: "100%",
+                    borderRadius: "0px",
+                  }}
+                  onClick={() => setIstype(false)}
+                >
+                  <b>Bar</b>
+                </Button>
               </div>
             </div>
-            <form onSubmit={handleSubmit}>
-              <div style={{ paddingTop: "10px" }}>
+            <div style={{ padding: "30px" }}>
+              <div style={{ display: "flex", position: "relative" }}>
                 <div>
-                  <label htmlFor="description">Name</label>
-                  <br />
-
-                  <input
-                    id="Fname"
-                    type="text"
-                    placeholder="search food....."
-                    style={{ padding: "5px", minWidth: "92%" }}
-                    onChange={(event) => {
-                      setSearchTerm(event.target.value);
-                    }}
-                    onClick={() => {
-                      setSearch();
-                    }}
-                  />
+                  <label htmlFor="invoiceNumber">
+                    Invoice Number : {order_id}
+                  </label>
                 </div>
-                <div
-                  style={{
-                    maxHeight: "100px",
-                    background: "#F4F0F0",
-                    overflowY: "auto",
-                    position: "absolute",
-                    // position: "relative",
-                    opacity: "0.85",
-                    visibility: "hidden",
-                    minWidth: "40%",
-                  }}
-                  id="Iname"
-                >
-                  {istype ?
-                  orders
-                    .filter((val) => {
-                      if (searchTerm === "") {
-                        return val;
-                      } else if (
-                        val.name
-                          .toLowerCase()
-                          .includes(searchTerm.toLowerCase())
-                      ) {
-                        document.getElementById("Iname").style.visibility =
-                          "visible";
-                        return val;
-                      }
-                    })
-                    .map((order, index) => (
-                      <p
-                        className="fooddata"
-                        key={index}
-                        onClick={() => setdata(order.Price, order.name)}
-                      >
-                        {order.name}
-                      </p>
-                    ))
-                    : bar
-                    .filter((val) => {
-                      if (searchTerm === "") {
-                        return val;
-                      } else if (
-                        val._id
-                          .toLowerCase()
-                          .includes(searchTerm.toLowerCase())
-                      ) {
-                        document.getElementById("Iname").style.visibility =
-                          "visible";
-                        return val;
-                      }
-                    })
-                    .map((bar, index) => (
-                      <p
-                        className="fooddata"
-                        key={index}
-                        onClick={() => setdata(bar.price, bar._id)}
-                      >
-                        {bar._id}
-                      </p>
-                    ))}
+
+                <div style={{ position: "absolute", right: "0px" }}>
+                  <label htmlFor="invoiceDate">
+                    Invoice Date : {invoiceDate}{" "}
+                  </label>
                 </div>
               </div>
-              <div style={{ paddingTop: "5%", display: "flex" }}>
-                <div style={{}}>
-                  <label htmlFor="quantity">Quantity :</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    id="quantity"
-                    placeholder="Quantity"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                    style={{ marginLeft: "25px" }}
-                  />
-                </div>
-                <div className="flex flex-col" style={{ marginLeft: "20%" }}>
-                  <label htmlFor="price">Price</label>
-                  <input
-                    disabled
-                    type="text"
-                    name="price"
-                    id="price"
-                    placeholder="Price"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
-                </div>
-              </div>
-              <form action="" style={{ paddingTop: "20px" }} id="radio">
-                <input type="radio" name="language" onClick={Takeaway} />
-                <label for="javascript">Takeaway</label>
-                <input
-                  type="radio"
-                  name="language"
-                  onClick={Dining}
-                  style={{ marginLeft: "15%" }}
-                />
-                <label for="javascript">Dining</label>
-                <input
-                  type="radio"
-                  name="language"
-                  onClick={delivery}
-                  style={{ marginLeft: "15%" }}
-                />
-                <label for="javascript">Delivery</label>
-              </form>
-              <hr style={{ borderColor: "black", marginTop: "20px" }}></hr>
-              {isdining ? (
-                <div
-                  style={{
-                    display: "flex",
-                    marginTop: "20px",
-                    // position: "relative",
-                    // display:"none"
-                  }}
-                >
-                  <div id="T_no" hidden>
-                    <div style={{ padding: "10px" }}>
-                      <label htmlFor="phone" id="id">
-                        Enter phone :{" "}
-                      </label>
-                      <input
-                        // disabled
-                        className="Delivery"
-                        type="text"
-                        name="phone"
-                        id="phone"
-                        placeholder="Enter your phone"
-                        autoComplete="off"
-                        value={phone}
-                        onChange={(e) => findData(e.target.value)}
-                      />
-                    </div>
-                    <div style={{ padding: "10px" }}>
-                      <label htmlFor="name" id="name">
-                        Enter Name :
-                      </label>
-                      <input
-                        // disabled
-                        className="Delivery"
-                        type="text"
-                        name="text"
-                        id="name"
-                        placeholder="Enter your name"
-                        autoComplete="off"
-                        value={name}
-                        onChange={(e) => (
-                          setName(e.target.value), setcus_id(e.target.value)
-                        )}
-                        style={{ marginLeft: "5px" }}
-                      />
-                    </div>
+              <form onSubmit={handleSubmit}>
+                <div style={{ paddingTop: "10px" }}>
+                  <div>
+                    <label htmlFor="description">Name</label>
+                    <br />
 
-                    <div style={{ padding: "10px" }}>
-                      <label htmlFor="email" id="email">
-                        Enter email :{" "}
-                      </label>
-                      <input
-                        // disabled
-                        className="Delivery"
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        autoComplete="off"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        style={{ marginLeft: "6px" }}
-                      />
-                    </div>
+                    <input
+                      id="Fname"
+                      type="text"
+                      placeholder="search food....."
+                      style={{ padding: "5px", minWidth: "92%" }}
+                      onChange={(event) => {
+                        setSearchTerm(event.target.value);
+                      }}
+                      onClick={() => {
+                        setSearch();
+                      }}
+                    />
                   </div>
                   <div
+                    style={{
+                      maxHeight: "100px",
+                      background: "#F4F0F0",
+                      overflowY: "auto",
+                      position: "absolute",
+                      // position: "relative",
+                      opacity: "0.85",
+                      visibility: "hidden",
+                      minWidth: "40%",
+                    }}
+                    id="Iname"
+                  >
+                    {istype
+                      ? orders
+                          .filter((val) => {
+                            if (searchTerm === "") {
+                              return val;
+                            } else if (
+                              val.name
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase())
+                            ) {
+                              document.getElementById(
+                                "Iname"
+                              ).style.visibility = "visible";
+                              return val;
+                            }
+                          })
+                          .map((order, index) => (
+                            <p
+                              className="fooddata"
+                              key={index}
+                              onClick={() => setdata(order.Price, order.name)}
+                            >
+                              {order.name}
+                            </p>
+                          ))
+                      : bar
+                          .filter((val) => {
+                            if (searchTerm === "") {
+                              return val;
+                            } else if (
+                              val._id
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase())
+                            ) {
+                              document.getElementById(
+                                "Iname"
+                              ).style.visibility = "visible";
+                              return val;
+                            }
+                          })
+                          .map((bar, index) => (
+                            <p
+                              className="fooddata"
+                              key={index}
+                              onClick={() => setdata(bar.price, bar._id)}
+                            >
+                              {bar._id}
+                            </p>
+                          ))}
+                  </div>
+                </div>
+                <div style={{ paddingTop: "5%", display: "flex" }}>
+                  <div style={{}}>
+                    <label htmlFor="quantity">Quantity :</label>
+                    <input
+                      type="number"
+                      name="quantity"
+                      id="quantity"
+                      placeholder="Quantity"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                      style={{ marginLeft: "25px" }}
+                    />
+                  </div>
+                  <div className="flex flex-col" style={{ marginLeft: "20%" }}>
+                    <label htmlFor="price">Price</label>
+                    <input
+                      disabled
+                      type="text"
+                      name="price"
+                      id="price"
+                      placeholder="Price"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <hr style={{ borderColor: "black", marginTop: "25px" }}></hr>
+                <form action="" style={{ paddingTop: "15px" }} id="radio">
+                  <input
+                    id="takeaway"
+                    type="radio"
+                    name="language"
+                    // checked
+                    onClick={Takeaway}
+                  />
+                  <label for="javascript">Takeaway</label>
+                  <input
+                    id="dining"
+                    type="radio"
+                    name="language"
+                    onClick={Dining}
+                    style={{ marginLeft: "15%" }}
+                  />
+                  <label for="javascript">Dining</label>
+                  <input
+                    id ="Delivery"
+                    type="radio"
+                    name="language"
+                    onClick={delivery}
+                    style={{ marginLeft: "15%" }}
+                  />
+                  <label for="javascript">Delivery</label>
+                </form>
+
+                {isdining ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      marginTop: "20px",
+                      // position: "relative",
+                      // display:"none"
+                    }}
+                  >
+                    <div id="T_no" hidden>
+                      <div style={{ padding: "10px" }}>
+                        <label htmlFor="phone" id="id">
+                          Enter phone :{" "}
+                        </label>
+                        <input
+                          required
+                          // disabled
+                          className="Delivery"
+                          type="text"
+                          name="phone"
+                          id="phone"
+                          placeholder="Enter your phone"
+                          autoComplete="off"
+                          value={phone}
+                          onChange={(e) => findData(e.target.value)}
+                        />
+                      </div>
+                      <div style={{ padding: "10px" }}>
+                        <label htmlFor="name" id="name">
+                          Enter Name :
+                        </label>
+                        <input
+                          // disabled
+                          required
+                          className="Delivery"
+                          type="text"
+                          name="text"
+                          id="name"
+                          placeholder="Enter your name"
+                          autoComplete="off"
+                          value={name}
+                          onChange={(e) => (
+                            setName(e.target.value), setcus_id(e.target.value)
+                          )}
+                          style={{ marginLeft: "5px" }}
+                        />
+                      </div>
+
+                      <div style={{ padding: "10px" }}>
+                        <label htmlFor="email" id="email">
+                          Enter email :{" "}
+                        </label>
+                        <input
+                          // disabled
+                          className="Delivery"
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="Enter your email"
+                          autoComplete="off"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          style={{ marginLeft: "6px" }}
+                        />
+                      </div>
+                    </div>
+                    {/* <div
                     style={{
                       position: "absolute",
                       marginLeft: "25%",
@@ -664,13 +674,14 @@ alert(istype)
                     }}
                     id="Address"
                     hidden
-                  >
-                    <label htmlFor="address" id="address">
-                      Enter address
+                  > */}
+                    <label htmlFor="address" hidden id="address">
+                      Address :
                     </label>
-                    <br />
+
                     <textarea
-                      // disabled
+                      hidden
+                      required
                       className="Delivery"
                       type="text"
                       rows="4"
@@ -683,46 +694,46 @@ alert(istype)
                       onChange={(e) => setAddress(e.target.value)}
                       style={{ paddingTop: "2px" }}
                     ></textarea>
+                    {/* </div> */}
+                  </div>
+                ) : (
+                  <div>
+                    Select Waiter :
+                    <select
+                      value={w_id}
+                      onClick={(e) => setW_id(e.target.value)}
+                    >
+                      {waiter.map((waiter) => (
+                        <option>{waiter.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                <div
+                  style={{
+                    display: "flex",
+                    position: "relative",
+                    padding: "10px",
+                  }}
+                >
+                  <div>
+                    <label htmlFor="amount">
+                      <b>Amount : LKR {amount} </b>
+                    </label>
+                  </div>
+                  <div style={{ position: "absolute", right: "0px" }}>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#ff8243", color: "white" }}
+                      type="submit"
+                    >
+                      <b>{isEditing ? "Edit" : "Add "}</b>
+                    </Button>
                   </div>
                 </div>
-              ) : (
-                <div>
-                  Select Waiter :
-                  <select
-                    value={w_id}
-                    onChange={(e) => setW_id(e.target.value)}
-                  >
-                    {waiter.map((waiter) => (
-                      <option>{waiter.name}</option>
-                    ))}
-                  </select>
-                </div>
-              )}
-              <div
-                style={{
-                  display: "flex",
-                  position: "relative",
-                  padding: "10px",
-                }}
-              >
-                <div>
-                  <label htmlFor="amount">
-                    <b>Amount : LKR {amount} </b>
-                  </label>
-                </div>
-                <div style={{ position: "absolute", right: "0px" }}>
-                  <Button
-                    variant="contained"
-                    style={{ backgroundColor: "#ff8243", color: "white" }}
-                    type="submit"
-                  >
-                    <b>{isEditing ? "Edit" : "Add "}</b>
-                  </Button>
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-
           <div
             style={{
               backgroundColor: "white",
@@ -755,6 +766,7 @@ alert(istype)
                 onAfterPrint={() => window.location.reload(false)}
               />
             </div>
+
             <div ref={componentRef} className="p-5">
               <Table
                 invoiceNumber={order_id}

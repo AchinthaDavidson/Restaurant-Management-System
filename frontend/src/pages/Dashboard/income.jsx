@@ -9,21 +9,28 @@ import Button from "@mui/material/Button";
   
 const Income = () => {
 
-const [sales, setsales] = useState([]);
+const [sales, setsales] = useState();
+const [cost1, setcost1] = useState();
 const[state,setState] = useState(true);
 const d=new Date()
 const day=  d.getDate() +"-" +(d.getMonth() + 1) +"-" +d.getFullYear()
 const month= (d.getMonth() + 1) +"-" +d.getFullYear()
-const year= d.getFullYear()
+
 
 const [url,setUrl] =useState("http://localhost:8070/order/sum/"+day)
+const [url1,setUrl1] =useState("http://localhost:8070/Inventoryfood/sum/"+day)
+const [url2,setUrl2] =useState("http://localhost:8070/order/sum/"+day)
 
 
-
-    function getorder() {
+function getorder() {
       axios.get(url).then((res) => {
     
         setsales(res.data[0].price);
+      
+      });
+      axios.get(url1).then((res) => {
+    
+        setcost1(res.data[0].price);
       
       });
     }
@@ -34,7 +41,7 @@ function findmonth() {
 if (state) {
 
     setUrl("http://localhost:8070/order/sum/"+month)
-    
+    setUrl1("http://localhost:8070/Inventoryfood/sum/"+month)
     setState(false);
     document.getElementById("month").innerHTML="day";
     
@@ -42,7 +49,7 @@ if (state) {
 }
 else{
   setUrl("http://localhost:8070/order/sum/"+day)
- 
+  setUrl1("http://localhost:8070/Inventoryfood/sum/"+day)
   setState(true);
   document.getElementById("month").innerHTML="month";
 }
@@ -77,7 +84,7 @@ else{
             Cost of sales
           </Typography>
           <Typography variant="h5" component="div">
-            <label style={{ fontSize: "30px" }}>Rs 400000.89</label>
+            <label style={{ fontSize: "30px" }}>Rs {cost1}.00</label>
           </Typography>
           <Typography style={{ mb: 1.5 }} color="text.secondary">
             Today
