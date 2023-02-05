@@ -9,14 +9,15 @@ import "react-toastify/dist/ReactToastify.css"
 const RestaurantDelete = () => {
   const [id,setid] = useState("");
   const [name,setname] = useState("");
-  const [time,settime] = useState("");
-  const [date,setdate] = useState("");
-  const [Quantity,setQuantity] = useState("");
-  const [cost,setcost] = useState("");
+  const [Quantity,setQuantity] = useState(0);
+  const [cost,setcost] = useState(0);
   const [items, setItems] = useState([]);
-  const delete1 = [];
+  const [delete1] = useState([]);
   
 
+
+    
+    
   function Find(id){
     setid(id);
     
@@ -36,14 +37,32 @@ const RestaurantDelete = () => {
       }
   }
 
+  function handlesubmit(index,id,qty,cost1){
+    var checkBox = document.getElementsByClassName("myCheck")[index];
+
+
+    if (checkBox.checked === true){
+      delete1.push(id)
+      setQuantity(Quantity+Number(qty))
+      setcost(Number(cost+(cost1*qty)))
+     
+
+
+    } else if(checkBox.checked === false){
+      const index = delete1.indexOf(id);
+      delete1.splice(index, 1);
+      setQuantity(Quantity-Number(qty))
+      setcost(Number(cost-(cost1*qty)))
+      
+    }
+   
+    
+  }
   function  deletedata(){
-    for(var i=0;i<=delete1.length-1;i++){
+   for(var i=0;i<=delete1.length-1;i++){
      
       const delete2="http://localhost:8070/Inventoryfood/delete/" +delete1[i]
-    
-    // alert(deletee);
-
-    axios
+      axios
       .delete(delete2)
       .then(() => {
         toast.success("food delete");
@@ -51,11 +70,20 @@ const RestaurantDelete = () => {
       .catch((err) => {
         toast.error("cannot delete data");
       });
+  }
+
+  const Inventoryfood = {Quantity,cost};
+  const url="http://localhost:8070/resInventory/update1/"+id
+axios.post(url,Inventoryfood)
+.then(()=>{
+  alert("data updated");
+})
+.catch((err)=>{
+  alert(err);
+})
 
 
 
-
-    }
   }
   return (
     <div>
@@ -107,7 +135,7 @@ const RestaurantDelete = () => {
                 <td className="del-tbl-data">{items.Unit_Price}</td>
                 <td className="del-tbl-data">{Number(items.Quantity*items.Unit_Price)}</td>
                 <td className="del-tbl-data">
-                  <input type="checkbox" onClick={()=>(delete1.push(items._id),console.log(delete1))}/>
+                  <input type="checkbox" className="myCheck" onClick={()=>handlesubmit(index,items._id,items.Quantity,items.Unit_Price)}/>
                 </td>
               </tr>
               ))}
