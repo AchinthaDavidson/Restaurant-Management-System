@@ -7,7 +7,7 @@ export default function Table({ list, total,invoiceNumber ,invoiceDate}) {
     <>
       <center>Palladium<br/>123,bla bla bla,<br/>Nuwaraeliya <br/> {invoiceNumber}<br/>{invoiceDate}
       <br/>---------------------------------------------</center>
-      <table width="100%" className="mb-10">
+      <table width="100%" className="mb-10" color="white">
         <thead>
           <tr className="bg-gray-100 p-1">
             <td className="font-bold">Name</td>
