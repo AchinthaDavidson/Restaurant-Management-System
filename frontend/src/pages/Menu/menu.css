@@ -55,7 +55,7 @@
 
   .edit {
   appearance: none;
-  background-color: #e4fd02;
+  background-color: #add8e6;
   border: 1px solid rgba(27, 31, 35, .15);
   border-radius: 6px;
   box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
@@ -84,9 +84,9 @@
   outline: none;
 }
 
-.edit:hover {
+/* .edit:hover {
   background-color: #98b612;
-}
+} */
 
 .editfocus {
   box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
@@ -101,13 +101,13 @@
 }
 
 .edit:active {
-  background-color: #298e46;
+  background-color: #8ab9f1;
   box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
 
 .del {
     appearance: none;
-    background-color: #e40101;
+    background-color: #f6adc6;
     border: 1px solid rgba(27, 31, 35, .15);
     border-radius: 6px;
     box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
@@ -118,6 +118,7 @@
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
     font-size: 14px;
     font-weight: 600;
+    color:#e66771;
     line-height: 20px;
     padding: 6px 16px;
     position: relative;
@@ -135,9 +136,9 @@
     outline: none;
   }
   
-  .del:hover {
-    background-color: #a82d2d;
-  }
+  /* .del:hover {
+    background-color: #cd5700;
+  } */
   
   .del-focus {
     box-shadow: rgba(255, 255, 255, 0.4) 0 0 0 3px;
@@ -152,11 +153,9 @@
   }
   
   .del:active {
-    background-color: #298e46;
+    background-color: #f19cbb;
     box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
   }
-  
-  
 
   /* demo styles */
   
@@ -169,8 +168,6 @@
     margin: 50px;
   }
   
-  
-  /* follow me template */
   .made-with-love {
     margin-top: 40px;
     padding: 10px;
