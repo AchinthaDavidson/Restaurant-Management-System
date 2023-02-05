@@ -1,4 +1,4 @@
-h1{
+.title{
     font-size: 30px;
     color: rgb(0, 0, 0);
     text-transform: uppercase;
@@ -7,11 +7,11 @@ h1{
     margin-bottom: 15px;
   }
   .menu-tbl{
-    width:95%;
+    width:96%;
     margin-left: auto;
     margin-right: auto;
     table-layout: fixed;
-    border-radius: 20px;
+    border-radius: 5px;
   }
 
 .add_pdct {
@@ -21,10 +21,10 @@ h1{
     margin-right: 30px;
     color: #ffffff;
     font-family: "Poppins", sans-serif;
-    background-color: rgb(17, 13, 83);
+    background-color: rgba(53, 39, 68, 1);
 }
 .add_pdct:hover{
-    background-color: #e40101;
+    background-color: #ff8243;
 }
  
   .tbl-content{
@@ -39,8 +39,8 @@ h1{
     font-weight: 600;
     font-size: 15px;
     color: rgb(255, 255, 255);
-    text-transform: uppercase;
-    background-color: rgb(17, 13, 83);
+    /* text-transform: uppercase; */
+    background-color: rgba(53, 39, 68, 1);
   }
   .menu-dta-tr{
     padding: 15px;
