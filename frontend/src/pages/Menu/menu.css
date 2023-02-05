@@ -66,6 +66,7 @@
   font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   font-size: 14px;
   font-weight: 600;
+  color:#414a4c;
   line-height: 20px;
   padding: 6px 16px;
   position: relative;
@@ -118,7 +119,7 @@
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
     font-size: 14px;
     font-weight: 600;
-    color:#e66771;
+    color:#d3003f;
     line-height: 20px;
     padding: 6px 16px;
     position: relative;

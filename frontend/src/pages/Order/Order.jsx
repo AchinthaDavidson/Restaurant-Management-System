@@ -427,7 +427,7 @@ alert(istype)
               variant="contained"
               style={{
                 backgroundColor: "#01BC90",
-                color: "black",
+                color: "white",
                 width: "100%",
 
               }}
@@ -443,7 +443,7 @@ alert(istype)
               variant="contained"
               style={{
                 backgroundColor: "#01BC90",
-                color: "black",
+                color: "white",
                 width: "100%",
               }}
               onClick={() =>setIstype(false)}
