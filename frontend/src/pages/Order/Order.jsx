@@ -426,8 +426,8 @@ alert(istype)
               <Button
               variant="contained"
               style={{
-                backgroundColor: "#01BC90",
-                color: "black",
+                backgroundColor: "rgba(53, 39, 68, 1)",
+                color: "white",
                 width: "100%",
 
               }}
@@ -442,8 +442,8 @@ alert(istype)
               <Button
               variant="contained"
               style={{
-                backgroundColor: "#01BC90",
-                color: "black",
+                backgroundColor: "rgba(53, 39, 68, 1)",
+                color: "white",
                 width: "100%",
               }}
               onClick={() =>setIstype(false)}
@@ -713,7 +713,7 @@ alert(istype)
                 <div style={{ position: "absolute", right: "0px" }}>
                   <Button
                     variant="contained"
-                    style={{ backgroundColor: "#01BC90", color: "black" }}
+                    style={{ backgroundColor: "#ff8243", color: "white" }}
                     type="submit"
                   >
                     <b>{isEditing ? "Edit" : "Add "}</b>

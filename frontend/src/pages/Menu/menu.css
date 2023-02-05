@@ -1,4 +1,4 @@
-h1{
+.title{
     font-size: 30px;
     color: rgb(0, 0, 0);
     text-transform: uppercase;
@@ -7,11 +7,11 @@ h1{
     margin-bottom: 15px;
   }
   .menu-tbl{
-    width:95%;
+    width:96%;
     margin-left: auto;
     margin-right: auto;
     table-layout: fixed;
-    border-radius: 20px;
+    border-radius: 5px;
   }
 
 .add_pdct {
@@ -21,10 +21,10 @@ h1{
     margin-right: 30px;
     color: #ffffff;
     font-family: "Poppins", sans-serif;
-    background-color: rgb(17, 13, 83);
+    background-color: rgba(53, 39, 68, 1);
 }
 .add_pdct:hover{
-    background-color: #e40101;
+    background-color: #ff8243;
 }
  
   .tbl-content{
@@ -39,8 +39,8 @@ h1{
     font-weight: 600;
     font-size: 15px;
     color: rgb(255, 255, 255);
-    text-transform: uppercase;
-    background-color: rgb(17, 13, 83);
+    /* text-transform: uppercase; */
+    background-color: rgba(53, 39, 68, 1);
   }
   .menu-dta-tr{
     padding: 15px;
@@ -55,7 +55,7 @@ h1{
 
   .edit {
   appearance: none;
-  background-color: #e4fd02;
+  background-color: #add8e6;
   border: 1px solid rgba(27, 31, 35, .15);
   border-radius: 6px;
   box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
@@ -66,6 +66,7 @@ h1{
   font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   font-size: 14px;
   font-weight: 600;
+  color:#414a4c;
   line-height: 20px;
   padding: 6px 16px;
   position: relative;
@@ -84,30 +85,30 @@ h1{
   outline: none;
 }
 
-.edit:hover {
+/* .edit:hover {
   background-color: #98b612;
-}
+} */
 
-.editfocus {
+/* .editfocus {
   box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
   outline: none;
-}
+} */
 
-.edit:disabled {
+/* .edit:disabled {
   background-color: #94d3a2;
   border-color: rgba(27, 31, 35, .1);
   color: rgba(255, 255, 255, .8);
   cursor: default;
-}
+} */
 
 .edit:active {
-  background-color: #298e46;
+  background-color: #8ab9f1;
   box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
 
 .del {
     appearance: none;
-    background-color: #e40101;
+    background-color: #f6adc6;
     border: 1px solid rgba(27, 31, 35, .15);
     border-radius: 6px;
     box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
@@ -118,6 +119,7 @@ h1{
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
     font-size: 14px;
     font-weight: 600;
+    color:#d3003f;
     line-height: 20px;
     padding: 6px 16px;
     position: relative;
@@ -135,28 +137,26 @@ h1{
     outline: none;
   }
   
-  .del:hover {
-    background-color: #a82d2d;
-  }
+  /* .del:hover {
+    background-color: #cd5700;
+  } */
   
-  .del-focus {
+  /* .del-focus {
     box-shadow: rgba(255, 255, 255, 0.4) 0 0 0 3px;
     outline: none;
-  }
+  } */
   
-  .del:disabled {
+  /* .del:disabled {
     background-color: #94d3a2;
     border-color: rgba(27, 31, 35, .1);
     color: rgba(255, 255, 255, .8);
     cursor: default;
-  }
+  } */
   
   .del:active {
-    background-color: #298e46;
+    background-color: #cf71af;
     box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
   }
-  
-  
 
   /* demo styles */
   
@@ -169,8 +169,6 @@ h1{
     margin: 50px;
   }
   
-  
-  /* follow me template */
   .made-with-love {
     margin-top: 40px;
     padding: 10px;

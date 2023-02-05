@@ -91,7 +91,7 @@ select:hover{
     border: none;
     outline: none;
     color: #fff;
-    background-color: rgb(17, 13, 83);
+    background-color: rgba(53, 39, 68, 1);
     border-radius: 5px;
     margin: 25px 0;
     transition: 0.3s ease-out;
@@ -101,7 +101,7 @@ select:hover{
 }
 
 .Menubtn:hover {
-     background: #e40101; 
+     background: #ff8243; 
 }
 
 
