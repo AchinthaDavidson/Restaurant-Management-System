@@ -5,11 +5,11 @@ const barInv = require('../models/barinventory_data');
 router.route("/add").post((req,res)=>{
     const d = new Date();
     const Product_Code = req.body.code;
-    const Quantity = req.body.quantity;
+    const Quantity = Number(req.body.quantity);
     const Expire_Date = req.body.Expiredate;
-    const Unit_Cost = req.body.Unitcost;
+    const Unit_Cost = Number(req.body.Unitcost);
     const Sell_Price = req.body.Sellprice;
-    const Buy_Date = d.getDate() +"/" + (d.getMonth() + 1) +"/" +d.getFullYear() ;
+    const Buy_Date = d.getDate() +"-" + (d.getMonth() + 1) +"-" +d.getFullYear() ;
     const time=d.getHours() + ":" + d.getMinutes() 
 
     // const Product_Code = 'req.body.code';
@@ -69,5 +69,13 @@ router.route("/delete/:id").delete(async(req,res)=>{
 router.route("/viewbarInventory").get((req,res)=>{
 })
 
+router.route("/sum/:id").get((req,res)=>{
+    let id=req.params.id
+    barInv.aggregate([{$match:{Buy_Date:{$regex :id}}},{$group:{_id:null ,price:{$sum: { $multiply: ["$Quantity","$Unit_Cost"]}}}}]).then((barInv)=>{
+                res.json(barInv)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        })
 
 module.exports = router;

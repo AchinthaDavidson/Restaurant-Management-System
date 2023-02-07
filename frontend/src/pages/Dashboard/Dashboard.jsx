@@ -28,6 +28,8 @@ const Dashboard = () => {
             <Button
               variant="contained"
               style={{ backgroundColor: "#1c003f", marginTop: "10px" }}
+              onClick={() => window.location.reload()}
+              
             >
               Refresh
             </Button>

@@ -17,7 +17,7 @@ const RestaurantSchema = new Schema({
         required:true
     },
     Total_Cost:{
-        type:String,
+        type:Number,
         required:true
     },
     Re_Order_Level:{

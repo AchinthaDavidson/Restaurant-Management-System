@@ -8,7 +8,7 @@ router.route("/add").post((req,res)=>{
     const Item_Id = req.body.id;
     const Item_Name  = req.body.name;
     const Quantity =req.body.quantity;
-    const Total_Cost = req.body.totalCost;
+    const Total_Cost = Number(req.body.totalCost);
     const Re_Order_Level = req.body.reorderlevel;
 
     // const Item_Id = 'req.body.id';
@@ -47,7 +47,7 @@ router.route("/update/:id").put(async(req,res)=>{
 
     const Item_Name  = req.body.name;
     const Quantity =req.body.qty;
-    const Total_Cost = req.body.totalCost1;
+    const Total_Cost = Number(req.body.totalCost1);
     const Re_Order_Level = req.body.reorderlevel;
 
     const updatebar = {Item_Name,Quantity,Total_Cost,Re_Order_Level}  
@@ -150,4 +150,16 @@ router.route("/findone/:id").post((req,res)=>{
         console.log(err)
     })
 })
+
+router.route("/sum").get((req,res)=>{
+    
+    Restaurant.aggregate([{$group:{_id:null ,price:{$sum:"$Total_Cost" }}}]).then((Restaurant)=>{
+                res.json(Restaurant)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        })
+
+
+
  module.exports = router;

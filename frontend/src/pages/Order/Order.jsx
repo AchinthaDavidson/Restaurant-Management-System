@@ -98,7 +98,7 @@ function Order() {
   const delivery = () => {
     // alert("hi")
     // document.getElementById("Delivery").checked = true;
-
+alert(isdining)
     setDining(true);
     settype("Delivery");
     document.getElementById("name").hidden = false;
@@ -127,6 +127,7 @@ function Order() {
     document.getElementsByClassName("Delivery")[1].hidden = true;
     document.getElementsByClassName("Delivery")[2].hidden = true;
     document.getElementsByClassName("Delivery")[3].hidden = true;
+    
   };
 
   const Takeaway = () => {
@@ -615,7 +616,7 @@ function Order() {
                           Enter phone :{" "}
                         </label>
                         <input
-                          required
+                        
                           // disabled
                           className="Delivery"
                           type="text"
@@ -633,7 +634,7 @@ function Order() {
                         </label>
                         <input
                           // disabled
-                          required
+                         
                           className="Delivery"
                           type="text"
                           name="text"
@@ -681,7 +682,7 @@ function Order() {
 
                     <textarea
                       hidden
-                      required
+                    
                       className="Delivery"
                       type="text"
                       rows="4"

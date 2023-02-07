@@ -82,44 +82,44 @@ const BarChart = () => {
   const grossProductData = [
     {
       state: finalDate[6],
-      year2016: Dining[6],
-      year2017: Delivery[6],
+      Delivery: Dining[6],
+      Dining: Delivery[6],
       Takeaway: Takeaway[6],
     },
     {
       state: finalDate[5],
-      year2016: Dining[5],
-      year2017: Delivery[5],
+      Delivery: Dining[5],
+      Dining: Delivery[5],
       Takeaway: Takeaway[5],
     },
     {
       state: finalDate[4],
-      year2016: Dining[4],
-      year2017: Delivery[4],
+      Delivery: Dining[4],
+      Dining: Delivery[4],
       Takeaway: Takeaway[4],
     },
     {
       state: finalDate[3],
-      year2016: Dining[3],
-      year2017: Delivery[3],
+      Delivery: Dining[3],
+      Dining: Delivery[3],
       Takeaway: Takeaway[3],
     },
     {
       state: finalDate[2],
-      year2016: Dining[2],
-      year2017: Delivery[2],
+      Delivery: Dining[2],
+      Dining: Delivery[2],
       Takeaway: Takeaway[2],
     },
     {
       state: finalDate[1],
-      year2016: Dining[1],
-      year2017: Delivery[1],
+      Delivery: Dining[1],
+      Dining: Delivery[1],
       Takeaway: Takeaway[1],
     },
     {
       state: finalDate[0],
-      year2016: Dining[0],
-      year2017: Delivery[0],
+      Delivery: Dining[0],
+      Dining: Delivery[0],
       Takeaway: Takeaway[0],
     },
   ];
@@ -143,8 +143,8 @@ const BarChart = () => {
         name="Takeaway"
         color="#01BC90"
       />
-      <Series valueField="year2017" name="2017" color="#00A0AC" />
-      <Series valueField="year2016" name="2016" color="#0083BB" />
+      <Series valueField="Dining" name="Dining" color="#00A0AC" />
+      <Series valueField="Delivery" name="Delivery" color="#0083BB" />
       <Legend verticalAlignment="bottom" horizontalAlignment="center"></Legend>
       <Export enabled={true} />
     </Chart>
