@@ -4,7 +4,7 @@ const bodyParser= require("body-parser");
 const cors = require("cors");
 const dotenv =require("dotenv");
 require("dotenv").config();
-
+mongoose.set('strictQuery', false);
 const app=express();
 
 const PORT= process.env.PORT||8070;
@@ -35,8 +35,8 @@ app.use("/order", orderRouter);
 const order_foodRouter= require("./routes/order_food.js");
 app.use("/orderfood", order_foodRouter);
 
-const foodRouter= require("./routes/food.js");
-app.use("/food", foodRouter);
+// const foodRouter= require("./routes/food.js");
+// app.use("/food", foodRouter);
 
 const waiterRouter= require("./routes/waiter");
 app.use("/waiter", waiterRouter);
@@ -47,7 +47,7 @@ app.use("/menu", ResMenu);
 const ResRouter = require("./Routes/restaurant.js");
 app.use("/resInventory", ResRouter);
 
-const InvtRouter = require("./routes/Inventoryfood");
+const InvtRouter = require("./routes/Inventoryfood.js");
 app.use("/Inventoryfood", InvtRouter);
 
 const barRouter = require("./routes/barinventory.js");
@@ -55,6 +55,11 @@ app.use("/BarInventory", barRouter);
 
 const bardataRouter = require("./routes/barinventory_data.js");
 app.use("/Bardata", bardataRouter);
+
+const dishHandler = require("./routes/dishhandler.js");
+app.use("/dishHandler",dishHandler);
+
+
 
 
 app.listen(PORT,()=>{

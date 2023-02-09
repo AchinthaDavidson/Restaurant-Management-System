@@ -4,7 +4,8 @@
     text-decoration: none;
     font-family: 'Lato', sans-serif;
     position: static;
-    overflow: hidden;
+    /* overflow: hidden; */
+  
 }
 .container{
     display:flex;
@@ -24,7 +25,7 @@ main{
     background: rgb(244, 240, 240);
     /* background: rgb(42, 13, 60); */
     overflow-y: scroll;
-    height: 93vh;
+    /* height: 93vh; */
    
 }
 /* width */
@@ -51,10 +52,10 @@ main{
 .sidebar{
     background: #110223;
     color: #fff;
-    height: 100vh;
+    height: 100%;
     width: 200px;
     transition: all 0.5s;
-    
+    position:relative;
 }
 .top_section{
     display: flex;
