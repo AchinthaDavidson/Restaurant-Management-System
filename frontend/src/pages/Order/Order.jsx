@@ -11,6 +11,7 @@ import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { width } from "@mui/system";
 // import { color } from "@mui/system";
 // import { display } from "@mui/system";
 
@@ -47,6 +48,7 @@ function Order() {
   const [isEditing, setIsEditing] = useState(false);
   const [isdining, setDining] = useState(true);
   const [istype, setIstype] = useState(true);
+  const [isordertype, setordertype] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [orders, setOrders] = useState([]);
   const [bar, setBar] = useState([]);
@@ -98,7 +100,8 @@ function Order() {
   const delivery = () => {
     // alert("hi")
     // document.getElementById("Delivery").checked = true;
-alert(isdining)
+    ordertype()
+// alert(isdining)
     setDining(true);
     settype("Delivery");
     document.getElementById("name").hidden = false;
@@ -115,6 +118,7 @@ alert(isdining)
   };
   const Dining = () => {
     // alert("hi")
+    ordertype()
     settype("Dining");
     setDining(false);
     document.getElementById("name").hidden = true;
@@ -132,6 +136,7 @@ alert(isdining)
 
   const Takeaway = () => {
     // alert("hi")
+    ordertype()
     setDining(true);
     settype("Takeaway");
     document.getElementById("name").hidden = true;
@@ -144,14 +149,24 @@ alert(isdining)
     document.getElementsByClassName("Delivery")[2].hidden = true;
     document.getElementsByClassName("Delivery")[3].hidden = true;
   };
+  function ordertype(){
+  if (document.getElementById('takeaway').checked||(document.getElementById('dining').checked && (w_id !="-"))||document.getElementById('Delivery').checked){
+    setordertype(true)
+    document.getElementById("print").hidden = false;
+  }
+}
 
   // Submit form function
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(istype);
+    // alert(istype);
+    
+    alert(document.getElementById('w_name').value)
+
     if (!description || !quantity || !price) {
       toast.error("Please fill in all inputs");
     } else {
+      
       // toast.success("data added");
       const newItems = {
         id: uuidv4(),
@@ -292,6 +307,8 @@ alert(isdining)
   function sendorder(e) {
     // alert(cus_id);
     e.preventDefault();
+
+    // document.getElementById('print').disabled=false
     setName("");
     setAddress("");
     setEmail("");
@@ -332,6 +349,7 @@ alert(isdining)
           });
       }
     }
+  
   }
 
   const [orderid, setorder_id] = useState([]);
@@ -701,9 +719,11 @@ alert(isdining)
                   <div>
                     Select Waiter :
                     <select
+                    id="w_name"
                       value={w_id}
-                      onClick={(e) => setW_id(e.target.value)}
+                      onChange={(e) => setW_id(e.target.value)}
                     >
+                      <option>Chose Waiter</option>
                       {waiter.map((waiter) => (
                         <option>{waiter.name}</option>
                       ))}
@@ -751,21 +771,40 @@ alert(isdining)
               overflowY: "auto",
             }}
           >
-            <div onClick={sendorder}>
-              <ReactToPrint
+            <div onClick={sendorder}  id="print1" disabled>
+              {isordertype?
+              <ReactToPrint 
                 trigger={() => (
                   <button
+                 
                     // style={{ backgroundColor: "#01BC90", color: "black" }}
                     type="submit"
                     hidden
                     id="print"
+                    
                   >
                     Print
                   </button>
                 )}
+                
                 content={() => componentRef.current}
                 onAfterPrint={() => window.location.reload(false)}
-              />
+              />: 
+             
+                <button
+               
+                  // style={{ backgroundColor: "#01BC90", color: "black" }}
+                 disabled
+                  hidden
+                  id="print"
+               
+                >
+                  print
+                </button>
+            
+              
+              
+         }
             </div>
 
             <div ref={componentRef} className="p-5">
