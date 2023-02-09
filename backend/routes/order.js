@@ -43,7 +43,7 @@ router.route("/add").post((req,res)=>{
 })
 
 router.route("/").get((req,res)=>{
-    order.find().then((orders)=>{
+    order.find().sort({date:-1}).then((orders)=>{
         res.json(orders)
     }).catch((err)=>{
         console.log(err)
