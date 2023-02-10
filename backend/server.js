@@ -35,8 +35,8 @@ app.use("/order", orderRouter);
 const order_foodRouter= require("./routes/order_food.js");
 app.use("/orderfood", order_foodRouter);
 
-// const foodRouter= require("./routes/food.js");
-// app.use("/food", foodRouter);
+const foodRouter= require("./routes/food.js");
+app.use("/food", foodRouter);
 
 const waiterRouter= require("./routes/waiter");
 app.use("/waiter", waiterRouter);
