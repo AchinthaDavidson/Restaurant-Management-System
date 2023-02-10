@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
 *{
     margin:0;
     padding:0;
     text-decoration: none;
-    font-family: 'Lato', sans-serif;
+    /* font-family: 'Lato', sans-serif; */
     position: static;
     overflow: hidden;
 }
@@ -21,11 +22,11 @@ main{
     padding-left: 20px;
     padding-top: 20px;
     padding-right: 20px;
-    background: rgb(244, 240, 240);
-    /* background: rgb(42, 13, 60); */
+    /* background: rgb(244, 240, 240); */
+    background: rgb(42, 13, 60);
     overflow-y: scroll;
     height: 93vh;
-   
+    font-family: "Poppins", sans-serif;
 }
 /* width */
 ::-webkit-scrollbar {

@@ -34,10 +34,10 @@ router.route("/update/:id").put(async(req,res)=>{
     // const category_Id  = 'req.body.efg';
     // const Name = 'abc';
 
-    const category_Id = req.body.id;
+   
     const Name  = req.body.name;
 
-    const updatemenu = {category_Id,Name};  
+    const updatemenu = {Name};  
 
     await Menu.updateOne({category_Id:Id},{$set:updatemenu})
     .then(()=>{
