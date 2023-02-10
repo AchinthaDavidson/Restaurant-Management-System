@@ -6,7 +6,6 @@ router.route("/add").post((req,res)=>{
 
     const category_Id = req.body.id;
     const Name  = req.body.name;
-    const Image =req.body.Image;
 
     // const category_Id = 'req.body.id';
     // const Name  = 'req.body.name';
@@ -14,8 +13,7 @@ router.route("/add").post((req,res)=>{
 
     const newMenu = new Menu({
         category_Id,       
-        Name,             
-        Image,         
+        Name,                      
     })
 
     newMenu.save().then(()=>{
@@ -25,10 +23,35 @@ router.route("/add").post((req,res)=>{
     })
 })
 
+/* update */
+router.route("/update/:id").put(async(req,res)=>{
+
+    let Id = req.params.id;
+
+    /*get data from body*/
+
+    // const {Item_Name,Quantity,Total_Cost,Re_Order_Level} = req.body;
+    // const category_Id  = 'req.body.efg';
+    // const Name = 'abc';
+
+    const category_Id = req.body.id;
+    const Name  = req.body.name;
+
+    const updatemenu = {category_Id,Name};  
+
+    await Menu.updateOne({category_Id:Id},{$set:updatemenu})
+    .then(()=>{
+        res.status(200).send({status:"categories updated"})
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).send({status:"catogories update failed", error:err});
+    })
+})
+
 /*display*/
 router.route("/").get((req,res)=>{
 
-    Menu.find().then((menu)=>{
+    Menu.find().sort({Name:1}).then((menu)=>{
         res.json(menu)
     }).catch((err)=>{
         console.log(err);
