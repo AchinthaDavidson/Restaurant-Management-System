@@ -8,7 +8,7 @@ router.route("/add").post((req,res)=>{
     const Item_Id = req.body.id;
     const Item_Name  = req.body.name;
     const Quantity =req.body.quantity;
-    const Total_Cost = req.body.totalCost;
+    const Total_Cost = Number(req.body.totalCost);
     const Re_Order_Level = req.body.reorderlevel;
 
     // const Item_Id = 'req.body.id';
@@ -47,7 +47,7 @@ router.route("/update/:id").put(async(req,res)=>{
 
     const Item_Name  = req.body.name;
     const Quantity =req.body.qty;
-    const Total_Cost = req.body.totalCost1;
+    const Total_Cost = Number(req.body.totalCost1);
     const Re_Order_Level = req.body.reorderlevel;
 
     const updatebar = {Item_Name,Quantity,Total_Cost,Re_Order_Level}  
@@ -100,5 +100,66 @@ router.route("/").get((req,res)=>{
 //        console.log(err);
 //      });
 //  });
+
+ 
+router.route("/update1/:id").post(async(req,res)=>{
+   
+    let Id = req.params.id;
+
+    // const Quantity = 10;
+    // const Total_Cost = 50;
+   
+    const Quantity =req.body.Quantity;
+    const Total_Cost = req.body.cost;
+    
+     Restaurant.find({Item_Id:req.params.id}).then((Restaurant)=>{
+        var  Quantity1 =Restaurant[0].Quantity
+        var cost1 =Restaurant[0].Total_Cost
+
+        update2(Quantity1,cost1)
+        console.log(Restaurant)
+        
+    }).catch((err)=>{
+        console.log(err)
+    })
+
+    
+
+    function update2(qty,cost3){
+       var Quantity3=Number(qty-Quantity)
+        var Total_Cost3=Number(cost3-Total_Cost)
+
+        Restaurant.updateOne({Item_Id:Id},{$set:{Quantity:Quantity3,Total_Cost:Total_Cost3}})
+
+        .then(()=>{
+            res.status(200).send({status:"bar inventory updated"})
+        }).catch((err)=>{
+            console.log(err);
+            res.status(500).send({status:"bar inventory update failed", error:err});
+        })
+        
+    }
+    
+})
+
+
+router.route("/findone/:id").post((req,res)=>{
+    Restaurant.find({Item_Id:req.params.id}).then((Restaurant)=>{
+        res.json(Restaurant)
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+router.route("/sum").get((req,res)=>{
+    
+    Restaurant.aggregate([{$group:{_id:null ,price:{$sum:"$Total_Cost" }}}]).then((Restaurant)=>{
+                res.json(Restaurant)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        })
+
+
 
  module.exports = router;

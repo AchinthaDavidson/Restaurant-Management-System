@@ -9,7 +9,7 @@ const BarInvSchema = new Schema({
         required:true
     },
     Quantity:{
-        type:String,
+        type:Number,
         required:true
     },
     Expire_Date:{
@@ -17,7 +17,7 @@ const BarInvSchema = new Schema({
         required:true
     },
     Unit_Cost:{
-        type:String,
+        type:Number,
         required:true
     },
 

@@ -10,7 +10,7 @@ router.route("/add").post((req,res)=>{
     const Product_Type = req.body.type; 
     const Catogary = req.body.catogary;
     const Quantity = req.body.quantity;
-    const Total_Cost = req.body.Totalcost;
+    const Total_Cost = Number(req.body.Totalcost);
     const Re_Order_Level = req.body.Reorderlevel;
     //const Photo = req.body.Photo;
 
@@ -49,7 +49,7 @@ router.route("/update/:id").put(async(req,res)=>{
     const Product_Type = req.body.type; 
     const Catogary = req.body.catogary;
     const Quantity = req.body.quantity;
-    const Total_Cost = req.body.Totalcost;
+    const Total_Cost = Number(req.body.Totalcost);
     const Re_Order_Level = req.body.Reorderlevel;
 
     // const Product_Name = 'req.body.name';
@@ -93,5 +93,15 @@ router.route("/").get((req,res)=>{
         console.log(err);
     })
 })
+
+
+router.route("/sum/").get((req,res)=>{
+   
+    Bar.aggregate([{$group:{_id:null ,price:{$sum: "$Total_Cost"}}}]).then((Bar)=>{
+                res.json(Bar)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        })
 
 module.exports = router;

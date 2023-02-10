@@ -9,11 +9,11 @@ const InventoryfoodSchema = new Schema({
         required: true 
     },
     Quantity: { 
-        type: String, 
+        type: Number, 
         required: true 
     },
     Unit_Price: { 
-        type: String, 
+        type: Number, 
         required: true 
     },
     Supplier: { 
