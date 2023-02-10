@@ -85,7 +85,7 @@ const QandA = () => {
 
 
 
-            <div className="table1">
+            <div className="table123">
           <table className="tbl1">
             <thead className="th">
               <tr>
