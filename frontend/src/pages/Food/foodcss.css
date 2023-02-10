@@ -17,9 +17,13 @@ body {
   border-radius: 4px;
 }
 
-.anInput:hover {
+/* .anInput:hover {
   background-color: #ffae00;
   color: rgb(0, 0, 0);
+} */
+
+.anInput:hover{
+  border-color:#ff8243 ;
 }
 
 .dishDataDiv{
@@ -60,7 +64,7 @@ body {
 }
 
 .middlebtns:hover{
-  background-color: #ffae00;
+  background-color: #ff8243;
 }
 
 
