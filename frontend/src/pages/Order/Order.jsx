@@ -161,7 +161,7 @@ function Order() {
     e.preventDefault();
     // alert(istype);
     
-    alert(document.getElementById('w_name').value)
+    // alert(document.getElementById('w_name').value)
 
     if (!description || !quantity || !price) {
       toast.error("Please fill in all inputs");
