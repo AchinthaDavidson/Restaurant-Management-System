@@ -14,11 +14,6 @@ const MenuSchema = new Schema({
         required:true
     },
 
-    Image:{
-        type:String,
-        // required:true
-    },
-
 });
 
 const Menu = mongoose.model("Menu",MenuSchema);

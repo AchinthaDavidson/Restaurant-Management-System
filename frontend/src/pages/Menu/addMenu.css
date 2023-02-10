@@ -42,7 +42,7 @@ header {
 
 .MenuaddForm .fields .input-field {
     display: flex;
-    width: calc(100% / 3 - 15px);
+    width: calc(100% / 2 - 15px);
     flex-direction: column;
 }
 

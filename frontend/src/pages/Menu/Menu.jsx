@@ -46,7 +46,6 @@ const Menu = () => {
                 <tr>
                 <th className='menu-th'>Category Id</th>
                 <th className='menu-th'>Category Name</th>
-                <th className='menu-th'>Image</th>
                 <th className='menu-th'>Action</th>
                 </tr>
             </thead>
@@ -56,7 +55,6 @@ const Menu = () => {
               <tr>
               <td>{product.category_Id}</td>
               <td>{product.Name}</td>
-              <td>{product.Image}</td>
               <td>
                 <button className='edit'>Edit</button>
                 <button className='del' onClick={(e)=> deleteRow(product.category_Id)}>Delete</button>
