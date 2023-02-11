@@ -86,9 +86,7 @@ function editrow(index ,id){
               <td>
                 { <input type="text" className="row" placeholder={product.Name} disabled 
                  onChange={(event) => {setname(event.target.value);} }/>
-              
-            
-            
+
                  }
             </td>
               <td>

@@ -26,6 +26,20 @@
 .add_pdct:hover{
     background-color: #ff8243;
 }
+
+.row{
+  height: 40px;
+  width: 200px;
+  position: relative;
+  
+}
+
+.row input{
+  height: 100%;
+  width: 100%;
+  /* border: none; */
+  /* border-bottom: 2px solid silver; */
+}
  
   .tbl-content{
     height:300px;
