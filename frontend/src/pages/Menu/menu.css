@@ -13,7 +13,13 @@
     table-layout: fixed;
     border-radius: 5px;
   }
-
+.row:disabled::placeholder{
+  color: #000000;
+  
+}
+.row:disabled{
+  border:none;
+}
 .add_pdct {
     padding: 10px 20px;
     margin-bottom: 10px;
