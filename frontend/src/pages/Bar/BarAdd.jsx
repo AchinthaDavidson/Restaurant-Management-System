@@ -13,7 +13,7 @@ function BarAdd() {
   const [catogary, setcatogary] = useState("");
   const [quantity, setquantity] = useState("");
   const [Expiredate, setExpiredate] = useState("");
-  const [Totalcost, setTotalcost] = useState("");
+  const [Totalcost, setTotalcost] = useState(0);
   const [Unitcost, setUnitcost] = useState("");
   const [Reorderlevel, setReorderlevel] = useState("");
   const [Sellprice, setSellprice] = useState("");
@@ -32,6 +32,8 @@ function BarAdd() {
   const[Product_Code1, setproduct_code1] = useState("");
   const[Product_Name1, setproduct_Name1] = useState("");
   const[Product_Type1, setproduct_Type1] = useState("");
+  const [Stock,setstock]=useState();
+  const [Total,setTotal] = useState("");
   const[Expire_Date1, setExpire_Date1] = useState("");
   const[Quantity1, setQuantity1] = useState("");
   const[Re_Order_Level1, setRe_Order_Level1] = useState("");
@@ -52,6 +54,8 @@ function BarAdd() {
         .catch((err) => { alert(err); });
     }
     else {
+      var quantity=Number(quantity)+Number(Stock)
+      var Totalcost=Number((Total))+Totalcost
       const url = "http://localhost:8070/BarInventory/update/"+ Product_Code1 ; 
       const BarInventory = { code,name , type, catogary, quantity,Totalcost,Reorderlevel};
       axios.put(url, BarInventory)
@@ -84,6 +88,7 @@ function BarAdd() {
           setproduct_Name1(items.Product_Name);
           setproduct_Type1(items.Product_Type);
           setQuantity1(items.Quantity);
+          setTotal(items.Total_Cost);
           setExpire_Date1(items.Expire_Date);
           setRe_Order_Level1(items.Re_Order_Level);
           setIsEditing(true);
@@ -99,7 +104,7 @@ function BarAdd() {
         <div className="cardadd">
           <header className="baraddheader">Add Details</header>
 
-          <form action="#" className="BaraddForm">
+          <form onSubmit={show} className="BaraddForm">
             <div className="form first">
               <div class="add detail">
                 <div class="fields">
@@ -174,7 +179,7 @@ function BarAdd() {
                     <input
                       type="text"
                       placeholder="ttotal cost"
-                      value={Totalcost}
+                      value={(quantity*Unitcost)||0}
                       onChange={(e) => setTotalcost(e.target.value)}
                     />
                   </div>
@@ -216,7 +221,7 @@ function BarAdd() {
                   </div>
                 </div>
 
-                <button class="BarAdd" type="submit" onClick={show}>
+                <button class="BarAdd" type="submit" onClick={()=>setTotalcost(quantity*Unitcost)}>
                   <span class="addbtn">{isEditing ? "Edit" : "Add"}</span>
                 </button>
               </div>
