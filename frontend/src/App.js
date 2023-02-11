@@ -17,6 +17,8 @@ import Menu from './pages/Menu/Menu';
 import AddMenu from './pages/Menu/addMenu';
 import Driver from './pages/Driver/Driver.jsx';
 import History from'./pages/Order/history.jsx';
+import ViewDish from './pages/Food/ViewDish.jsx';
+
 // import Loginfrom from './components/logn';
 const App = () => {
   return (
@@ -37,7 +39,10 @@ const App = () => {
           <Route path="/Restaurant" element={<Restaurant/>} />
           <Route path="/Restaurant/RestaurantAdd" element={<RestaurantAdd/>} />
           <Route path="/Restaurant/RestaurantDelete" element={<RestaurantDelete/>} />
+
           <Route path="/Food" element={<Food />} />
+          <Route path="/Food/ViewDish" element={<ViewDish />} />
+          
           <Route path="/Waiter" element={<Waiter />} />
           <Route path="/QandA" element={<QandA />} />
           <Route path="/Menu" element={<Menu />} />
