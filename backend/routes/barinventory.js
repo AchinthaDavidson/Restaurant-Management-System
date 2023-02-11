@@ -98,17 +98,18 @@ router.route("/update1/:id").post(async(req,res)=>{
     let Id = req.params.id;
 
     // const Quantity = 10;
-    // const Total_Cost = 50;
+    // const Total_Cost = 6000;
 
-    const Quantity = req.body.Quantity;
+    const Quantity = req.body.Quantity1;
     const Total_Cost = req.body.cost;
+
 
     Bar.find({Product_Code:req.params.id}).then((barinventory)=>{
         var Quantity1 = barinventory[0].Quantity
         var cost1 = barinventory[0].Total_Cost
 
         update2(Quantity1,cost1)
-        console.log(barinventory);
+        // console.log(barinventory);
     }).catch((err)=>{
         console.log(err);
     })
@@ -127,9 +128,7 @@ router.route("/update1/:id").post(async(req,res)=>{
     }
 })
 
-/* delete* /
-    }
-})
+
 
 /* display*/
 

@@ -63,7 +63,10 @@ function BarDelete() {
     }
 
     const barinventorydata = {Quantity1,cost};
-    const url="http://localhost:8070/BarInventory/update1"+code
+    alert(Quantity1)
+    alert(cost)
+    
+    const url="http://localhost:8070/BarInventory/update1/"+code
     axios.post(url,barinventorydata)
     .then(()=>{
       alert("data updated");
