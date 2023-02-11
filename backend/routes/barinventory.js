@@ -48,8 +48,8 @@ router.route("/update/:id").put(async(req,res)=>{
     const Product_Name = req.body.name;
     const Product_Type = req.body.type; 
     const Catogary = req.body.catogary;
-    const Quantity = req.body.quantity;
-    const Total_Cost = Number(req.body.Totalcost);
+    const Quantity = req.body.quantity2;
+    const Total_Cost = Number(req.body.Totalcost2);
     const Re_Order_Level = req.body.Reorderlevel;
 
     // const Product_Name = 'req.body.name';

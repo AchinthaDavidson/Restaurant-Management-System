@@ -54,10 +54,11 @@ function BarAdd() {
         .catch((err) => { alert(err); });
     }
     else {
-      var quantity=Number(quantity)+Number(Stock)
-      var Totalcost=Number((Total))+Totalcost
+      const quantity2=Number(quantity)+Number(Quantity1)
+      const Totalcost2=Number(Total+Totalcost)
+      alert(Totalcost2)
       const url = "http://localhost:8070/BarInventory/update/"+ Product_Code1 ; 
-      const BarInventory = { code,name , type, catogary, quantity,Totalcost,Reorderlevel};
+      const BarInventory = { code,name , type, catogary, quantity2,Totalcost2,Reorderlevel};
       axios.put(url, BarInventory)
         .then(() => { alert("data updated successfully"); })
         .catch((err) => { alert(err); });
@@ -81,7 +82,7 @@ function BarAdd() {
   function findcode(code){
     setCode(code);
     if(code.length === 3){
-      alert(code);
+      
       items.map((items)=>{
         if(items.Product_Code.includes(code)===true){
           setproduct_code1(items.Product_Code);
