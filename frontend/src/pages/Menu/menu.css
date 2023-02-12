@@ -37,7 +37,7 @@
   
 }
 
-.tbody .placeholder{
+.row:disabled::placeholder{
   color: black;
 }
 
