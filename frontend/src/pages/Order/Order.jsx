@@ -39,20 +39,20 @@ function Order() {
   );
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("1");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState("");
-  const [list, setList] = useState([]);
-  const [total, setTotal] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [staytus, setstaytus] = useState("0");
   const componentRef = useRef();
   const [isEditing, setIsEditing] = useState(false);
-  
   const [istype, setIstype] = useState(true);
-  const [isordertype, setordertype] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [list, setList] = useState([]);
+  const [total, setTotal] = useState([]);
   const [orders, setOrders] = useState([]);
   const [bar, setBar] = useState([]);
   const [waiter, setwaiter] = useState([]);
-  const [staytus, setstaytus] = useState("0");
+  const [porder,setporder]=useState([]);
+  const [pbar,setpbar]=useState([]);
 
   // must be change for food
   useEffect(() => {
@@ -131,8 +131,9 @@ function Order() {
   };
   function ordertype(){
   if (document.getElementById('takeaway').checked||(document.getElementById('dining').checked && (w_id !="-"))||document.getElementById('Delivery').checked){
-    setordertype(true)
-    document.getElementById("print").hidden = false;
+   
+    document.getElementById("print1").disabled=false;
+    document.getElementById("print").hidden=false;
   }
 }
 
@@ -167,7 +168,7 @@ function Order() {
           // alert("food add");
           toast.success("food added");
 
-          document.getElementById("print").hidden = false;
+          document.getElementById("print1").hidden = false;
         })
         .catch((err) => {
           alert(err);
@@ -179,6 +180,7 @@ function Order() {
       setAmount("");
       setSearchTerm("");
       setList([...list, newItems]);
+      setIsEditing(false);
       // setIsEditing(false);
       document.getElementById("Fname").value = "";
     }
@@ -228,6 +230,12 @@ function Order() {
     setQuantity(editingRow.quantity);
     setPrice(editingRow.price);
 
+    const index= porder.indexOf(editingRow.description)
+    porder.splice(index,1);
+  
+    const index1=pbar.indexOf(editingRow.description)
+    pbar.splice(index1,1);
+
     const deletee =
       "http://localhost:8070/orderfood/delete/" +
       order_id +
@@ -249,6 +257,12 @@ function Order() {
   const deleteRow = (id) => {
     const editingRow = list.find((row) => row.id === id);
     setList(list.filter((row) => row.id !== id));
+
+    const index= porder.indexOf(editingRow.description)
+    porder.splice(index,1);
+  
+    const index1=pbar.indexOf(editingRow.description)
+    pbar.splice(index1,1);
 
     const deletee =
       "http://localhost:8070/orderfood/delete/" +
@@ -292,7 +306,8 @@ function Order() {
     setAddress("");
     setEmail("");
     setPhone("");
-    if (total > 0) {
+    if (total > 0 ) {
+ 
       const neworder = {
         order_id,
         w_id,
@@ -475,6 +490,8 @@ function Order() {
                       onChange={(event) => {
                         setSearchTerm(event.target.value);
                       }}
+                      value={description}
+
                       onClick={() => {
                         setSearch();
                       }}
@@ -510,13 +527,15 @@ function Order() {
                             }
                           })
                           .map((order, index) => (
+                          porder.includes(order.name)?null:(
                             <p
                               className="fooddata"
                               key={index}
-                              onClick={() => setdata(order.Price, order.name)}
+                              onClick={() =>( setporder(current=>[...current,order.name]),setdata(order.Price, order.name)  ) }
                             >
                               {order.name}
                             </p>
+                          )
                           ))
                       : bar
                           .filter((val) => {
@@ -534,13 +553,16 @@ function Order() {
                             }
                           })
                           .map((bar, index) => (
+                            pbar.includes(bar._id)?null:(
+
                             <p
                               className="fooddata"
                               key={index}
-                              onClick={() => setdata(bar.price, bar._id)}
+                              onClick={() =>( setpbar(current=>[...current,bar._id]), setdata(bar.price, bar._id))}
                             >
                               {bar._id}
                             </p>
+                            )
                           ))}
                   </div>
                 </div>
@@ -704,7 +726,8 @@ function Order() {
                  <select
                  id="w_name"
                    value={w_id}
-                   onChange={(e) => setW_id(e.target.value)}
+                   onChange={(e) => (setW_id(e.target.value),ordertype())}
+                   onClick={()=>ordertype()}
                  >
                    <option>Chose Waiter</option>
                    {waiter.map((waiter) => (
@@ -754,41 +777,26 @@ function Order() {
               overflowY: "auto",
             }}
           >
-            <div onClick={sendorder}  id="print1" disabled>
-              {isordertype?
-              <ReactToPrint 
-                trigger={() => (
-                  <button
-                 
-                    // style={{ backgroundColor: "#01BC90", color: "black" }}
-                    type="submit"
-                    hidden
-                    id="print"
-                    
-                  >
-                    Print
-                  </button>
-                )}
-                
-                content={() => componentRef.current}
-                onAfterPrint={() => window.location.reload(false)}
-              />: 
-             
+            <div onClick={sendorder} id="print1"disabled  hidden >
+            
+            <ReactToPrint 
+              trigger={() => (
                 <button
                
                   // style={{ backgroundColor: "#01BC90", color: "black" }}
-                 disabled
+                  type="submit"
                   hidden
                   id="print"
-               
+                  
                 >
-                  print
+                  Print
                 </button>
-            
+              )}
               
-              
-         }
-            </div>
+              content={() => componentRef.current}
+              onAfterPrint={() => window.location.reload(false)}
+            />
+          </div>
 
             <div ref={componentRef} className="p-5">
               <Table
