@@ -12,24 +12,12 @@ function BarDelete() {
   const[items,setbar] = useState([]);
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
-  const delete1 = [];
+  const [delete1] = useState([]);
 
   const[Expire_Date1, setExpire_Date1] = useState("");
-  const[Quantity1, setQuantity1] = useState("");
-  const[Buy_Cost1, setBuycost1] = useState("");
+  const[Quantity1, setQuantity1] = useState(0);
+  const[cost, setcost] = useState(0);
   const[Buy_Date1, setBuydate1] = useState();
-
-  // useEffect(()=>{
-  //   const getbarval = () =>{
-  //     axios.get("http://localhost:8070/barInventory/")
-  //     .then((barinventories)=>{
-  //       setbar(barinventories.data);
-  //     }).catch((err)=>{
-  //       alert(err);
-  //     })
-  //   }
-  //   getbarval();
-  // },[])
 
   function findcode(code) {
     setCode(code);
@@ -46,10 +34,26 @@ function BarDelete() {
     }
   }
 
+  function handlesubmit(index,code,qty,cost1){
+    var checkBox = document.getElementsByClassName("myCheck")[index];
+
+    if(checkBox.checked === true){
+      delete1.push(code)
+      setQuantity1(Quantity1+Number(qty))
+      setcost(Number(cost+(cost1*qty)))
+
+    }else if(checkBox.checked === false){
+      const index = delete1.indexOf(code);
+      delete1.splice(index , 1)
+      setQuantity1(Quantity1-Number(qty))
+      setcost(Number(cost-(cost1*qty)))
+    }
+  }
+
   function deletedata(){
     for(var i = 0 ; i<=delete1.length-1 ; i++){
-      const delete2 = "http://localhost:8070/Bardata/delete/"+delete[i]
-      axios .delete(delete2)
+      const delete2 = "http://localhost:8070/Bardata/delete/"+ delete1[i]
+      axios.delete(delete2)
       .then(()=>{
         toast.success("food delete");
       })
@@ -57,7 +61,22 @@ function BarDelete() {
         toast.error("cannot delete data")
       });
     }
+
+    const barinventorydata = {Quantity1,cost};
+    alert(Quantity1)
+    alert(cost)
+    
+    const url="http://localhost:8070/BarInventory/update1/"+code
+    axios.post(url,barinventorydata)
+    .then(()=>{
+      alert("data updated");
+    })
+    .catch((err)=>{
+      alert(err);
+    })
   }
+
+  
 
   return (
     <div>
@@ -101,7 +120,9 @@ function BarDelete() {
                 <td>{items.Quantity}</td>
                 <td>{items.Unit_Cost}</td>
                 <td>{Number(items.Unit_Cost*items.Quantity)}</td>
-                <td><input type="checkbox" onClick={()=>delete1.push(items._id)}/></td>
+                <td>
+                  <input type="checkbox" className="myCheck" onClick={()=>handlesubmit(index,items._id,items.Quantity,items.Unit_Cost)}/>
+                </td>
               </tr>
               ))}
             </table>

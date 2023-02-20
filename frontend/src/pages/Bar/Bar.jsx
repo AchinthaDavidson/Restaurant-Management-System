@@ -67,6 +67,7 @@ const Bar = () => {
             ))}
           </table>
         </div> */}
+        
         <div className="table1">
           <table className="bar-tbl">
             <thead className="stk-tbl-head">
@@ -75,6 +76,7 @@ const Bar = () => {
                 <td className="tbl-head">Product Name</td>
                 <td className="tbl-head">Product Type</td>
                 <td className="tbl-head">Quantity</td>
+                <td className="tbl-head">Total Cost</td>
                 <td className="tbl-head">Status</td>
               </tr>
             </thead>
@@ -85,6 +87,7 @@ const Bar = () => {
               <td className="view-bar-inv">{barinv.Product_Name}</td>
               <td className="view-bar-inv">{barinv.Product_Type}</td>
               <td className="view-bar-inv">{barinv.Quantity}</td>
+              <td className="view-bar-inv">{barinv.Total_Cost}</td>
               <td className="view-bar-inv">good</td>
             </tr>
             ))}

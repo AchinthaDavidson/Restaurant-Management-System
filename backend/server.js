@@ -59,8 +59,8 @@ app.use("/BarInventory", barRouter);
 const bardataRouter = require("./routes/barinventory_data.js");
 app.use("/Bardata", bardataRouter);
 
-const dishHandler = require("./routes/dishhandler.js");
-app.use("/dishHandler",dishHandler);
+// const dishHandler = require("./routes/dishhandler.js");
+// app.use("/dishHandler",dishHandler);
 
 const faqRouter = require("./routes/faq.js");
 app.use("/faq", faqRouter);

@@ -38,7 +38,7 @@ const RestaurantAdd = () => {
     /*add*/
     if (isEditing===false){
      const newres_add = {
-       id,name,quantity,totalCost,reorderlevel
+       id,name,quantity,totalCost,reorderlevel,unit
      };
      axios.post("http://localhost:8070/resInventory/add",newres_add)
      .then(()=>{
@@ -51,7 +51,7 @@ const RestaurantAdd = () => {
 
     var qty=Number(quantity)+Number(Stock)
     var totalCost1=(Number(Total))+totalCost
-      const Inventoryfood = {name,qty,totalCost1,reorderlevel};
+      const Inventoryfood = {name,qty,totalCost1,reorderlevel,unit};
       const url="http://localhost:8070/resInventory/update/" + Item_Id1
     axios.put(url,Inventoryfood)
     .then(()=>{

@@ -55,7 +55,7 @@ router.route("/find/:id").get((req,res)=>{
 })
 
 router.route("/delete/:id").delete(async(req,res)=>{
-    await barInv.deleteOne({_code:req.params.id})
+    await barInv.deleteOne({_id:req.params.id})
     .then(()=>{
         res.status(200).send({status:"bar inventory_data deleted"})
     }).catch((err)=>{

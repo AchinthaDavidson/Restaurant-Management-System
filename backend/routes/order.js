@@ -88,7 +88,7 @@ router.route("/type").get((req,res)=>{
 
 const  date2 =d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear();
 router.route("/top").get((req,res)=>{
-    order.find({date:{$regex :date2 }}).sort({amout:-1}).limit(10).then((orders)=>{
+    order.find({date:date2 }).sort({amout:-1}).limit(10).then((orders)=>{
         res.json(orders)
     }).catch((err)=>{
         console.log(err)
