@@ -19,16 +19,17 @@ const waiterSchema=new Schema({
         required: true
     },
     phone_no:{
-        type: String,
-        required: true
+        type: String
+      
     },
     password:{
-        type: String,
+        type: String
+     
         
     },
     status:{
-        type: String,
-        
+        type: String
+       
     }
 })
 const waiter = mongoose.model("waiter",waiterSchema);

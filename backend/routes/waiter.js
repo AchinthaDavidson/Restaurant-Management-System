@@ -1,23 +1,16 @@
 const router = require("express").Router();
 const waiter = require("../models/waiter");
+
 router.route("/add").post((req,res)=>{
 
-    console.log("hi");
-    const W_Id='5'
-    const  name ='iddamalhh'
-    const  Email    ='idde@gg.bom';
-    const  address  ='req.body.cus_id';
-    const  phone_no     = 'req.body.type';
-    const  password     ='kjhkh';
-    const  status    ='0'
-
-    // const order_id ='1';
-    // const  w_id     ="vsfgsg"
-    // const  cus_id   ="dfxhfh"
-    // const  type     ="takeaway"
    
-    // const  date     =d.getUTCDate()+"/"+d.getUTCMonth()+1+"/"+d.getFullYear();
-    // const  time     =d.getHours()+":"+d.getMinutes()
+    const W_Id = req.body.id
+    const  name = req.body.name
+    const  Email    = req.body.email
+    const  address  = req.body.address
+    const  phone_no     = req.body.phone
+    const  password     = req.body.password
+    const  status    = req.body.status
 
     const newwaiter =new  waiter({
         W_Id,
@@ -45,5 +38,61 @@ router.route("/").get((req,res)=>{
     })
 })
 
+//****** */
 
+router.put("/update/:id" , async(req,res)=>{
+
+    let userID = req.params.id
+
+    const { name,
+        Email,   
+        address, 
+        phone_no,
+        password,
+        status } = req.body
+
+    const updateWaiter = {
+        name,Email,address, phone_no, password, status
+    }
+
+    const update = await waiter.findByIdAndUpdate(userID , updateWaiter)
+    .then(()=>{
+        res.status(200).send({Status : 'User updated' })
+    })
+    .catch((err) => {
+        console.log(err)
+        res.status(500).send({status : "error with update user" , error : err.message})
+    })
+
+   
+})
+
+router.delete('/delete/:id' , async (req,res)=> {
+    let userID = req.params.id
+
+    await waiter.findByIdAndDelete(userID)
+    .then(()=>{
+        res.status(200).send( {Status : "deleted"})
+    })
+    .catch((err)=>{
+        console.log(err)
+        res.status(500).send({status : "error with delete user" , error : err.message})
+    })
+
+})
+
+router.route("/:id").get((req,res)=>{
+
+    let id = req.params.id
+
+    waiter.findById(id).then((waiter)=>{
+        res.json(waiter)
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+
+
+//******** */
 module.exports=router;

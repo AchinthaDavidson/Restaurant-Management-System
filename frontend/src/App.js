@@ -11,7 +11,12 @@ import Bar from './pages/Bar/Bar.jsx';
 import BarAdd from "./pages/Bar/BarAdd.jsx";
 import BarDelete from "./pages/Bar/BarDelete.jsx";
 import Food from './pages/Food/Food.jsx';
+
 import Waiter from './pages/Waiter/Waiter.jsx';
+import AddWaiter from './pages/Waiter/AddWaiter.jsx';
+import UpdateWaiter from './pages/Waiter/UpdateWaiter.jsx';
+
+
 import QandA from './pages/Q&A/QandA.jsx';
 import Menu from './pages/Menu/Menu';
 import AddMenu from './pages/Menu/addMenu';
@@ -38,7 +43,12 @@ const App = () => {
           <Route path="/Restaurant/RestaurantAdd" element={<RestaurantAdd/>} />
           <Route path="/Restaurant/RestaurantDelete" element={<RestaurantDelete/>} />
           <Route path="/Food" element={<Food />} />
+
           <Route path="/Waiter" element={<Waiter />} />
+          <Route path="/Waiter/AddWaiter" element={<AddWaiter />} />
+          <Route path="/Waiter/UpdateWaiter/:id" element={<UpdateWaiter />} />
+
+
           <Route path="/QandA" element={<QandA />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/Menu/addMenu" element={<AddMenu/>} />
