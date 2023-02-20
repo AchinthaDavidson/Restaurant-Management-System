@@ -27,10 +27,8 @@ function close(id){
   document.getElementById(id).hidden=true
 }
 
-
-    var count = 0;
+var count = 0;
 for (var k in items) if (items.hasOwnProperty(k)) ++count;
-
 
   return (
     <div>
