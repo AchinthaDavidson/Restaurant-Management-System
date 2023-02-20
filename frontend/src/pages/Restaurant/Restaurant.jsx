@@ -17,8 +17,6 @@ import Resdata from "./resturantdata.jsx"
       getItems();
     }, []);
 
-
-
 function Finddata(index){
   // document.getElementsByClassName("data")[index].hidden=false
   document.getElementById(index).hidden=false
