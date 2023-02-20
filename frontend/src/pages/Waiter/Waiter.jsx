@@ -42,9 +42,26 @@ const Waiter = () => {
     return (
         <div>
         <Niv name='Waiter'/>
-        <div className='data'>
-        <h1>fff</h1>
+        
+        <h1 className='title'>Waiters</h1>
+        <div class="tbl-header">
+          <a href="Waiter/AddWaiter">
+          <button class="add_waiter">+ New Waiter</button>
+          </a>
 
+          <table className="waiter-tbl" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                <th className='waiter-th'>Waiter ID </th>
+                <th className='waiter-th'>Name</th>
+                <th className='waiter-th'>Email</th>
+                <th className='waiter-th'>address</th>
+                <th className='waiter-th'>Phone Number</th>
+                <th className='waiter-th'>password</th>
+                <th className='waiter-th'>status</th>
+                <th className='waiter-th'>Action</th>
+                </tr>
+            </thead>
 
             <tbody>
               {waiter.map((waiter) => (
