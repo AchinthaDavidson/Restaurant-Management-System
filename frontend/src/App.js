@@ -55,7 +55,6 @@ const App = () => {
           <Route path="/Waiter/AddWaiter" element={<AddWaiter />} />
           <Route path="/Waiter/UpdateWaiter/:id" element={<UpdateWaiter />} />
 
-
           <Route path="/QandA" element={<QandA />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/Menu/addMenu" element={<AddMenu/>} />
