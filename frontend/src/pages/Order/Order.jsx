@@ -780,6 +780,8 @@ function Order() {
             <div onClick={sendorder} id="print1"disabled  hidden >
             
             <ReactToPrint 
+            focus={true}
+
               trigger={() => (
                 <button
                
@@ -792,13 +794,13 @@ function Order() {
                   Print
                 </button>
               )}
-              
+              onBeforePrint={() => (null)}
+
               content={() => componentRef.current}
               onAfterPrint={() => window.location.reload(false)}
             />
           </div>
-
-            <div ref={componentRef} className="p-5">
+            <div id="printdata" ref={componentRef} className="p-5">
               <Table
                 invoiceNumber={order_id}
                 invoiceDate={invoiceDate}

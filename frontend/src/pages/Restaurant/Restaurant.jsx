@@ -17,8 +17,6 @@ import Resdata from "./resturantdata.jsx"
       getItems();
     }, []);
 
-
-
 function Finddata(index){
   // document.getElementsByClassName("data")[index].hidden=false
   document.getElementById(index).hidden=false
@@ -27,10 +25,8 @@ function close(id){
   document.getElementById(id).hidden=true
 }
 
-
-    var count = 0;
+var count = 0;
 for (var k in items) if (items.hasOwnProperty(k)) ++count;
-
 
   return (
     <div>
@@ -84,11 +80,8 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
                   <Resdata id={items.Item_Id}/>
                   <label onClick={()=>close(index)} >^</label>
                   </td>
-                    
-
                   </tr>
-                  </>
-                  
+                  </> 
                 ))}
               </tbody>
             </table>

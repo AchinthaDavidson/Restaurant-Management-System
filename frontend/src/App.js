@@ -11,11 +11,18 @@ import Bar from './pages/Bar/Bar.jsx';
 import BarAdd from "./pages/Bar/BarAdd.jsx";
 import BarDelete from "./pages/Bar/BarDelete.jsx";
 import Food from './pages/Food/Food.jsx';
+
 import Waiter from './pages/Waiter/Waiter.jsx';
+import AddWaiter from './pages/Waiter/AddWaiter.jsx';
+import UpdateWaiter from './pages/Waiter/UpdateWaiter.jsx';
+
+
 import QandA from './pages/Q&A/QandA.jsx';
 import Menu from './pages/Menu/Menu';
 import AddMenu from './pages/Menu/addMenu';
 import Driver from './pages/Driver/Driver.jsx';
+import AddDriver from './pages/Driver/AddDriver.jsx';
+import UpdateDriver from './pages/Driver/UpdateDriver.jsx';
 import History from'./pages/Order/history.jsx';
 import ViewDish from './pages/Food/ViewDish.jsx';
 
@@ -42,14 +49,20 @@ const App = () => {
 
           <Route path="/Food" element={<Food />} />
           <Route path="/viewDish" element={<ViewDish />} />
-
           <Route path="/Food/ViewDish" element={<ViewDish />} />
-          
+        
           <Route path="/Waiter" element={<Waiter />} />
+          <Route path="/Waiter/AddWaiter" element={<AddWaiter />} />
+          <Route path="/Waiter/UpdateWaiter/:id" element={<UpdateWaiter />} />
+
+
           <Route path="/QandA" element={<QandA />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/Menu/addMenu" element={<AddMenu/>} />
           <Route path="/Driver" element={<Driver />} />
+          <Route path="/Driver/AddDriver" element={<AddDriver/>} />
+          <Route path="/Driver/UpdateDriver/:id" element={<UpdateDriver/>} />
+
           <Route path='/somewhere' render={() => <h2>You Are Somewhere</h2>} />
         </Routes>
       </Sidebar>

@@ -49,8 +49,9 @@ router.route("/update/:id").put(async(req,res)=>{
     const Quantity =req.body.qty;
     const Total_Cost = Number(req.body.totalCost1);
     const Re_Order_Level = req.body.reorderlevel;
+    const unit = req.body.unit;
 
-    const updatebar = {Item_Name,Quantity,Total_Cost,Re_Order_Level}  
+    const updatebar = {Item_Name,Quantity,Total_Cost,Re_Order_Level,unit}  
 
     await Restaurant.updateOne({Item_Id:Id},{$set:updatebar})
     .then(()=>{
