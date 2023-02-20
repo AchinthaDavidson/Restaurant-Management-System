@@ -8,7 +8,6 @@ const AddMenu = () => {
 
   const [id , setid] = useState("");
   const [name , setname] = useState("");
-  const [Image , setimage] = useState("");
 
   const handleSubmit=(e)=>{
     e.preventDefault();
@@ -18,7 +17,6 @@ const AddMenu = () => {
       alert("Added successfully");
       setid('')
       setname('')
-      setimage('')
     })
     .catch((err)=>{
       alert(err);
@@ -44,12 +42,6 @@ const AddMenu = () => {
                   <label className="Cat_Name">Category Name</label>
                   <input type="text" placeholder="Category Name" value={name}
                   onChange={(e) => setname(e.target.value)}/>
-                </div>
-
-                <div class="input-field">
-                  <label className="Menu_image">Image</label>
-                  <input type="file" value={Image}
-                  onChange={(e) => setimage(e.target.value)}/>
                 </div>
             </div>
 

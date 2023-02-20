@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Niv from "../../components/Niv";
 import "./stockView.css";
-
+import Resdata from "./resturantdata.jsx"
   const Restaurent = () => {
     const [items, setItems] = useState([]);
+    
     useEffect(() => {
       function getItems() {
         axios.get("http://localhost:8070/resInventory/").then((res) => {
@@ -15,9 +16,17 @@ import "./stockView.css";
       }
       getItems();
     }, []);
-    var count = 0;
-for (var k in items) if (items.hasOwnProperty(k)) ++count;
 
+function Finddata(index){
+  // document.getElementsByClassName("data")[index].hidden=false
+  document.getElementById(index).hidden=false
+}
+function close(id){
+  document.getElementById(id).hidden=true
+}
+
+var count = 0;
+for (var k in items) if (items.hasOwnProperty(k)) ++count;
 
   return (
     <div>
@@ -57,7 +66,8 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
               </thead>
               <tbody>
                 {items.map((items, index) => (
-                  <tr key={index}>
+                  <>
+                  <tr onClick={()=>Finddata(index)}>
                     <td>{items.Item_Id}</td>
                     <td>{items.Item_Name}</td>
                     <td>{items.Quantity}{items.Unit}</td>
@@ -65,6 +75,13 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
                     <td>{items.Re_Order_Level}</td>
                     <td>{items.Re_Order_Level}</td>
                   </tr>
+                  <tr id={index} hidden>
+                  <td colSpan={6}>
+                  <Resdata id={items.Item_Id}/>
+                  <label onClick={()=>close(index)} >^</label>
+                  </td>
+                  </tr>
+                  </> 
                 ))}
               </tbody>
             </table>

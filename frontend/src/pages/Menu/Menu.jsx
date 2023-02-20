@@ -3,9 +3,12 @@ import axios from "axios";
 import Niv from '../../components/Niv';
 import "./menu.css"
 import soup from './soup.jpeg'
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Menu = () => {
   const [product, setProduct] = useState([]);
+  const [name, setname] = useState();
   useEffect(() => {
     function getproduct() {
       axios.get("http://localhost:8070/menu/").then((res) => {
@@ -26,16 +29,42 @@ const Menu = () => {
       .delete(dlte)
       .then(() => {
         alert("deleted successfully");
+        window.location.reload()
       })
       .catch(err => {
         alert("error deleting");
     });
   };
+function editrow(index ,id){
+  var x= document.getElementsByClassName("edit")[index].innerHTML
+  if (x == "Edit") {
 
+  document.getElementsByClassName("row")[index].disabled=false
+  document.getElementsByClassName("edit")[index].innerHTML="save"
+  }
+  else{
+    alert(name)
+    const new_produst = {
+      name
+    };
+    axios
+      .put(`http://localhost:8070/menu/update/${id}`, new_produst)
+      .then(() => {
+        // alert("food add");
+        toast.success("delete ok");
+        window.location.reload()
+       
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+  }
+}
     return (
         <div>
         <Niv name='Menu'/>
-        <h1 className='title'>Products</h1>
+         <h1 className='title'></h1>
         <div class="tbl-header">
           <a href="Menu/addMenu">
           <button class="add_pdct">+ New Product</button>
@@ -46,7 +75,6 @@ const Menu = () => {
                 <tr>
                 <th className='menu-th'>Category Id</th>
                 <th className='menu-th'>Category Name</th>
-                <th className='menu-th'>Image</th>
                 <th className='menu-th'>Action</th>
                 </tr>
             </thead>
@@ -55,10 +83,14 @@ const Menu = () => {
               {product.map((product,index) => (
               <tr>
               <td>{product.category_Id}</td>
-              <td>{product.Name}</td>
-              <td>{product.Image}</td>
               <td>
-                <button className='edit'>Edit</button>
+                { <input type="text" className="row" placeholder={product.Name} disabled 
+                 onChange={(event) => {setname(event.target.value);} }/>
+
+                 }
+            </td>
+              <td>
+                <button className='edit' onClick={()=> editrow(index,product.category_Id)} role="button">Edit</button>
                 <button className='del' onClick={(e)=> deleteRow(product.category_Id)}>Delete</button>
               </td>
               </tr>
