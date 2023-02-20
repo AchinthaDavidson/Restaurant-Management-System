@@ -84,11 +84,8 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
                   <Resdata id={items.Item_Id}/>
                   <label onClick={()=>close(index)} >^</label>
                   </td>
-                    
-
                   </tr>
-                  </>
-                  
+                  </> 
                 ))}
               </tbody>
             </table>
