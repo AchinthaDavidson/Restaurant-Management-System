@@ -5,7 +5,7 @@ const Waiter = () => {
         <div>
         <Niv name='Waiter'/>
         <div className='data'>
-        <h1>fff</h1>
+        <h1>fhff</h1>
 
 
         </div>

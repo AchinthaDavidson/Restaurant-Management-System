@@ -41,6 +41,9 @@ app.use("/food", foodRouter);
 const waiterRouter= require("./routes/waiter");
 app.use("/waiter", waiterRouter);
 
+const driverRouter= require("./routes/driver");
+app.use("/driver", driverRouter);
+
 const ResMenu = require("./routes/menu.js");
 app.use("/menu", ResMenu);
 

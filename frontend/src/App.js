@@ -16,6 +16,8 @@ import QandA from './pages/Q&A/QandA.jsx';
 import Menu from './pages/Menu/Menu';
 import AddMenu from './pages/Menu/addMenu';
 import Driver from './pages/Driver/Driver.jsx';
+import AddDriver from './pages/Driver/AddDriver.jsx';
+import UpdateDriver from './pages/Driver/UpdateDriver.jsx';
 import History from'./pages/Order/history.jsx';
 // import Loginfrom from './components/logn';
 const App = () => {
@@ -43,6 +45,9 @@ const App = () => {
           <Route path="/Menu" element={<Menu />} />
           <Route path="/Menu/addMenu" element={<AddMenu/>} />
           <Route path="/Driver" element={<Driver />} />
+          <Route path="/Driver/AddDriver" element={<AddDriver/>} />
+          <Route path="/Driver/UpdateDriver/:id" element={<UpdateDriver/>} />
+
           <Route path='/somewhere' render={() => <h2>You Are Somewhere</h2>} />
         </Routes>
       </Sidebar>
