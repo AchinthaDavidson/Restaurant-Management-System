@@ -1,6 +1,6 @@
 import React from "react";
 import Niv from "../../components/Niv";
-import "./addWaiter.css";
+import "./waitercss.css";
 import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +23,7 @@ const AddWAiter = () => {
   const Waiter = {id,name,email , address , phone , password , status};
     axios.post("http://localhost:8070/waiter/add",Waiter)
     .then(()=>{
-      alert("Added successfully");
+     
       console.log('added')
       setId('')
       setName('')

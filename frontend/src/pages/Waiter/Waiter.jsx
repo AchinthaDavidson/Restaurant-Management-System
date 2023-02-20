@@ -74,7 +74,7 @@ const Waiter = () => {
               <td>{waiter.password}</td>
               <td>{waiter.status}</td>
               <td>
-                <Link to={"/Waiter/UpdateWaiter/"+waiter._id}>
+                <Link to={`/Waiter/UpdateWaiter/${waiter._id} `}>
                 <button className='edit'>Edit</button>
                 </Link>
                 <a href = "/waiter" >

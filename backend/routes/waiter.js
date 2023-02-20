@@ -44,15 +44,17 @@ router.put("/update/:id" , async(req,res)=>{
 
     let userID = req.params.id
 
-    const { name,
-        Email,   
+    const {
+        W_Id,
+         name,
+         Email,   
         address, 
         phone_no,
         password,
         status } = req.body
 
     const updateWaiter = {
-        name,Email,address, phone_no, password, status
+        name,Email,address, phone_no, password, status ,  W_Id
     }
 
     const update = await waiter.findByIdAndUpdate(userID , updateWaiter)

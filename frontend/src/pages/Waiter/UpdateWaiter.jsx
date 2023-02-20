@@ -3,62 +3,54 @@ import Niv from "../../components/Niv";
 //import "./addWaiter.css";
 import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 
 const UpdateWaiter = () => {
 
-  const {id} = useParams();
+  
 
-    const [wid , setWid] = useState("");
+    const [W_Id , setWid] = useState("");
     const [name , setName] = useState("");
-    const [email , setEmail] = useState("");
+    const [Email , setEmail] = useState("");
     const [address , setAddress] = useState("");
-    const [phone , setPhone] = useState("");
+    const [phone_no , setPhone] = useState("");
     const [password , setPassword] = useState("");
     const [status , setStatus] = useState("");
+    const history = useNavigate();
    
     
+   const{id} = useParams();
    
     
 
     /* */
-    useEffect(() => {
-        function getWaiter() {
-
-            axios.get("http://localhost:8070/waiter/"+id).then((res) =>{
-                setWid(res.data.W_Id);
-                setName(res.data.name);
-                setEmail(res.data.Email);
-                setAddress(res.data.address);
-                setPassword(res.data.password);
-                setStatus(res.data.status);
-                setPhone(res.data.phone_no);
-                
-                
-                
-
-            });
-
-        }
-        getWaiter() ;
-    },[]);
-
+   
+   useEffect(()=>{
+    axios.get(`http://localhost:8070/waiter/${id} `).then((res)=>{
+      setWid(res.data.W_Id)
+      setName(res.data.name)
+      setEmail(res.data.Email)
+      setAddress(res.data.address)
+      setPhone(res.data.phone_no)
+      setPassword(res.data.password)
+      setStatus(res.data.status)
+    })
+   } ,[]);
    
    
   /**/
+   
+  const waiter ={ W_Id , name , Email , phone_no  , address , password , status}
   
-  
-  function Update(id){
+  function Update(e){
+      e.preventDefault()
+      axios.put(`http://localhost:8070/waiter/update/${id} ` ,waiter ).then(()=>{
 
-    axios.put("http://localhost:8070/waiter/update/" + id).then(()=>{
-        alert('Updated Successfully!')
-       
-    })
-    .catch(err => {
-        alert(err)
-        console.log(id)
-    });
+      history('/waiter')
+      })
   }
+
+
 
   return (
     <div>
@@ -71,7 +63,7 @@ const UpdateWaiter = () => {
       <div class="fields">
               <div class="input-field">
                 <label className="Id"> Waiter Id</label>
-                <input type="text" placeholder="Waiter Id"  value={wid}
+                <input type="text" placeholder="Waiter Id"  value={ W_Id}
                 onChange={(e) => setWid(e.target.value)} required/>
               </div>
 
@@ -83,7 +75,7 @@ const UpdateWaiter = () => {
 
               <div class="input-field">
                 <label className="email">Email</label>
-                <input type="text" value={email}  placeholder="Email"
+                <input type="text" value={Email}  placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)} required/>
               </div>
 
@@ -95,7 +87,7 @@ const UpdateWaiter = () => {
 
               <div class="input-field">
                 <label className="phone">Phone Number</label>
-                <input type="text" value={phone} placeholder="Phone Number"
+                <input type="text" value={phone_no} placeholder="Phone Number"
                 onChange={(e) => setPhone(e.target.value)} required/>
               </div>
 
@@ -113,10 +105,11 @@ const UpdateWaiter = () => {
 
           </div>
 
-
-            <button class="waiterbtn" type="submit" >
-              Update
-            </button>
+         
+        <button class="waiterbtn" type="submit">
+          <span>Update</span>
+        </button>
+        
             
       </form>
         <a href="/Waiter">
