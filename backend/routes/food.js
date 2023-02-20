@@ -5,25 +5,32 @@ const order = require("../models/order");
 router.route("/create").post((req,res)=>{
 
 
-const name=req.body.dishTitle
-const Cat_id='222'
-const ingridients= req.body.dishDescription
-const Price=req.body.dishPrice 
-const Picture="hgfh"
+const Name=req.body.dishTitle
+const Cat_id= Math.floor(Math.random() * (9999- 0) + 0);
+const Description = req.body.dishDescription;
+//const Ingridients = [['basmtthi',5 ,'kg']  , ['cokking oil',2 ,'l'] ];
+const Ingridients = req.body. dishIngridients ;
+const Price= req.body.dishPrice ;
+const Picture="Still pending";
 
 
+// ingridients:[{ name: String,  quantity : Number ,unittype : String }]
 const newfood=new food({
     
-    name,
+    Name,
     Cat_id,
-    ingridients,
+    Ingridients,
     Price,
-    Picture
+    Picture,
+    Description
     
     })
 
     newfood.save().then(()=>{
-        res.json("save details")
+
+      //  console.log(req.body);
+       // console.log("new Food Added");
+
     }).catch((err)=>{
         console.log(err);
     })
@@ -37,9 +44,8 @@ router.route("/").get((req,res)=>{
         console.log(err)
     })
 })
-router.route("/viewDish").get(async(req,res)=>{
 
-    console.log("view all dishes requested");
+router.route("/viewDish").get(async(req,res)=>{
 
     food
         .find()
@@ -57,7 +63,7 @@ router.route("/count").get((req,res)=>{
 
 router.route("/delete/:id").delete(async(req,res)=>{
 
-    console.log("delete dishes requested");
+    //console.log("delete dishes requested");
 
     food.findByIdAndDelete({_id:req.params.id})
     .then((doc) => console.log(doc))
@@ -66,12 +72,13 @@ router.route("/delete/:id").delete(async(req,res)=>{
 
 router.route("/update/:id").put(async(req,res)=>{
 
-    console.log("update dishes requested");
+    // console.log("update dishes requested");
+    // console.log(req.body);
 
     food.findByIdAndUpdate(
         {_id: req.params.id} ,{
-            name : req.body.title,
-            ingridients: req.body.description,
+            Name : req.body.title,
+            Description : req.body.description,
             Price : req.body.price       
     
     }

@@ -43,7 +43,7 @@ const Sidebar = ({children}) => {
             icon:<FaBeer/>
         },
         {
-            path:"/Food",
+            path:"/viewDish",
             name:"Food",
             icon:<FaPizzaSlice/>
         },

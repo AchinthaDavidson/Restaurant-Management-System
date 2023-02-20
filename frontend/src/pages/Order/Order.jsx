@@ -527,13 +527,13 @@ function Order() {
                             }
                           })
                           .map((order, index) => (
-                          porder.includes(order.name)?null:(
+                          porder.includes(order.Name)?null:(
                             <p
                               className="fooddata"
                               key={index}
-                              onClick={() =>( setporder(current=>[...current,order.name]),setdata(order.Price, order.name)  ) }
+                              onClick={() =>( setporder(current=>[...current,order.Name]),setdata(order.Price, order.Name)  ) }
                             >
-                              {order.name}
+                              {order.Name}
                             </p>
                           )
                           ))

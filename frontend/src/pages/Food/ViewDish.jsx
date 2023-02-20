@@ -22,7 +22,7 @@ const ViewDish = () => {
         axios
         .get("http://localhost:8070/food/viewDish")
         .then((res) => {
-            console.log(res.data);
+            //console.log(res.data);
             setDishes(res.data);
         })
         .catch((err) =>console.log(err))
@@ -30,7 +30,7 @@ const ViewDish = () => {
 
     const deleteDish = (id) => {
         
-      console.log(id);
+     // console.log(id);
       axios.delete(`http://localhost:8070/food/delete/${id}`)
         .then((res)=> console.log(res))
         .catch((err) => console.log(err));
@@ -47,7 +47,7 @@ const ViewDish = () => {
 
     const handleChange = (e) => {
         const {name , value } = e.target;
-        console.log(e);
+       // console.log(e);
         setupdatedDish((prev) => {
             return({
                 ...prev,
@@ -79,9 +79,9 @@ const ViewDish = () => {
             <Niv name="View Dishes" />
             {/* <h1>View all avaliable Dishes</h1> */}
             <div className='data'>
-            <Button className='middlebtns' onClick={ () => navigate(-1)}>
-              Click here to add more Dishes
-            </Button>
+                <Button className='middlebtns' onClick={ () => navigate("/food")}>
+                Click here to add more Dishes
+                </Button>
          
            
            
@@ -161,23 +161,58 @@ const ViewDish = () => {
                                 
                                 <table  className="headingtable">
                                     <tr>
-                                        <td>Dish Name</td>
-                                        <th><h3> {dish.name}</h3></th>
+                                        <td id='shortTH'>Dish Name</td>
+                                        <th> {dish.Name}</th>
                                     
                                     </tr>
 
                                     <tr>
 
-                                        <td>Description</td>
-                                        <th><h3> {dish.ingridients}</h3></th>
+                                        <td id='shortTH'>Description</td>
+                                        <td> {dish.Description}</td>
                        
                                     </tr>
 
                                     <tr>
-                                        <td>Dish Price</td>
-                                        <th><h3>{dish.Picture} </h3></th>
+                                        <td id='shortTH'>Dish Price</td>
+                                        <td>{dish.Price}</td>
                                        
                                     </tr>
+
+                                    <tr>
+                                        <td id='shortTH'>Ingredients </td>
+                                        {/* <td>{dish.Ingredients}</td> */}
+
+                                    <td> 
+                                    <table  style={{width:"100%" , padding:"0 0 0 0" , margin:"0 0 0 0"}}>
+                                        <tr>
+                                           <td>Name</td>
+                                            <td>Quantity</td>
+                                            <td>Unit</td>  
+                                        </tr> 
+                                       
+                                            {dish.Ingridients.map((ings,index)=> {
+                                           return(
+                                           
+                                                <tr>
+                                                    <td  key={index}> {ings.name}</td>
+                                                    <td  key={index}> {ings.quantity} </td>
+                                                    <td  key={index}> {ings.unit} </td>
+                                                </tr>
+                  
+
+                                        
+                                           )
+                                         })} 
+                                           
+                                         </table>
+                                    </td>
+                                        {/* <th><h3>{dish.Ingredients.name} </h3></th>
+                                        <th><h3>{dish.Ingredients.quantity} </h3></th>
+                                        <th><h3>{dish.Ingredients.unittype} </h3></th> */}
+                                       
+                                    </tr>
+
 
                                     <tr>
                                         <td>

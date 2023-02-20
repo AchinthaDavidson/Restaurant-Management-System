@@ -41,6 +41,8 @@ const App = () => {
           <Route path="/Restaurant/RestaurantDelete" element={<RestaurantDelete/>} />
 
           <Route path="/Food" element={<Food />} />
+          <Route path="/viewDish" element={<ViewDish />} />
+
           <Route path="/Food/ViewDish" element={<ViewDish />} />
           
           <Route path="/Waiter" element={<Waiter />} />
