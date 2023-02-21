@@ -154,12 +154,14 @@ const ViewDish = () => {
                 </Modal.Footer>
             </Modal>
             {dishes ? (
-                <>
+                <div>
                     {dishes.map(dish => {
                         return(
                             <div key={dish._id} className="dishDataDiv " >
                                 
                                 <table  className="headingtable">
+                                <tbody>
+
                                     <tr>
                                         <td id='shortTH'>Dish Name</td>
                                         <th> {dish.Name}</th>
@@ -179,39 +181,43 @@ const ViewDish = () => {
                                        
                                     </tr>
 
+                                    
                                     <tr>
                                         <td id='shortTH'>Ingredients </td>
                                         {/* <td>{dish.Ingredients}</td> */}
 
-                                    <td> 
-                                    <table  style={{width:"100%" , padding:"0 0 0 0" , margin:"0 0 0 0"}}>
-                                        <tr>
-                                           <td>Name</td>
-                                            <td>Quantity</td>
-                                            <td>Unit</td>  
-                                        </tr> 
-                                       
-                                            {dish.Ingridients.map((ings,index)=> {
-                                           return(
+                                        <td> 
+                                        <table  style={{width:"100%" , padding:"0 0 0 0" , margin:"0 0 0 0"}}>
+                                         <tbody>
                                            
                                                 <tr>
-                                                    <td  key={index}> {ings.name}</td>
-                                                    <td  key={index}> {ings.quantity} </td>
-                                                    <td  key={index}> {ings.unit} </td>
-                                                </tr>
-                  
+                                                <td>Name</td>
+                                                    <td>Quantity</td>
+                                                    <td>Unit</td>  
+                                                </tr> 
+                                            
+                                                    {dish.Ingridients.map((ings,index)=> {
+                                                return(
+                                                
+                                                        <tr  key={index}> 
+                                                            <td > {ings.name}</td>
+                                                            <td > {ings.quantity} </td>
+                                                            <td > {ings.unit} </td>
+                                                        </tr>
+                        
 
-                                        
-                                           )
-                                         })} 
-                                           
-                                         </table>
-                                    </td>
+                                                
+                                                )
+                                                })} 
+                                            </tbody>
+                                            </table>
+                                        </td>
                                         {/* <th><h3>{dish.Ingredients.name} </h3></th>
                                         <th><h3>{dish.Ingredients.quantity} </h3></th>
                                         <th><h3>{dish.Ingredients.unittype} </h3></th> */}
                                        
                                     </tr>
+
 
 
                                     <tr>
@@ -235,13 +241,14 @@ const ViewDish = () => {
                                         </td> 
 
                                     </tr>
+                                </tbody> 
                                 </table>
 
                               </div>
                            
                         )
                     })}
-                </>
+                </div>
             ): "" }
             </div>
             </div>
