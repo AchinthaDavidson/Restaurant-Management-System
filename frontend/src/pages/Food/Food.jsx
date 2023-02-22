@@ -21,8 +21,7 @@ function CreateFoodJS(){
     const [quantity ,setQuantity ] = useState("");   
     const [name, setName] = useState('');
     const [ingredient, setIngredient] = useState([]);
-    const s3 = new AWS.S3();
-    const [imageUrl, setImageUrl] = useState(null);
+    const s3 = new AWS.S3(); 
     const [file, setFile] = useState(null);
 
 
@@ -103,7 +102,6 @@ function CreateFoodJS(){
         };
             const { Location } = await s3.upload(params).promise();
             dish.ImageURL = Location;
-            setImageUrl(Location);
             console.log('uploading to s3', Location);
        
 
