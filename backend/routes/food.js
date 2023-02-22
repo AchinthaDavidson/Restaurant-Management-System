@@ -12,6 +12,7 @@ const Description = req.body.dishDescription;
 const Ingridients = req.body. dishIngridients ;
 const Price= req.body.dishPrice ;
 const Picture="Still pending";
+const ImageURL = req.body.ImageURL;
 
 
 // ingridients:[{ name: String,  quantity : Number ,unittype : String }]
@@ -22,14 +23,15 @@ const newfood=new food({
     Ingridients,
     Price,
     Picture,
-    Description
+    Description,
+    ImageURL
     
     })
 
     newfood.save().then(()=>{
-
-      //  console.log(req.body);
-       // console.log("new Food Added");
+        
+    console.log(req.body);
+    //console.log("new Food Added");
 
     }).catch((err)=>{
         console.log(err);

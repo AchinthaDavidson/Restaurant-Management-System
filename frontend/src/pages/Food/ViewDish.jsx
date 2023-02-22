@@ -180,16 +180,18 @@ const ViewDish = () => {
                                         <td>{dish.Price}</td>
                                        
                                     </tr>
-
                                     
                                     <tr>
-                                        <td id='shortTH'>Ingredients </td>
+                                        <td id='shortTH'>
+                                            <img style={{width:"100%" , padding:"1rem 1rem 1rem 1rem" , maxWidth:"20rem"}} src={dish.ImageURL} alt="" />
+  
+                                        </td>
                                         {/* <td>{dish.Ingredients}</td> */}
 
                                         <td> 
                                         <table  style={{width:"100%" , padding:"0 0 0 0" , margin:"0 0 0 0"}}>
                                          <tbody>
-                                           
+                                                <tr><td colSpan={3}>Ingredients </td></tr>
                                                 <tr>
                                                 <td>Name</td>
                                                     <td>Quantity</td>
@@ -203,10 +205,7 @@ const ViewDish = () => {
                                                             <td > {ings.name}</td>
                                                             <td > {ings.quantity} </td>
                                                             <td > {ings.unit} </td>
-                                                        </tr>
-                        
-
-                                                
+                                                        </tr>    
                                                 )
                                                 })} 
                                             </tbody>

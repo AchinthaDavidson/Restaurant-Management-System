@@ -27,6 +27,10 @@ const foodSchema=new Schema({
     Description :{
         type: String,
         required: true
+    },
+    ImageURL:{
+        type: String,
+        required: true
     }
 })
 const food = mongoose.model("food",foodSchema);
