@@ -490,7 +490,7 @@ function Order() {
                       onChange={(event) => {
                         setSearchTerm(event.target.value);
                       }}
-                      value={description}
+                      // value={description}
 
                       onClick={() => {
                         setSearch();
@@ -516,7 +516,7 @@ function Order() {
                             if (searchTerm === "") {
                               return val;
                             } else if (
-                              val.name
+                              val.Name
                                 .toLowerCase()
                                 .includes(searchTerm.toLowerCase())
                             ) {
