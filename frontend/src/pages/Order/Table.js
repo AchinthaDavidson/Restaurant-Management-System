@@ -4,10 +4,11 @@ export default function Table({ list, total,invoiceNumber ,invoiceDate}) {
   
   return (
     
-    <>
+   
+    <div style={{maxWidth:"287px",fontSize:"10px"}}>
       <center>Palladium<br/>123,bla bla bla,<br/>Nuwaraeliya <br/> {invoiceNumber}<br/>{invoiceDate}
       <br/>---------------------------------------------</center>
-      <table width="100%" className="mb-10" color="white">
+      <table width="100%" className="mb-10" color="white" style={{maxWidth:"287px",fontSize:"10px"}}>
         <thead>
           <tr className="bg-gray-100 p-1">
             <td className="font-bold">Name</td>
@@ -35,6 +36,6 @@ export default function Table({ list, total,invoiceNumber ,invoiceDate}) {
          LKR: {total.toLocaleString()}
         </h2>
       </div>
-    </>
+    </div>
   )
 }
