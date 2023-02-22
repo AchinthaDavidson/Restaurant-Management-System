@@ -7,6 +7,8 @@ import Niv from "../../components/Niv";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import S3 from 'react-aws-s3';
+import AWS from 'aws-sdk';
+window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function CreateFoodJS(){
 
@@ -19,17 +21,30 @@ function CreateFoodJS(){
     const [quantity ,setQuantity ] = useState("");   
     const [name, setName] = useState('');
     const [ingredient, setIngredient] = useState([]);
+    const s3 = new AWS.S3();
+    const [imageUrl, setImageUrl] = useState(null);
+    const [file, setFile] = useState(null);
+
 
     const validFileTypes = ['image/jpg','image/jpeg','image/png'];
 
-    const config = {
-        bucketName: 'myBucket',
-        dirName: 'media', /* optional */
-        region: 'eu-west-1',
-        accessKeyId: 'JAJHAFJFHJDFJSDHFSDHFJKDSF',
-        secretAccessKey: 'jhsdf99845fd98qwed42ebdyeqwd-3r98f373f=qwrq3rfr3rf',
-        // s3Url: 'https:/your-custom-s3-url.com/', /* optional */
-    }
+    // const config = {
+    //     bucketName: 'paladiumdishes',
+    //      dirName: 'images', /* optional */
+    //     region: 'ap-south-1',
+    //     accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X',
+    //     secretAccessKey: 'DQ5t3OzJA6MCDtHLd6e8OwF6rX0DugDZ8efpBgCT',
+    //     // s3Url: 'https:/your-custom-s3-url.com/', /* optional */
+    // }
+
+    AWS.config.update({
+        accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X' ,
+        secretAccessKey: 'DQ5t3OzJA6MCDtHLd6e8OwF6rX0DugDZ8efpBgCT',
+        dirName: 'images',
+        region: 'ap-south-1',
+        signatureVersion: 'v4',
+      });
+
 
 
     const removeIng = (name) =>{
@@ -42,7 +57,8 @@ function CreateFoodJS(){
         dishTitle : "",
         dishDescription :"", 
         dishPrice: "" ,
-        dishIngridients : ingredient
+        dishIngridients : ingredient,
+        ImageURL : ""
 
     });
 
@@ -71,10 +87,25 @@ function CreateFoodJS(){
         });
     };
 
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
 
         event.preventDefault();
-        // console.log(dish);
+
+        if (!file) {
+            toast.error("Eneter the dish Name first. Then select an JPG/PNG file type.");
+        return;
+        }
+
+        const params = { 
+            Bucket: 'paladiumdishes', 
+            Key: `${Date.now()}.${dish.dishTitle}`, 
+            Body: file 
+        };
+            const { Location } = await s3.upload(params).promise();
+            dish.ImageURL = Location;
+            setImageUrl(Location);
+            console.log('uploading to s3', Location);
+       
 
        if (message.trim().length !== 0){
         axios
@@ -87,51 +118,28 @@ function CreateFoodJS(){
         navigate("ViewDish"); 
 
        }else{
-        alert("Please fill the details") ;
         toast.error("Please fill all the details");
-       
        };   
     };
 
-        
-    const handleUpload = async e => {
-        const file = e.target.files[0];
 
-        if (!validFileTypes.find(type => type === file.type)) {
-        
-            toast.error("Eneter the dish Name first. Then select an JPG/PNG file type.");
-            return;
-        }
-        else{
-            if(dish.dishTitle = ""){
-                toast.error("Eneter the dish Name first.");
+        const handleFileSelect = (e) => {
+
+            const file_ = e.target.files[0];
+
+            if (!validFileTypes.find(type => type === file_.type)) {
+            
+                toast.error("Eneter the dish Name first. Then select an JPG/PNG file type.");
                 return;
+            }else{
+                setFile(e.target.files[0]);
             }
 
-            const ReactS3Client = new S3(config);
-            const newFileName = dish.dishTitle;        
-
-            ReactS3Client
-                .uploadFile(file, newFileName)
-                .then(data => {
-                    console.log(data);
-                    toast.success("Image Uploaded ");
-                })
-
-                .catch(err => console.error(err));
-
-            // ReactS3.uploadFile(file,config)
-            // .then((data)=>{
-            //     console.log("dfgffdffffffffffffffffffffffffff");
-            //     console.log(data);
-            // })
-            // .catch((err)=>{
-            //     console.log(err);
-            // })
-            
+         
         }
-
-      };
+        const uploadToS3 = async () => {
+           
+        }
 
  
     return (
@@ -207,7 +215,6 @@ function CreateFoodJS(){
                                         </td>
                                     </tr>
                         
-
                             {items.filter((val) =>{
                                 if (searchTerm === "") {
                                 return (val);
@@ -251,30 +258,29 @@ function CreateFoodJS(){
                                             />     
                                         </td>
 
-
                                         <td  style={{width:"20%"} }>
 
-                                            <button className="middlebtns2"
-                                            style={{width:"60%"}}
-                                            onClick={()=>{
-                                                if(!name == "" && unit !="" && quantity != ""){
-                                                    setName('');
-                                                    ingredient.push({
-                                                        name: items.Item_Name,
-                                                        quantity : quantity,
-                                                        unit : unit 
-                                                    
-                                                    });
-                                                    var pQuan = Number(quantity);
-                                                    var pTCost = Number(items.Total_Cost);
-                                                    var pQuanAl = Number(items.Quantity)
-                                                    var totCost = (pTCost / pQuanAl) * pQuan;
-                                                    setIngCost(totCost);
-                                                }else{
-                                                    toast.error("Please select unit and quantity");
-                                                }
-                                            
-                                            }} >   
+                                            <button 
+                                                className="middlebtns2"
+                                                onClick={()=>{
+                                                    if(!name == "" && unit !="" && quantity != ""){
+                                                        setName('');
+                                                        ingredient.push({
+                                                            name: items.Item_Name,
+                                                            quantity : quantity,
+                                                            unit : unit 
+                                                        
+                                                        });
+                                                        var pQuan = Number(quantity);
+                                                        var pTCost = Number(items.Total_Cost);
+                                                        var pQuanAl = Number(items.Quantity)
+                                                        var totCost = (pTCost / pQuanAl) * pQuan;
+                                                        setIngCost(totCost);
+                                                    }else{
+                                                        toast.error("Please select unit and quantity");
+                                                    }
+                                                
+                                                }} >   
                                                 Add 
                                             </button>
                                         
@@ -285,28 +291,29 @@ function CreateFoodJS(){
                     </tbody>          
                     </table> 
                     
-                    <div className="btns" style={{width:"73%" , marginTop:"2rem" , marginLeft:"auto" ,marginRight:"auto"}}>
+                    <div className="btns" style={{width:"73%" , marginTop:"2rem" , marginLeft:"auto" ,marginRight:"auto" }}>
 
                         <button className="add_new"
+                        
                             onClick={ () => navigate(-1)}
                             >Go Back
                         </button>
 
-                        <button className="add_new"
-                            onClick={(handleClick)}
-                            >+ Add Dish
-                        </button>
-
-                        <button className="add_new"
-                            onClick={ () => navigate("ViewDish")}
+                        <button 
+                            className="add_new"
+                          
+                            onClick={ () => navigate("ViewDish")}  
                             >View Dishes
                         </button>
+                                                    
+                        <input type="file" onChange={handleFileSelect} className="uploadselector"/>
 
-                        <input id="imageInput" 
-                            type="file" 
-                            onChange={handleUpload}   
-                            placeholder="Select an Image" 
-                            tyle={{height:"3.5rem"}}/>
+                        <button className="add_new"
+                            onClick={(handleClick)}
+                            style={{marginLeft:"2rem"}}
+                            >+ Add Dish
+                        </button>
+                          
                     </div>
 
                     <table  style={{width:"80%" , marginTop:"1rem" , marginLeft:"auto" ,marginRight:"auto" , marginBottom:"5rem"}}>
@@ -332,7 +339,9 @@ function CreateFoodJS(){
 
                                                                 <td> 
 
-                                                                    <button className="middlebtns2" onClick={()=>removeIng(ings)}>   
+                                                                    <button 
+                                                                    className="add_new" onClick={()=>removeIng(ings)}
+                                                                    >   
                                                                     Remove
                                                                     </button>  
                                                                     
@@ -342,7 +351,7 @@ function CreateFoodJS(){
                                                     })} 
                         </tbody>                             
                     </table>
-
+                
                 </div>
             </div>
         </div>
