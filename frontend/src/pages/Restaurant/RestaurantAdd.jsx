@@ -35,7 +35,7 @@ const RestaurantAdd = () => {
       alert(err);
     })
 
-    /*add*/
+/*add*/
     if (isEditing===false){
      const newres_add = {
        id,name,quantity,totalCost,reorderlevel,unit
