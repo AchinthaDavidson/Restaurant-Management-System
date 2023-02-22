@@ -48,10 +48,12 @@ const App = () => {
           <Route path="/Restaurant/RestaurantDelete" element={<RestaurantDelete/>} />
 
           <Route path="/Food" element={<Food />} />
+          <Route path="/viewDish" element={<ViewDish />} />
+          <Route path="/Food/ViewDish" element={<ViewDish />} />
+        
           <Route path="/Waiter" element={<Waiter />} />
           <Route path="/Waiter/AddWaiter" element={<AddWaiter />} />
           <Route path="/Waiter/UpdateWaiter/:id" element={<UpdateWaiter />} />
-
 
           <Route path="/QandA" element={<QandA />} />
           <Route path="/Menu" element={<Menu />} />
