@@ -768,11 +768,11 @@ function Order() {
               marginTop: "80px",
               right: 0,
               flexGrow: "1",
-              marginLeft: "100px",
-              maxWidth: "47%",
-              minWidth: "45%",
-              padding: "10px",
-
+              marginLeft: "15%",
+              maxWidth: "20%",
+              minWidth: "10%",
+              padding: "25px",
+              paddingLeft:"4%",
               whiteSpace: "nowrap",
               overflowY: "auto",
             }}
@@ -800,7 +800,7 @@ function Order() {
               onAfterPrint={() => window.location.reload(false)}
             />
           </div>
-            <div id="printdata" ref={componentRef} className="p-5">
+            <div id="printdata" ref={componentRef}  className="p-5">
               <Table
                 invoiceNumber={order_id}
                 invoiceDate={invoiceDate}
