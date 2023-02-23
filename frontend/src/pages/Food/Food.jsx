@@ -14,7 +14,7 @@ function CreateFoodJS(){
 
     const [searchTerm, setSearchTerm] = useState("");
     const [message, setMessage] = useState('');
-    const [ingCost,setIngCost] = useState('');
+    const [ingCost,setIngCost] = useState(0);
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [unit ,setUnit ] = useState("");
@@ -23,6 +23,7 @@ function CreateFoodJS(){
     const [ingredient, setIngredient] = useState([]);
     const s3 = new AWS.S3(); 
     const [file, setFile] = useState(null);
+
 
 
     const validFileTypes = ['image/jpg','image/jpeg','image/png'];
@@ -46,10 +47,13 @@ function CreateFoodJS(){
 
 
 
-    const removeIng = (name) =>{
+    const removeIng = (name) =>{ 
         setIngredient((exsistingIngredients) => {
-            return exsistingIngredients.filter((ings) => ings !== name);
+            const result = exsistingIngredients.filter((ings) => ings !== name);
+            totCostSetter(name.cost,2);
+            return result;
         });
+       
     };
 
     const [dish,setPost] = useState({       // this may  need to change
@@ -135,10 +139,40 @@ function CreateFoodJS(){
 
          
         }
-        const uploadToS3 = async () => {
-           
-        }
 
+    const totCostSetter = (cost,op) => {
+            let c=0;
+
+            if(op === 1){
+
+                ingredient.map((ing) =>{
+                    c += ing.cost;
+                    console.log(c);
+                    setIngCost(c);
+                })   
+    
+                setIngCost(c);
+
+            }else if(op === 2){
+
+                ingredient.map((ing) =>{
+                    c += ing.cost;
+                    console.log(c);
+                    setIngCost(c);
+                })
+
+                c -= cost;
+                setIngCost(c);
+            }
+
+            // ingredient.map((ing) =>{
+            //     c += ing.cost;
+            //     console.log(c);
+            //     setIngCost(c);
+            // })   
+
+
+    }
  
     return (
       
@@ -263,17 +297,22 @@ function CreateFoodJS(){
                                                 onClick={()=>{
                                                     if(!name == "" && unit !="" && quantity != ""){
                                                         setName('');
-                                                        ingredient.push({
-                                                            name: items.Item_Name,
-                                                            quantity : quantity,
-                                                            unit : unit 
-                                                        
-                                                        });
                                                         var pQuan = Number(quantity);
                                                         var pTCost = Number(items.Total_Cost);
                                                         var pQuanAl = Number(items.Quantity)
                                                         var totCost = (pTCost / pQuanAl) * pQuan;
-                                                        setIngCost(totCost);
+
+                                                        //setIngCost(totCost);
+
+                                                        ingredient.push({
+                                                            name: items.Item_Name,
+                                                            quantity : quantity,
+                                                            unit : unit ,
+                                                            cost : totCost      
+                                                        });
+
+                                                        totCostSetter(totCost,1);
+                                                       
                                                     }else{
                                                         toast.error("Please select unit and quantity");
                                                     }
@@ -292,7 +331,6 @@ function CreateFoodJS(){
                     <div className="btns" style={{width:"73%" , marginTop:"2rem" , marginLeft:"auto" ,marginRight:"auto" }}>
 
                         <button className="add_new"
-                        
                             onClick={ () => navigate(-1)}
                             >Go Back
                         </button>
@@ -303,8 +341,12 @@ function CreateFoodJS(){
                             onClick={ () => navigate("ViewDish")}  
                             >View Dishes
                         </button>
-                                                    
-                        <input type="file" onChange={handleFileSelect} className="uploadselector"/>
+
+                        <div style={{ marginLeft:"auto" ,marginRight:"auto" , border:"1px solid" , borderRadius:"10px"}}> 
+                        <span>Select a picture of the Dish</span>
+                        <input type="file" onChange={handleFileSelect} className="uploadselector" />
+                        </div>
+                       
 
                         <button className="add_new"
                             onClick={(handleClick)}
@@ -314,39 +356,43 @@ function CreateFoodJS(){
                           
                     </div>
 
-                    <table  style={{width:"80%" , marginTop:"1rem" , marginLeft:"auto" ,marginRight:"auto" , marginBottom:"5rem"}}>
+                    <table  style={{padding:"10px", width:"80%" , marginTop:"1rem" , marginLeft:"auto" ,marginRight:"auto" , marginBottom:"5rem"}}>
                         <tbody>     
-                                                  <tr>
-                                                        <td colSpan={2}> Added Ingredients will show here</td>
-                                                        <td colSpan={2}> 
-                                                            <span value={ingCost}>Total Cost for the Dish Ingredients :{ingCost}</span>                                 
-                                                        </td>
-                                                    </tr>
-                                                    <tr> 
-                                                    <td>Name</td>
-                                                        <td>Quantity</td>
-                                                        <td>Unit</td>  
-                                                        <td>Remove</td>                                          
-                                                    </tr> 
-                                                        {ingredient.map((ings,index)=> {
-                                                    return(                                         
-                                                            <tr key={index}>
-                                                                <td  > {ings.name} </td>
-                                                                <td  > {ings.quantity} </td>
-                                                                <td  > {ings.unit} </td>   
+                            <tr>
+                                <td colSpan={2}> Added Ingredients will show here</td>
+                                <td colSpan={2}>
+                             
+                                    Total Cost for the Dish's Ingredients  :                              
+                                </td>
+                                <td>
+                                    <span value={ingCost}>{ingCost}</span>  
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td>Name</td>
+                                <td>Quantity</td>
+                                <td>Unit</td>
+                                <td>Price</td>  
+                                <td>Remove</td>                                          
+                            </tr> 
+                                {ingredient.map((ings,index)=> {
+                                    return(                                         
+                                        <tr key={index}>
+                                            <td  > {ings.name} </td>
+                                            <td  > {ings.quantity} </td>
+                                            <td  > {ings.unit} </td>   
+                                            <td  > {ings.cost} </td> 
+                                            <td> 
 
-                                                                <td> 
-
-                                                                    <button 
-                                                                    className="add_new" onClick={()=>removeIng(ings)}
-                                                                    >   
-                                                                    Remove
-                                                                    </button>  
+                                                <button 
+                                                    className="middlebtns2" onClick={()=>removeIng(ings)}>   
+                                                    Remove
+                                                </button>  
                                                                     
-                                                                </td>          
-                                                            </tr>                                 
-                                                    )
-                                                    })} 
+                                            </td>          
+                            </tr>                                 
+                                            )
+                                    })} 
                         </tbody>                             
                     </table>
                 
