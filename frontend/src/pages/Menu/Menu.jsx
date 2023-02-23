@@ -64,6 +64,7 @@ function editrow(index ,id){
     return (
         <div>
         <Niv name='Menu'/>
+        <div className="data">
          <h1 className='title'></h1>
         <div class="tbl-header">
           <a href="Menu/addMenu">
@@ -118,6 +119,7 @@ function editrow(index ,id){
       </tbody>
     </table>
     </div>*/}
+    </div>
   </div>
     );
 };

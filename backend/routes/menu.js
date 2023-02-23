@@ -51,7 +51,7 @@ router.route("/update/:id").put(async(req,res)=>{
 /*display*/
 router.route("/").get((req,res)=>{
 
-    Menu.find().sort({Name:1}).then((menu)=>{
+    Menu.find().sort({category_Id:1}).then((menu)=>{
         res.json(menu)
     }).catch((err)=>{
         console.log(err);
