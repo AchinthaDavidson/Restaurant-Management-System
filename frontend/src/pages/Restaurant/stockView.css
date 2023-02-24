@@ -80,6 +80,15 @@ input {
   border-radius: 5px;
 }
 
+.resData{
+  width: 70%;
+  top: 10px;
+  border-collapse: collapse;
+  border:  #060606;
+  min-width: 1000px;
+  border-radius: 5px;
+}
+
 .header_fixed {
   max-height: 100vh;
   width: 100%;
