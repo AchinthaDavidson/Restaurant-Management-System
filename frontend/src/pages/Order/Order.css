@@ -23,8 +23,14 @@
     
 }
 
-tr:hover td {
-    color: black;
-    cursor: pointer;
-    background-color: #c4c4c4;
-  }
+.billdata1{
+  margin-left: 40px;
+}
+.billdata2{
+  margin-left: 28px;
+  
+}
+.billdata3{
+ position: absolute;
+ right:0;
+}

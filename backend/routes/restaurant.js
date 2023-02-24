@@ -10,7 +10,7 @@ router.route("/add").post((req,res)=>{
     const Quantity =req.body.quantity;
     const Total_Cost = Number(req.body.totalCost);
     const Re_Order_Level = req.body.reorderlevel;
-
+    const unit = req.body.unit;
     // const Item_Id = 'req.body.id';
     // const Item_Name  = 'req.body.name';
     // const Quantity = 'ddd';
@@ -23,6 +23,7 @@ router.route("/add").post((req,res)=>{
         Quantity,        
         Total_Cost,             
         Re_Order_Level,  
+        unit
     })
 
     newRes.save().then(()=>{
@@ -44,7 +45,7 @@ router.route("/update/:id").put(async(req,res)=>{
     // const Quantity = 'abc';
     // const Total_Cost = 'req.body.def';
     // const Re_Order_Level = 'req.body.ghi';
-
+    // const unit = "req.body.unit";
     const Item_Name  = req.body.name;
     const Quantity =req.body.qty;
     const Total_Cost = Number(req.body.totalCost1);

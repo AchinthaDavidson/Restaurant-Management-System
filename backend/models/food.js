@@ -3,7 +3,7 @@ const Schema=mongoose.Schema;
 const foodSchema=new Schema({
  
   
-    name:{
+    Name:{
         type: String,
         required: true
     },
@@ -11,10 +11,10 @@ const foodSchema=new Schema({
         type: String,
         required: true
     },
-    ingridients:{
-        type: String,
-        required: true
-    },
+
+    Ingridients:[]
+    ,
+
     Price:{
         type: String,
         required: true
@@ -22,6 +22,15 @@ const foodSchema=new Schema({
     Picture:{
         type: String,
         // required: true
+    }
+    ,
+    Description :{
+        type: String,
+        required: true
+    },
+    ImageURL:{
+        type: String,
+        required: true
     }
 })
 const food = mongoose.model("food",foodSchema);

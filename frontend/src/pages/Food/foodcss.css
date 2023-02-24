@@ -1,5 +1,6 @@
 
 
+
 body {
   
   background-repeat: no-repeat;
@@ -8,8 +9,16 @@ body {
  
 }
 
+.backgroundBorder{
+  background-color:rgb(255, 255, 255);
+  margin-right: 5%;
+  margin-left: 5%;
+  border-radius: 20px;
+
+}
+
 .anInput {
-  width: 70%;
+  width: 80%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -33,6 +42,7 @@ body {
   text-align: center;
   background-color: rgba(255, 255, 255,0.9);
   font-weight: bolder;
+  /* background-image: url('../Food/back1.jpg'); */
 
 }
 
@@ -49,6 +59,10 @@ body {
   width: 90%;
 }
 
+#id{
+  width: 20%;
+}
+
 .middlebtns{
   margin-top: 1rem;
   padding: 10px 20px;
@@ -63,10 +77,26 @@ body {
   cursor: pointer;
 }
 
+
+
+.middlebtns2{
+  padding: 10px 20px;
+  float: center;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  background-color: rgba(53, 39, 68, 1);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 .middlebtns:hover{
   background-color: #ff8243;
 }
 
+.middlebtns2:hover{
+  background-color: #ff8243;
+}
 
 
 
@@ -103,6 +133,4 @@ color: white;
   justify-content: center;
   align-items: center;
 
-
 }
-

@@ -1,40 +1,58 @@
-import React from "react"
+import { padding } from "@mui/system";
+import React from "react";
+import "./Order.css";
 
-export default function Table({ list, total,invoiceNumber ,invoiceDate}) {
-  
+export default function Table({ list, total, invoiceNumber, invoiceDate }) {
   return (
-    
-    <>
-      <center>Palladium<br/>123,bla bla bla,<br/>Nuwaraeliya <br/> {invoiceNumber}<br/>{invoiceDate}
-      <br/>---------------------------------------------</center>
-      <table width="100%" className="mb-10" color="white">
-        <thead>
-          <tr className="bg-gray-100 p-1">
-            <td className="font-bold">Name</td>
-            <td className="font-bold">Quantity</td>
-            <td className="font-bold">Price</td>
-            <td className="font-bold">Amount</td>
-          </tr>
-        </thead>
-        {list.map(({ id, description, quantity, price, amount}) => (
+    <div style={{ maxWidth: "174px", fontSize: "11px" }}>
+      <center>
+        <h6>Palladium</h6>
+        <br />
+        123,bla bla bla,
+        <br />
+        Nuwaraeliya <br />
+      </center>
+      {invoiceDate}&emsp;&emsp;&emsp; NO:{invoiceNumber}
+      <br />
+      <label>---------------------------------------------------------</label>
+      <p> ITEM&emsp; QTY&emsp; PRICE&emsp;&emsp; AMOUNT</p>
+      <label>---------------------------------------------------------</label>
+      <table style={{ maxWidth: "188px", fontSize: "11px" }}>
+        {list.map(({ id, description, quantity, price, amount }) => (
           <React.Fragment key={id}>
-            <tbody>
-              <tr className="h-10">
-                <td>{description}</td>
-                <td>{quantity}</td>
-                <td>{price}</td>
-                <td>{amount}</td>
-              </tr>
-            </tbody>
+            {description}
+            <br />
+            <div
+              style={{
+                display: "flex",
+                position: "relative",
+                minWidth: "173px",
+              }}
+            >
+              <div className="billdata1">{quantity}</div>
+              <div className="billdata2">{price}.00</div>
+              <div className="billdata3">{amount}.00</div>
+            </div>
           </React.Fragment>
         ))}
       </table>
-
-      <div>
-        <h2 className="flex items-end justify-end text-gray-800 text-4xl font-bold">
-         LKR: {total.toLocaleString()}
-        </h2>
+      <label>---------------------------------------------------------</label>
+      <div style={{ display: "flex", position: "relative" }}>
+        <div>Net Total</div>
+        <div style={{ position: "absolute", right: "0px" }}>
+          {" "}
+          <b>LKR: {total.toLocaleString()}.00</b>
+        </div>
       </div>
-    </>
-  )
+      <label>---------------------------------------------------------</label>
+      <br />
+      <br />
+      <br />
+      <center style={{ fontSize: "11" }}>
+        Please call our hotline
+        <br /> 0771413299 for your valued <br />
+        suggestions and comments.
+      </center>
+    </div>
+  );
 }

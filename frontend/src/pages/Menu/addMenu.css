@@ -14,7 +14,7 @@
     border: 1px solid #eee;
     border-radius: 5px;
     box-shadow: 0 2px 2px rgb(0, 0, 0, 0.3);
-    width: 97%;
+    width: 100%;
     padding: 20px;
     margin: 20px;
     background-color: #fff;
@@ -42,7 +42,7 @@ header {
 
 .MenuaddForm .fields .input-field {
     display: flex;
-    width: calc(100% / 2 - 15px);
+    width: calc(100% / 2 - 20px);
     flex-direction: column;
 }
 

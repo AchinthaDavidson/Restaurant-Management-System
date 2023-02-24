@@ -1,23 +1,80 @@
 import { Button ,Form} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import './foodcss.css';
-import React, { useState } from "react";
+import React, { useState ,useEffect ,Component } from "react";
 import axios  from "axios";
 import Niv from "../../components/Niv";
-//import { Prev } from "react-bootstrap/esm/PageItem";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import S3 from 'react-aws-s3';
+import AWS from 'aws-sdk';
+window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function CreateFoodJS(){
 
+    const [searchTerm, setSearchTerm] = useState("");
     const [message, setMessage] = useState('');
+    const [ingCost,setIngCost] = useState(0);
     const navigate = useNavigate();
+    const [items, setItems] = useState([]);
+    const [unit ,setUnit ] = useState("");
+    const [quantity ,setQuantity ] = useState("");   
+    const [name, setName] = useState('');
+    const [ingredient, setIngredient] = useState([]);
+    const s3 = new AWS.S3(); 
+    const [file, setFile] = useState(null);
+
+
+
+    const validFileTypes = ['image/jpg','image/jpeg','image/png'];
+
+    // const config = {
+    //     bucketName: 'paladiumdishes',
+    //      dirName: 'images', /* optional */
+    //     region: 'ap-south-1',
+    //     accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X',
+    //     secretAccessKey: 'DQ5t3OzJA6MCDtHLd6e8OwF6rX0DugDZ8efpBgCT',
+    //     // s3Url: 'https:/your-custom-s3-url.com/', /* optional */
+    // }
+
+    AWS.config.update({
+        accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X' ,
+        secretAccessKey: 'DQ5t3OzJA6MCDtHLd6e8OwF6rX0DugDZ8efpBgCT',
+        dirName: 'images',
+        region: 'ap-south-1',
+        signatureVersion: 'v4',
+      });
+
+
+
+    const removeIng = (name) =>{ 
+        setIngredient((exsistingIngredients) => {
+            const result = exsistingIngredients.filter((ings) => ings !== name);
+            totCostSetter(name.cost,2);
+            return result;
+        });
+       
+    };
 
     const [dish,setPost] = useState({       // this may  need to change
-       dishTitle : "",
-       dishDescription :"", 
-       dishPrice: " "
-      
+        dishTitle : "",
+        dishDescription :"", 
+        dishPrice: "" ,
+        dishIngridients : ingredient,
+        ImageURL : ""
+
     });
+
+    useEffect(() => {
+      function getItems() {
+        axios.get("http://localhost:8070/resInventory/").then((res) => {
+       
+          setItems(res.data);
+          // console.log(orders[1]);
+        });
+      }
+      getItems();
+    }, []);
 
     const handleCange = (event) =>{
 
@@ -33,118 +90,317 @@ function CreateFoodJS(){
         });
     };
 
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
 
         event.preventDefault();
-        console.log(dish);
+
+        if (!file) {
+            toast.error("Eneter the dish Name first. Then select an JPG/PNG file type.");
+        return;
+        }
+
+        const params = { 
+            Bucket: 'paladiumdishes', 
+            Key: `${Date.now()}.${dish.dishTitle}`, 
+            Body: file 
+        };
+            const { Location } = await s3.upload(params).promise();
+            dish.ImageURL = Location;
+            console.log('uploading to s3', Location);
+       
 
        if (message.trim().length !== 0){
         axios
         .post("http://localhost:8070/food/create" , dish)  // this need to change
-        .then( (res) => console.log(res))
+        .then( (res) => {
+            //console.log(res);
+            toast.success("Dish added succesfully");
+        })
         .catch( (err) => console.log(err));
         navigate("ViewDish"); 
 
        }else{
-        alert("Please fill the details") ;
+        toast.error("Please fill all the details");
        };   
     };
 
 
-    
+        const handleFileSelect = (e) => {
 
-    return (
-       
-        <div /*style={{width:"90%" , margin:"auto auto" , textAlign :"center"}}*/
-        className="dishDataDiv">     
+            const file_ = e.target.files[0];
 
-            <Niv name="Add a Dish" />
-        
-            {/* <h1> Add a Dish </h1> */}
+            if (!validFileTypes.find(type => type === file_.type)) {
             
-            <Form className="boldfont">
-                <Form.Group>
+                toast.error("Eneter the dish Name first. Then select an JPG/PNG file type.");
+                return;
+            }else{
+                setFile(e.target.files[0]);
+            }
 
-                    <Form.Control 
-                        className="anInput"
-                        name="dishTitle" 
-                        placeholder="Dish Name" 
-                        value={dish.dishTitle}
-                        style={{marginBototm:"1rem"}}
-                        onChange={handleCange}
-
-                        /> 
-
-                    <Form.Control 
-                        className="anInput"
-                        name="dishDescription" 
-                        placeholder="Description" 
-                        style={{marginBottom:"1rem" , marginTop:"1rem"}} 
-                        value = {dish.dishDescription}
-                        onChange={handleCange}
-                    />
-
-                <Form.Control 
-                        className="anInput"
-                        name="dishPrice" 
-                        placeholder="Price" 
-                        style={{marginBottom:"1rem" , marginTop:"1rem"}} 
-                        value = {dish.dishPrice}
-                        onChange={handleCange}
-                    />
-
-                </Form.Group>
-
-            </Form>
-
-{/*             
-            <Button 
-                className="button button2"
-                variant="outline-info"
-                style={{width:"35%" , marginBottom:"1rem" , marginTop:"1rem"}} 
-                onClick={(handleClick)}
-                > Add Dish
-            </Button> */}
-
-    
-            {/* <Button 
-                className="button button2"
-                variant="outline-info"
-                style={{width:"35%" , marginBottom:"1rem" , marginTop:"1rem"}} 
-                onClick={ () => navigate(-1) }
-                > Go Back
-            </Button> */}
-
-
-        <div className="btns">
-
-            <button className="add_new"
-             onClick={ () => navigate(-1)}
-            >Go Back
-            </button>
-            
-            <button className="add_new"
-           
-             onClick={(handleClick)}
-            >+ Add Dish
-            </button>
-
-            <button className="add_new"
          
-             onClick={ () => navigate("ViewDish")}
-            >View Dishes
-            </button>
+        }
+
+    const totCostSetter = (cost,op) => {
+            let c=0;
+
+            if(op === 1){
+
+                ingredient.map((ing) =>{
+                    c += ing.cost;
+                    console.log(c);
+                    setIngCost(c);
+                })   
+    
+                setIngCost(c);
+
+            }else if(op === 2){
+
+                ingredient.map((ing) =>{
+                    c += ing.cost;
+                    console.log(c);
+                    setIngCost(c);
+                })
+
+                c -= cost;
+                setIngCost(c);
+            }
+
+            // ingredient.map((ing) =>{
+            //     c += ing.cost;
+            //     console.log(c);
+            //     setIngCost(c);
+            // })   
 
 
-
-
-            </div>
-           
-           {/*   style={{width:"20%" , marginBottom:"1rem" , marginTop:"1rem" , marginRight:"16%"}}  */}
-
-        </div>
+    }
+ 
+    return (
       
+        <div /*style={{width:"90%" , margin:"auto auto" , textAlign :"center"}}*/
+            className="dishDataDiv">    
+        
+            <ToastContainer position="top-right" theme="colored" /> 
+            <Niv name="Add a Dish" />
+
+            <div className="data" >
+                <div className="backgroundBorder"> 
+
+                    <Form className="boldfont" style={{width:"100%" }}>
+                        <Form.Group>
+                            <div className="btns"> 
+
+                                <Form.Control 
+                                    className="anInput"
+                                    name="dishTitle" 
+                                    placeholder="Enter the Dish Name here ..." 
+                                    value={dish.dishTitle}
+                                    style={{ width:"45%" , marginRight:"5%"} }
+                                    onChange={handleCange}
+                                /> 
+
+                                <Form.Control 
+                                    className="anInput"
+                                    name="dishPrice" 
+                                    placeholder="Enter the Price of the dish here..." 
+                                    style={{ width:"30%"} }
+                                    value = {dish.dishPrice}              
+                                    onChange={handleCange}
+                                />
+                            </div>
+
+                            <Form.Control 
+                                    className="anInput"
+                                    name="dishDescription" 
+                                    placeholder="Enter a little description about the dish here..." 
+                                    style={{marginBottom:"1rem" , marginTop:"1rem" , }} 
+                                    value = {dish.dishDescription}
+                                    onChange={handleCange}
+                                />
+                            </Form.Group>
+                    </Form>
+
+                    <table style={{width:"80%" , marginTop:"1rem" , marginLeft:"auto" ,marginRight:"auto" }}>
+                    <tbody>
+                                    <tr >
+                                        <td colSpan={6}>Select the ingredients for dish </td>                       
+                                    </tr>
+                                    <tr>
+                                        <td>Ingredient Name</td>
+                                        <td>Quantity Left</td>
+                                        <td>Cost for Ingredient</td>
+                                        <td>Set Unit</td>
+                                        <td>Set Quantity</td>
+
+                                        <td style={{width:"15%"}}>
+
+                                            <Form.Control 
+                                                className="anInput"
+                                                style={{width:"100%", marginLeft:"auto" ,marginRight:"auto" }}
+                                                onChange={(event) => {
+                                                    setSearchTerm(event.target.value);
+                                                    setName(event.target.value);
+                                                }}
+                                            
+                                                placeholder=" Search Here" 
+                                                value={name}
+                                            />     
+                                        </td>
+                                    </tr>
+                        
+                            {items.filter((val) =>{
+                                if (searchTerm === "") {
+                                return (val);
+                                } else if (
+                                    val.Item_Name.toLowerCase().includes(searchTerm.toLowerCase())
+                                ) {
+                                    return val;
+                                }                  
+                            })
+                            .slice(0, 1)
+                            .map((items, index) => (
+                                    <tr key={index}>               
+                                        <td >{items.Item_Name}</td>
+                                        <td>{items.Quantity}{items.Unit}</td>
+                                        <td>{items.Total_Cost}</td> 
+
+                                        <td style={{width:"10%"}}>
+                                            <select 
+                                                name="unit" id="format"  
+                                                style={{height:"3.5rem" ,
+                                                marginLeft:"auto" ,
+                                                marginRight:"auto" }} 
+                                                value={unit} 
+                                                onChange={(e) => setUnit(e.target.value)}
+                                            >
+                                                <option defaultValue={'g'}>Select Unit</option>
+                                                <option >g</option>
+                                                <option>ml</option>
+                                            </select>  
+                                        </td> 
+
+                                        <td  style={{width:"20%"}}>
+                                    
+                                            <Form.Control 
+                                                className="anInput"
+                                                style={{width:"100%",marginLeft:"auto" ,marginRight:"auto" }}
+                                                onChange={(event) => {
+                                                    setQuantity(event.target.value);
+                                                }}
+                                                placeholder="Quantity" 
+                                            />     
+                                        </td>
+
+                                        <td  style={{width:"20%"} }>
+
+                                            <button 
+                                                className="middlebtns2"
+                                                onClick={()=>{
+                                                    if(!name == "" && unit !="" && quantity != ""){
+                                                        setName('');
+                                                        var pQuan = Number(quantity);
+                                                        var pTCost = Number(items.Total_Cost);
+                                                        var pQuanAl = Number(items.Quantity)
+                                                        var totCost = (pTCost / pQuanAl) * pQuan;
+
+                                                        //setIngCost(totCost);
+
+                                                        ingredient.push({
+                                                            name: items.Item_Name,
+                                                            quantity : quantity,
+                                                            unit : unit ,
+                                                            cost : totCost      
+                                                        });
+
+                                                        totCostSetter(totCost,1);
+                                                       
+                                                    }else{
+                                                        toast.error("Please select unit and quantity");
+                                                    }
+                                                
+                                                }} >   
+                                                Add 
+                                            </button>
+                                        
+                                        </td>                   
+                                </tr>
+                         
+                        ))}   
+                    </tbody>          
+                    </table> 
+                    
+                    <div className="btns" style={{width:"73%" , marginTop:"2rem" , marginLeft:"auto" ,marginRight:"auto" }}>
+
+                        <button className="add_new"
+                            onClick={ () => navigate(-1)}
+                            >Go Back
+                        </button>
+
+                        <button 
+                            className="add_new"
+                          
+                            onClick={ () => navigate("ViewDish")}  
+                            >View Dishes
+                        </button>
+
+                        <div style={{ marginLeft:"auto" ,marginRight:"auto" , border:"1px solid" , borderRadius:"10px"}}> 
+                        <span>Select a picture of the Dish</span>
+                        <input type="file" onChange={handleFileSelect} className="uploadselector" />
+                        </div>
+                       
+
+                        <button className="add_new"
+                            onClick={(handleClick)}
+                            style={{marginLeft:"2rem"}}
+                            >+ Add Dish
+                        </button>
+                          
+                    </div>
+
+                    <table  style={{padding:"10px", width:"80%" , marginTop:"1rem" , marginLeft:"auto" ,marginRight:"auto" , marginBottom:"5rem"}}>
+                        <tbody>     
+                            <tr>
+                                <td colSpan={2}> Added Ingredients will show here</td>
+                                <td colSpan={2}>
+                             
+                                    Total Cost for the Dish's Ingredients  :                              
+                                </td>
+                                <td>
+                                    <span value={ingCost}>{ingCost}</span>  
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td>Name</td>
+                                <td>Quantity</td>
+                                <td>Unit</td>
+                                <td>Price</td>  
+                                <td>Remove</td>                                          
+                            </tr> 
+                                {ingredient.map((ings,index)=> {
+                                    return(                                         
+                                        <tr key={index}>
+                                            <td  > {ings.name} </td>
+                                            <td  > {ings.quantity} </td>
+                                            <td  > {ings.unit} </td>   
+                                            <td  > {ings.cost} </td> 
+                                            <td> 
+
+                                                <button 
+                                                    className="middlebtns2" onClick={()=>removeIng(ings)}>   
+                                                    Remove
+                                                </button>  
+                                                                    
+                                            </td>          
+                            </tr>                                 
+                                            )
+                                    })} 
+                        </tbody>                             
+                    </table>
+                
+                </div>
+            </div>
+        </div>
+     
     );
-}
+};
 
 export default CreateFoodJS; 

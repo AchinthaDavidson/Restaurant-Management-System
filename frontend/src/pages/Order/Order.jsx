@@ -490,7 +490,7 @@ function Order() {
                       onChange={(event) => {
                         setSearchTerm(event.target.value);
                       }}
-                      value={description}
+                      // value={description}
 
                       onClick={() => {
                         setSearch();
@@ -516,7 +516,7 @@ function Order() {
                             if (searchTerm === "") {
                               return val;
                             } else if (
-                              val.name
+                              val.Name
                                 .toLowerCase()
                                 .includes(searchTerm.toLowerCase())
                             ) {
@@ -527,13 +527,13 @@ function Order() {
                             }
                           })
                           .map((order, index) => (
-                          porder.includes(order.name)?null:(
+                          porder.includes(order.Name)?null:(
                             <p
                               className="fooddata"
                               key={index}
-                              onClick={() =>( setporder(current=>[...current,order.name]),setdata(order.Price, order.name)  ) }
+                              onClick={() =>( setporder(current=>[...current,order.Name]),setdata(order.Price, order.Name)  ) }
                             >
-                              {order.name}
+                              {order.Name}
                             </p>
                           )
                           ))
@@ -768,11 +768,11 @@ function Order() {
               marginTop: "80px",
               right: 0,
               flexGrow: "1",
-              marginLeft: "100px",
-              maxWidth: "47%",
-              minWidth: "45%",
-              padding: "10px",
-
+              marginLeft: "15%",
+              maxWidth: "20%",
+              minWidth: "10%",
+              padding: "25px",
+              paddingLeft:"4%",
               whiteSpace: "nowrap",
               overflowY: "auto",
             }}
@@ -800,7 +800,7 @@ function Order() {
               onAfterPrint={() => window.location.reload(false)}
             />
           </div>
-            <div id="printdata" ref={componentRef} className="p-5">
+            <div id="printdata" ref={componentRef}  className="p-5">
               <Table
                 invoiceNumber={order_id}
                 invoiceDate={invoiceDate}
