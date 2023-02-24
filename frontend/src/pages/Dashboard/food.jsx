@@ -1,12 +1,13 @@
 import React from "react";
 import { useState,  useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { MdFastfood} from "react-icons/md"
 import { AiOutlinePlusCircle} from "react-icons/ai";
 
 const Food = () => {
-
+  const navigate = useNavigate();
   const [count, setCount] = useState("");
   useEffect(() => {
     function getcount() {
@@ -33,7 +34,7 @@ const Food = () => {
         <Card.Text>
           <label style={{ fontSize: "30px" }}>{count}</label>
           <br />
-          <div style={{ color: "red" }}>
+          <div style={{ color: "red" }} onClick={ () => navigate("food")}>
             {" "}
             <AiOutlinePlusCircle
               style={{
