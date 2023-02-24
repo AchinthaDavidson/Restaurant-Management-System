@@ -111,7 +111,7 @@ input {
   border: 5px solid #e6e7e8;
 } */
 
-tr:nth-child(even) {
+ tr:nth-child(even) {
   background-color: #e7e7e7;
 }
 
@@ -135,7 +135,7 @@ td button {
   border-radius: 20px;
   background-color: rgb(202, 197, 197);
   color: #e6e7e8;
-}
+} 
 
 /* ::-webkit-scrollbar {
     width: 6px;

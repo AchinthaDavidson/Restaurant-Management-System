@@ -6,7 +6,7 @@ import axios  from "axios";
 import Niv from "../../components/Niv";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import S3 from 'react-aws-s3';
+// import S3 from 'react-aws-s3';
 import AWS from 'aws-sdk';
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
