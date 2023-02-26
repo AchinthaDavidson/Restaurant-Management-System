@@ -57,8 +57,9 @@ const QandA = () => {
         <div>
             <Niv name='Frquently Asked Questions'/>
             <div className='data'>
-
+            <a href='/QandA/chat'>
             <button class="button-29" ><BsChatRightText/>&nbsp;&nbsp;Check Customer Messages</button>
+            </a>
 
             <form className="FormFAQ" onSubmit={handleSubmit}>
               <div class="formfiels">
@@ -85,23 +86,23 @@ const QandA = () => {
 
 
 
-            <div className="table123">
+            <div className="data">
           <table className="tbl1">
             <thead className="th">
               <tr>
-                <td className="tblh">Category</td>
-                <td className="tblh">Question</td>
-                <td className="tblh">Answer</td>
+                <td >Category</td>
+                <td >Question</td>
+                <td >Answer</td>
               </tr>
             </thead>
             <tbody>
             {faq.map((faq,index) =>(
               <tr key={index}>
-              <td className="row">{faq.category}</td>
-              <td className="row">{faq.question}</td>
-              <td className="row">{faq.answer}</td>
-              <td><button className="button-30"><AiFillEdit/>Edit</button></td>
-              <td><button className="button-30"onClick={(e)=> deleteFaq(faq._id)}><AiFillDelete/>Delete</button></td>
+              <td >{faq.category}</td>
+              <td >{faq.question}</td>
+              <td >{faq.answer}</td>
+              <td><button ><AiFillEdit/>Edit</button></td>
+              <td><button onClick={(e)=> deleteFaq(faq._id)}><AiFillDelete/>Delete</button></td>
             </tr>
             ))}
             </tbody>

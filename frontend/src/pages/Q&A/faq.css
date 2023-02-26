@@ -103,7 +103,7 @@
       background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
   }
   
-  .th{
+  /* .th{
       font-size: 25px;
       padding: 10px;
       font-family: "JetBrains Mono",monospace;
@@ -112,7 +112,7 @@
   .tblh{
       width:300px;
       color: #10111f;
-  }
+  } */
   
   .table123{
       max-width: 1300px;
