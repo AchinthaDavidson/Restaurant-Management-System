@@ -22,15 +22,14 @@ const ViewDish = () => {
         axios
         .get("http://localhost:8070/food/viewDish")
         .then((res) => {
-            //console.log(res.data);
+           // console.log(res.data);
             setDishes(res.data);
         })
         .catch((err) =>console.log(err))
     }, []);
 
     const deleteDish = (id) => {
-        
-     // console.log(id);
+
       axios.delete(`http://localhost:8070/food/delete/${id}`)
         .then((res)=> console.log(res))
         .catch((err) => console.log(err));
@@ -172,6 +171,13 @@ const ViewDish = () => {
 
                                         <td id='shortTH'>Description</td>
                                         <td> {dish.Description}</td>
+                       
+                                    </tr>
+
+                                    <tr>
+
+                                        <td id='shortTH'>Category</td>
+                                        <td> {dish.Category}</td>
                        
                                     </tr>
 
