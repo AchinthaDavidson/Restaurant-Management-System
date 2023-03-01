@@ -135,6 +135,7 @@ const [items, setItems] = useState([]);
                     <option >g</option>
                     <option >L</option>
                     <option>ml</option>
+                    <option>unit</option>
                   </select>
                 </div> 
                 </div>

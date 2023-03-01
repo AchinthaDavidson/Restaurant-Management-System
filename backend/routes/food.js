@@ -13,6 +13,7 @@ const Ingridients = req.body. dishIngridients ;
 const Price= req.body.dishPrice ;
 const Picture="Still pending";
 const ImageURL = req.body.ImageURL;
+const  Category  = req.body.dishCategory ;
 
 
 // ingridients:[{ name: String,  quantity : Number ,unittype : String }]
@@ -24,14 +25,13 @@ const newfood=new food({
     Price,
     Picture,
     Description,
-    ImageURL
+    ImageURL,
+    Category 
     
     })
 
-    newfood.save().then(()=>{
-        
     console.log(req.body);
-    //console.log("new Food Added");
+    newfood.save().then(()=>{
 
     }).catch((err)=>{
         console.log(err);
@@ -65,17 +65,12 @@ router.route("/count").get((req,res)=>{
 
 router.route("/delete/:id").delete(async(req,res)=>{
 
-    //console.log("delete dishes requested");
-
     food.findByIdAndDelete({_id:req.params.id})
     .then((doc) => console.log(doc))
     .catch((err) => console.log(err));
 });
 
 router.route("/update/:id").put(async(req,res)=>{
-
-    // console.log("update dishes requested");
-    // console.log(req.body);
 
     food.findByIdAndUpdate(
         {_id: req.params.id} ,{

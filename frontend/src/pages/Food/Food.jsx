@@ -23,19 +23,9 @@ function CreateFoodJS(){
     const [ingredient, setIngredient] = useState([]);
     const s3 = new AWS.S3(); 
     const [file, setFile] = useState(null);
-
-
-
+    const [category, setCategory ]= useState([]);
+    const [selectedCategory , setSelectedCategory] = useState("");
     const validFileTypes = ['image/jpg','image/jpeg','image/png'];
-
-    // const config = {
-    //     bucketName: 'paladiumdishes',
-    //      dirName: 'images', /* optional */
-    //     region: 'ap-south-1',
-    //     accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X',
-    //     secretAccessKey: 'DQ5t3OzJA6MCDtHLd6e8OwF6rX0DugDZ8efpBgCT',
-    //     // s3Url: 'https:/your-custom-s3-url.com/', /* optional */
-    // }
 
     AWS.config.update({
         accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X' ,
@@ -44,8 +34,6 @@ function CreateFoodJS(){
         region: 'ap-south-1',
         signatureVersion: 'v4',
       });
-
-
 
     const removeIng = (name) =>{ 
         setIngredient((exsistingIngredients) => {
@@ -61,16 +49,28 @@ function CreateFoodJS(){
         dishDescription :"", 
         dishPrice: "" ,
         dishIngridients : ingredient,
-        ImageURL : ""
+        ImageURL : "",
+        dishCategory  : ""
 
     });
 
     useEffect(() => {
+      function getproduct() {
+        axios.get("http://localhost:8070/menu/").then((res) => {
+          //  console.log(res.data);
+            setCategory(res.data);
+          // console.log(orders[1]);
+        });
+      }
+      getproduct();
+    }, []);
+
+    useEffect(() => {
       function getItems() {
         axios.get("http://localhost:8070/resInventory/").then((res) => {
-       
-          setItems(res.data);
-          // console.log(orders[1]);
+        //console.log(res.data);
+        setItems(res.data);
+      
         });
       }
       getItems();
@@ -92,10 +92,16 @@ function CreateFoodJS(){
 
     const handleClick = async (event) => {
 
+        dish.dishCategory = selectedCategory;
         event.preventDefault();
+        
+        if (!selectedCategory) {
+            toast.error("Please select a category for the dish ...");
+        return;
+        }
 
         if (!file) {
-            toast.error("Eneter the dish Name first. Then select an JPG/PNG file type.");
+            toast.error("Please select an image of JPG or PNG file type...");
         return;
         }
 
@@ -115,30 +121,30 @@ function CreateFoodJS(){
         .then( (res) => {
             //console.log(res);
             toast.success("Dish added succesfully");
+            
         })
         .catch( (err) => console.log(err));
-        navigate("ViewDish"); 
-
+        toast.success("Dish added");
+            window.location.reload();
        }else{
         toast.error("Please fill all the details");
        };   
     };
 
+    const handleFileSelect = (e) => {
 
-        const handleFileSelect = (e) => {
+        const file_ = e.target.files[0];
 
-            const file_ = e.target.files[0];
-
-            if (!validFileTypes.find(type => type === file_.type)) {
-            
-                toast.error("Eneter the dish Name first. Then select an JPG/PNG file type.");
-                return;
-            }else{
-                setFile(e.target.files[0]);
-            }
-
-         
+        if (!validFileTypes.find(type => type === file_.type)) {
+        
+            toast.error("Enter the dish Name first. Then select an JPG/PNG file type.");
+            return;
+        }else{
+            setFile(e.target.files[0]);
         }
+
+        
+    }
 
     const totCostSetter = (cost,op) => {
             let c=0;
@@ -147,7 +153,7 @@ function CreateFoodJS(){
 
                 ingredient.map((ing) =>{
                     c += ing.cost;
-                    console.log(c);
+                   // console.log(c);
                     setIngCost(c);
                 })   
     
@@ -157,7 +163,7 @@ function CreateFoodJS(){
 
                 ingredient.map((ing) =>{
                     c += ing.cost;
-                    console.log(c);
+                 //   console.log(c);
                     setIngCost(c);
                 })
 
@@ -194,43 +200,65 @@ function CreateFoodJS(){
                                     name="dishTitle" 
                                     placeholder="Enter the Dish Name here ..." 
                                     value={dish.dishTitle}
-                                    style={{ width:"45%" , marginRight:"5%"} }
+                                    style={{ width:"45%" ,marginRight:"5%"} }
                                     onChange={handleCange}
                                 /> 
 
-                                <Form.Control 
-                                    className="anInput"
-                                    name="dishPrice" 
-                                    placeholder="Enter the Price of the dish here..." 
-                                    style={{ width:"30%"} }
-                                    value = {dish.dishPrice}              
-                                    onChange={handleCange}
-                                />
+                                <select 
+                                    name=" dishCategory" id="format"  
+                                    style={{ width:"30%", height:"3.5rem" ,marginRight:"0%"}}
+                                    value={selectedCategory}
+                                    onChange={(event) => {
+                                      setSelectedCategory(event.target.value);
+                                    }}
+                                
+                                    >
+                                    <option defaultValue={'Special Dish'}>Select Dish Category</option>
+      
+                                        {category.map((items, index) => (
+                                            <option key={index}>{items.Name}</option>
+                                        ))}
+                                    
+                                    </select>
+
+                            
                             </div>
 
-                            <Form.Control 
-                                    className="anInput"
-                                    name="dishDescription" 
-                                    placeholder="Enter a little description about the dish here..." 
-                                    style={{marginBottom:"1rem" , marginTop:"1rem" , }} 
-                                    value = {dish.dishDescription}
-                                    onChange={handleCange}
-                                />
+                                <div className="btns">                            
+                                <Form.Control 
+                                        className="anInput"
+                                        name="dishDescription" 
+                                        placeholder="Enter a little description about the dish here..." 
+                                        style={{ width:"45%" ,marginRight:"5%"} }
+                                        value = {dish.dishDescription}
+                                        onChange={handleCange}
+                                    />
+                                  <Form.Control 
+                                        className="anInput"
+                                        name="dishPrice" 
+                                        placeholder="Enter the Price of the dish here..." 
+                                        style={{ width:"30%",marginRight:"0%"} }
+                                        value = {dish.dishPrice}              
+                                        onChange={handleCange}
+                                    />                             
+                            </div>
                             </Form.Group>
+                           
+
                     </Form>
 
                     <table style={{width:"80%" , marginTop:"1rem" , marginLeft:"auto" ,marginRight:"auto" }}>
                     <tbody>
                                     <tr >
-                                        <td colSpan={6}>Select the ingredients for dish </td>                       
+                                        <td colSpan={7}>Select the ingredients for dish </td>                       
                                     </tr>
                                     <tr>
+                                        <td>Ingredient ID</td>
                                         <td>Ingredient Name</td>
                                         <td>Quantity Left</td>
                                         <td>Cost for Ingredient</td>
                                         <td>Set Unit</td>
                                         <td>Set Quantity</td>
-
                                         <td style={{width:"15%"}}>
 
                                             <Form.Control 
@@ -258,7 +286,8 @@ function CreateFoodJS(){
                             })
                             .slice(0, 1)
                             .map((items, index) => (
-                                    <tr key={index}>               
+                                    <tr key={index}> 
+                                        <td>{items.Item_Id}</td>               
                                         <td >{items.Item_Name}</td>
                                         <td>{items.Quantity}{items.Unit}</td>
                                         <td>{items.Total_Cost}</td> 
@@ -305,6 +334,7 @@ function CreateFoodJS(){
                                                         //setIngCost(totCost);
 
                                                         ingredient.push({
+                                                            id : items.Item_Id,
                                                             name: items.Item_Name,
                                                             quantity : quantity,
                                                             unit : unit ,
@@ -343,7 +373,7 @@ function CreateFoodJS(){
                         </button>
 
                         <div style={{ marginLeft:"auto" ,marginRight:"auto" , border:"1px solid" , borderRadius:"10px"}}> 
-                        <span>Select a picture of the Dish</span>
+                        <span style={{ marginLeft:"2rem" ,marginRight:"2rem" }}>Select a picture of the Dish</span>
                         <input type="file" onChange={handleFileSelect} className="uploadselector" />
                         </div>
                        

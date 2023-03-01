@@ -22,15 +22,14 @@ const ViewDish = () => {
         axios
         .get("http://localhost:8070/food/viewDish")
         .then((res) => {
-            //console.log(res.data);
+           // console.log(res.data);
             setDishes(res.data);
         })
         .catch((err) =>console.log(err))
     }, []);
 
     const deleteDish = (id) => {
-        
-     // console.log(id);
+
       axios.delete(`http://localhost:8070/food/delete/${id}`)
         .then((res)=> console.log(res))
         .catch((err) => console.log(err));
@@ -176,6 +175,13 @@ const ViewDish = () => {
                                     </tr>
 
                                     <tr>
+
+                                        <td id='shortTH'>Category</td>
+                                        <td> {dish.Category}</td>
+                       
+                                    </tr>
+
+                                    <tr>
                                         <td id='shortTH'>Dish Price</td>
                                         <td>{dish.Price}</td>
                                        
@@ -193,15 +199,18 @@ const ViewDish = () => {
                                          <tbody>
                                                 <tr><td colSpan={3}>Ingredients </td></tr>
                                                 <tr>
-                                                <td>Name</td>
+                                                    <td>ID</td>
+                                                    <td>Name</td>
                                                     <td>Quantity</td>
                                                     <td>Unit</td>  
+                                                
                                                 </tr> 
                                             
                                                     {dish.Ingridients.map((ings,index)=> {
                                                 return(
                                                 
                                                         <tr  key={index}> 
+                                                            <td > {ings.id}</td>
                                                             <td > {ings.name}</td>
                                                             <td > {ings.quantity} </td>
                                                             <td > {ings.unit} </td>

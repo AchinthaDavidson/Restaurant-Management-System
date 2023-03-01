@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Niv from "../../components/Niv";
 import "./stockView.css";
+import { BsArrowUpCircle} from "react-icons/bs"
 import Resdata from "./resturantdata.jsx"
   const Restaurent = () => {
     const [items, setItems] = useState([]);
@@ -77,8 +78,8 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
                   </tr>
                   <tr id={index} hidden>
                   <td colSpan={6}>
-                  <Resdata id={items.Item_Id}/>
-                  <label onClick={()=>close(index)} >^</label>
+                  <Resdata id={items.Item_Id}/><br/>
+                  <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={20}/></label>
                   </td>
                   </tr>
                   </> 
