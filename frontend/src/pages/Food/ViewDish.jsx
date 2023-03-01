@@ -199,15 +199,18 @@ const ViewDish = () => {
                                          <tbody>
                                                 <tr><td colSpan={3}>Ingredients </td></tr>
                                                 <tr>
-                                                <td>Name</td>
+                                                    <td>ID</td>
+                                                    <td>Name</td>
                                                     <td>Quantity</td>
                                                     <td>Unit</td>  
+                                                
                                                 </tr> 
                                             
                                                     {dish.Ingridients.map((ings,index)=> {
                                                 return(
                                                 
                                                         <tr  key={index}> 
+                                                            <td > {ings.id}</td>
                                                             <td > {ings.name}</td>
                                                             <td > {ings.quantity} </td>
                                                             <td > {ings.unit} </td>

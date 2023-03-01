@@ -68,9 +68,9 @@ function CreateFoodJS(){
     useEffect(() => {
       function getItems() {
         axios.get("http://localhost:8070/resInventory/").then((res) => {
-       
-          setItems(res.data);
-          // console.log(orders[1]);
+        //console.log(res.data);
+        setItems(res.data);
+      
         });
       }
       getItems();
@@ -130,7 +130,6 @@ function CreateFoodJS(){
         toast.error("Please fill all the details");
        };   
     };
-
 
     const handleFileSelect = (e) => {
 
@@ -251,9 +250,10 @@ function CreateFoodJS(){
                     <table style={{width:"80%" , marginTop:"1rem" , marginLeft:"auto" ,marginRight:"auto" }}>
                     <tbody>
                                     <tr >
-                                        <td colSpan={6}>Select the ingredients for dish </td>                       
+                                        <td colSpan={7}>Select the ingredients for dish </td>                       
                                     </tr>
                                     <tr>
+                                        <td>Ingredient ID</td>
                                         <td>Ingredient Name</td>
                                         <td>Quantity Left</td>
                                         <td>Cost for Ingredient</td>
@@ -286,7 +286,8 @@ function CreateFoodJS(){
                             })
                             .slice(0, 1)
                             .map((items, index) => (
-                                    <tr key={index}>               
+                                    <tr key={index}> 
+                                        <td>{items.Item_Id}</td>               
                                         <td >{items.Item_Name}</td>
                                         <td>{items.Quantity}{items.Unit}</td>
                                         <td>{items.Total_Cost}</td> 
@@ -333,6 +334,7 @@ function CreateFoodJS(){
                                                         //setIngCost(totCost);
 
                                                         ingredient.push({
+                                                            id : items.Item_Id,
                                                             name: items.Item_Name,
                                                             quantity : quantity,
                                                             unit : unit ,
