@@ -8,7 +8,7 @@ export default function Table({ list, total, invoiceNumber, invoiceDate }) {
       <center>
         <h6>Palladium</h6>
         <br />
-        123,bla bla bla,
+        Lawson street,
         <br />
         Nuwaraeliya <br />
       </center>

@@ -41,6 +41,7 @@ function Order() {
   const [quantity, setQuantity] = useState("1");
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState("");
+  const [Ingridients, setIngridients] = useState([])
   const [searchTerm, setSearchTerm] = useState("");
   const [staytus, setstaytus] = useState("0");
   const componentRef = useRef();
@@ -53,6 +54,8 @@ function Order() {
   const [waiter, setwaiter] = useState([]);
   const [porder,setporder]=useState([]);
   const [pbar,setpbar]=useState([]);
+  const id1=[]
+  const  Quantity1=[]
 
   // must be change for food
   useEffect(() => {
@@ -77,13 +80,17 @@ function Order() {
     getbar();
   }, []);
 
-  function setdata(fprice, fname) {
+  function setdata(fprice, fname,Ingridients) {
     // alert(fname + " " + fprice);
     document.getElementById("Iname").style.visibility = "hidden";
     document.getElementById("radio").style.visibility = "visible";
     document.getElementById("Fname").value = fname;
     setDescription(fname);
     setPrice(fprice);
+   
+   
+    setIngridients(current=>[...current,Ingridients])
+
   }
 
   function setSearch() {
@@ -141,12 +148,13 @@ function Order() {
   const handleSubmit = (e) => {
     e.preventDefault();
    
+ console.log(Ingridients);
   
 
     if (!description || !quantity || !price) {
       toast.error("Please fill in all inputs");
     } else {
-      
+      setporder(current=>[...current,description])
       // toast.success("data added");
       const newItems = {
         id: uuidv4(),
@@ -323,6 +331,25 @@ function Order() {
         .catch((err) => {
           alert(err);
         });
+
+       
+        const qty = {
+         id1,
+         Quantity1
+        };
+        axios
+          .post("http://localhost:8070/resInventory/updateqty", qty)
+          .then(() => {
+            // alert("order add");
+          })
+          .catch((err) => {
+            alert(err);
+          });
+
+
+
+
+
 
       if (staytus === "0") {
         const neworder_cus = {
@@ -531,7 +558,7 @@ function Order() {
                             <p
                               className="fooddata"
                               key={index}
-                              onClick={() =>( setporder(current=>[...current,order.Name]),setdata(order.Price, order.Name)  ) }
+                              onClick={() =>( setdata(order.Price, order.Name,order.Ingridients)  ) }
                             >
                               {order.Name}
                             </p>

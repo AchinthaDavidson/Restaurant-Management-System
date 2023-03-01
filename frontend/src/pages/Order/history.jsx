@@ -71,11 +71,10 @@ const Order = () => {
             </thead>
 
             {orders.map((order, index) => (
+              <>
               <tr key={index}>
                 <td>{order.order_id}</td>
-                <td>
-                  <Foodlist id={order.order_id} />
-                </td>
+               
                 <td>{order.amout}</td>
                 <td>
                   {order.date} - {order.time}
@@ -85,6 +84,12 @@ const Order = () => {
                 <td>{order.type}</td>
                 <td>{order.cus_id}</td>
               </tr>
+              <tr  hidden>
+                 <td colSpan={6} id="his">
+                  <Foodlist id={order.order_id} />
+                </td>
+              </tr>
+              </>
             ))}
           </table>
         </div>

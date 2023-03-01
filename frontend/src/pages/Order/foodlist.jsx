@@ -22,11 +22,12 @@ const Foodlist = (props) => {
 return (
     <div>
             {foodlists.map((foodlists, index) => (
-                  <tr key={index}>
-                     <td >{foodlists.food_id}</td>
-                     <td >{foodlists.qty}</td>
-                    
-                  </tr>
+                 <>
+                     <p>{foodlists.food_id}{foodlists.qty}</p>
+                     
+                     <br/>
+                     </>
+                 
                 ))}
        
       

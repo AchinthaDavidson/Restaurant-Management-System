@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Inventoryfood = require('../models/Inventoryfood');
 let Restaurant = require('../models/restaurant');  
+let food=require('../models/food');
 
 /* add */
 router.route("/add").post((req,res)=>{
@@ -143,6 +144,64 @@ router.route("/update1/:id").post(async(req,res)=>{
     }
     
 })
+
+router.route("/updateqty").post(async(req,res)=>{
+
+//    const Id = req.params.id1;
+//    const Quantity =req.body.Quantity1;
+        const Id = ["1111","1002"];
+        const Quantity =[56,89];
+        
+        // const Id = "1111";
+        // const Quantity =56;
+
+        food.find({_id:'63f6150d4728a8365eaa41f4'}).then((food)=>{
+          let Ingridients=food[0].Ingridients;
+          let ID=food[0].Item_Id;
+
+          console.log(food[0].Ingridients)
+        }).catch((err)=>{
+            console.log(err)
+        })
+
+
+
+     Restaurant.find({Item_Id:ID}).then((Restaurant)=>{
+           const  Quantity1 =Restaurant[0].Quantity
+        
+    
+            update2(Quantity1,Quantity[i],Id[i])
+            console.log(Id[i])
+            
+        }).catch((err)=>{
+            console.log(err)
+        })
+    
+        
+    
+        
+
+
+
+    function update2(qty,Quantity,id){
+        var Quantity3=qty-Quantity
+      
+ 
+         Restaurant.updateOne({Item_Id:id},{$set:{Quantity:Quantity3}})
+ 
+         .then(()=>{
+            //  res.status(200).send({status:"bar inventory updated"})
+             console.log("rtgdrg");
+         }).catch((err)=>{
+             console.log(err);
+             res.status(500).send({status:"bar inventory update failed", error:err});
+         })
+         
+     }
+
+});
+
+
 
 
 router.route("/findone/:id").post((req,res)=>{
