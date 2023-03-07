@@ -1,0 +1,23 @@
+#cursive{
+    color: #498e29;
+    font-family: 'Homemade Apple', cursive;
+    padding-bottom: 20px;
+}
+
+.btn{
+    background-color: #920000;
+    color: #ffffff;
+    border: none;
+  }
+
+  .btn:hover{
+    background-color: #343434;
+    color: #ffffff;
+    border: none;
+  }
+
+
+  .dropdown-item{
+    background-color: white;
+    color: #498e29;
+  }

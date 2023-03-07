@@ -1,8 +1,8 @@
 import React, { useEffect, useState} from 'react';
 import Niv from '../../components/Niv';
 import "./faq.css";
-import { AiFillDelete,AiFillEdit,AiFillPlusCircle } from "react-icons/ai";
-import {BsChatRightText} from 'react-icons/bs';
+import { AiFillDelete,AiFillEdit} from "react-icons/ai";
+import {BsEnvelope, BsPlusLg} from 'react-icons/bs';
 import axios from "axios";
 
 const QandA = () => {
@@ -58,18 +58,25 @@ const QandA = () => {
             <Niv name='Frquently Asked Questions'/>
             <div className='data'>
             <a href='/QandA/chat'>
-            <button class="button-29" ><BsChatRightText/>&nbsp;&nbsp;Check Customer Messages</button>
+            <button class="btn12"><BsEnvelope size={20}/>&nbsp;&nbsp;Check Customer Messages</button>
             </a>
 
             <form className="FormFAQ" onSubmit={handleSubmit}>
               <div class="formfiels">
                 <div class="txta">
-                  <label className="lbl">Category</label><br/>
-                  <textarea rows="1" cols="110" style={{resize:'none'}} placeholder="Category" value={category} onChange={(e) => setcategory(e.target.value)}/>
+                
+                  <label className="lbl">FAQ Category</label><br/>
+                  <input type="radio" value="Orders" name="category" onChange={(e) => setcategory(e.target.value)} /> Orders<br/>
+                  <input type="radio" value="Account" name="category" onChange={(e) => setcategory(e.target.value)} /> Account<br/>
+                  <input type="radio" value="Payment" name="category" onChange={(e) => setcategory(e.target.value)}/> Payment<br/>
+                  <input type="radio" value="Delivery" name="category" onChange={(e) => setcategory(e.target.value)}/> Delivery<br/>
+                  {/* <textarea rows="1" cols="110" style={{resize:'none'}} placeholder="Category" value={category} onChange={(e) => setcategory(e.target.value)}/> */}
                 </div>
 
+
+
                 <div class="txta">
-                  <label className="lbl">Question</label><br/>
+                  <label className="lbl">FAQ</label><br/>
                   <textarea rows="2" cols="110" style={{resize:'none'}} placeholder="Question" value={question} onChange={(e) => setquestion(e.target.value)}/>
                 </div>
 
@@ -79,21 +86,23 @@ const QandA = () => {
                 </div>
             </div>
             <br/>
-              <button class="button-30" type="submit" >
-                <span><AiFillPlusCircle/>&nbsp;&nbsp;Add new FAQ</span>
+              <button class="btn1" type="submit" >
+                <span><BsPlusLg/>&nbsp;&nbsp;Add new FAQ</span>
               </button>
         </form>
 
 
 
-            <div className="data">
-          <table className="tbl1">
-            <thead className="th">
-              <tr>
-                <td >Category</td>
-                <td >Question</td>
-                <td >Answer</td>
-              </tr>
+           
+          <table className="frmtable">
+            <thead>
+              
+                <td className="thd">Category</td>
+                <td className="thd">FAQ</td>
+                <td className="thd">Answer</td>
+                <td className="thd">Edit</td>
+                <td className="thd">Delete</td>
+              
             </thead>
             <tbody>
             {faq.map((faq,index) =>(
@@ -101,8 +110,8 @@ const QandA = () => {
               <td >{faq.category}</td>
               <td >{faq.question}</td>
               <td >{faq.answer}</td>
-              <td><button ><AiFillEdit/>Edit</button></td>
-              <td><button onClick={(e)=> deleteFaq(faq._id)}><AiFillDelete/>Delete</button></td>
+              <td><button class="btn1"><AiFillEdit/></button></td>
+              <td><button class="btn1" onClick={(e)=> deleteFaq(faq._id)}><AiFillDelete/></button></td>
             </tr>
             ))}
             </tbody>
@@ -114,7 +123,7 @@ const QandA = () => {
 
             </div>
         
-        </div>
+        
     );
 };
 
