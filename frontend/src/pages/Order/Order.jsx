@@ -41,7 +41,7 @@ function Order() {
   const [quantity, setQuantity] = useState("1");
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState("");
-  const [Ingridients, setIngridients] = useState([])
+  const [Iid, setIid] = useState("")
   const [searchTerm, setSearchTerm] = useState("");
   const [staytus, setstaytus] = useState("0");
   const componentRef = useRef();
@@ -80,16 +80,16 @@ function Order() {
     getbar();
   }, []);
 
-  function setdata(fprice, fname,Ingridients) {
+  function setdata(fprice, fname,fID) {
     // alert(fname + " " + fprice);
     document.getElementById("Iname").style.visibility = "hidden";
     document.getElementById("radio").style.visibility = "visible";
     document.getElementById("Fname").value = fname;
     setDescription(fname);
     setPrice(fprice);
+   setIid(fID);
    
-   
-    setIngridients(current=>[...current,Ingridients])
+    
 
   }
 
@@ -148,7 +148,7 @@ function Order() {
   const handleSubmit = (e) => {
     e.preventDefault();
    
- console.log(Ingridients);
+//  console.log(Ingridients);
   
 
     if (!description || !quantity || !price) {
@@ -162,6 +162,7 @@ function Order() {
         quantity,
         price,
         amount,
+        Iid
       };
       // alert(price);
 
@@ -332,10 +333,9 @@ function Order() {
           alert(err);
         });
 
-       
+      console.log(list)
         const qty = {
-         id1,
-         Quantity1
+         list
         };
         axios
           .post("http://localhost:8070/resInventory/updateqty", qty)
@@ -558,7 +558,7 @@ function Order() {
                             <p
                               className="fooddata"
                               key={index}
-                              onClick={() =>( setdata(order.Price, order.Name,order.Ingridients)  ) }
+                              onClick={() =>( setdata(order.Price, order.Name,order._id)  ) }
                             >
                               {order.Name}
                             </p>

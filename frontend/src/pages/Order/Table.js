@@ -1,8 +1,11 @@
 import { padding } from "@mui/system";
 import React from "react";
 import "./Order.css";
-
+import { useState, useRef, useEffect } from "react";
+import axios from "axios"; 
 export default function Table({ list, total, invoiceNumber, invoiceDate }) {
+
+
   return (
     <div style={{ maxWidth: "174px", fontSize: "11px" }}>
       <center>
@@ -18,7 +21,8 @@ export default function Table({ list, total, invoiceNumber, invoiceDate }) {
       <p> ITEM&emsp; QTY&emsp; PRICE&emsp;&emsp; AMOUNT</p>
       <label>---------------------------------------------------------</label>
       <table style={{ maxWidth: "188px", fontSize: "11px" }}>
-        {list.map(({ id, description, quantity, price, amount }) => (
+        {list.map(({ id, description, quantity, price, amount,Iid }) => (
+          <>
           <React.Fragment key={id}>
             {description}
             <br />
@@ -32,8 +36,12 @@ export default function Table({ list, total, invoiceNumber, invoiceDate }) {
               <div className="billdata1">{quantity}</div>
               <div className="billdata2">{price}.00</div>
               <div className="billdata3">{amount}.00</div>
+             
             </div>
+           
           </React.Fragment>
+          
+          </>
         ))}
       </table>
       <label>---------------------------------------------------------</label>

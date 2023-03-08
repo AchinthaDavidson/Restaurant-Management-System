@@ -147,44 +147,44 @@ router.route("/update1/:id").post(async(req,res)=>{
 
 router.route("/updateqty").post(async(req,res)=>{
 
-//    const Id = req.params.id1;
-//    const Quantity =req.body.Quantity1;
-        const Id = ["1111","1002"];
-        const Quantity =[56,89];
-        
-        // const Id = "1111";
-        // const Quantity =56;
+   const Id = req.body.list;
+   
+for(let i=0;i<Id.length;i++){
 
-        food.find({_id:'63f6150d4728a8365eaa41f4'}).then((food)=>{
-          let Ingridients=food[0].Ingridients;
-          let ID=food[0].Item_Id;
+        food.find({_id:Id[i].Iid}).then((food)=>{
+         const Ingridients=food[0].Ingridients;
+       
+         console.log("hi")
+         
+         Ingridient(Ingridients,Id[i].quantity)
+        //  console.log(food[0].Ingridients)
 
-          console.log(food[0].Ingridients)
         }).catch((err)=>{
             console.log(err)
         })
+    }
 
+function Ingridient(Ingridients,count) {
+    for(let i=0;i<Ingridients.length;i++){
+    
+        // console.log("hi")
 
-
-     Restaurant.find({Item_Id:ID}).then((Restaurant)=>{
+     Restaurant.find({Item_Id:Ingridients[i].id}).then((Restaurant)=>{
            const  Quantity1 =Restaurant[0].Quantity
         
     
-            update2(Quantity1,Quantity[i],Id[i])
-            console.log(Id[i])
+            update2(Quantity1,Ingridients[i].quantity,Ingridients[i].id,count)
+            // console.log(Quantity1)
             
         }).catch((err)=>{
             console.log(err)
         })
     
-        
-    
-        
+    }  
+}
+    function update2(qty,Quantity,id,count){
+        var Quantity3=qty-(Quantity*count)
 
-
-
-    function update2(qty,Quantity,id){
-        var Quantity3=qty-Quantity
       
  
          Restaurant.updateOne({Item_Id:id},{$set:{Quantity:Quantity3}})
