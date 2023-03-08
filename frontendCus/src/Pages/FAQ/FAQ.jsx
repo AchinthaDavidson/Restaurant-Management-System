@@ -58,7 +58,7 @@ function FAQ(){
         <Header/>
 
         
-        <div style={{minHeight:"100vh",margin:"10% 5% 5% 5%"}}>
+        <div className="cont">
             <div class="maintxt">
             <h1 style={{color:"#ffffff"}}>Frequently Asked Questions</h1>
             

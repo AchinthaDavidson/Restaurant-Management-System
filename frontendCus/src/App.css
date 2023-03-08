@@ -5,13 +5,17 @@
 
 body{
   
-  /* background-image: linear-gradient(to top, #505285 0%, #585e92 12%, #65689f 25%, #7474b0 37%, #7e7ebb 50%, #8389c7 62%, #9795d4 75%, #a2a1dc 87%, #b5aee4 100%); */
   background-color: #000000; 
-  /* background-image: linear-gradient(to right, #434343 0%, black 100%);
-  background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
- background-blend-mode: multiply; */
-  font-family: 'Mulish', sans-serif;
+  /* font-family: 'Mulish', sans-serif; */
+  font-family: 'Poppins', sans-serif;
   
+}
+
+.cont{
+  margin: 15vh 0;
+  min-height: 75vh;
+  padding-top: 20px;
+  width: 100%;
 }
 
 /* CSS for footer */
@@ -103,8 +107,8 @@ body{
 
 .nav-item{
   font-size: 25px;
-  padding: 4%;
-  margin: 2%;
+  padding: 0%;
+  margin: 0%;
   
 }
 
@@ -112,12 +116,27 @@ body{
   color: #ffffff;
 }
 
-.navbar{
-  height: 125px;
+.navbar-brand{
+  padding: 0;
+  margin: 0;
+  
 }
-nav{
-  margin-bottom: 15%;
+
+.lgBtn{
+  background-color: #498e29;
+  font-size: 22px;
+  width: 110px;
+  border-radius: 5px;
+  padding: 0px 20px;
+  color:#ffffff;
+  border: none;
 }
+
+.lgBtn:hover{
+  color: #ffffff;
+  background-color:#3ab900;
+}
+
 
 
 

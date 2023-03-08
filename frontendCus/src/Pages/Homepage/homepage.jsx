@@ -1,7 +1,7 @@
 import React from "react";
-import pic4 from '../../Images/6.png';
+import pic4 from '../../Images/chicken2.png';
 import pic3 from '../../Images/3.png';
-import pic2 from '../../Images/2.png';
+import pic2 from '../../Images/beef.png';
 import logo from '../../Images/logo.png';
 import newtag from '../../Images/new.png';
 import pizza from '../../Images/pizza.png';
@@ -24,9 +24,10 @@ function Homepage(){
 
     return(
       
-<>
+<div>
 <Header/>
-<div class="container-fluid" style={{marginBottom:"4%",marginTop:"10%"}}>
+<div className="cont">
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-6">
             <img class="img-fluid"src={pizza} style={{height:"auto"}} alt="Pizza"/>
@@ -47,13 +48,13 @@ function Homepage(){
 
 
 
-<p class="text-center" style={{color:"white", fontSize:"35px"}}><b>What's New</b></p>
+<p class="text-center2" style={{color:"white", fontSize:"35px"}}><b><span>WHAT'S NEW</span></b></p>
     <div class="card-group" style={{margin:"-2% 3% 4% 3%"}}>
   <div class="card bg-light" style={{margin:"2%", borderRadius: "5%"}}>
-    <img class="card-img-top" src={pic2} alt="Salad"/>
+    <img class="card-img-top" src={pic2} alt="Beef"/>
     <div class="card-body">
-      <h5 class="card-title" >Egg Salad</h5>
-      <p class="card-text" >Rs. 425 /=</p>
+      <h5 class="card-title" >DEVILLED BEEF</h5>
+      <p class="card-text" >Rs. 850 /=</p>
     </div>
     <div class="card-footer">
     <img class="card-img-new" style={{height:"50px"}} src={newtag} alt="new"/>
@@ -63,8 +64,8 @@ function Homepage(){
   <div class="card bg-light" style={{margin:"2%", borderRadius: "5%"}}>
     <img class="card-img-top" src={pic3} alt="prawn"/>
     <div class="card-body">
-      <h5 class="card-title">Prawn Curry</h5>
-      <p class="card-text" >Rs. 800 /=</p>
+      <h5 class="card-title">Pepper Prawns</h5>
+      <p class="card-text" >Rs. 1425 /=</p>
     </div>
     <div class="card-footer">
     <img class="card-img-new" style={{height:"50px"}} src={newtag} alt="new"/>
@@ -73,10 +74,10 @@ function Homepage(){
 
   </div>
   <div class="card bg-light" style={{margin:"2%", borderRadius: "5%"}}>
-    <img class="card-img-top" src={pic4} alt="Cake"/>
+    <img class="card-img-top" src={pic4} alt="Chicken"/>
     <div class="card-body">
-      <h5 class="card-title">Chocolate Cake</h5>
-      <p class="card-text">Rs. 380 /=</p>
+      <h5 class="card-title">Crispy Chicken</h5>
+      <p class="card-text">Rs. 790 /=</p>
     </div>
     <div class="card-footer">
     <img class="card-img-new" style={{height:"50px"}} src={newtag} alt="new"/>
@@ -96,11 +97,11 @@ function Homepage(){
   </div>
 </div>
 
-
+</div>
 
 <Footer/>
 
-</>
+</div>
     )
 }
 
