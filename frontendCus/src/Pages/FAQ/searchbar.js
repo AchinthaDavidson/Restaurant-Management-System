@@ -16,7 +16,7 @@ const SearchBar = ({keyword, onChange}) => {
        key="search-bar"
        value={keyword}
        placeholder={"How can we help you?"}
-       onChange={(e) => onChange(e.target.value)}
+      //  onChange={(e) => onChange(e.target.value)}
       />
     );
   }
