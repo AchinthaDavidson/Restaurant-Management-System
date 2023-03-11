@@ -20,16 +20,16 @@ const Bardataa = (props) => {
 return(
     <div>
         <table className="barData">
-        <thead>
+        {/* <thead> */}
             <tr>
                 <th>Date</th>
                 <th>Quantity</th>
                 <th>Unit Cost</th>
                 <th>Total cost</th>
             </tr>
-        </thead>
+        {/* </thead> */}
             {data1.map((data1,index)=>{
-            <tr key={index}>
+            <tr>
                 <td>{data1.Buy_Date}</td>
                 <td>{data1.Quantity}</td>
                 <td>{data1.Unit_Cost}</td>
