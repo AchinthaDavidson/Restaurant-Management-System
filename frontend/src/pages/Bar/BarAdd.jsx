@@ -3,7 +3,13 @@ import Niv from "../../components/Niv";
 import "./BarAdd.css";
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
+// import S3 from 'react-aws-s3';
+import AWS from 'aws-sdk';
+window.Buffer = window.Buffer || require("buffer").Buffer;
+
 
 function BarAdd() {
   const d = new Date();
@@ -17,6 +23,30 @@ function BarAdd() {
   const [Unitcost, setUnitcost] = useState("");
   const [Reorderlevel, setReorderlevel] = useState("");
   const [Sellprice, setSellprice] = useState("");
+  const[ImageURL,setImageURL]=useState("");
+
+  /*const s3 = new AWS.S3(); 
+  const [file, setFile] = useState(null);
+  const validFileTypes = ['image/jpg','image/jpeg','image/png'];
+  AWS.config.update({
+    accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X' ,
+    secretAccessKey: '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',
+    dirName: 'images',
+    region: 'ap-south-1',
+    signatureVersion: 'v4',
+  });
+  const handleFileSelect = (e) => {
+
+    const file_ = e.target.files[0];
+
+    if (!validFileTypes.find(type => type === file_.type)) {
+    
+        toast.error("Enter the dish Name first. Then select an JPG/PNG file type.");
+        return;
+    }else{
+        setFile(e.target.files[0]);
+    }   
+  }*/
   const [Buydate, setBuydate] = useState(
     d.getUTCDate() +
       "/" +
@@ -37,21 +67,36 @@ function BarAdd() {
   const[Expire_Date1, setExpire_Date1] = useState("");
   const[Quantity1, setQuantity1] = useState("");
   const[Re_Order_Level1, setRe_Order_Level1] = useState("");
-
   // const[Stock,setstock]=useState("");
   const[isEditing, setIsEditing] = useState(false);
 
   const show = () => {
     const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice};
+    console.log(Bardata);
     axios.post("http://localhost:8070/Bardata/add", Bardata)
       .then(() => { alert("data added to Bardata table successfully"); })
       .catch((err) => { alert(err); })
 
     if (isEditing===false) {
+      // if (!file) {
+      //   toast.error("Please select an image of JPG or PNG file type...");
+      //   return;
+      // }
+      // const params = { 
+      //   Bucket: 'paladiumdishes', 
+      //   Key: `${Date.now()}.${name}`, 
+      //   Body: file 
+      // };
+      //   const { Location } = await s3.upload(params).promise();
+      //   setImageURL(Location);
+      //   console.log('uploading to s3', Location);
+      //setImageURL="gfg";
       const BarInventory = { code,name , type, catogary, quantity,Totalcost,Reorderlevel};
+      //console.log(BarInventory);
       axios.post("http://localhost:8070/BarInventory/add", BarInventory)
         .then(() => { alert("data added successfully"); })
         .catch((err) => { alert(err); });
+    
     }
     else {
       const quantity2=Number(quantity)+Number(Quantity1)
@@ -216,6 +261,7 @@ function BarAdd() {
                     />
                   </div>
 
+                  {/*photo addonChange={handleFileSelect}*/}
                   <div class="input-field">
                     <label className="BaraddPhoto">photo</label>
                     <input type="file" />

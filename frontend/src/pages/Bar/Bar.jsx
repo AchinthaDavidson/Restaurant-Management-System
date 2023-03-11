@@ -61,6 +61,7 @@ const Bar = () => {
                 <td className="tbl-head">Quantity</td>
                 <td className="tbl-head">Total Cost</td>
                 <td className="tbl-head">Status</td>
+                <td className="tbl-head">photo</td>
               </tr>
             </thead>
             <tbody>
@@ -73,6 +74,7 @@ const Bar = () => {
                 <td className="view-bar-inv">{barinv.Quantity}</td>
                 <td className="view-bar-inv">{barinv.Total_Cost}</td>
                 <td className="view-bar-inv">good</td>
+                <td className="view-bar-inv">{barinv.ImageURL}</td>
               </tr>
                 <tr id={index} hidden>
                   <td colSpan={6}>

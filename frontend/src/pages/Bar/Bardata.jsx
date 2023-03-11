@@ -37,6 +37,10 @@ return(
             </tr> 
             })}
         </table>
+
+        <div style={{border:"2px solid black", width:"150px",height:"150px",float:"right",marginRight:"50px"}}>
+            <img src={data1.ImageURL}></img>
+        </div>
     </div>
     );
 };

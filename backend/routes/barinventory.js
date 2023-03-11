@@ -12,7 +12,7 @@ router.route("/add").post((req,res)=>{
     const Quantity = req.body.quantity;
     const Total_Cost = Number(req.body.Totalcost);
     const Re_Order_Level = req.body.Reorderlevel;
-    //const Photo = req.body.Photo;
+    //const ImageURL = req.body.ImageURL;
 
     // const Product_Name = 'req.body.name';
     // const Product_Code = 'req.body.code';
@@ -21,6 +21,7 @@ router.route("/add").post((req,res)=>{
     // const Quantity = 'req.body.quantity';
     // const Total_Cost = 'req.body.Buycost';
     // const Re_Order_Level = 'req.body.Reorderlevel';
+    const ImageURL = 'req.body.ImageURL';
 
     const newbar = new Bar({
         Product_Code,
@@ -29,7 +30,8 @@ router.route("/add").post((req,res)=>{
         Catogary,
         Quantity,
         Total_Cost,
-        Re_Order_Level
+        Re_Order_Level,
+       ImageURL
     })
 
     newbar.save().then(()=>{
