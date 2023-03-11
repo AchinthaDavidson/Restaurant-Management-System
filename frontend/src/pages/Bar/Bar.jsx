@@ -76,7 +76,7 @@ const Bar = () => {
               </tr>
                 <tr id={index} hidden>
                   <td colSpan={6}>
-                  <Bardata id={barinv.Product_Code}/>
+                  <Bardata id={barinv.Product_Code}/><br/>
                   <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={20}/></label>
                   </td>
                 </tr>

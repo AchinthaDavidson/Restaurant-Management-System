@@ -19,7 +19,7 @@ const Bardataa = (props) => {
     console.log(data1);
 return(
     <div>
-        <table className="">
+        <table className="barData">
         <thead>
             <tr>
                 <th>Date</th>
@@ -28,12 +28,12 @@ return(
                 <th>Total cost</th>
             </tr>
         </thead>
-            {data1.map((data,index)=>{
+            {data1.map((data1,index)=>{
             <tr key={index}>
-                <td>{data.Buy_Date}</td>
-                <td>{data.Quantity}</td>
-                <td>{data.Unit_Cost}</td>
-                <td>{data.Unit_Cost}</td>
+                <td>{data1.Buy_Date}</td>
+                <td>{data1.Quantity}</td>
+                <td>{data1.Unit_Cost}</td>
+                <td>{data1.Unit_Cost}</td>
             </tr> 
             })}
         </table>
