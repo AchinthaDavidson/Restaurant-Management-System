@@ -66,8 +66,8 @@ router.route("/delete/:id").delete(async(req,res)=>{
 
 /* display*/
 
-router.route("/viewbarInventory").get((req,res)=>{
-})
+// router.route("/viewbarInventory").get((req,res)=>{
+// })
 
 router.route("/sum/:id").get((req,res)=>{
     let id=req.params.id

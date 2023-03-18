@@ -21,7 +21,7 @@ router.route("/add").post((req,res)=>{
     // const Quantity = 'req.body.quantity';
     // const Total_Cost = 'req.body.Buycost';
     // const Re_Order_Level = 'req.body.Reorderlevel';
-    const ImageURL = 'req.body.ImageURL';
+    // const ImageURL = 'req.body.ImageURL';
 
     const newbar = new Bar({
         Product_Code,
@@ -30,8 +30,8 @@ router.route("/add").post((req,res)=>{
         Catogary,
         Quantity,
         Total_Cost,
-        Re_Order_Level,
-       ImageURL
+        Re_Order_Level
+    //    ImageURL
     })
 
     newbar.save().then(()=>{

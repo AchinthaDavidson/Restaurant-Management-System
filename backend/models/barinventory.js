@@ -32,6 +32,10 @@ const BarSchema = new Schema({
         type:String,
         required:true
     }
+    // ImageURL:{
+    //     type:String,
+    //     required:true
+    // }
 
 });
 
