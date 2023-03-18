@@ -31,10 +31,6 @@ const BarSchema = new Schema({
     Re_Order_Level:{
         type:String,
         required:true
-    },
-    ImageURL:{
-        type:String,
-        required:true
     }
 
 });
