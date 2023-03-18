@@ -20,7 +20,7 @@ const Bardata = (props) => {
 
 return (
     <div>
-      <table className="resData">
+      <table className="barData">
         <tr>
           <th>Date</th>
           <th>Quantity</th>
