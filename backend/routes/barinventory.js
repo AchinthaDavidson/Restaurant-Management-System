@@ -4,15 +4,16 @@ const barInv = require('../models/barinventory_data');
 
 /* add */
 router.route("/add").post((req,res)=>{
+console.log("add methodc called")
 
     const Product_Code = req.body.code;
     const Product_Name = req.body.name;
     const Product_Type = req.body.type; 
     const Catogary = req.body.catogary;
     const Quantity = req.body.quantity;
-    const Total_Cost = Number(req.body.Totalcost);
+    const Total_Cost = Number(req.body.newTotCost);
     const Re_Order_Level = req.body.Reorderlevel;
-    //const Photo = req.body.Photo;
+    const ImageURL = req.body.Location;
 
     // const Product_Name = 'req.body.name';
     // const Product_Code = 'req.body.code';
@@ -21,6 +22,7 @@ router.route("/add").post((req,res)=>{
     // const Quantity = 'req.body.quantity';
     // const Total_Cost = 'req.body.Buycost';
     // const Re_Order_Level = 'req.body.Reorderlevel';
+    // const ImageURL = 'req.body.ImageURL';
 
     const newbar = new Bar({
         Product_Code,
@@ -29,8 +31,10 @@ router.route("/add").post((req,res)=>{
         Catogary,
         Quantity,
         Total_Cost,
-        Re_Order_Level
+        Re_Order_Level,
+       ImageURL
     })
+    console.log(newbar);
 
     newbar.save().then(()=>{
         res.json("Bottle added");

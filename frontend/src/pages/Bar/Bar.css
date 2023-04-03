@@ -67,6 +67,16 @@
     padding: 10px;
 }
 
+.barData{
+    width: 70%;
+    top: 10px;
+    border-collapse: collapse;
+    border:  #060606;
+    min-width: 1000px;
+    border-radius: 5px;  
+}
+
+
 /* new table */
 .table1{
     width: 100%;
