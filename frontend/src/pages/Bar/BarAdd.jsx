@@ -76,8 +76,8 @@ function BarAdd() {
   const show = async (e) => {
 
     const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice};
-    console.log(Bardata);
-    console.log(isEditing);
+    // console.log(Bardata);
+    // console.log(isEditing);
     axios.post("http://localhost:8070/Bardata/add", Bardata)
       .then(() => {  toast.success("Bar Item added succesfully");; })
       .catch((err) => { alert(err); })

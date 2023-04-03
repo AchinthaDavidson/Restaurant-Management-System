@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Bardata = (props) => {
     const id = props.id;
-    const [data1,setdata1] = useState([]);
+    const [data,setdata1] = useState([]);
     useEffect(()=>{
         function getItems1(){
             const url="http://localhost:8070/bardata/find/"+id;
@@ -16,27 +16,27 @@ const Bardata = (props) => {
         }
         getItems1(id);
     },[])
-    console.log(data1);
+    console.log(data);
+
 return(
+
     <div>
-        <table className="">
-        <thead>
+      <table className="barData">
+        <tr>
+          <th>Date - Time</th>
+          <th>Quantity</th>
+          <th>Unit Cost</th>
+          <th>Total Cost</th>
+        </tr>
+          {data.map((data, index) => (
             <tr>
-                <th>Date</th>
-                <th>Quantity</th>
-                <th>Unit Cost</th>
-                <th>Total cost</th>
+              <td>{data.date} - {data.time}</td>
+              <td>{data.Quantity}</td>
+              <td>{data.Unit_Cost}</td>
+              <td>{data.Quantity*data.Unit_Cost}</td>
             </tr>
-        </thead>
-            {data1.map((data,index)=>{
-            <tr key={index}>
-                <td>{data.Buy_Date}</td>
-                <td>{data.Quantity}</td>
-                <td>{data.Unit_Cost}</td>
-                <td>{data.Unit_Cost}</td>
-            </tr> 
-            })}
-        </table>
+          ))}
+      </table>
     </div>
       
   );
