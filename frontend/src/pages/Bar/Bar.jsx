@@ -77,9 +77,13 @@ const Bar = () => {
                 {/* <td className="view-bar-inv">{barinv.ImageURL}</td> */}
               </tr>
                 <tr id={index} hidden>
-                  <td colSpan={6}>
-                  <Bardata id={barinv.Product_Code}/><br/>
-                  <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={20}/></label>
+                  <td colSpan={4}>
+                    <Bardata id={barinv.Product_Code}/><br/>
+                  </td>
+                  <td colSpan={2}>
+                    <img style={{width:"100%" , padding:"1rem 1rem 1rem 1rem" , maxWidth:"20rem"}} src={barinv.ImageURL} alt="" />
+                  
+                    <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={20}/></label>
                   </td>
                 </tr>
               </>
@@ -93,3 +97,10 @@ const Bar = () => {
 };
 
 export default Bar;
+
+
+{/* <td colSpan={6}>
+                  <Bardata id={barinv.Product_Code}/><br/>
+                  <img style={{width:"50%" , padding:"1rem 1rem 1rem 1rem" , maxWidth:"20rem"}} src={barinv.ImageURL} alt="" />
+                  <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={20}/></label>
+                  </td> */}
