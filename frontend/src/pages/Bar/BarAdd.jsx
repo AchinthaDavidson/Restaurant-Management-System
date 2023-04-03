@@ -6,9 +6,10 @@ import { useState, useRef, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
-// import S3 from 'react-aws-s3';
+ import S3 from 'react-aws-s3';
 import AWS from 'aws-sdk';
 window.Buffer = window.Buffer || require("buffer").Buffer;
+
 
 
 function BarAdd() {
@@ -25,7 +26,7 @@ function BarAdd() {
   const [Sellprice, setSellprice] = useState("");
   const[ImageURL,setImageURL]=useState("");
 
-  /*const s3 = new AWS.S3(); 
+  const s3 = new AWS.S3(); 
   const [file, setFile] = useState(null);
   const validFileTypes = ['image/jpg','image/jpeg','image/png'];
   AWS.config.update({
@@ -36,6 +37,7 @@ function BarAdd() {
     signatureVersion: 'v4',
   });
   const handleFileSelect = (e) => {
+  
 
     const file_ = e.target.files[0];
 
@@ -46,7 +48,7 @@ function BarAdd() {
     }else{
         setFile(e.target.files[0]);
     }   
-  }*/
+  }
   const [Buydate, setBuydate] = useState(
     d.getUTCDate() +
       "/" +
@@ -70,43 +72,50 @@ function BarAdd() {
   // const[Stock,setstock]=useState("");
   const[isEditing, setIsEditing] = useState(false);
 
-  const show = () => {
+  //start coding
+  const show = async (e) => {
+
     const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice};
     console.log(Bardata);
+    console.log(isEditing);
     axios.post("http://localhost:8070/Bardata/add", Bardata)
-      .then(() => { alert("data added to Bardata table successfully"); })
+      .then(() => {  toast.success("Bar Item added succesfully");; })
       .catch((err) => { alert(err); })
 
+    const newTotCost = quantity * Unitcost
     if (isEditing===false) {
-      // if (!file) {
-      //   toast.error("Please select an image of JPG or PNG file type...");
-      //   return;
-      // }
-      // const params = { 
-      //   Bucket: 'paladiumdishes', 
-      //   Key: `${Date.now()}.${name}`, 
-      //   Body: file 
-      // };
-      //   const { Location } = await s3.upload(params).promise();
-      //   setImageURL(Location);
-      //   console.log('uploading to s3', Location);
-      //setImageURL="gfg";
-      const BarInventory = { code,name , type, catogary, quantity,Totalcost,Reorderlevel};
-      //console.log(BarInventory);
+      if (!file) {
+        toast.error("Please select an image of JPG or PNG file type...");
+        return;
+      }
+      if (!name) {
+        toast.error("Please ente a valid name...");
+        return;
+      }
+      const params = { 
+        Bucket: 'paladiumdishes', 
+        Key: `${Date.now()}.${name}`, 
+        Body: file 
+      };
+        const { Location } = await s3.upload(params).promise();
+        setImageURL(Location);
+      
+      
+      const BarInventory = { code,name , type, catogary, quantity,newTotCost,Reorderlevel,Location};
       axios.post("http://localhost:8070/BarInventory/add", BarInventory)
-        .then(() => { alert("data added successfully"); })
-        .catch((err) => { alert(err); });
+        .then(() => {  toast.success("Item added succesfully"); })
+        .catch((err) => { toast.error("Item add operation failed") });
     
     }
     else {
       const quantity2=Number(quantity)+Number(Quantity1)
       const Totalcost2=Number(Total+Totalcost)
-      alert(Totalcost2)
+      // alert(Totalcost2)
       const url = "http://localhost:8070/BarInventory/update/"+ Product_Code1 ; 
       const BarInventory = { code,name , type, catogary, quantity2,Totalcost2,Reorderlevel};
       axios.put(url, BarInventory)
-        .then(() => { alert("data updated successfully"); })
-        .catch((err) => { alert(err); });
+        .then(() => {  toast.success("Item updated succesfully"); })
+        .catch((err) => { toast.error("Item update operation failed") });
     }
   }
 
@@ -146,11 +155,13 @@ function BarAdd() {
   return (
     <div>
       <Niv name="Bar Inventory" />
+      <ToastContainer position="top-right" theme="colored" /> 
       <div className="data">
         <div className="cardadd">
           <header className="baraddheader">Add Details</header>
 
-          <form onSubmit={show} className="BaraddForm">
+          {/* <form onSubmit={show} className="BaraddForm"> */}
+          <div className="BaraddForm">
             <div className="form first">
               <div class="add detail">
                 <div class="fields">
@@ -264,16 +275,19 @@ function BarAdd() {
                   {/*photo addonChange={handleFileSelect}*/}
                   <div class="input-field">
                     <label className="BaraddPhoto">photo</label>
-                    <input type="file" />
+                    <input type="file" onChange={handleFileSelect} />
                   </div>
                 </div>
 
-                <button class="BarAdd" type="submit" onClick={()=>setTotalcost(quantity*Unitcost)}>
+                <button class="BarAdd" type="submit" onClick={(e)=>{
+                 // setTotalcost(quantity*Unitcost)
+                  show(e)
+                  }}>
                   <span class="addbtn">{isEditing ? "Edit" : "Add"}</span>
                 </button>
               </div>
             </div>
-          </form>
+          </div>
           <a href="/Bar">
             <button class="Barcancel">
               <span class="addbtn">Cancel</span>
