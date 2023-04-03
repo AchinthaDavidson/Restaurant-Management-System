@@ -83,6 +83,7 @@ function BarAdd() {
       .catch((err) => { alert(err); })
 
     const newTotCost = quantity * Unitcost
+
     if (isEditing===false) {
       if (!file) {
         toast.error("Please select an image of JPG or PNG file type...");
@@ -109,7 +110,7 @@ function BarAdd() {
     }
     else {
       const quantity2=Number(quantity)+Number(Quantity1)
-      const Totalcost2=Number(Total+Totalcost)
+      const Totalcost2=Number(Total+newTotCost)
       // alert(Totalcost2)
       const url = "http://localhost:8070/BarInventory/update/"+ Product_Code1 ; 
       const BarInventory = { code,name , type, catogary, quantity2,Totalcost2,Reorderlevel};
@@ -280,7 +281,7 @@ function BarAdd() {
                 </div>
 
                 <button class="BarAdd" type="submit" onClick={(e)=>{
-                 // setTotalcost(quantity*Unitcost)
+                 setTotalcost(quantity*Unitcost)
                   show(e)
                   }}>
                   <span class="addbtn">{isEditing ? "Edit" : "Add"}</span>

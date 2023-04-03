@@ -21,7 +21,7 @@ function BarDelete() {
 
   function findcode(code) {
     setCode(code);
-    if(code.length === 3){
+    if(code.length === 1 || code.length === 2 || code.length === 3 || code.length === 4){
 
       function getItems(){
         const url = "http://localhost:8070/Bardata/find/"+code;
