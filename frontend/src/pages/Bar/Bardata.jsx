@@ -4,19 +4,19 @@ import axios from "axios";
 
 const Bardataa = (props) => {
     const id = props.id;
-    const [data1,setdata1] = useState([]);
+     const[foodlists,setFoodlists] = useState([]);
     useEffect(()=>{
         function getItems1(){
             const url="http://localhost:8070/bardata/find/"+id;
 
             axios.get(url).then((res)=>{
                 //console.log(res.data);
-                setdata1(res.data);
+                setFoodlists(res.data);
             });
         }
-        getItems1();
+        getItems1(id);
     },[])
-    console.log(data1);
+
 return(
     <div>
         <table className="">
@@ -28,14 +28,17 @@ return(
                 <th>Total cost</th>
             </tr>
         </thead>
-            {data1.map((data,index)=>{
+        <tbody>
+           
+            {foodlists.map((data1,index)=>{
             <tr key={index}>
-                <td>{data.Buy_Date}</td>
-                <td>{data.Quantity}</td>
-                <td>{data.Unit_Cost}</td>
-                <td>{data.Unit_Cost}</td>
+                <td>{data1.Buy_Date}</td>
+                <td>{data1.Quantity}</td>
+                <td>{data1.Unit_Cost}</td>
+                <td>{data1.Unit_Cost}</td>
             </tr> 
             })}
+            </tbody>
         </table>
     </div>
     );
