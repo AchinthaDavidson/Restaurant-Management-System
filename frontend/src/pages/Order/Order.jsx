@@ -151,7 +151,7 @@ function Order() {
 }
 
 function handleChange(value){
-  alert(value)
+  // alert(value)
   settable(value)
 }
 
@@ -353,6 +353,14 @@ function handleChange(value){
         };
         axios
           .post("http://localhost:8070/resInventory/updateqty", qty)
+          .then(() => {
+            // alert("order add");
+          })
+          .catch((err) => {
+            alert(err);
+          });
+          axios
+          .post("http://localhost:8070/BarInventory/updateqty", qty)
           .then(() => {
             // alert("order add");
           })
