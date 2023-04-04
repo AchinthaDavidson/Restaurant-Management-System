@@ -36,6 +36,7 @@ function BarAdd() {
     region: 'ap-south-1',
     signatureVersion: 'v4',
   });
+
   const handleFileSelect = (e) => {
   
 
@@ -49,6 +50,7 @@ function BarAdd() {
         setFile(e.target.files[0]);
     }   
   }
+
   const [Buydate, setBuydate] = useState(
     d.getUTCDate() +
       "/" +
@@ -76,10 +78,10 @@ function BarAdd() {
   const show = async (e) => {
 
     const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice};
-    // console.log(Bardata);
+    //console.log(Bardata);
     // console.log(isEditing);
     axios.post("http://localhost:8070/Bardata/add", Bardata)
-      .then(() => {  toast.success("Bar Item added succesfully");; })
+      .then(() => {  toast.success("Bar Item added succesfully");})
       .catch((err) => { alert(err); })
 
     const newTotCost = quantity * Unitcost
@@ -111,7 +113,7 @@ function BarAdd() {
     else {
       const quantity2=Number(quantity)+Number(Quantity1)
       const Totalcost2=Number(Total+newTotCost)
-      // alert(Totalcost2)
+      alert(Totalcost2)
       const url = "http://localhost:8070/BarInventory/update/"+ Product_Code1 ; 
       const BarInventory = { code,name , type, catogary, quantity2,Totalcost2,Reorderlevel};
       axios.put(url, BarInventory)
@@ -136,12 +138,12 @@ function BarAdd() {
 
   function findcode(code){
     setCode(code);
-    if(code.length === 3){
+    if(code.length === 3 || code.length === 2){
       
       items.map((items)=>{
         if(items.Product_Code.includes(code)===true){
           setproduct_code1(items.Product_Code);
-          setproduct_Name1(items.Product_Name);
+          setproduct_Name1(items.Product_Name); 
           setproduct_Type1(items.Product_Type);
           setQuantity1(items.Quantity);
           setTotal(items.Total_Cost);
