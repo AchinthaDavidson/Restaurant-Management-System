@@ -6,7 +6,8 @@ import { BsArrowUpCircle} from "react-icons/bs"
 import Resdata from "./resturantdata.jsx"
   const Restaurent = () => {
     const [items, setItems] = useState([]);
-    
+  
+
     useEffect(() => {
       function getItems() {
         axios.get("http://localhost:8070/resInventory/").then((res) => {
@@ -18,9 +19,11 @@ import Resdata from "./resturantdata.jsx"
       getItems();
     }, []);
 
+
 function Finddata(index){
   // document.getElementsByClassName("data")[index].hidden=false
   document.getElementById(index).hidden=false
+ 
 }
 function close(id){
   document.getElementById(id).hidden=true
@@ -67,14 +70,18 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
               </thead>
               <tbody>
                 {items.map((items, index) => (
+                  
                   <>
+                
                   <tr onClick={()=>Finddata(index)}>
                     <td>{items.Item_Id}</td>
                     <td>{items.Item_Name}</td>
                     <td>{items.Quantity}{items.Unit}</td>
                     <td>{items.Total_Cost}</td>
-                    <td>{items.Re_Order_Level}</td>
-                    <td>{items.Re_Order_Level}</td>
+                    <td>{items.Re_Order_Level}</td  >
+                   
+                    <td>{items.Re_Order_Level<items.Quantity ? "good" : "bad "}</td>
+                  
                   </tr>
                   <tr id={index} hidden>
                   <td colSpan={6}>
