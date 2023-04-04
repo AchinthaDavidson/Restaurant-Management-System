@@ -31,7 +31,7 @@ function close(id){
 
 var count = 0;
 for (var k in items) if (items.hasOwnProperty(k)) ++count;
-
+const [searchTerm, setSearchTerm] = useState("");
   return (
     <div>
       <Niv name="Restaurant Inventory" />
@@ -46,7 +46,9 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
     </div>  
       </div>
       <div>
-      <input type="text" style={{ height: "40px" }} placeholder="Search" />
+      <input type="text" style={{ height: "40px" }} placeholder="Search"  onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}/>
       <a href="/Restaurant/RestaurantDelete">
         <button class="delete_btn">Delete the record</button>
       </a>
@@ -69,7 +71,15 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
                 </tr>
               </thead>
               <tbody>
-                {items.map((items, index) => (
+                {items.filter((val) => {
+              if (searchTerm === "") {
+                return val;
+              } else if (
+                val.Item_Name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return val;
+              }
+            }).map((items, index) => (
                   
                   <>
                 
