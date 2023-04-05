@@ -1,6 +1,6 @@
 
 .mapContainer{
-    position: absolute;
+    position: relative;
     width: 80vh;
     height: 60vh;
     overflow: auto;
