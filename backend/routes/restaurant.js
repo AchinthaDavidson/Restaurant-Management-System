@@ -150,11 +150,11 @@ router.route("/updateqty").post(async(req,res)=>{
    const Id = req.body.list;
    
 for(let i=0;i<Id.length;i++){
-
+// console.log(Id[i]);
         food.find({_id:Id[i].Iid}).then((food)=>{
          const Ingridients=food[0].Ingridients;
        
-         console.log("hi")
+         console.log("hi resturent")
          
          Ingridient(Ingridients,Id[i].quantity)
         //  console.log(food[0].Ingridients)

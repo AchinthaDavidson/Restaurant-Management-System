@@ -6,7 +6,8 @@ import { BsArrowUpCircle} from "react-icons/bs"
 import Resdata from "./resturantdata.jsx"
   const Restaurent = () => {
     const [items, setItems] = useState([]);
-    
+  
+
     useEffect(() => {
       function getItems() {
         axios.get("http://localhost:8070/resInventory/").then((res) => {
@@ -18,9 +19,11 @@ import Resdata from "./resturantdata.jsx"
       getItems();
     }, []);
 
+
 function Finddata(index){
   // document.getElementsByClassName("data")[index].hidden=false
   document.getElementById(index).hidden=false
+ 
 }
 function close(id){
   document.getElementById(id).hidden=true
@@ -28,7 +31,7 @@ function close(id){
 
 var count = 0;
 for (var k in items) if (items.hasOwnProperty(k)) ++count;
-
+const [searchTerm, setSearchTerm] = useState("");
   return (
     <div>
       <Niv name="Restaurant Inventory" />
@@ -43,7 +46,9 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
     </div>  
       </div>
       <div>
-      <input type="text" style={{ height: "40px" }} placeholder="Search" />
+      <input type="text" style={{ height: "40px" }} placeholder="Search"  onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}/>
       <a href="/Restaurant/RestaurantDelete">
         <button class="delete_btn">Delete the record</button>
       </a>
@@ -66,15 +71,27 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
                 </tr>
               </thead>
               <tbody>
-                {items.map((items, index) => (
+                {items.filter((val) => {
+              if (searchTerm === "") {
+                return val;
+              } else if (
+                val.Item_Name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return val;
+              }
+            }).map((items, index) => (
+                  
                   <>
+                
                   <tr onClick={()=>Finddata(index)}>
                     <td>{items.Item_Id}</td>
                     <td>{items.Item_Name}</td>
                     <td>{items.Quantity}{items.Unit}</td>
                     <td>{items.Total_Cost}</td>
-                    <td>{items.Re_Order_Level}</td>
-                    <td>{items.Re_Order_Level}</td>
+                    <td>{items.Re_Order_Level}</td  >
+                   
+                    <td>{items.Re_Order_Level<items.Quantity ? "good" : "bad "}</td>
+                  
                   </tr>
                   <tr id={index} hidden>
                   <td colSpan={6}>

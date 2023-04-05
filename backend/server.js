@@ -47,7 +47,7 @@ app.use("/driver", driverRouter);
 const ResMenu = require("./routes/menu.js");
 app.use("/menu", ResMenu);
 
-const ResRouter = require("./Routes/restaurant.js");
+const ResRouter = require("./routes/restaurant.js");
 app.use("/resInventory", ResRouter);
 
 const InvtRouter = require("./routes/Inventoryfood.js");
