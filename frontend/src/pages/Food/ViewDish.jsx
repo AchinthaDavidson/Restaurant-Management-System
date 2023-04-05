@@ -197,7 +197,7 @@ const ViewDish = () => {
                                         <td> 
                                         <table  style={{width:"100%" , padding:"0 0 0 0" , margin:"0 0 0 0"}}>
                                          <tbody>
-                                                <tr><td colSpan={3}>Ingredients </td></tr>
+                                                <tr><th colSpan={4}>Ingredients </th></tr>
                                                 <tr>
                                                     <td>ID</td>
                                                     <td>Name</td>
