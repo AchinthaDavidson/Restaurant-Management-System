@@ -6,7 +6,8 @@ import {
     FaCarSide,
     FaPizzaSlice,
     FaBeer,
-    FaQuestionCircle
+    FaQuestionCircle,
+    FaMap
 }from "react-icons/fa";
 import{ImSpoonKnife}from "react-icons/im";
 import{BiFoodMenu}from "react-icons/bi";
@@ -58,6 +59,11 @@ const Sidebar = ({children}) => {
             path:"/Driver",
             name:"Driver",
             icon:<FaCarSide/>
+        },
+        {
+            path:"/Map",
+            name:"Map",
+            icon:<FaMap/>
         },
         {
             path:"/QandA",

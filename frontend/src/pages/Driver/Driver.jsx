@@ -3,7 +3,8 @@ import axios from "axios";
 import Niv from '../../components/Niv';
 import "./driver.css"
 import { useNavigate , Link} from 'react-router-dom';
-//import soup from './soup.jpeg'
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Driver = () => {
   const [driver, setdriver] = useState([]);
@@ -26,23 +27,23 @@ const Driver = () => {
     axios
       .delete(dlte)
       .then(() => {
-        alert("deleted successfully");
+        toast.success("Deleted successfully");
       })
       .catch(err => {
-        alert("error deleting");
+        toast.err("Operation failed");
     });
   };
 
     return (
         <div>
         <Niv name='Driver'/>
+        <ToastContainer position="top-right" theme="colored" /> 
         <h1 className='title'>Driver Details</h1>
-        <div class="tbl-header">
+        <div className="tbl-header">
           <a href="Driver/AddDriver">
-          <button class="add_drvr">+ New Driver</button>
+          <button className="add_drvr">+ New Driver</button>
           </a>
-
-          <table className="menu-tbl" cellpadding="0" cellspacing="0" border="0">
+          <table className="menu-tbl" cellPadding="0" cellSpacing="0" border="0">
             <thead>
                 <tr>
                 <th className='menu-th'>Driver Id</th>
@@ -56,48 +57,33 @@ const Driver = () => {
             </thead>
 
             <tbody>
-              {driver.map((driver) => (
-              <tr>
-              <td>{driver.D_Id}</td>
-              <td>{driver.name}</td>
-              <td>{driver.Email}</td>
-              <td>{driver.address}</td>
-              <td>{driver.phone_no}</td>
-              <td>{driver.password}</td>
-              <td>
-                <Link to={`/Driver/UpdateDriver/${driver._id} `}>
-                <button className='edit'>Edit</button>
-                </Link>
-                <a href = "/driver">
-                  <button className='del' onClick={(e)=> deleteRow(driver._id)}>Delete</button>
-                </a>
-                
-              </td>
+              {driver.map((driver,index) => (
+             
+              <tr key={index}>
+                <td>{driver.D_Id}</td>
+                <td>{driver.name}</td>
+                <td>{driver.Email}</td>
+                <td>{driver.address}</td>
+                <td>{driver.phone_no}</td>
+                <td>{driver.password}</td>
+                <td>
+                  <Link to={`/Driver/UpdateDriver/${driver._id} `}>
+                  <button className='edit'>Edit</button>
+                  </Link>
+                  <a href = "/driver">
+                    <button className='del' onClick={(e)=> deleteRow(driver._id)}>Delete</button>
+                  </a>
+                  
+                </td>
               </tr>
+            
               ))}
             </tbody>
-          </table>
+          </table>       
         </div>
 
-  {/*<div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <tbody>
-        <tr>
-          <td>P001</td>
-          <td>
-            <img src='src\pages\Menu\soup.jpeg'/>
-          </td>
-          <td>Soup</td>
-          <td>Rs.850</td>
-          <td>
-            <button className='edit'>Edit</button>
-            <button className='del'>Delete</button>
-          </td>
-        </tr>
+         
 
-      </tbody>
-    </table>
-    </div>*/}
   </div>
     );
 };

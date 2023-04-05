@@ -11,12 +11,9 @@ import Bar from './pages/Bar/Bar.jsx';
 import BarAdd from "./pages/Bar/BarAdd.jsx";
 import BarDelete from "./pages/Bar/BarDelete.jsx";
 import Food from './pages/Food/Food.jsx';
-
 import Waiter from './pages/Waiter/Waiter.jsx';
 import AddWaiter from './pages/Waiter/AddWaiter.jsx';
 import UpdateWaiter from './pages/Waiter/UpdateWaiter.jsx';
-
-
 import QandA from './pages/Q&A/QandA.jsx';
 import Chat from './pages/Q&A/Chat';
 import Menu from './pages/Menu/Menu';
@@ -26,6 +23,7 @@ import AddDriver from './pages/Driver/AddDriver.jsx';
 import UpdateDriver from './pages/Driver/UpdateDriver.jsx';
 import History from'./pages/Order/history.jsx';
 import ViewDish from './pages/Food/ViewDish.jsx';
+import DriverMap from './pages/Map/map.jsx'
 
 // import Loginfrom from './components/logn';
 const App = () => {
@@ -63,6 +61,8 @@ const App = () => {
           <Route path="/Driver" element={<Driver />} />
           <Route path="/Driver/AddDriver" element={<AddDriver/>} />
           <Route path="/Driver/UpdateDriver/:id" element={<UpdateDriver/>} />
+
+          <Route path="/Map" element={<DriverMap/>} />
 
           <Route path='/somewhere' render={() => <h2>You Are Somewhere</h2>} />
         </Routes>

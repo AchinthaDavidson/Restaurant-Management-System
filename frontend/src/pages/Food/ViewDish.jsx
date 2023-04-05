@@ -65,13 +65,6 @@ const ViewDish = () => {
 
     };
 
-    // return (
-    // <div>
-    // <Niv name='Food'/>   
-    // </div>
-    // );
-
-
     return(
 
         <div className="dishDataDiv" style={{width:"100%" , margin:"auto auto" , textAlign :"center"}}>
@@ -79,11 +72,9 @@ const ViewDish = () => {
             {/* <h1>View all avaliable Dishes</h1> */}
             <div className='data'>
                 <Button className='middlebtns' onClick={ () => navigate("/food")}>
-                Click here to add more Dishes
+                    Click here to add more Dishes
                 </Button>
-         
-           
-           
+            
             <Modal show={show} onHide={handleClose} className="theModal" >
                 <Modal.Header closeButton>
                  
@@ -152,6 +143,7 @@ const ViewDish = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            
             {dishes ? (
                 <div>
                     {dishes.map(dish => {
@@ -252,14 +244,14 @@ const ViewDish = () => {
                                 </tbody> 
                                 </table>
 
-                              </div>
+                            </div>
                            
                         )
                     })}
                 </div>
             ): "" }
             </div>
-            </div>
+        </div>
         );
 
 

@@ -65,6 +65,8 @@ app.use("/Bardata", bardataRouter);
 const faqRouter = require("./routes/faq.js");
 app.use("/faq", faqRouter);
 
+const themapRouter = require("./routes/map.js");
+app.use("/MAP", themapRouter);
 
 
 
