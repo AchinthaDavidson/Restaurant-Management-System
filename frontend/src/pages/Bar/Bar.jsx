@@ -59,6 +59,7 @@ const Bar = () => {
                 <td className="tbl-head">Product Name</td>
                 <td className="tbl-head">Product Type</td>
                 <td className="tbl-head">Quantity</td>
+                <td className="tbl-head">Re Order Level</td>
                 <td className="tbl-head">Total Cost</td>
                 <td className="tbl-head">Status</td>
                 {/* <td className="tbl-head">photo</td> */}
@@ -72,8 +73,9 @@ const Bar = () => {
                 <td className="view-bar-inv">{barinv.Product_Name}</td>
                 <td className="view-bar-inv">{barinv.Product_Type}</td>
                 <td className="view-bar-inv">{barinv.Quantity}</td>
+                <td className="view-bar-inv">{barinv.Re_Order_Level}</td>
                 <td className="view-bar-inv">{barinv.Total_Cost}</td>
-                <td className="view-bar-inv">{Number(barinv.Re_Order_Level)<Number(barinv.Quantity)? "bad" : "good"}</td>
+                <td className="view-bar-inv">{Number(barinv.Re_Order_Level)<Number(barinv.Quantity)? "good" : "bad"}</td>
                 {/* <td className="view-bar-inv">{barinv.ImageURL}</td> */}
               </tr>
                 <tr id={index} hidden>
@@ -97,10 +99,3 @@ const Bar = () => {
 };
 
 export default Bar;
-
-
-{/* <td colSpan={6}>
-                  <Bardata id={barinv.Product_Code}/><br/>
-                  <img style={{width:"50%" , padding:"1rem 1rem 1rem 1rem" , maxWidth:"20rem"}} src={barinv.ImageURL} alt="" />
-                  <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={20}/></label>
-                  </td> */}
