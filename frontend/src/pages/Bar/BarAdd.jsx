@@ -3,7 +3,14 @@ import Niv from "../../components/Niv";
 import "./BarAdd.css";
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
+ import S3 from 'react-aws-s3';
+import AWS from 'aws-sdk';
+window.Buffer = window.Buffer || require("buffer").Buffer;
+
+
 
 function BarAdd() {
   const d = new Date();
@@ -17,6 +24,33 @@ function BarAdd() {
   const [Unitcost, setUnitcost] = useState("");
   const [Reorderlevel, setReorderlevel] = useState("");
   const [Sellprice, setSellprice] = useState("");
+  const[ImageURL,setImageURL]=useState("");
+
+  const s3 = new AWS.S3(); 
+  const [file, setFile] = useState(null);
+  const validFileTypes = ['image/jpg','image/jpeg','image/png'];
+  AWS.config.update({
+    accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X' ,
+    secretAccessKey: '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',
+    dirName: 'images',
+    region: 'ap-south-1',
+    signatureVersion: 'v4',
+  });
+
+  const handleFileSelect = (e) => {
+  
+
+    const file_ = e.target.files[0];
+
+    if (!validFileTypes.find(type => type === file_.type)) {
+    
+        toast.error("Enter the dish Name first. Then select an JPG/PNG file type.");
+        return;
+    }else{
+        setFile(e.target.files[0]);
+    }   
+  }
+
   const [Buydate, setBuydate] = useState(
     d.getUTCDate() +
       "/" +
@@ -37,31 +71,54 @@ function BarAdd() {
   const[Expire_Date1, setExpire_Date1] = useState("");
   const[Quantity1, setQuantity1] = useState("");
   const[Re_Order_Level1, setRe_Order_Level1] = useState("");
-
   // const[Stock,setstock]=useState("");
   const[isEditing, setIsEditing] = useState(false);
 
-  const show = () => {
+  //start coding
+  const show = async (e) => {
+
     const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice};
+    //console.log(Bardata);
+    // console.log(isEditing);
     axios.post("http://localhost:8070/Bardata/add", Bardata)
-      .then(() => { alert("data added to Bardata table successfully"); })
+      .then(() => {  toast.success("Bar Item added succesfully");})
       .catch((err) => { alert(err); })
 
+    const newTotCost = quantity * Unitcost
+
     if (isEditing===false) {
-      const BarInventory = { code,name , type, catogary, quantity,Totalcost,Reorderlevel};
+      if (!file) {
+        toast.error("Please select an image of JPG or PNG file type...");
+        return;
+      }
+      if (!name) {
+        toast.error("Please ente a valid name...");
+        return;
+      }
+      const params = { 
+        Bucket: 'paladiumdishes', 
+        Key: `${Date.now()}.${name}`, 
+        Body: file 
+      };
+        const { Location } = await s3.upload(params).promise();
+        setImageURL(Location);
+      
+      
+      const BarInventory = { code,name , type, catogary, quantity,newTotCost,Reorderlevel,Location};
       axios.post("http://localhost:8070/BarInventory/add", BarInventory)
-        .then(() => { alert("data added successfully"); })
-        .catch((err) => { alert(err); });
+        .then(() => {  toast.success("Item added succesfully"); })
+        .catch((err) => { toast.error("Item add operation failed") });
+    
     }
     else {
       const quantity2=Number(quantity)+Number(Quantity1)
-      const Totalcost2=Number(Total+Totalcost)
+      const Totalcost2=Number(Total+newTotCost)
       alert(Totalcost2)
       const url = "http://localhost:8070/BarInventory/update/"+ Product_Code1 ; 
       const BarInventory = { code,name , type, catogary, quantity2,Totalcost2,Reorderlevel};
       axios.put(url, BarInventory)
-        .then(() => { alert("data updated successfully"); })
-        .catch((err) => { alert(err); });
+        .then(() => {  toast.success("Item updated succesfully"); })
+        .catch((err) => { toast.error("Item update operation failed") });
     }
   }
 
@@ -81,12 +138,12 @@ function BarAdd() {
 
   function findcode(code){
     setCode(code);
-    if(code.length === 3){
+    if(code.length === 3 || code.length === 2){
       
       items.map((items)=>{
         if(items.Product_Code.includes(code)===true){
           setproduct_code1(items.Product_Code);
-          setproduct_Name1(items.Product_Name);
+          setproduct_Name1(items.Product_Name); 
           setproduct_Type1(items.Product_Type);
           setQuantity1(items.Quantity);
           setTotal(items.Total_Cost);
@@ -101,11 +158,13 @@ function BarAdd() {
   return (
     <div>
       <Niv name="Bar Inventory" />
+      <ToastContainer position="top-right" theme="colored" /> 
       <div className="data">
         <div className="cardadd">
           <header className="baraddheader">Add Details</header>
 
-          <form onSubmit={show} className="BaraddForm">
+          {/* <form onSubmit={show} className="BaraddForm"> */}
+          <div className="BaraddForm">
             <div className="form first">
               <div class="add detail">
                 <div class="fields">
@@ -216,18 +275,22 @@ function BarAdd() {
                     />
                   </div>
 
+                  {/*photo addonChange={handleFileSelect}*/}
                   <div class="input-field">
                     <label className="BaraddPhoto">photo</label>
-                    <input type="file" />
+                    <input type="file" onChange={handleFileSelect} />
                   </div>
                 </div>
 
-                <button class="BarAdd" type="submit" onClick={()=>setTotalcost(quantity*Unitcost)}>
+                <button class="BarAdd" type="submit" onClick={(e)=>{
+                 setTotalcost(quantity*Unitcost)
+                  show(e)
+                  }}>
                   <span class="addbtn">{isEditing ? "Edit" : "Add"}</span>
                 </button>
               </div>
             </div>
-          </form>
+          </div>
           <a href="/Bar">
             <button class="Barcancel">
               <span class="addbtn">Cancel</span>

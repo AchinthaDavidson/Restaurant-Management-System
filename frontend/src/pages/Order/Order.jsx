@@ -4,9 +4,12 @@ import ReactToPrint from "react-to-print";
 import Button from "@mui/material/Button";
 import Niv from "../../components/Niv";
 import Table from "./Table";
+import Kot from"./kot";
 import axios from "axios";
 import "./Order.css";
-
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
@@ -26,6 +29,7 @@ function Order() {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [table, settable] = useState("");
   const invoiceDate = useState(
     d.getDate() +
       "/" +
@@ -45,6 +49,7 @@ function Order() {
   const [searchTerm, setSearchTerm] = useState("");
   const [staytus, setstaytus] = useState("0");
   const componentRef = useRef();
+  const kot=useRef();
   const [isEditing, setIsEditing] = useState(false);
   const [istype, setIstype] = useState(true);
   const [list, setList] = useState([]);
@@ -141,8 +146,15 @@ function Order() {
    
     document.getElementById("print1").disabled=false;
     document.getElementById("print").hidden=false;
+    document.getElementById("print2").hidden=false;
   }
 }
+
+function handleChange(value){
+  // alert(value)
+  settable(value)
+}
+
 
   // Submit form function
   const handleSubmit = (e) => {
@@ -232,7 +244,9 @@ function Order() {
   // Edit function
 
   const editRow = (id) => {
+   
     const editingRow = list.find((row) => row.id === id);
+    document.getElementById("Fname").value =editingRow.description
     setList(list.filter((row) => row.id !== id));
     setIsEditing(true);
     setDescription(editingRow.description);
@@ -345,11 +359,14 @@ function Order() {
           .catch((err) => {
             alert(err);
           });
-
-
-
-
-
+          axios
+          .post("http://localhost:8070/BarInventory/updateqty", qty)
+          .then(() => {
+            // alert("order add");
+          })
+          .catch((err) => {
+            alert(err);
+          });
 
       if (staytus === "0") {
         const neworder_cus = {
@@ -503,7 +520,7 @@ function Order() {
                   </label>
                 </div>
               </div>
-              <form onSubmit={handleSubmit}>
+              <form>
                 <div style={{ paddingTop: "10px" }}>
                   <div>
                     <label htmlFor="description">Name</label>
@@ -543,9 +560,9 @@ function Order() {
                             if (searchTerm === "") {
                               return val;
                             } else if (
-                              val.Name
-                                .toLowerCase()
-                                .includes(searchTerm.toLowerCase())
+                              val.Name.toLowerCase().includes(
+                                searchTerm.toLowerCase()
+                              )
                             ) {
                               document.getElementById(
                                 "Iname"
@@ -553,17 +570,19 @@ function Order() {
                               return val;
                             }
                           })
-                          .map((order, index) => (
-                          porder.includes(order.Name)?null:(
-                            <p
-                              className="fooddata"
-                              key={index}
-                              onClick={() =>( setdata(order.Price, order.Name,order._id)  ) }
-                            >
-                              {order.Name}
-                            </p>
+                          .map((order, index) =>
+                            porder.includes(order.Name) ? null : (
+                              <p
+                                className="fooddata"
+                                key={index}
+                                onClick={() =>
+                                  setdata(order.Price, order.Name, order._id)
+                                }
+                              >
+                                {order.Name}
+                              </p>
+                            )
                           )
-                          ))
                       : bar
                           .filter((val) => {
                             if (searchTerm === "") {
@@ -579,18 +598,20 @@ function Order() {
                               return val;
                             }
                           })
-                          .map((bar, index) => (
-                            pbar.includes(bar._id)?null:(
-
-                            <p
-                              className="fooddata"
-                              key={index}
-                              onClick={() =>( setpbar(current=>[...current,bar._id]), setdata(bar.price, bar._id))}
-                            >
-                              {bar._id}
-                            </p>
+                          .map((bar, index) =>
+                            pbar.includes(bar._id) ? null : (
+                              <p
+                                className="fooddata"
+                                key={index}
+                                onClick={() => (
+                                  setpbar((current) => [...current, bar._id]),
+                                  setdata(bar.price, bar._id)
+                                )}
+                              >
+                                {bar._id}
+                              </p>
                             )
-                          ))}
+                          )}
                   </div>
                 </div>
                 <div style={{ paddingTop: "5%", display: "flex" }}>
@@ -638,7 +659,7 @@ function Order() {
                   />
                   <label for="javascript">Dining</label>
                   <input
-                    id ="Delivery"
+                    id="Delivery"
                     type="radio"
                     name="language"
                     onClick={delivery}
@@ -647,75 +668,72 @@ function Order() {
                   <label for="javascript">Delivery</label>
                 </form>
 
+                {isdelivery ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      marginTop: "20px",
+                      // position: "relative",
+                      // display:"none"
+                    }}
+                  >
+                    <div id="T_no">
+                      <div style={{ padding: "10px" }}>
+                        <label htmlFor="phone" id="id">
+                          Enter phone :{" "}
+                        </label>
+                        <input
+                          // disabled
+                          className="Delivery"
+                          type="text"
+                          name="phone"
+                          id="phone"
+                          placeholder="Enter your phone"
+                          autoComplete="off"
+                          value={phone}
+                          onChange={(e) => findData(e.target.value)}
+                        />
+                      </div>
+                      <div style={{ padding: "10px" }}>
+                        <label htmlFor="name" id="name">
+                          Enter Name :
+                        </label>
+                        <input
+                          // disabled
 
-              {
-                isdelivery?(
-                <div
-                  style={{
-                    display: "flex",
-                    marginTop: "20px",
-                    // position: "relative",
-                    // display:"none"
-                  }}
-                >
-                  <div id="T_no" >
-                    <div style={{ padding: "10px" }}>
-                      <label htmlFor="phone" id="id">
-                        Enter phone :{" "}
-                      </label>
-                      <input
-                      
-                        // disabled
-                        className="Delivery"
-                        type="text"
-                        name="phone"
-                        id="phone"
-                        placeholder="Enter your phone"
-                        autoComplete="off"
-                        value={phone}
-                        onChange={(e) => findData(e.target.value)}
-                      />
-                    </div>
-                    <div style={{ padding: "10px" }}>
-                      <label htmlFor="name" id="name">
-                        Enter Name :
-                      </label>
-                      <input
-                        // disabled
-                       
-                        className="Delivery"
-                        type="text"
-                        name="text"
-                        id="name"
-                        placeholder="Enter your name"
-                        autoComplete="off"
-                        value={name}
-                        onChange={(e) => (
-                          setName(e.target.value), setcus_id(e.target.value)
-                        )}
-                        style={{ marginLeft: "5px" }}
-                      />
-                    </div>
+                          className="Delivery"
+                          type="text"
+                          name="text"
+                          id="name"
+                          placeholder="Enter your name"
+                          autoComplete="off"
+                          value={name}
+                          onChange={(e) => (
+                            setName(e.target.value), setcus_id(e.target.value)
+                          )}
+                          style={{ marginLeft: "5px" }}
+                        />
+                      </div>
 
-                    <div style={{ padding: "10px" }}>
-                      <label htmlFor="email" id="email">
-                        Enter email :{" "}
-                      </label>
-                      <input
-                        // disabled
-                        className="Delivery"
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        autoComplete="off"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        style={{ marginLeft: "6px" }}
-                      />
+                      <div style={{ padding: "10px" }}>
+                        <label htmlFor="email" id="email">
+                          Enter email :{" "}
+                        </label>
+                        <input
+                          // disabled
+                          className="Delivery"
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="Enter your email"
+                          autoComplete="off"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          style={{ marginLeft: "6px" }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  {/* <div
+                    {/* <div
                   style={{
                     position: "absolute",
                     marginLeft: "25%",
@@ -724,46 +742,109 @@ function Order() {
                   id="Address"
                   hidden
                 > */}
-                  <label htmlFor="address"  id="address">
-                    Address :
-                  </label>
+                    <label htmlFor="address" id="address">
+                      Address :
+                    </label>
 
-                  <textarea
-                   
-                  
-                    className="Delivery"
-                    type="text"
-                    rows="4"
-                    cols="30"
-                    name="address"
-                    id="address"
-                    placeholder="Enter your address"
-                    autoComplete="off"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    style={{ paddingTop: "2px" }}
-                  ></textarea>
-                  {/* </div> */}
-                </div>
-                ):null
-               }
-               {
-                 isdining?<div>
-                 Select Waiter :
-                 <select
-                 id="w_name"
-                   value={w_id}
-                   onChange={(e) => (setW_id(e.target.value),ordertype())}
-                   onClick={()=>ordertype()}
-                 >
-                   <option>Chose Waiter</option>
-                   {waiter.map((waiter) => (
-                     <option>{waiter.name}</option>
-                   ))}
-                 </select>
-               </div>:null
-               }
-             <div
+                    <textarea
+                      className="Delivery"
+                      type="text"
+                      rows="4"
+                      cols="30"
+                      name="address"
+                      id="address"
+                      placeholder="Enter your address"
+                      autoComplete="off"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      style={{ paddingTop: "2px" }}
+                    ></textarea>
+                    {/* </div> */}
+                  </div>
+                ) : null}
+                {isdining ? (
+                  <div>
+                    Select Waiter :
+                    <select
+                      id="w_name"
+                      value={w_id}
+                      onChange={(e) => (setW_id(e.target.value), ordertype())}
+                      onClick={() => ordertype()}
+                    >
+                      <option>Chose Waiter</option>
+                      {waiter.map((waiter) => (
+                        <option>{waiter.name}</option>
+                      ))}
+                    </select>
+                    <br />
+                    Set Table number:
+                    <br />
+                    <RadioGroup 
+                    row >
+                      <FormControlLabel
+                        value="1"
+                        control={<Radio />}
+                        label="1"
+                        onChange={()=>handleChange(1)}
+                      />
+                      <FormControlLabel
+                        value="2"
+                        control={<Radio />}
+                        label="2"
+                        onChange={()=>handleChange(2)}
+                      />
+                      <FormControlLabel
+                        value="3"
+                        control={<Radio />}
+                        label="3"
+                        onChange={()=>handleChange(3)}
+                      />
+                      <FormControlLabel
+                        value="4"
+                        control={<Radio />}
+                        label="4"
+                        onChange={()=>handleChange(4)}
+                      />{" "}
+                      <FormControlLabel
+                        value="5"
+                        control={<Radio />}
+                        label="5"
+                        onChange={()=>handleChange(5)}
+                      />
+                      <FormControlLabel
+                        value="6"
+                        control={<Radio />}
+                        label="6"
+                        onChange={()=>handleChange(6)}
+                      />{" "}
+                      <FormControlLabel
+                        value="7"
+                        control={<Radio />}
+                        label="7"
+                        onChange={()=>handleChange(7)}
+                      />
+                      <FormControlLabel
+                        value="8"
+                        control={<Radio />}
+                        label="8"
+                        onChange={()=>handleChange(8)}
+                      />{" "}
+                      <FormControlLabel
+                        value="9"
+                        control={<Radio />}
+                        label="9"
+                        onChange={()=>handleChange(9)}
+                      />
+                      <FormControlLabel
+                        value="10"
+                        control={<Radio />}
+                        label="10"
+                        onChange={()=>handleChange(10)}
+                      />
+                    </RadioGroup>
+                  </div>
+                ) : null}
+                <div
                   style={{
                     display: "flex",
                     position: "relative",
@@ -780,6 +861,7 @@ function Order() {
                       variant="contained"
                       style={{ backgroundColor: "#ff8243", color: "white" }}
                       type="submit"
+                      onClick={handleSubmit}
                     >
                       <b>{isEditing ? "Edit" : "Add "}</b>
                     </Button>
@@ -799,35 +881,48 @@ function Order() {
               maxWidth: "20%",
               minWidth: "10%",
               padding: "25px",
-              paddingLeft:"4%",
+              paddingLeft: "4%",
               whiteSpace: "nowrap",
               overflowY: "auto",
             }}
           >
-            <div onClick={sendorder} id="print1"disabled  hidden >
-            
-            <ReactToPrint 
-            focus={true}
+            <div onClick={sendorder} id="print1" disabled hidden>
+              <ReactToPrint
+                focus={true}
+                trigger={() => (
+                  <Button
+                    // style={{ backgroundColor: "#01BC90", color: "black" }}
+                    type="submit"
+                    hidden
+                    id="print"
+                  >
+                    Print Bill
+                  </Button>
+                )}
+                onBeforePrint={() => null}
+                content={() => componentRef.current}
+              
+              />
+         
 
-              trigger={() => (
-                <button
-               
-                  // style={{ backgroundColor: "#01BC90", color: "black" }}
-                  type="submit"
-                  hidden
-                  id="print"
-                  
-                >
-                  Print
-                </button>
-              )}
-              onBeforePrint={() => (null)}
+              <ReactToPrint
+                  focus={true}
+                  trigger={() => (
+                    <Button
+                    
+                    hidden
+                    id="print2"
+                    >
+                      Print KOT
+                    </Button>
+                  )}
+                  onBeforePrint={() => null}
+                  content={() => kot.current}
+                  onAfterPrint={() => window.location.reload(false)}
+                />
+            </div>
 
-              content={() => componentRef.current}
-              onAfterPrint={() => window.location.reload(false)}
-            />
-          </div>
-            <div id="printdata" ref={componentRef}  className="p-5">
+            <div id="printdata" ref={componentRef} className="p-5">
               <Table
                 invoiceNumber={order_id}
                 invoiceDate={invoiceDate}
@@ -841,6 +936,20 @@ function Order() {
                 setTotal={setTotal}
               />
             </div>
+            <div  ref={kot}>
+             
+                    <Kot
+                       invoiceNumber={order_id}
+                       invoiceDate={invoiceDate}
+                       description={description}
+                       quantity={quantity}
+                       list={list}
+                       setList={setList}
+                       setTotal={setTotal}
+                       type={type}
+                       table={table}
+                    />
+           </div>
           </div>
         </div>
         <div

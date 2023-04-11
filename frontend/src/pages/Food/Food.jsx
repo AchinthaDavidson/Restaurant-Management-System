@@ -95,13 +95,41 @@ function CreateFoodJS(){
         dish.dishCategory = selectedCategory;
         event.preventDefault();
         
+
+        // const [dish,setPost] = useState({       // this may  need to change
+        //     dishTitle : "",
+        //    
+        //  
+        //     dishIngridients : ingredient,
+        //     ImageURL : "",
+        //    
+
         if (!selectedCategory) {
             toast.error("Please select a category for the dish ...");
         return;
         }
-
         if (!file) {
             toast.error("Please select an image of JPG or PNG file type...");
+        return;
+        }
+        if (!dish.dishCategory) {
+            toast.error("Please select the category of the dish...");
+        return;
+        }
+        if (!dish.dishDescription) {
+            toast.error("Please enter a description about of the dish...");
+        return;
+        }
+        if (!dish.dishTitle) {
+            toast.error("Please enter the name of the dish...");
+        return;
+        }
+        if (!dish.dishPrice) {
+            toast.error("Please enter the price of the dish...");
+        return;
+        }
+        if (!dish.dishIngridients) {
+            toast.error("Please select all the ingredients of the dish...");
         return;
         }
 
@@ -112,8 +140,12 @@ function CreateFoodJS(){
         };
             const { Location } = await s3.upload(params).promise();
             dish.ImageURL = Location;
-            console.log('uploading to s3', Location);
-       
+           // console.log('uploading to s3', Location);
+
+        if (!dish.ImageURL) {
+            toast.error("Image uploading error occured. Dish will not be added...");
+        return;
+        }
 
        if (message.trim().length !== 0){
         axios

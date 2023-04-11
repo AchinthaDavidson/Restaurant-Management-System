@@ -27,11 +27,11 @@ const BarInvSchema = new Schema({
     },
     Buy_Date:{
         type:String,
-        required:true
+        // required:true
     },
     time:{
         type:String,
-        required:true
+        // required:true
     }
 });
 

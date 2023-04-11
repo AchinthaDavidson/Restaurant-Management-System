@@ -1,7 +1,9 @@
 import React from "react";
 import Niv from "../../components/Niv";
 import "./Bar.css";
+import { BsArrowUpCircle} from "react-icons/bs"
 import axios from "axios";
+import Bardata from "./Bardata.jsx";
 import { useState,useEffect } from "react";
 
 const Bar = () => {
@@ -18,7 +20,15 @@ const Bar = () => {
       })
     }
     getbarval();
-  },[])
+  },[]);
+  function Finddata(index){
+    // document.getElementsByClassName("data")[index].hidden=false
+    document.getElementById(index).hidden=false
+  }
+  function close(id){
+    document.getElementById(id).hidden=true
+  }
+
   var count = 0;for (var k in barinv) if (barinv.hasOwnProperty(k)) ++count;
 
   return (
@@ -41,33 +51,6 @@ const Bar = () => {
           <button className="barinvdel">Delete Bar Inventory</button>
         </a>
 
-        {/* <div className="cardinv">
-          <table className="barstatus">
-          <div className="tbl-head">
-            <tr className="tbl-head">
-            <td className="tbl-head">Product Code</td>
-              <td className="tbl-head">Product Name</td>
-              <td className="tbl-head">Product Type</td>
-              <td className="tbl-head">Quantity</td>
-              <td className="tbl-head">Status</td>
-              
-            </tr>
-            </div>
-            {barinv.map((barinv,index) =>(
-              <div>
-              <tr className="view-bar-inv" key={index}>
-              <td className="view-bar-inv">{barinv.Product_Code}</td>
-              <td className="view-bar-inv">{barinv.Product_Name}</td>
-              <td className="view-bar-inv">{barinv.Product_Type}</td>
-              <td className="view-bar-inv">{barinv.Quantity}</td>
-              <td className="view-bar-inv">good</td>
-            </tr>
-            <hr/>
-            </div>
-            ))}
-          </table>
-        </div> */}
-        
         <div className="table1">
           <table className="bar-tbl">
             <thead className="stk-tbl-head">
@@ -78,18 +61,32 @@ const Bar = () => {
                 <td className="tbl-head">Quantity</td>
                 <td className="tbl-head">Total Cost</td>
                 <td className="tbl-head">Status</td>
+                {/* <td className="tbl-head">photo</td> */}
               </tr>
             </thead>
             <tbody>
             {barinv.map((barinv,index) =>(
-              <tr className="view-bar-inv" key={index}>
-              <td className="view-bar-inv">{barinv.Product_Code}</td>
-              <td className="view-bar-inv">{barinv.Product_Name}</td>
-              <td className="view-bar-inv">{barinv.Product_Type}</td>
-              <td className="view-bar-inv">{barinv.Quantity}</td>
-              <td className="view-bar-inv">{barinv.Total_Cost}</td>
-              <td className="view-bar-inv">good</td>
-            </tr>
+              <>
+              <tr className="view-bar-inv" onClick={()=>Finddata(index)}>
+                <td className="view-bar-inv">{barinv.Product_Code}</td>
+                <td className="view-bar-inv">{barinv.Product_Name}</td>
+                <td className="view-bar-inv">{barinv.Product_Type}</td>
+                <td className="view-bar-inv">{barinv.Quantity}</td>
+                <td className="view-bar-inv">{barinv.Total_Cost}</td>
+                <td className="view-bar-inv">{Number(barinv.Re_Order_Level)<Number(barinv.Quantity)? "bad" : "good"}</td>
+                {/* <td className="view-bar-inv">{barinv.ImageURL}</td> */}
+              </tr>
+                <tr id={index} hidden>
+                  <td colSpan={4}>
+                    <Bardata id={barinv.Product_Code}/><br/>
+                  </td>
+                  <td colSpan={2}>
+                    <img style={{width:"100%" , padding:"1rem 1rem 1rem 1rem" , maxWidth:"20rem"}} src={barinv.ImageURL} alt="" />
+                  
+                    <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={25} color="red"/></label>
+                  </td>
+                </tr>
+              </>
             ))}
             </tbody>
           </table>
@@ -100,3 +97,10 @@ const Bar = () => {
 };
 
 export default Bar;
+
+
+{/* <td colSpan={6}>
+                  <Bardata id={barinv.Product_Code}/><br/>
+                  <img style={{width:"50%" , padding:"1rem 1rem 1rem 1rem" , maxWidth:"20rem"}} src={barinv.ImageURL} alt="" />
+                  <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={20}/></label>
+                  </td> */}

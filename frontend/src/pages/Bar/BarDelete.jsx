@@ -2,9 +2,9 @@ import React from "react";
 import Niv from "../../components/Niv";
 import "./BarDelete.css";
 import axios from "axios";
-import { toast ,ToastContainer } from "react-toastify"
 import { useState, useRef, useEffect } from "react";
-import "react-toastify/dist/ReactToastify.css"
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function BarDelete() {
@@ -21,7 +21,7 @@ function BarDelete() {
 
   function findcode(code) {
     setCode(code);
-    if(code.length === 3){
+    if(code.length === 1 || code.length === 2 || code.length === 3 || code.length === 4){
 
       function getItems(){
         const url = "http://localhost:8070/Bardata/find/"+code;
@@ -54,30 +54,22 @@ function BarDelete() {
     for(var i = 0 ; i<=delete1.length-1 ; i++){
       const delete2 = "http://localhost:8070/Bardata/delete/"+ delete1[i]
       axios.delete(delete2)
-      .then(()=>{
-        toast.success("food delete");
-      })
-      .catch((err)=>{
-        toast.error("cannot delete data")
-      });
+      .then(()=>{toast.success("Item deleted");})
+      .catch((err)=>{toast.error("cannot delete data")});
     }
 
     const barinventorydata = {Quantity1,cost};
-    alert(Quantity1)
-    alert(cost)
+    // alert(Quantity1)
+    // alert(cost)
     
     const url="http://localhost:8070/BarInventory/update1/"+code
     axios.post(url,barinventorydata)
-    .then(()=>{
-      alert("data updated");
-    })
-    .catch((err)=>{
-      alert(err);
-    })
+    .then(()=>{toast.success("Item updated"); })
+    .catch((err)=>{toast.error("failed to update"); })
   }
 
   
-
+  
   return (
     <div>
     <ToastContainer position="top-right" theme="colored" />
