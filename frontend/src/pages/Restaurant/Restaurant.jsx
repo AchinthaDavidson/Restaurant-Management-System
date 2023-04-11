@@ -46,7 +46,9 @@ const [searchTerm, setSearchTerm] = useState("");
     </div>  
       </div>
       <div>
-      <input type="text" style={{ height: "40px" }} placeholder="Search" />
+      <input type="text" style={{ height: "40px" }} placeholder="Search" onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }} />
       <a href="/Restaurant/RestaurantDelete">
         <button class="delete_btn">Delete the record</button>
       </a>
