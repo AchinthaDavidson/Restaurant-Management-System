@@ -18,8 +18,6 @@ const BarChart = () => {
 
   const [type, setType] = useState([]);
 
-  
-
   useEffect(() => {
     function getorder() {
       axios.get("http://localhost:8070/order/type").then((res) => {
@@ -69,9 +67,6 @@ const BarChart = () => {
     
 
   }
-
-
-
 
 
   console.log(Dining);
