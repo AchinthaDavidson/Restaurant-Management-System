@@ -82,7 +82,7 @@ const Bar = () => {
                   <td colSpan={4}>
                     <Bardata id={barinv.Product_Code}/><br/>
                   </td>
-                  <td colSpan={2}>
+                  <td colSpan={3}>
                     <img style={{width:"100%" , padding:"1rem 1rem 1rem 1rem" , maxWidth:"20rem"}} src={barinv.ImageURL} alt="" />
                   
                     <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={25} color="red"/></label>
