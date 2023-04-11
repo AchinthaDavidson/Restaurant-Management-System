@@ -43,7 +43,7 @@ for (var k in items) if (items.hasOwnProperty(k)) ++count;
     </div>  
       </div>
       <div>
-      <input type="text" style={{ height: "40px" }} placeholder="Search" />
+       <input type="text" style={{ height: "40px" }} placeholder="Search" />
       <a href="/Restaurant/RestaurantDelete">
         <button class="delete_btn">Delete the record</button>
       </a>
