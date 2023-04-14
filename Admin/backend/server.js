@@ -38,10 +38,10 @@ app.use("/orderfood", order_foodRouter);
 const foodRouter= require("./routes/food.js");
 app.use("/food", foodRouter);
 
-const waiterRouter= require("./routes/waiter");
+const waiterRouter= require("./routes/waiter.js");
 app.use("/waiter", waiterRouter);
 
-const driverRouter= require("./routes/driver");
+const driverRouter= require("./routes/driver.js");
 app.use("/driver", driverRouter);
 
 const ResMenu = require("./routes/menu.js");
