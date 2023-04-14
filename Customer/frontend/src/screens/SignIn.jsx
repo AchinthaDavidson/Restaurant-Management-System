@@ -36,7 +36,7 @@ export default function SignIn() {
     signIn({ username, password })
       .then((response) => {
         localStorage.setItem("userData", JSON.stringify(response));
-        window.location.href = "/dashboard";
+        window.location.href = "/Home";
       })
       .catch((err) => {
         setError("Invalid email or password");
@@ -47,7 +47,7 @@ export default function SignIn() {
     googleAuth({ token: response.credential })
       .then((response) => {
         localStorage.setItem("userData", JSON.stringify(response));
-        window.location.href = "/dashboard";
+        window.location.href = "/Home";
       })
       .catch((err) => {
         setError("Login Error");

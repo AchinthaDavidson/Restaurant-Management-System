@@ -8,7 +8,10 @@ import ForgotPass from "./screens/ForgotPass";
 import OtpScreen from "./screens/OtpScreen";
 import ResetPass from "./screens/ResetPass";
 import Dashboard from "./screens/Dashboard";
-
+import Homepage from './screens/Homepage/homepage';
+import Menu from './screens/Menu/Menu';
+import FAQ from './screens/FAQ/FAQ';
+import Chat from './screens/Chat/Chat'
 function App() {
   return (
     <div className="App">
@@ -20,6 +23,10 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPass />} />
           <Route path="/forgot-password/validate" element={<OtpScreen />} />
           <Route path="/forgot-password/reset" element={<ResetPass />} />
+          <Route path="/Home" element={<Homepage />} />
+          <Route path="/Menu" element={<Menu />} />
+          <Route path="/FAQs" element={<FAQ />} />
+          <Route path="/Chat" element={<Chat />} />
         </Routes>
       </BrowserRouter>
     </div>
