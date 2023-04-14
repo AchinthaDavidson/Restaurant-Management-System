@@ -67,7 +67,7 @@ function editrow(index ,id){
         <div className="data">
          <h1 className='title'></h1>
         <div class="tbl-header">
-        <input type="text" style={{ height: "40px"}} placeholder="Search" />
+        <input type="text" style={{ height: "40px"}} placeholder=" Search" />
           <a href="Menu/addMenu">
           <button class="add_pdct">+ New Product</button>
           </a>
