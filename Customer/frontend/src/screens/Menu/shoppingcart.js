@@ -42,16 +42,15 @@ function ShoppingCart({
 							key={product.id}>
 							<img
 								src={
-									product.image
-								}
-								alt={product.name}
+									product.ImageURL}
+								alt={product.Name}
 							/>
 							<div className="product-info">
 								<h3>
-									{product.name}
+									{product.Name}
 								</h3>
 								<span className="product-price">
-									Rs. {product.price *
+									Rs. {product.Price *
 										product.count}
 									
 								</span>

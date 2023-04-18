@@ -6,7 +6,7 @@ import logo from '../../Images/logo.png';
 import newtag from '../../Images/new.png';
 import pizza from '../../Images/pizza.png';
 import Header from "../../components/header";
-// import Footer from "../../components/Footer.jsx";
+import Footer from "../../components/Footer.jsx";
 import './Homepage.css';
 import { useNavigate } from "react-router-dom";
 
@@ -99,7 +99,7 @@ function Homepage(){
 
 </div>
 
-{/* <Footer/> */}
+<Footer/>
 
 </div>
     )

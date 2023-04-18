@@ -6,6 +6,7 @@ const {
 } = require("../configs/server");
 const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
+const food=require("../models/food");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const mongoose = require("mongoose");
@@ -264,3 +265,13 @@ exports.updateUser = (req, res) => {
     }
   });
 };
+
+exports.getdish=(req, res) => {
+
+  food.find().then((food)=>{
+    res.json(food)
+}).catch((err)=>{
+    console.log(err)
+})
+
+}
