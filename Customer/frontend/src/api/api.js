@@ -106,3 +106,17 @@ export function restPass(formData) {
       });
   });
 }
+
+
+// export function dish() {
+//   return new Promise((resolve, reject) => {
+//     axios
+//     .get("http://localhost:5000/auth/dish")
+//     .then((res) => {
+//        console.log(res.data);
+//        console.log("hi")
+//         // setDishes(res.data);
+//     })
+//     .catch((err) =>console.log(err))
+//   });
+// }

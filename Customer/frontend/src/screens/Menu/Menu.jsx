@@ -1,63 +1,70 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header";
-// import Footer from "../../components/Footer";
+import axios from "axios";
+import Footer from "../../components/Footer";
 import ShoppingCart from "./shoppingcart";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
 import "./menu.css";
+import { dish} from "../../api/api";
+// const products = [
+//   {
+//     id: 1,
+//     name: "Tomato and Onion Salad",
+//     price: 550,
+//     image: require("../../Images/chicken2.png"),
+//   },
+//   {
+//     id: 2,
+//     name: "Cucumber Salad",
+//     price: 500,
+//     image: require("../../Images/beef.png"),
+//   },
+//   {
+//     id: 3,
+//     name: "Tomato and Onion Salad",
+//     price: 550,
+//     image: require("../../Images/pork.png"),
+//   },
+//   {
+//     id: 4,
+//     name: "Cucumber Salad",
+//     price: 500,
+//     image: require("../../Images/chicken.png"),
+//   },
+//   {
+//     id: 5,
+//     name: "Tomato and Onion Salad",
+//     price: 550,
+//     image: require("../../Images/chicken3.png"),
+//   },
+//   {
+//     id: 6,
+//     name: "Cucumber Salad",
+//     price: 500,
+//     image: require("../../Images/pork2.png"),
+//   },
+//   {
+//     id: 7,
+//     name: "Cucumber Salad",
+//     price: 500,
+//     image: require("../../Images/COCA COLA.png"),
+//   },
+//   {
+//     id: 8,
+//     name: "Cucumber Salad",
+//     price: 500,
+//     image: require("../../Images/SPRITE.png"),
+//   },
+// ];
 
-const products = [
-  {
-    id: 1,
-    name: "Tomato and Onion Salad",
-    price: 550,
-    image: require("../../Images/chicken2.png"),
-  },
-  {
-    id: 2,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/beef.png"),
-  },
-  {
-    id: 3,
-    name: "Tomato and Onion Salad",
-    price: 550,
-    image: require("../../Images/pork.png"),
-  },
-  {
-    id: 4,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/chicken.png"),
-  },
-  {
-    id: 5,
-    name: "Tomato and Onion Salad",
-    price: 550,
-    image: require("../../Images/chicken3.png"),
-  },
-  {
-    id: 6,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/pork2.png"),
-  },
-  {
-    id: 7,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/COCA COLA.png"),
-  },
-  {
-    id: 8,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/SPRITE.png"),
-  },
-];
+
+
+
 
 function Menu() {
+
+
   const [cartsVisibilty, setCartVisible] = useState(false);
   const [productsInCart, setProducts] = useState(
     JSON.parse(localStorage.getItem("shopping-cart")) || []
@@ -94,6 +101,37 @@ function Menu() {
       return [...oldState];
     });
   };
+
+  const [products, setproducts] = useState([]);
+  
+  useEffect(() => {
+  axios
+    .get("http://localhost:5000/food/")
+    .then((res) => {
+       setproducts(res.data);
+       console.log("hi")
+        // setDishes(res.data);
+    })
+    .catch((err) =>console.log(err))
+  });
+
+
+
+      
+    
+      
+    
+      
+      
+
+
+
+
+
+
+
+console.log(products)
+
 
   return (
     <>
@@ -138,12 +176,12 @@ function Menu() {
               {products.map((product) => (
                 <div className="food-items">
                   <div className="image">
-                    <img src={product.image} alt="menu" />
+                    <img src={product.ImageURL} alt="menu" />
                   </div>
                   <div className="details">
                     <div className="details-sub">
-                      <h5>{product.name}</h5>
-                      <h5 class="price">Rs.{product.price}</h5>
+                      <h5>{product.Name}</h5>
+                      <h5 class="price">Rs.{product.Price}</h5>
                     </div>
 
                     <bottom>
@@ -161,7 +199,7 @@ function Menu() {
           </body>
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
