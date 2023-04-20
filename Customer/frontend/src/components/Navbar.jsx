@@ -9,7 +9,7 @@ export default function Navbar({ user }) {
     let _userInfo = localStorage.getItem("loginInfo");
     setUserInfo(JSON.parse(_userInfo));
   }, []);
-
+console.log(userInfo)
   return (
     <div className="navbar-container">
       <div className="container navbar">

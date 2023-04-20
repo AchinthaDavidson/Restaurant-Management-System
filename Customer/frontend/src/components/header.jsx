@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../App.css';
+
 import logo from '../Images/logo.png';
 // import { Outlet, Link } from "react-router-dom";
 
@@ -9,6 +10,26 @@ console.log(logo);
 
 function Header(){
 
+    const [isprofile, setprofil] = useState(false);
+   
+
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+      let res = JSON.parse(localStorage.getItem("userData"));
+      if (!res) {
+        
+      }
+      else{
+
+      setprofil(true)
+      console.log(res);
+      setUser(res);
+      }
+    }, []);
+
+
+    console.log()
 
     return(
      
@@ -30,7 +51,8 @@ function Header(){
 
                 
                 <div class="navbar-nav" style={{marginLeft:"65%"}}>
-                    <a href="/login" class="nav-item nav-link" ><button class="lgBtn">Sign In</button></a>
+                  {isprofile?user.user.name:(<a href="/Signin" class="nav-item nav-link" ><button class="lgBtn">hhhh</button></a>)}
+                    
                 </div> 
                 
             </div>
