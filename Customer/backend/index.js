@@ -32,27 +32,20 @@ app.use(bodyParser.json());
 //   await mongoose.connect(MONGO_URL);
 // }
 
-
 mongoose.connect(MONGO_URL, {
-    
-  useNewUrlParser: true
- 
- 
-})
+  useNewUrlParser: true,
+});
 
-const connection =mongoose.connection;
-connection.once("open",()=>{
+const connection = mongoose.connection;
+connection.once("open", () => {
   console.log("db connect success!");
-})
-
-
+});
 
 app.use("/auth", authRoutes);
 app.use("/user", passport.authenticate("jwt", { session: false }), userRoutes);
 
-const foodRouter= require("./src/routes/food");
+const foodRouter = require("./src/routes/food");
 app.use("/food", foodRouter);
-
 
 app.listen(port, () => {
   console.log(`server started in port ${port}`);
