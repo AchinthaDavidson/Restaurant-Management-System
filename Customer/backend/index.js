@@ -47,6 +47,9 @@ app.use("/user", passport.authenticate("jwt", { session: false }), userRoutes);
 const foodRouter = require("./src/routes/food");
 app.use("/food", foodRouter);
 
+const faqRouter = require("./src/routes/faq");
+app.use("/faq", faqRouter);
+
 app.listen(port, () => {
   console.log(`server started in port ${port}`);
 });

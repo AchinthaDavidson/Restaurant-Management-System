@@ -30,6 +30,10 @@
     font-size: 30px;
 }
 
+.rotated {
+    transform: rotate(180deg);
+  }
+
 .text{
     font-family: 'Arial';
     font-size: 20px;

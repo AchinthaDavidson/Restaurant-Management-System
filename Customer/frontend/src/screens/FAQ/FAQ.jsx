@@ -2,7 +2,8 @@ import React, {useState, useEffect}from "react";
 import Header from "../../components/header";
 // import Footer from "../../components/Footer";
 import "./faq.css";
-import {BsChevronExpand} from "react-icons/bs";
+import { IconContext } from 'react-icons';
+import {BsChevronDown,BsChevronUp } from "react-icons/bs";
 import {GrSend} from "react-icons/gr"
 import {CiUser, CiCreditCard2,CiDeliveryTruck, CiFries} from "react-icons/ci";
 import SearchBar from "./searchbar";
@@ -13,26 +14,33 @@ const faqcats = [
 	{
 		name: "Account",
 		icon: <CiUser/>,
+        arrow:<BsChevronDown/>
 	},
 	{
 		name: "Payment",
 		icon: <CiCreditCard2/>,
+        arrow:<BsChevronDown/>
 	},
 	{
-		name: "Order",
+		name: "Orders",
 		icon: <CiFries/>,
+        arrow:<BsChevronDown/>
 	},
 	{
 		name: "Delivery",
 		icon:<CiDeliveryTruck/>,
+        arrow:<BsChevronDown/>
 	}
 ];
 
 function FAQ(){
 
     const [toggle, setToggle] = React.useState({});
+    const [selected, setSelected] = useState(-1);
 
-    function toggleFunction(id) {
+
+    function toggleFunction(id, index) {
+        setSelected(selected === index ? -1 : index);
         setToggle({
         ...toggle,
         [id]: !toggle[id],
@@ -42,7 +50,7 @@ function FAQ(){
     const [faq, setFaq] = useState([]);
     useEffect(() => {
     function getFaq() {
-      axios.get("http://localhost:8070/faq/").then((res) => {
+      axios.get("http://localhost:5000/faq/").then((res) => {
         setFaq(res.data);
       }).catch((err) =>{
         alert(err);
@@ -50,6 +58,8 @@ function FAQ(){
     }
     getFaq();
     }, []);
+
+    
 
 
     return(
@@ -62,20 +72,14 @@ function FAQ(){
             <div class="maintxt">
             <h1 style={{color:"#ffffff"}}>Frequently Asked Questions</h1>
             
-<SearchBar></SearchBar>
-            {/* <div className="wrapper">
-      <h2>Latest HN Stories</h2>
-      {loading && <div>HackerNews frontpage stories loading...</div>}
-      {error && <div>{`Problem fetching the HackeNews Stories - ${error}`}</div>}
-      <SearchBar keyword={keyword} onChange={updateKeyword}/>
-    </div> */}
+            <SearchBar/>
 
             </div>
         
 
         <div class="container">
 
-                {faqcats.map((faqcats) =>(
+                {faqcats.map((faqcats, index) =>(
                     <div className="box">
                         <div className="icon">
                             {faqcats.icon}
@@ -85,8 +89,11 @@ function FAQ(){
                         </div>
 
                         <div className="btnE"
-                            onClick={() => toggleFunction(faqcats.name)}
-                        ><BsChevronExpand/></div>
+                            onClick={() => toggleFunction(faqcats.name, index)}>
+                                <IconContext.Provider value={{ size: '1em', className: selected === index ? 'rotated' : '' }}>
+                            {faqcats.arrow}
+                            </IconContext.Provider>
+                        </div>
 
                         {toggle[faqcats.name] &&
                         (
@@ -109,10 +116,10 @@ function FAQ(){
 
                 <div className="btm">
                     <h3>Couldn't find what you're looking for?</h3>
-                    <a href="/Chat">
-                    <button className="button-2">Chat with Admin  <GrSend/>
+                    {/* <a href="/Chat"> */}
+                    <button className="button-2" >Chat with Admin  <GrSend/>
                     </button>
-                    </a>
+                  
                     
                 </div>
 
@@ -122,7 +129,7 @@ function FAQ(){
 
 
         </div>
-        {/* <Footer/> */}
+       
         </>
     )
 }
