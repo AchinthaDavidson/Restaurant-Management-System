@@ -116,10 +116,12 @@ function FAQ(){
 
                 <div className="btm">
                     <h3>Couldn't find what you're looking for?</h3>
-                    {/* <a href="/Chat"> */}
+                    <a href="/Chat">
                     <button className="button-2" >Chat with Admin  <GrSend/>
+                
                     </button>
-                  
+                    </a>
+    
                     
                 </div>
 
