@@ -151,7 +151,7 @@ function Menu() {
                         Add To Cart
                       </button>
                       <fav>
-                        <MdFavorite size={30} />
+                        {/* <MdFavorite size={30} /> */}
                       </fav>
                     </bottom>
                   </div>
