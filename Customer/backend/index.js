@@ -50,6 +50,10 @@ app.use("/food", foodRouter);
 const faqRouter = require("./src/routes/faq");
 app.use("/faq", faqRouter);
 
+const menurout = require("./src/routes/menu");
+app.use("/menu", menurout);
+
+
 app.listen(port, () => {
   console.log(`server started in port ${port}`);
 });

@@ -337,6 +337,7 @@ function handleChange(value){
         cus_id,
         type,
         total,
+        address,
       };
       axios
         .post("http://localhost:8070/order/add", neworder)
