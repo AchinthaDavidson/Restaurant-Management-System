@@ -30,7 +30,14 @@ const orderSchema=new Schema({
     amout:{
         type: Number,
        
-    }
+    },
+    status:{
+        type: String,
+       
+    },
+    location:{
+        type: String,
+    },
     
 })
 const order = mongoose.model("order",orderSchema);

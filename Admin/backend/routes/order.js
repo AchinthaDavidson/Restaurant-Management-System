@@ -16,6 +16,9 @@ router.route("/add").post((req,res)=>{
     const  date     =d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear();
     const  time     =d.getHours()+":"+d.getMinutes()
     const  amout    = Number( req.body.total);
+    const  status= "pending"
+    const location = req.body.address;
+
 
     // const order_id ='1';
     // const  w_id     ="vsfgsg"
@@ -26,15 +29,18 @@ router.route("/add").post((req,res)=>{
     // const  time     =d.getHours()+":"+d.getMinutes()
     // const  amout    = "Number( req.body.total)"
     const neworder =new  order({
+
         order_id,
         w_id,   
         cus_id,
         type,
         date,
         time,
-        amout    
+        amout,
+        status,    
+        location
     })
-
+    console.log(neworder)
     neworder.save().then(()=>{
         res.json("save details")
     }).catch((err)=>{

@@ -6,7 +6,7 @@ import ShoppingCart from "./shoppingcart";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
 import "./menu.css";
-import { dish} from "../../api/api";
+import { dish } from "../../api/api";
 // const products = [
 //   {
 //     id: 1,
@@ -58,14 +58,10 @@ import { dish} from "../../api/api";
 //   },
 // ];
 
-
-
-
-
 function Menu() {
-
-
+  const [searchTerm, setSearchTerm] = useState("");
   const [cartsVisibilty, setCartVisible] = useState(false);
+  const [search, setSearch] = useState(true);
   const [productsInCart, setProducts] = useState(
     JSON.parse(localStorage.getItem("shopping-cart")) || []
   );
@@ -103,36 +99,60 @@ function Menu() {
   };
 
   const [products, setproducts] = useState([]);
-  
+  const [menu, setmenu] = useState([]);
+
   useEffect(() => {
-  axios
-    .get("http://localhost:5000/food/")
-    .then((res) => {
-       setproducts(res.data);
-       console.log("hi")
+    axios
+      .get("http://localhost:5000/food/")
+      .then((res) => {
+        setproducts(res.data);
+
         // setDishes(res.data);
-    })
-    .catch((err) =>console.log(err))
+      })
+      .catch((err) => console.log(err));
   });
 
 
 
-      
-    
-      
-    
-      
-      
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/menu/")
+      .then((res) => {
+        setmenu(res.data);
+
+        // setDishes(res.data);
+      })
+      .catch((err) => console.log(err));
+  });
 
 
+  const handlePasswordChange = (e) => {
+    setSearchTerm(e.target.value);
 
+    if (searchTerm.length >=0 ){
+      setSearch(false)
+      // alert(searchTerm.length)
+      // alert(searchTerm)
+    }
+ if (searchTerm.length ==0 ){
+      setSearch(true)
+      // alert(searchTerm.length)
+      // alert(searchTerm)
+    }
+  };
 
+  // function searchdata(){
 
-
-
-console.log(products)
-
-
+  
+  // if (search.length > 0){
+  //   setSearch(false)
+  //   alert(search)
+  // }
+  // else{
+  //   setSearch(true)
+  //   alert("da")
+  // }
+  // }
   return (
     <>
       <Header />
@@ -172,30 +192,91 @@ console.log(products)
               </button>
             </div>
 
-            <div className="menu">
-              {products.map((product) => (
-                <div className="food-items">
-                  <div className="image">
-                    <img src={product.ImageURL} alt="menu" />
-                  </div>
-                  <div className="details">
-                    <div className="details-sub">
-                      <h5>{product.Name}</h5>
-                      <h5 class="price">Rs.{product.Price}</h5>
-                    </div>
+            <input
+              type="search"
+              placeholder="search food....."
+              // onChange={(event) => {setSearchTerm(event.target.value),{handlePasswordChange}} }
+              onChange={handlePasswordChange}
+              // setSearchTerm(event.target.value)
+            />
 
-                    <bottom>
-                      <button onClick={() => addProductToCart(product)}>
-                        Add To Cart
-                      </button>
-                      <fav>
-                        <MdFavorite size={30} />
-                      </fav>
-                    </bottom>
+            {search ? (
+              <div className="menu">
+                {menu.map((menu) => (
+                  <div>
+                    <div style={{ color: "white" }}>{menu.Name}</div>
+
+                    {products
+                      .filter((val) => {
+                        if (val.Category.includes(menu.Name)) {
+                          return val;
+                        }
+                      })
+
+                      .map((product) => (
+                        <div className="food-items">
+                          <div className="image">
+                            <img src={product.ImageURL} alt="menu" />
+                          </div>
+                          <div className="details">
+                            <div className="details-sub">
+                              <h5>{product.Name}</h5>
+                              <h5 class="price">Rs.{product.Price}</h5>
+                            </div>
+
+                            <bottom>
+                              <button onClick={() => addProductToCart(product)}>
+                                Add To Cart
+                              </button>
+                              <fav>
+                                <MdFavorite size={30} />
+                              </fav>
+                            </bottom>
+                          </div>
+                        </div>
+                      ))}
+                    <br />
                   </div>
+                ))}
+              </div>
+            ) :(
+              <div className="menu">
+              {products
+                .filter((val) => {
+                  if (searchTerm === "") {
+                    return val;
+                  } else if (
+                    val.Name.toLowerCase().includes(searchTerm.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+
+                .map((product) => (
+                  <div className="food-items">
+                    <div className="image">
+                      <img src={product.ImageURL} alt="menu" />
+                    </div>
+                    <div className="details">
+                      <div className="details-sub">
+                        <h5>{product.Name}</h5>
+                        <h5 class="price">Rs.{product.Price}</h5>
+                      </div>
+
+                      <bottom>
+                        <button onClick={() => addProductToCart(product)}>
+                          Add To Cart
+                        </button>
+                        <fav>
+                          <MdFavorite size={30} />
+                        </fav>
+                      </bottom>
+                    </div>
+                  </div>
+                  
+                ))}
                 </div>
-              ))}
-            </div>
+            )}
           </body>
         </div>
       </div>
