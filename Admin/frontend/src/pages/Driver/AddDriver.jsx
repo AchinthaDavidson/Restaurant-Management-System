@@ -3,6 +3,7 @@ import Niv from "../../components/Niv";
 import "./addDriver.css";
 import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
+import Notification from "../../components/Notification";
 
 const AddDriver = () => {
 
@@ -34,6 +35,7 @@ const AddDriver = () => {
   return (
     <div>
       <Niv name="Driver/ Add Driver" />
+      <Notification/>
       <div className="data">
       <div className="menuAdd">
         <header>New Driver</header>
