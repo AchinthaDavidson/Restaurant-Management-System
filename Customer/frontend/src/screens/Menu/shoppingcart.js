@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./shoppingcart.css";
 import { IoMdCloseCircle } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -9,7 +9,18 @@ function ShoppingCart({
 	onProductRemove,
 	onClose,
 	onQuantityChange,
-}) {
+})
+{
+	const handleButtonClick = () => {
+			let res = JSON.parse(localStorage.getItem("userData"));
+			if (!res) {
+				window.location.href = "/Signin"
+			}
+			else{
+
+			}
+	}
+
 	return (
 		<div
 			className="model"
@@ -85,7 +96,7 @@ function ShoppingCart({
 						</div>
 					))}
 					{products.length > 0 && (
-						<button className="btn checkout-btn">
+						<button className="btn checkout-btn" onClick={handleButtonClick}>
 							Proceed to checkout
 						</button>
 					)}

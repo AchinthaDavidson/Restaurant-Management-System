@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
  import S3 from 'react-aws-s3';
 import AWS from 'aws-sdk';
+import Notification from "../../components/Notification";
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 
@@ -158,6 +159,7 @@ function BarAdd() {
   return (
     <div>
       <Niv name="Bar Inventory" />
+      <Notification/>
       <ToastContainer position="top-right" theme="colored" /> 
       <div className="data">
         <div className="cardadd">

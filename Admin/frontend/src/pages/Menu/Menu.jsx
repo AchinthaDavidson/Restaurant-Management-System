@@ -5,10 +5,12 @@ import "./menu.css"
 import soup from './soup.jpeg'
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Notification from "../../components/Notification";
 
 const Menu = () => {
   const [product, setProduct] = useState([]);
   const [name, setname] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {
     function getproduct() {
       axios.get("http://localhost:8070/menu/").then((res) => {
@@ -64,10 +66,13 @@ function editrow(index ,id){
     return (
         <div>
         <Niv name='Menu'/>
+        <Notification/>
         <div className="data">
          <h1 className='title'></h1>
         <div class="tbl-header">
-        <input type="text" style={{ height: "40px"}} placeholder=" Search" />
+        <input type="text" style={{ height: "40px" }} placeholder=" Search Items..." onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }} />
           <a href="Menu/addMenu">
           <button class="add_pdct">+ New Product</button>
           </a>
@@ -82,7 +87,15 @@ function editrow(index ,id){
             </thead>
 
             <tbody>
-              {product.map((product,index) => (
+              {product.filter((val) => {
+              if (searchTerm === "") {
+                return val;
+              } else if (
+                val.Name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return val;
+              }
+            }).map((product,index) => (
               <tr>
               <td>{product.category_Id}</td>
               <td>

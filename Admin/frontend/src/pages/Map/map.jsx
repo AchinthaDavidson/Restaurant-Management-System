@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
+import Notification from "../../components/Notification";
 import Niv from '../../components/Niv';
 import { GoogleMap, Marker, useJsApiLoader, Autocomplete,DirectionsRenderer } from '@react-google-maps/api';
 import { toast, ToastContainer } from "react-toastify";
@@ -75,6 +76,7 @@ export default function DriverMap() {
         return(
             <div>
             <Niv name='Driver Map'/>
+            <Notification/>
             <ToastContainer position="top-right" theme="colored" /> 
             <div className="data">
                

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/dashboard.css";
+import Header from "../components/header";
 
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 import Select from "../components/Select";
@@ -62,7 +63,7 @@ export default function Dashboard() {
   };
   return (
     <div className="dashboard-wrapper">
-      <Navbar user={user} />
+      <Header/>
       <div className="container dashboard-container">
         <div className="dashboard-content">
           <span className="title">Personal Details</span>

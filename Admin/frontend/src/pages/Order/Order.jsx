@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { width } from "@mui/system";
+import Notification from "../../components/Notification";
 // import { color } from "@mui/system";
 // import { display } from "@mui/system";
 
@@ -337,6 +338,7 @@ function handleChange(value){
         cus_id,
         type,
         total,
+        address,
       };
       axios
         .post("http://localhost:8070/order/add", neworder)
@@ -436,6 +438,7 @@ function handleChange(value){
     <div>
       <ToastContainer position="top-right" theme="colored" />
       <Niv name="Order" />
+      <Notification/>
       <div className="data">
         <div style={{ display: "flex", position: "relative" }}>
           <div>

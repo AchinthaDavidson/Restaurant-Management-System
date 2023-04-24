@@ -5,11 +5,12 @@ import { BsArrowUpCircle} from "react-icons/bs"
 import axios from "axios";
 import Bardata from "./Bardata.jsx";
 import { useState,useEffect } from "react";
+import Notification from "../../components/Notification";
 
 const Bar = () => {
 
   const[barinv, setbar] = useState([]);
-
+  const [searchTerm, setSearchTerm] = useState("");
   useEffect(()=>{
     const getbarval = () =>{
       axios.get("http://localhost:8070/barInventory/")
@@ -34,6 +35,7 @@ const Bar = () => {
   return (
     <div>
       <Niv name="Bar Inventory" />
+      <Notification/>
       <div className="data">
       <div style={{display:'flex', margin: '1em',borderStyle:"solid",borderLeftWidth:"5px",width:'25%',borderColor:" white white white #0077be",backgroundColor:"white",borderRadius:"9px"}}>
           <div style={{flexGrow: '1' ,paddingTop:"5px",paddingLeft:"5px",fontSize:'30px'}}>Stock Summary</div>
@@ -42,7 +44,9 @@ const Bar = () => {
             <div style={{fontSize:'10px'}}> Available Product In Stock</div>
           </div>
         </div>
-
+        <input type="text" style={{ height: "40px" }} placeholder=" Search Items..." onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }} />
         <a href="Bar/BarAdd">
           <button className="barinvadd">Add Bar Inventory </button>
         </a>
@@ -66,7 +70,15 @@ const Bar = () => {
               </tr>
             </thead>
             <tbody>
-            {barinv.map((barinv,index) =>(
+            {barinv.filter((val) => {
+              if (searchTerm === "") {
+                return val;
+              } else if (
+                val.Product_Name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return val;
+              }
+            }).map((barinv,index) =>(
               <>
               <tr className="view-bar-inv" onClick={()=>Finddata(index)}>
                 <td className="view-bar-inv">{barinv.Product_Code}</td>
