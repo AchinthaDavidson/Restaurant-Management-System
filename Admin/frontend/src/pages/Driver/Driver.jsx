@@ -5,6 +5,7 @@ import "./driver.css"
 import { useNavigate , Link} from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Notification from "../../components/Notification";
 
 const Driver = () => {
   const [driver, setdriver] = useState([]);
@@ -37,6 +38,7 @@ const Driver = () => {
     return (
         <div>
         <Niv name='Driver'/>
+        <Notification/>
         <ToastContainer position="top-right" theme="colored" /> 
         <h1 className='title'>Driver Details</h1>
         <div className="tbl-header">

@@ -4,6 +4,7 @@ import './foodcss.css';
 import React, { useState ,useEffect ,Component } from "react";
 import axios  from "axios";
 import Niv from "../../components/Niv";
+import Notification from "../../components/Notification";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import S3 from 'react-aws-s3';
@@ -216,6 +217,7 @@ function CreateFoodJS(){
       
         <div /*style={{width:"90%" , margin:"auto auto" , textAlign :"center"}}*/
             className="dishDataDiv">    
+            <Notification/>
         
             <ToastContainer position="top-right" theme="colored" /> 
             <Niv name="Add a Dish" />

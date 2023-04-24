@@ -4,6 +4,7 @@ import "./faq.css";
 import { AiFillDelete,AiFillEdit} from "react-icons/ai";
 import {BsEnvelope, BsPlusLg} from 'react-icons/bs';
 import axios from "axios";
+import Notification from "../../components/Notification";
 
 const QandA = () => {
 
@@ -56,6 +57,7 @@ const QandA = () => {
     return (
         <div>
             <Niv name='Frquently Asked Questions'/>
+            <Notification/>
             <div className='data'>
             <a href='/QandA/chat'>
             <button class="btn12"><BsEnvelope size={20}/>&nbsp;&nbsp;Check Customer Messages</button>

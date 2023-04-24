@@ -12,7 +12,7 @@ import Income from "./income";
 import Enventory from "./enventory";
 import Barchart from "./barChart.jsx";
 import Topsales from "./Topsales.jsx";
-
+import Notification from "../../components/Notification";
 
 
 
@@ -22,6 +22,7 @@ const Dashboard = () => {
   return (
     <div style={{}}>
       <Niv name="Dashboard" />
+      <Notification/>
       <div className="data">
         <div style={{ display: "flex", position: "relative" }}>
           <div>

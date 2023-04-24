@@ -24,6 +24,7 @@ import UpdateDriver from './pages/Driver/UpdateDriver.jsx';
 import History from'./pages/Order/history.jsx';
 import ViewDish from './pages/Food/ViewDish.jsx';
 import DriverMap from './pages/Map/map.jsx'
+import Notification from './components/Notification'
 
 // import Loginfrom from './components/logn';
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/Notification" element={<Notification />} />
           <Route path="/Order" element={<Order />} />
           <Route path="/Order/history" element={<History />} />
 
