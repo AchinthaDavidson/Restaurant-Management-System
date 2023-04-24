@@ -1,0 +1,89 @@
+.mainPage{
+
+    padding-left: 2rem;
+    padding-top: 2rem;
+    padding-right: 2rem;
+    margin: auto auto;
+    background: rgb(244, 240, 240);
+    overflow-y: scroll;
+    min-height: 120vh;
+    font-family: "Poppins", sans-serif;
+}
+.mainTable{
+
+    background-color: rgb(255, 255, 255);
+    margin-right: 5%;
+    margin-left: 5%;
+    border-radius: 20px;
+    margin: auto auto;
+    font-size: 1.2rem;
+    z-index: 1;
+}
+
+.del-tbl-head{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgba(53, 39, 68, 1);
+    color: white;
+    border: 1px solid #ddd;
+    padding: 8px;
+    margin: 2rem 2rem 2rem 2rem;
+}
+
+/* tr:nth-child(even){background-color: #f2f2f2;} */
+
+.homeTR:hover {background-color: #ddd;}
+
+.homeTD{
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 2rem 2rem 2rem 2rem;
+   text-align: left;
+}
+
+.middlebtns{
+   
+    padding: 15px 25px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    float: center;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    background-color: rgba(53, 39, 68, 1);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  
+.middlebtns:hover{
+    background-color: #ff8243;
+  }
+
+  
+.mapContainer{
+    font-family: "Poppins", sans-serif;
+    position: relative;
+    width: 80vh;
+    height: 60vh;
+    overflow: auto;
+    margin: auto auto;
+   
+}
+.positionDiv{
+    align-content: center;
+    margin: auto auto;
+    position: relative;
+    width: "90%";
+    height: 60vh;
+}
+
+#map *{
+    overflow: visible;
+}
+
+.mapArea{
+    z-index: 100;
+    margin: auto auto;
+}

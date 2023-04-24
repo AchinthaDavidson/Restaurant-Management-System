@@ -3,6 +3,7 @@ import axios from 'axios'
 import Niv from '../../components/Niv';
 import "./waiter.css"
 import { useNavigate , Link} from 'react-router-dom';
+import Notification from "../../components/Notification";
 
 
 const Waiter = () => {
@@ -42,6 +43,7 @@ const Waiter = () => {
     return (
         <div>
         <Niv name='Waiter'/>
+        <Notification/>
         
         <h1 className='title'>Waiters</h1>
         <div class="tbl-header">

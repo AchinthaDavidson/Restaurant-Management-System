@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
-import Notification from "../../components/Notification";
-import Niv from '../../components/Niv';
 import { GoogleMap, Marker, useJsApiLoader, Autocomplete,DirectionsRenderer } from '@react-google-maps/api';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./map.css"
+import "./Index.css"
 
 const center2 = {lat:6.949,lng:80.789};
 
@@ -33,6 +31,9 @@ export default function DriverMap() {
       libraries:['places']
     });
   
+    const goBack = () => {
+        window.location.href = "/Home";
+  };
     async function calculateRoute(){
        
         // if(originRef.current.value === '' || destinationRef.current.value ===''){
@@ -71,16 +72,17 @@ export default function DriverMap() {
         window.location.reload()
      }
 
+
+
     if(!isLoaded) return <div><h1>Loading</h1></div>;
 
         return(
             <div>
-            <Niv name='Driver Map'/>
-            <Notification/>
+            
             <ToastContainer position="top-right" theme="colored" /> 
             <div className="data">
                
-              <table style={{ width:"100%", margin:"auto auto" }}>
+              <table style={{ width:"100%", margin:"auto auto", padding:"5rem 5rem 5rem 5rem" }}>
                     <tbody>
                         <tr>
                         <td rowSpan={5} style={{ width:"70%", margin:"auto auto" , minWidth:"50vh" }} >
@@ -114,16 +116,16 @@ export default function DriverMap() {
                                     style={{height:"4rem", padding:"2rem 2rem 2rem 2rem ", width:"100%"}}
                                     ref={originRef}/>
                             </Autocomplete>    */}
-                            <p>PickUp Location ; {permOrigin}</p>
+                            <p>PickUp Location : {permOrigin}</p>
                             </td>
                             
                         </tr>
                         <tr>
-                            <td colSpan={2}>
+                            <td colSpan={2} style={{textAlign:"center"}}>
                             <Autocomplete>
                                 <input type="text"  
                                 placeholder="Enter your drop point..."  
-                                style={{height:"4rem", padding:"2rem 2rem 2rem 2rem ", width:"100%"}}
+                                style={{height:"1.5rem", padding:"1rem 1rem 1rem 1rem" , margin:"0 0 0 0"}}
                                 ref={destinationRef}/>
                             </Autocomplete>
                             </td>
@@ -136,9 +138,19 @@ export default function DriverMap() {
                             
                         </tr>
                         <tr>
-                            <td colSpan={2}>
+                        <td style={{ textAlign:"center"}}>
                             <button 
-                                className="middlebtns2" 
+                               
+                                className="middlebtns" 
+                                onClick={goBack}>   
+                                Back
+                            </button>  
+                            </td>
+
+                            <td style={{ textAlign:"center"}}>
+                            <button 
+                               
+                                className="middlebtns" 
                                 onClick={calculateRoute}>   
                                 Calculate Route
                             </button>  
@@ -146,16 +158,17 @@ export default function DriverMap() {
 
                         </tr>
                         <tr>
-                            <td>
+                            <td style={{ textAlign:"center"}}>
                                 <button 
-                                    className="middlebtns2" 
+                               
+                                    className="middlebtns" 
                                     onClick={clearRoutes}>   
                                     Clear
                                 </button>  
                             </td>
-                            <td>
+                            <td style={{ textAlign:"center"}}>
                                 <button 
-                                    className="middlebtns2" 
+                                    className="middlebtns" 
                                     onClick={() => map.panTo(center)}
                                     >   
                                    Center

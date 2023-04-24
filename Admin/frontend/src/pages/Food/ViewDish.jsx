@@ -7,6 +7,7 @@ import './foodcss.css';
 import React, { useEffect, useState } from "react";
 import Modal from 'react-bootstrap/Modal';
 import { Prev } from "react-bootstrap/esm/PageItem";
+import Notification from "../../components/Notification";
 
    
 const ViewDish = () => {
@@ -69,6 +70,7 @@ const ViewDish = () => {
 
         <div className="dishDataDiv" style={{width:"100%" , margin:"auto auto" , textAlign :"center"}}>
             <Niv name="View Dishes" />
+            <Notification/>
             {/* <h1>View all avaliable Dishes</h1> */}
             <div className='data'>
                 <Button className='middlebtns' onClick={ () => navigate("/food")}>

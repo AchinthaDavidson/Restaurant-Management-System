@@ -4,6 +4,7 @@ import axios from "axios";
 import Card from "react-bootstrap/Card";
 import { MdInventory} from "react-icons/md"
 
+
 const Customer = () => {
     const [ressum, setRessum] = useState();
     const [barsum, setbarsum] = useState();

@@ -5,6 +5,7 @@ import "./menu.css"
 import soup from './soup.jpeg'
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Notification from "../../components/Notification";
 
 const Menu = () => {
   const [product, setProduct] = useState([]);
@@ -65,6 +66,7 @@ function editrow(index ,id){
     return (
         <div>
         <Niv name='Menu'/>
+        <Notification/>
         <div className="data">
          <h1 className='title'></h1>
         <div class="tbl-header">

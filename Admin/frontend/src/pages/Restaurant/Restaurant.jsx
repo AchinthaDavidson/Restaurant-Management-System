@@ -4,6 +4,7 @@ import Niv from "../../components/Niv";
 import "./stockView.css";
 import { BsArrowUpCircle} from "react-icons/bs"
 import Resdata from "./resturantdata.jsx"
+import Notification from "../../components/Notification";
   const Restaurent = () => {
     const [items, setItems] = useState([]);
   
@@ -35,6 +36,7 @@ const [searchTerm, setSearchTerm] = useState("");
   return (
     <div>
       <Niv name="Restaurant Inventory" />
+      <Notification/>
       <div className="data">
       <div style={{display:'flex', margin: '1em',borderStyle:"solid",borderLeftWidth:"5px",width:'25%',borderColor:" white white white #0077be",backgroundColor:"white",borderRadius:"9px"}}>
     <div style={{flexGrow: '1' ,paddingTop:"5px",paddingLeft:"5px",fontSize:'30px'}}>

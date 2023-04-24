@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
 const Bardata = (props) => {
     const id = props.id;
     const [data,setdata1] = useState([]);
