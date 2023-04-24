@@ -3,18 +3,26 @@ import axios from "axios";
 import { GoogleMap, Marker, useJsApiLoader, Autocomplete,DirectionsRenderer } from '@react-google-maps/api';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./Index.css"
+import "./smallMap.css"
 
 const center2 = {lat:6.949,lng:80.789};
 
-export default function DriverMap() {
+const SmallMap = (receviedLocationFromHome) => {
 
- 
+    // useEffect(() => {
+    //     calculateRoute();
+     
+    //   }, []);
+
 
     const [map,setMap] = useState(/** @type google.maps.Map  */ (null))
     const [directionResponse, setDirectionResponse] = useState("")
     const [distance,setDistance] = useState("")
     const [duration,setDuration] = useState("")
+    const receviedLocation = receviedLocationFromHome.id
+
+    //console.log(receviedLocation)
+    //console.log(receviedLocationFromHome)
 
     /** @type React.MutableRefObject<HTMLInputElement> */
     const originRef = useRef()
@@ -40,18 +48,25 @@ export default function DriverMap() {
         //     toast.error("Please enter both pickup and deliver locations...")
         //     return
         // }
+    
 
-        if(destinationRef.current.value ===''){
-            toast.error("Please deliver locations...")
-            return
-        }
+        // if(destinationRef.current.value ===''){
+        //     toast.error("Please enter deliver locations...")
+        //     return
+        // }
+
+        
+        // if(receviedLocation ===''){
+        //     toast.error("Please enter deliver location...")
+        //     return
+        // }
 
          //eslint-disable-next-line no-undef
         const directionService = new google.maps.DirectionsService()
         const results = await directionService.route({
             origin:  permOrigin ,
            // origin: originRef.current.value,
-            destination: destinationRef.current.value,
+            destination:receviedLocation,
             //eslint-disable-next-line no-undef
             travelMode : google.maps.TravelMode.DRIVING
 
@@ -62,16 +77,6 @@ export default function DriverMap() {
        
      }
 
-     function clearRoutes(){
-        setDirectionResponse(null)
-        setDistance("")
-        setDuration("")
-        //originRef.current.value = ''
-       // originRef.current.value = ''
-        destinationRef.current.value = ''
-        window.location.reload()
-     }
-
 
 
     if(!isLoaded) return <div><h1>Loading</h1></div>;
@@ -80,13 +85,13 @@ export default function DriverMap() {
             <div>
             
             <ToastContainer position="top-right" theme="colored" /> 
-            <div className="data">
+          
                
-              <table style={{ width:"100%", margin:"auto auto", padding:"5rem 5rem 5rem 5rem" }}>
+              <table border={1} style={{borderSpacing:"0", margin:"auto auto", backgroundColor:"antiquewhite" , border:"none"}}>
                     <tbody>
                         <tr>
-                        <td rowSpan={5} style={{ width:"70%", margin:"auto auto" , minWidth:"50vh" }} >
-                            <div className="positionDiv" style={{margin:"auto auto"}}>
+                        <td colSpan={3} >
+                            <div className="mainContiner" style={{margin:"auto auto"}}>
                             <GoogleMap 
                                 zoom={15} 
                                 center={center2} 
@@ -107,82 +112,59 @@ export default function DriverMap() {
     
                             </GoogleMap>
                             </div>
-                            </td>
-
-                            <td colSpan={2}>
+                            </td>                     
+                            
+                        </tr>
+                        <tr>
+                        <td colSpan={2}>
                             {/* <Autocomplete>
                                 <input type="text" 
                                     placeholder="Enter your pickup point..."  
                                     style={{height:"4rem", padding:"2rem 2rem 2rem 2rem ", width:"100%"}}
                                     ref={originRef}/>
                             </Autocomplete>    */}
-                            <p>PickUp Location : {permOrigin}</p>
-                            </td>
-                            
+
+                            PickUp : {permOrigin}
+                        
+                        
+                        </td>
                         </tr>
                         <tr>
-                            <td colSpan={2} style={{textAlign:"center"}}>
+                        <td colSpan={2} style={{ textAlign:"left"}}>Diliver : {receviedLocation}</td>                     
+                        </tr>
+                        {/* <tr>  
+                            <td style={{textAlign:"center"}}>
                             <Autocomplete>
                                 <input type="text"  
                                 placeholder="Enter your drop point..."  
-                                style={{height:"1.5rem", padding:"1rem 1rem 1rem 1rem" , margin:"0 0 0 0"}}
                                 ref={destinationRef}/>
                             </Autocomplete>
                             </td>
-                        </tr>
+                        </tr> */}
                       
-        
-                        <tr>
-                        <td><p>Distance : {distance}</p></td>
-                            <td><p>Duration : {duration}</p></td>
-                            
-                        </tr>
-                        <tr>
-                        <td style={{ textAlign:"center"}}>
-                            <button 
-                               
-                                className="middlebtns" 
-                                onClick={goBack}>   
-                                Back
-                            </button>  
-                            </td>
-
-                            <td style={{ textAlign:"center"}}>
-                            <button 
-                               
-                                className="middlebtns" 
-                                onClick={calculateRoute}>   
-                                Calculate Route
-                            </button>  
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td style={{ textAlign:"center"}}>
-                                <button 
-                               
-                                    className="middlebtns" 
-                                    onClick={clearRoutes}>   
-                                    Clear
-                                </button>  
-                            </td>
-                            <td style={{ textAlign:"center"}}>
-                                <button 
-                                    className="middlebtns" 
-                                    onClick={() => map.panTo(center)}
-                                    >   
-                                   Center
-                                </button>  
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style={{ textAlign:"left"}}>Distance : {distance}</td>
+                    
+                        <td style={{ textAlign:"left"}}>Duration : {duration}</td>                     
+                    </tr>
+                    <tr>
+                    <td colSpan={2} style={{ textAlign:"center"}}>
+                        <button  
+                            className="middlebtns" 
+                            onClick={calculateRoute}>   
+                            Calculate Route
+                        </button>  
+                        </td>
+                    </tr>
+                                            
                     </tbody>
                 </table>
-            </div>
+           
         </div>
     )
 }
 
-
+export default SmallMap ;
          
 
 //   function Map(){
@@ -194,4 +176,4 @@ export default function DriverMap() {
 //     )
 // }
 
-  
+
