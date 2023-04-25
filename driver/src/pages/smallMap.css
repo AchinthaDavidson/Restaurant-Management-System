@@ -1,4 +1,4 @@
-.mapContainer{
+.mapContainer2{
     position: fixed;
     overflow: hidden;
     margin: auto auto;
@@ -8,7 +8,7 @@
 
 }
 
-.mainContiner{
+.mainContiner2{
     margin: auto auto;
 }
 #map *{

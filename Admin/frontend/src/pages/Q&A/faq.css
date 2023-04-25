@@ -1,48 +1,55 @@
-.btn1{
-  background-color:#2f0048;
+.btn1 {
+  background-color: #2f0048;
   padding: 10px;
   color: #ffff;
   text-align: center;
   min-width: 60px;
 }
-.btn12{
-  background-color:#2f0048;
+
+.btn12 {
+  background-color: #2f0048;
   padding: 10px;
   color: #ffff;
   text-align: center;
   margin-left: 30px;
 }
-  
-  .FormFAQ{
-    margin-top: 10px;
-      padding:30px;
-      font-size: 15px;
-      color: rgb(21, 12, 47);
-      width: 100%;
-      /* background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%); */
-  }
-  
-  
-  .frmtable{
-      /* background-color: #5468ff; */
-      width: 100%;
-      margin-top: 10px;
-      padding:30px;
-      font-size: 19px;
-      color: rgb(36, 36, 36);
-      border-radius: 20px;
-      
-  }
-  
-  .lbl{
-      font-size: 20px;
-      font-weight:bold;
-  }
 
-  .thd{
-    background-color:#2f0048;
-    color: #ffffff;
-  }
+.FormFAQ {
 
-  
- 
+  margin-top: 30px;
+  padding: 20px;
+  font-size: 15px;
+  color: rgb(21, 12, 47);
+  width: 100%;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+.searchbar {
+  font-size: 18px;
+  margin-top: 30px;
+  padding-left: 30px;
+  font-size: 19px;
+}
+
+
+.frmtable {
+  /* background-color: #5468ff; */
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  padding: 30px;
+  font-size: 19px;
+  color: rgb(36, 36, 36);
+
+}
+
+.lbl {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.thd {
+  background-color: #2f0048;
+  color: #ffffff;
+}

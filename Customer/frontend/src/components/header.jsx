@@ -65,6 +65,7 @@ function Header(){
                     </button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="/dashboard">Account</a></li>
+                      <li><a class="dropdown-item" href="/chat">Help</a></li>
                       <li><a class="dropdown-item" onClick={handleLogout}>Logout</a></li>
                     </ul>
                   </div>
