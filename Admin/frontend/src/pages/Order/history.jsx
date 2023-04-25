@@ -24,30 +24,7 @@ const Order = () => {
     <div>
       <Niv name="Order History" />
       <div className="data">
-        <input
-          type="search"
-          placeholder="search food....."
-          onChange={(event) => {
-            setSearchTerm(event.target.value);
-          }}
-        />
-        <div
-          style={{ maxHeight: "10%", background: "green", overflowY: "auto" }}
-        >
-          {orders
-            .filter((val) => {
-              if (searchTerm === "") {
-                return val;
-              } else if (
-                val.order_id.toLowerCase().includes(searchTerm.toLowerCase())
-              ) {
-                return val;
-              }
-            })
-            .map((order, index) => (
-              <div key={index}>{order.order_id}</div>
-            ))}
-        </div>
+        
         <div
           style={{
             minWidth: 230,
