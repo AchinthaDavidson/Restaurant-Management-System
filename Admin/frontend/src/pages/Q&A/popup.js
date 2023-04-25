@@ -6,8 +6,6 @@ const EditRowPopup = ({rowData, onSave, onClose}) => {
   const [answer, setAnswer] = useState(rowData.answer);
   const [category, setCategory] = useState(rowData.category);
 
-//   const data = {category, question, answer}
-
   const handleSave = () => {
     onSave({id:rowData._id, category, question, answer});
     onClose();
@@ -39,7 +37,7 @@ const EditRowPopup = ({rowData, onSave, onClose}) => {
         </div>
         <div>
           <label className="lbl">
-            FAQ<br/></label>
+            Question<br/></label>
             <textarea rows="2" cols="60" style={{resize:'none'}} value={question} onChange={(e) => setQuestion(e.target.value)} />
           
         </div>

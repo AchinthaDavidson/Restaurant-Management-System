@@ -127,7 +127,7 @@ const QandA = () => {
 
 
             <div class="txta">
-              <label className="lbl">FAQ</label><br />
+              <label className="lbl">Question</label><br />
               <textarea rows="2" cols="108" style={{ resize: 'none' }} placeholder="Question" value={question} onChange={(e) => setquestion(e.target.value)} />
             </div>
 

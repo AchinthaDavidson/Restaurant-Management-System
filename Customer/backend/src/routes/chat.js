@@ -8,13 +8,13 @@ router.post('/', async (req, res) => {
   
     try {
       // Find the admin user by their username (assuming the admin has a fixed username)
-      const admin = await user.findOne({ name: 'Ashvini' });
+      const admin = await user.findOne({ name: 'A 9080' });
   
       // Create a new message object and save it to the database
       const newMessage = new chat({
         message,
-        sender: req.user._id, // The customer's user ID
-        receiver: admin,
+        sender: req.user.user._id, // The customer's user ID
+        receiver: admin._id,
       });
   
       await newMessage.save();
@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     try {
       // Find all messages where the customer is the sender or receiver
       const messages = await chat.find({
-        $or: [{ sender: req.user._id }, { receiver: req.user._id }],
+        $or: [{ sender: req.user.user._id }, { receiver: req.user.user._id }],
       });
   
       // Send the messages back to the client
