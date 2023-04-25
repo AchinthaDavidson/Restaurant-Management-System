@@ -83,6 +83,39 @@ router.route("/orderId").get((req,res)=>{
     })
 })
 
+router.route("/delete/:id").delete(async(req,res)=>{
+    
+    let Id = req.params.id;
+
+    await order.deleteOne({category_Id:req.params.id}).then(()=>{
+        res.status(200).send({status:"order details deleted", user : Id})
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).send({status:"order details delete failed", error:err});
+    })
+})
+
+
+/* update */
+router.route("/update/:id").put(async(req,res)=>{
+
+    let Id = req.params.id;
+
+    
+
+   
+    const Name  = req.body.name;
+
+    const updatemenu = {Name};  
+
+    await order.updateOne({_Id:Id},{$set:updatemenu})
+    .then(()=>{
+        res.status(200).send({status:"order updated"})
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).send({status:"order update failed", error:err});
+    })
+})
 
 router.route("/type").get((req,res)=>{
     order.find({},{type:1,date:1}).then((orders)=>{

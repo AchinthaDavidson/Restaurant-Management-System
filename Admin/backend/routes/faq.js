@@ -3,7 +3,7 @@ let faq = require("../models/faq");
 
 //create
 
-router.route("/add").post((req,res) =>{
+router.route("/add").post((req, res) => {
 
     const category = req.body.category;
     const question = req.body.question;
@@ -17,9 +17,9 @@ router.route("/add").post((req,res) =>{
 
     })
 
-    newFaq.save().then(() =>{
+    newFaq.save().then(() => {
         res.json("New FAQ added");
-    }).catch((err) =>{
+    }).catch((err) => {
         console.log(err);
     })
 
@@ -29,47 +29,47 @@ router.route("/add").post((req,res) =>{
 
 //Read
 
-router.route("/").get((req,res) =>{
+router.route("/").get((req, res) => {
 
-    faq.find().then((faq) =>{
+    faq.find().then((faq) => {
         res.json(faq)
-    }).catch((err) =>{
+    }).catch((err) => {
         console.log(err)
     })
 })
 
 //Update
 
-router.route("/update/:id").put(async(req,res)=>{
+router.route("/update/:id").put(async (req, res) => {
     let fId = req.params.id;
-    const {category, question, answer} = req.body;
+    const { category, question, answer } = req.body;
 
     const updateFaq = {
-        category, 
+        category,
         question,
         answer
     }
 
-    const update = await faq.findByIdAndUpdate(fId, updateFaq).then(() =>{
-        res.status(200).send({status: "FAQ updates"})
-    }).catch((err) =>{
+    const update = await faq.findByIdAndUpdate(fId, updateFaq).then(() => {
+        res.status(200).send({ status: "FAQ updates" })
+    }).catch((err) => {
         console.log(err);
-        res.status(500).send({status: "Failed to update"})
+        res.status(500).send({ status: "Failed to update" })
     })
 })
 
 
 //Delete
 
-router.route("/delete/:id").delete(async(req,res) =>{
+router.route("/delete/:id").delete(async (req, res) => {
 
     let fid = req.params.id;
 
-    await faq.findByIdAndDelete(fid).then(() =>{
-        res.status(200).send({status: "FAQ delete"});
-    }).catch((err) =>{
+    await faq.findByIdAndDelete(fid).then(() => {
+        res.status(200).send({ status: "FAQ delete" });
+    }).catch((err) => {
         console.log(err.message);
-        res.status(500).send({status: "Failed to delete FAQ"});
+        res.status(500).send({ status: "Failed to delete FAQ" });
     })
 })
 
