@@ -61,27 +61,6 @@
     background-color: #ff8243;
   }
 
-  
-.mapContainer{
-    font-family: "Poppins", sans-serif;
-    position: relative;
-    width: 80vh;
-    height: 60vh;
-    overflow: auto;
-    margin: auto auto;
-   
-}
-.positionDiv{
-    align-content: center;
-    margin: auto auto;
-    position: relative;
-    width: "90%";
-    height: 60vh;
-}
-
-#map *{
-    overflow: visible;
-}
 
 .mapArea{
     z-index: 100;

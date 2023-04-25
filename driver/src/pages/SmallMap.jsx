@@ -91,11 +91,11 @@ const SmallMap = (receviedLocationFromHome) => {
                     <tbody>
                         <tr>
                         <td colSpan={3} >
-                            <div className="mainContiner" style={{margin:"auto auto"}}>
+                            <div className="mainContiner2" style={{margin:"auto auto"}}>
                             <GoogleMap 
                                 zoom={15} 
                                 center={center2} 
-                                mapContainerClassName="mapContainer" 
+                                mapContainerClassName="mapContainer2" 
                                 id="map"
                                 mapContainerStyle={{margin:"äuto auto"}}
                                 onLoad={map => setMap(map)}

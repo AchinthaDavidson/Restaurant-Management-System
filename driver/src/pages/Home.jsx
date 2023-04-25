@@ -2,13 +2,27 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './Index.css';
 import SmallMap from "./SmallMap.jsx"
+import {Link, useNavigate} from 'react-router-dom';
 
 const Home = () => {
     
-    const searchTerm = "Delivery"
-    const [orders, setOrders] = useState([]);
-    var count = 0
+  const [driverName,setDriverName] = useState("");
+  const [loginStatus,setLoginStatus] = useState(null);
+  const searchTerm = "Delivery"
+  const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
+  var count = 0
+
     useEffect(() => {
+
+       const name = JSON.parse(localStorage.getItem('userNameStorage'));
+       const logStat = JSON.parse(localStorage.getItem('userStatus'));
+        if (name) {
+         // console.log("name is " ,name);
+         // console.log(logStat)
+          setDriverName(name);
+          setLoginStatus(logStat)
+        }
       function getorder() {
         axios.get("http://localhost:8070/order/").then((res) => {     
           setOrders(res.data); 
@@ -18,9 +32,6 @@ const Home = () => {
       getorder();
     }, []);
 
-    const navigateToMap = () => {
-        window.location.href = "/smallMap";
-  };
 
   const handleMapShow = (id) => {
     count ++
@@ -34,12 +45,32 @@ const Home = () => {
     }
  };
 
- const handleMapUnShow = () => {
-  
+function logOut () {
+  const  username = " "
+  const logged = " "
+  localStorage.setItem('userNameStorage',JSON.stringify(username))
+  localStorage.setItem('userStatus',JSON.stringify(logged))
+  window.location.href = "/sign";
+}
+
+function navigateToMap  (order) {
+  //window.location.href = "/map";
+  navigate('/map',{state: {driverName: driverName, order:{order}}});
 };
 
+
+if(loginStatus==" ") {
+  return <div><h1>Please Log in First</h1></div>
+
+}else{
   return (
     <div className="mainPage">
+      <button 
+                onClick={()=>logOut()} 
+                    className="middlebtns"
+                    style={{ margin:"Auto Auto"}}>   
+                    LOG OUT
+                </button> 
         <table className="mainTable">
             <thead>
               <tr className="tbl-head">
@@ -118,14 +149,23 @@ const Home = () => {
                 </td>   
 
                 <td className="homeTD" style={{ textAlign:"center"}}>
-                    <button 
-                        className="middlebtns"
-                    // onClick={() => handleMapUnShow()} 
-                    // onClick={navigateToMap} 
+                     
+
+                    {/* <Link to={{
+                      pathname: '/map',
+                      state: {driverName: 1, customer:{order}}
+                    }} >
+                       </Link> */}
+
+                      <button 
+                        className="middlebtns" 
+                        onClick={()=>{navigateToMap(order)}} 
                         style={{ alignContent:"Left",  margin:"Auto Auto"}}>   
                         Take Delivery
-                    </button>  
-                </td>        
+                      </button> 
+
+                   
+                    </td>        
               </tr>
                    
             ))}
@@ -136,5 +176,5 @@ const Home = () => {
     </div>
   )
 }
-
+}
 export default Home
