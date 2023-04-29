@@ -9,10 +9,10 @@ const center2 = {lat:6.949,lng:80.789};
 
 const SmallMap = (receviedLocationFromHome) => {
 
-    // useEffect(() => {
-    //     calculateRoute();
+    useEffect((receviedLocationFromHome) => {
+        calculateRoute();
      
-    //   }, []);
+      }, []);
 
 
     const [map,setMap] = useState(/** @type google.maps.Map  */ (null))
@@ -40,6 +40,7 @@ const SmallMap = (receviedLocationFromHome) => {
     });
   
     const goBack = () => {
+        toast.success("Logging in............")
         window.location.href = "/Home";
   };
     async function calculateRoute(){
@@ -87,10 +88,10 @@ const SmallMap = (receviedLocationFromHome) => {
             <ToastContainer position="top-right" theme="colored" /> 
           
                
-              <table border={1} style={{borderSpacing:"0", margin:"auto auto", backgroundColor:"antiquewhite" , border:"none"}}>
+              <table border={0} style={{paddingTop:"1rem", borderSpacing:"0", margin:"auto auto", backgroundColor:"antiquewhite" , border:"none"}}>
                     <tbody>
                         <tr>
-                        <td colSpan={3} >
+                        <td colSpan={3} className="t1" >
                             <div className="mainContiner2" style={{margin:"auto auto"}}>
                             <GoogleMap 
                                 zoom={15} 
@@ -116,7 +117,7 @@ const SmallMap = (receviedLocationFromHome) => {
                             
                         </tr>
                         <tr>
-                        <td colSpan={2}>
+                        <td style={{paddingTop:"1rem", paddingLeft:"1rem", textAlign:"left"}} colSpan={2}>
                             {/* <Autocomplete>
                                 <input type="text" 
                                     placeholder="Enter your pickup point..."  
@@ -130,7 +131,8 @@ const SmallMap = (receviedLocationFromHome) => {
                         </td>
                         </tr>
                         <tr>
-                        <td colSpan={2} style={{ textAlign:"left"}}>Diliver : {receviedLocation}</td>                     
+                        <td colSpan={2} style={{paddingTop:"1rem",paddingLeft:"1rem", textAlign:"left"}}>
+                            Diliver To : {receviedLocation}</td>                     
                         </tr>
                         {/* <tr>  
                             <td style={{textAlign:"center"}}>
@@ -143,9 +145,9 @@ const SmallMap = (receviedLocationFromHome) => {
                         </tr> */}
                       
                     <tr>
-                        <td style={{ textAlign:"left"}}>Distance : {distance}</td>
+                        <td style={{paddingTop:"1rem",paddingLeft:"1rem", textAlign:"left"}}>Distance : {distance}</td>
                     
-                        <td style={{ textAlign:"left"}}>Duration : {duration}</td>                     
+                        <td style={{paddingTop:"1rem",paddingLeft:"1rem", textAlign:"left"}}>Duration : {duration}</td>                     
                     </tr>
                     <tr>
                     <td colSpan={2} style={{ textAlign:"center"}}>
