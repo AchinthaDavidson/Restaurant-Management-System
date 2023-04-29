@@ -72,7 +72,7 @@ export default function DriverMap() {
             
            // origin: originRef.current.value,
            // destination: destinationRef.current.value,
-           destination:diliverLocation,
+            destination:diliverLocation,
             //eslint-disable-next-line no-undef
             travelMode : google.maps.TravelMode.DRIVING
 
