@@ -65,7 +65,7 @@ const Chat = () => {
   const [message, setmessage] = useState('');
   const [selectedChat, setSelectedChat] = React.useState(null);
   const [receiverId, setReceiverId] = useState(null);
-  const currentUser = "Admin"
+  const currentUser = '644df7666512eabcfd11aa19'
 
   const handleSelectChat = (sender) => {
     setSelectedChat(sender);
@@ -106,7 +106,7 @@ const Chat = () => {
   };
 
   const uniqueSenders = Array.from(new Set(messages
-    .filter((m) => m.sender !== "Admin") // exclude "Admin"
+    .filter((m) => m.sender !== currentUser) // exclude "Admin"
     .map((m) => m.sender)
   ));
 

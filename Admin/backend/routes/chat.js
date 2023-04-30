@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const chat = require("../models/chat");
+const User = require('../models/user.model');
 
 router.route('/').get(async (req, res) => {
   try {
-    //const senderId = req.query.senderId;
-    const messages = await chat.find({}).populate("sender", "name")
+    
+    const messages = await chat.find()
 
     // Send the messages back to the client
     res.json(messages);
@@ -17,10 +18,11 @@ router.route('/').get(async (req, res) => {
 // Endpoint for customers to send a message to the admin
 router.post('/', async (req, res) => {
 
-  const {message, reply, createdAt } = req.body;
+  const {sender, message, reply, createdAt } = req.body;
 
   try {
     const newMessage = new chat({
+      sender: sender,
       message: message,
       reply: reply,
       createdAt: createdAt
