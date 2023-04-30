@@ -68,6 +68,9 @@ app.use("/faq", faqRouter);
 const themapRouter = require("./routes/map.js");
 app.use("/MAP", themapRouter);
 
+const chatRouter = require("./routes/chat.js");
+app.use("/chat", chatRouter);
+
 
 
 app.listen(PORT,()=>{

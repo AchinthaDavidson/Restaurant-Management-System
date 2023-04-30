@@ -1,53 +1,114 @@
 import React, { useState, useEffect } from 'react';
 import Niv from '../../components/Niv';
 import Notification from "../../components/Notification";
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  List, ListItem, ListItemText,
-  Divider, Typography, Paper, Grid, TextareaAutosize, Button
-} from '@material-ui/core';
 import axios from 'axios';
+import {
+  Avatar,
+  Grid,
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Button,
+  Divider,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Paper,
+} from "@mui/material";
+import { HiReply } from "react-icons/hi";
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    height: '90vh',
-    overflow: 'hidden',
-  },
-  sidebar: {
-    backgroundColor: theme.palette.background.paper,
-    overflowY: 'scroll',
-    width: 240,
-    borderRight: `1px solid ${theme.palette.divider}`,
-  },
-  container: {
-    flex: 1,
-    padding: theme.spacing(3),
-    overflow: 'auto',
-  },
+const MessageWrapper = styled(Box)(({ isSentByCurrentUser }) => ({
+  display: 'flex',
+  flexDirection: isSentByCurrentUser ? 'row-reverse' : 'row',
+  alignItems: 'flex-end',
+  marginBottom: "16px",
 }));
+
+const MessageBubble = styled(Box)(({ isSentByCurrentUser }) => ({
+  maxWidth: '80%',
+  padding: "8px",
+  marginRight: isSentByCurrentUser ? "10px" : "0",
+  borderRadius: isSentByCurrentUser ? '20px 20px 0 20px' : '20px 20px 20px 0',
+  backgroundColor: isSentByCurrentUser ? '#0084ff' : '#f0f0f0',
+  color: isSentByCurrentUser ? '#fff' : '#333',
+  alignSelf: isSentByCurrentUser ? 'flex-end' : 'flex-start',
+  wordWrap: 'break-word',
+  boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
+}));
+
+const MessageHeader = styled(Box)(({ }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: "5px",
+}));
+
+const MessageSender = styled(Typography)(({ }) => ({
+  fontSize: '0.8rem',
+  fontWeight: 'bold',
+  marginRight: "8px",
+}));
+
+const MessageTime = styled(Typography)(({ }) => ({
+  fontSize: '0.7rem',
+  color: '#666',
+}));
+
 
 
 const Chat = () => {
 
-  const classes = useStyles();
-
+  const [message, setmessage] = useState('');
   const [selectedChat, setSelectedChat] = React.useState(null);
-  const [messages, setMessages] = useState([]);
+  const [receiverId, setReceiverId] = useState(null);
+  const currentUser = "Admin"
 
-  const handleChatClick = (chat) => {
-    setSelectedChat(chat);
+  const handleSelectChat = (sender) => {
+    setSelectedChat(sender);
+    setReceiverId(sender)
   };
 
+  const [messages, setMessages] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:8070/chat/admin')
-      .then(response => {
-        setMessages(response.data);
+    axios.get('http://localhost:8070/chat/')
+      .then(res => {
+        setMessages(res.data);
       })
       .catch(error => {
         console.log(error);
       });
   }, []);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const newMessage = {
+
+      message: message,
+      sender: currentUser,
+      reply: receiverId,
+      createdAt: new Date()
+    };
+
+
+
+    axios.post('http://localhost:8070/chat/', newMessage)
+      .then(() => {
+        window.location.reload(false);
+        setmessage('')
+      }).catch(error => {
+        console.log(error);
+      });
+  };
+
+  const uniqueSenders = Array.from(new Set(messages
+    .filter((m) => m.sender !== "Admin") // exclude "Admin"
+    .map((m) => m.sender)
+  ));
 
 
 
@@ -56,80 +117,101 @@ const Chat = () => {
   return (
     <div>
       <Niv name='Customer Support' />
-      <Notification/>
+      <Notification />
       <div className='data'>
 
-        <div className={classes.root}>
-          <Paper className={classes.sidebar}>
-            <List>
-              <ListItem button onClick={() => handleChatClick('Chat 1')}>
-                <ListItemText primary="Chat 1" />
-              </ListItem>
-              <Divider />
-              <ListItem button onClick={() => handleChatClick('Chat 2')}>
-                <ListItemText primary="Chat 2" />
-              </ListItem>
-              <Divider />
-              <ListItem button onClick={() => handleChatClick('Chat 3')}>
-                <ListItemText primary="Chat 3" />
-              </ListItem>
-              <Divider />
-
-            </List>
-          </Paper>
-          <Paper className={classes.container}>
-            {/* Add chat messages container */}
-            {selectedChat ? (
-              <>
-                <Typography variant="h6" gutterBottom>
-                  {selectedChat} Messages
-                </Typography>
-
-                <Typography variant="subtitle1" gutterBottom>
-                  Sender 1
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-                  mi at mi lobortis, a lacinia lorem lacinia.
-                </Typography>
-                <Divider />
-                <Typography variant="subtitle1" gutterBottom>
-                  Sender 2
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  Duis sit amet nisl dapibus, suscipit nibh et, suscipit justo. Ut
-                  auctor euismod metus, eget dapibus velit efficitur eu.
-                </Typography>
-                <Divider />
-                <Typography variant="subtitle1" gutterBottom>
-                  Sender 1
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  Pellentesque faucibus augue vel enim venenatis, id convallis velit
-                  elementum. Nulla nec ultrices mauris, a convallis mauris.
-                </Typography>
-                <Divider />
-
-                <Grid item xs={12} md={4}>
-                  <TextareaAutosize rowsMin={3} placeholder="Type your message" fullWidth />
-                  <Button variant="contained" color="primary" fullWidth>
-                    Send
-                  </Button>
-                </Grid>
-
-              </>
+        <Box sx={{
+          flexGrow: 1,
+          margin: "10px 30px 0 10px",
+          backgroundColor: "#ffffff",
+          padding: "20px",
+          color: "#ffff",
+          borderRadius: "20px",
+        }}>
 
 
-            ) : (
-              <Typography variant="h6" gutterBottom>
-                Please select a chat
-              </Typography>
-            )}
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <Box sx={{ height: "70vh", overflowY: "scroll" }}>
+                <List>
+                  {uniqueSenders.map((sender) => (
+                    <Paper variant="outlined"
+                      square elevation={0}
+                      sx={{
+                        backgroundColor: "#2f0048",
+                        margin: "10px",
+                        borderRadius: "10px"
+                      }}
+                      onClick={() => handleSelectChat(sender)}>
+                      <ListItem key={sender} >
+                        <Avatar
+                          alt={sender}
+                          src="/static/images/avatar/1.jpg"
+                          sx={{ width: 40, height: 40, marginRight: "10px" }}
+                        />
+                        <ListItemText primary={sender} sx={{ color: "#ffff" }} />
+                      </ListItem>
+                    </Paper>
+                  ))}
+                </List>
+              </Box>
+            </Grid>
+            <Grid item xs={8}>
+              <Box sx={{ height: "calc(70vh - 64px)", overflowY: "scroll" }}>
+                {selectedChat && (
+
+                  <div >
+                    {messages.filter((m) => m.sender === selectedChat || m.reply === selectedChat)
+                      .map((messages) => (
+                        <>
+                         
+                          <MessageWrapper
+                            key={messages._id}
+                            isSentByCurrentUser={messages.sender === currentUser}
+                          >
+                            <MessageBubble
+                              isSentByCurrentUser={messages.sender === currentUser}
+                            >
+                              <MessageHeader>
+                                <MessageSender>{messages.sender}</MessageSender>
+                                <MessageTime>
+                                  {new Date(messages.createdAt).toLocaleString()}
+                                </MessageTime>
+                              </MessageHeader>
+                              {messages.message}
+                            </MessageBubble>
+                            <HiReply />
+                          </MessageWrapper>
+
+                        </>
+                      ))}
+                  </div>
+
+                )}
+              </Box>
+              <Box sx={{ display: "flex", mt: 2, }}>
+                <TextField
+                  fullWidth
+                  // placeholder={user.user._id}
+                  variant="outlined"
+                  label="Type your message here"
+                  value={message}
+                  onChange={(e) => setmessage(e.target.value)}
+                  sx={{ mr: 2, }}
+                />
+                <Button variant="contained"
+                  onClick={handleSubmit}
+                  sx={{ backgroundColor: "#2f0048" }}
+                >
+                  Send
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
 
 
-          </Paper>
-        </div>
 
+        </Box>
 
 
 
