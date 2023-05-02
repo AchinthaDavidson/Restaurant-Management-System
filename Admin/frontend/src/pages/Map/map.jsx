@@ -28,10 +28,10 @@ export default function DriverMap() {
 
     const center = useMemo(() => ({lat:6.949632874163033,lng:80.78905943343568}), []);
 
-    const {isLoaded} = useJsApiLoader({
-      googleMapsApiKey: 'AIzaSyBv1H_VqIZse7f0hBdvLJThzpB-SaFfkPg',
-      libraries:['places']
-    });
+    const {isLoaded} = useJsApiLoader({  
+        googleMapsApiKey: process.env.REACT_APP_GOOGLEMAP_API_KEY ,
+        libraries:['places']
+      });
   
     async function calculateRoute(){
        

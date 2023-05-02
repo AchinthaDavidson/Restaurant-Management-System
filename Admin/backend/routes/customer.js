@@ -42,6 +42,15 @@ router.route("/").get((req,res)=>{
         console.log(err)
     })
 })
+
+router.route("/getAll").get((req,res)=>{
+    Customer.find().then((customers)=>{
+        res.json(customers)
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
 router.route("/count").get((req,res)=>{
     Customer.count().then((customers)=>{
         res.json(customers)

@@ -5,107 +5,156 @@ import SmallMap from "./SmallMap.jsx"
 import {Link, useNavigate} from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {useLocation} from 'react-router-dom';
+//import { Toast } from "react-toastify/dist/components";
 
 const Home = () => {
-  
-const [driverName,setDriverName] = useState("");
-const [loginStatus,setLoginStatus] = useState(null);
-const searchTerm = "Delivery"
+
 const [orders, setOrders] = useState([]);
 const navigate = useNavigate();
-var count = 0
+const user = useLocation();
+const [loggedUser,setLoggedUser] = useState("")
 
-  useEffect(() => {
 
-      const name = JSON.parse(localStorage.getItem('userNameStorage'));
-      const logStat = JSON.parse(localStorage.getItem('userStatus'));
-      if (name) {
-        // console.log("name is " ,name);
-        // console.log(logStat)
-        setDriverName(name);
-        setLoginStatus(logStat)
-      }
-    function getorder() {
+useEffect(() => {
+    try{
       axios.get("http://localhost:8070/order/").then((res) => {     
-        setOrders(res.data); 
-        // console.log(orders[1]);
+        //console.log(res.data)
+        setOrders(res.data);  
       });
-    }
-    getorder();
-  }, []);
 
-const handleMapShow = (id) => {
-  count ++
-  if(count%2==0){
-      document.getElementById(id).hidden=true;
-      document.getElementById("btn"+id).innerHTML = "Close Map"
-      document.getElementById("locationTag").hidden=false;
+      const id2 = JSON.parse(localStorage.getItem('loggedUserID'));
+      //const lUser2 = user.state.loggedUserID
+
+      axios.get(`http://localhost:8070/driver/FindDriver/${id2}`).then((res) => {     
+       // console.log(res.data)
+      setLoggedUser(res.data); 
+     
+      });
+
+    }catch(err){
+      console.log(err)
+    }
+
+}, []);
+
+  // function driverUpdater(){
+  //   try{
+  //     const datas = JSON.parse(localStorage.getItem('userData'));
+  //     axios.get(`http://localhost:8070/driver/getNewData/${datas._id}`)
+  //     .then((res) => {     
+  //      // console.log(res.data)
+  //       localStorage.setItem('userData',JSON.stringify(res.data))
+  //       setAllDriverData(res.data)
+  //      //setNewDriver(res.data)
+  //      });
+  //   }catch(err){
+  //     console.log(err)
+  //   }
+  // }
+  
+const handleMapShow = (order) => {
+  const id = order.order_id
+  const sts = order.status
+  var val = document.getElementById("btn"+id).innerHTML
+
+  if(sts == "delivering" ){
+    document.getElementById("tdbtn"+id).innerHTML = "View My Order"
+  }
+
+  if(val=="View on Map"){
+    document.getElementById(id).hidden=false;
+    document.getElementById("btn"+id).innerHTML = "Close Map"
+    document.getElementById("locationTag").hidden=true;
   }else{
-      document.getElementById(id).hidden=false;
-      document.getElementById("locationTag").hidden=true;
-      
+    document.getElementById(id).hidden=true;
+    document.getElementById("btn"+id).innerHTML = "View on Map"
+    document.getElementById("locationTag").hidden=false;
   }
 };
 
 function logOut () {
-const  username = " "
-const logged = " "
-localStorage.setItem('userNameStorage',JSON.stringify(username))
-localStorage.setItem('userStatus',JSON.stringify(logged))
-window.location.href = "/sign";
-}
-
-async function navigateToMap  (order) {
-//window.location.href = "/map";
-await toast.success("Redirecting");
-navigate('/map',{state: {driverName: driverName, order:{order}}});
+  const empt = "logout"
+  localStorage.setItem('loggedUserID',JSON.stringify(empt))
+  localStorage.setItem('orderID',JSON.stringify(empt))
+  window.location.href = "/sign";
 };
 
-if(loginStatus==" ") {
-return <div><h1>Please Log in First</h1></div>
 
-}else{
+async function navigateToMap  (order) {
+  const id2 = JSON.parse(localStorage.getItem('loggedUserID'));
+  const id1 = order._id
+  localStorage.setItem('orderID',JSON.stringify(id1))
+  await toast.success("Redirecting");
+  setTimeout( function() {  navigate('/map',{state: {loggedUserID:{id2}, orderID:{id1}}}); }, 10);
+ 
+};
+
+
+if(!orders || !loggedUser) {
+  return <div><h1>Please Log in First</h1></div>
+}else
+{
 return (
+  
   <div className="mainPage">
       <ToastContainer position="top-right" theme="colored" /> 
-    <button 
-              onClick={()=>logOut()} 
-                  className="middlebtns"
-                  style={{ margin:"Auto Auto"}}>   
-                  LOG OUT
-              </button> 
+      <button 
+          onClick={()=>logOut()} 
+          className="logoutbtn"
+          style={{ width:"9rem", margin:"Auto Auto"}}>   
+          LOG OUT  : 
+          <div style={{   backgroundColor:"orange" , padding:"0.5rem"}}>
+            {loggedUser.Email} 
+          </div>
+      </button>
       <table className="mainTable">
           <thead>
-            <tr className="tbl-head">
-              <th className="del-tbl-head">Order ID</th>
-              <th className="del-tbl-head">Placed Time</th>
-              <th className="del-tbl-head">Price</th>
-              <th className="del-tbl-head">Customer Email</th>
-              <th className="del-tbl-head">Customer Phone Number</th>          
-              <th className="del-tbl-head">View on Map</th>          
-              <th className="del-tbl-head"
-                  style={{
-                  maxHeight:"20rem", minWidth:"20rem", 
-                  margin:"Auto Auto", margin:"Auto Auto",
-                  maxWidth:"20rem",minHeight:"20rem"}}>Customer Location</th>
-              <th className="del-tbl-head">Take Dilivery</th>
+            <tr>
+            <th id="tableHeading" hidden={true} colSpan={8} style={{textAlign:"center"}} className="del-tbl-head">My Delivery </th>
             </tr>
-            
+            <tr className="tbl-head">
+                <th className="del-tbl-head">Order ID</th>
+                <th className="del-tbl-head">Placed Time</th>
+                <th className="del-tbl-head">Price</th>
+                <th className="del-tbl-head">Customer Email</th>
+                <th className="del-tbl-head">Customer Phone Number</th>          
+                <th className="del-tbl-head">View on Map</th>          
+                <th className="del-tbl-head"
+                    style={{
+                    maxHeight:"20rem", minWidth:"20rem", 
+                    margin:"Auto Auto", margin:"Auto Auto",
+                    maxWidth:"20rem",minHeight:"20rem"}}>Customer Location</th>
+                <th className="del-tbl-head">Take Dilivery</th>
+                
+            </tr> 
           </thead>
-          <tbody>
+        <tbody>
+   
           
       {orders
           .filter((val) => {
-              if (val.type.toLowerCase().includes(searchTerm.toLowerCase())) {
-                  if(val.location!=" "){
-                      return val;
-                  }  
+            if (val.type=="Delivery") {
+              if(val.location !=null && val.location !="" ){
+                if(val.phnNum !=null){
+                  if(val.status =="pending" && loggedUser.status=="Idle"){
+                    return val;
+                  }
+                  const id2 = JSON.parse(localStorage.getItem('loggedUserID'));
+                  if(val.driverID== id2 && val.status =="delivering"){
+                    return val;
+                  }
+                  
+                }
+              }    
             }
 
           }).map((order, index) => (
     
-            <tr className="homeTR" key={index}  >
+            <tr className="homeTR" key={index} >
+
               <td className="homeTD">{order.order_id}</td>
+
               <td className="homeTD">
                 {order.date} - {order.time}
               </td>             
@@ -113,23 +162,21 @@ return (
               
               <td className="homeTD">{order.cus_id}</td>
 
-              <td className="homeTD">No Data</td>
+              <td className="homeTD">{order.phnNum}</td>
 
               <td style={{ textAlign:"center"}}>
 
               <button  id={"btn"+order.order_id}
-              onClick={(e) => handleMapShow(order.order_id)} 
+              onClick={(e) => handleMapShow(order)} 
                   className="middlebtns"
                   style={{ margin:"Auto Auto"}}>   
                   View on Map
               </button> 
-
               </td> 
   
               <td className="homeTD" style={{ textAlign:"center", margin:"0 0 0 0"}}>
                   <span hidden={false} id="locationTag" style={{ margin:"Auto Auto"}}>{order.location}</span>
-                  <div 
-                      //id="mapArea"  
+                  <div
                       id={order.order_id}
                       className="mapArea" 
                       hidden={true} 
@@ -155,10 +202,11 @@ return (
                     </button>  */}
 
                     <button 
+                      id={"tdbtn"+order.order_id}
                       className="middlebtns" 
                       onClick={() => {
                       const confirmBox = window.confirm(
-                          "Do you wish to take this delivery job?"
+                          "Do you wish to go tothe Detailed Map View ?"
                       )
                       if (confirmBox === true) {
                         navigateToMap(order)
@@ -172,12 +220,13 @@ return (
             </tr>
                   
           ))}
-            </tbody>
-            
+
+          </tbody>
         </table>
     
   </div>
-)
-}
+
+    )
+  }
 }
 export default Home

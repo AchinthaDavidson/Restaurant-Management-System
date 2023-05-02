@@ -38,7 +38,44 @@ const orderSchema=new Schema({
     location:{
         type: String,
     },
-    
+    phnNum:{
+        type: String,
+    },
+    startCode:{
+        type: String,
+    },
+    endCode:{
+        type: String,
+    },
+    deliverPersonEmail:{
+        type: String,
+    },
+    deliverPersonPhn:{
+        type: String,
+    },
+    endTime:{
+        type: String,
+    }
+    ,
+    startTime:{
+        type: String,
+    },
+    deliverCenter:{
+        type: Object
+    },
+    driverID:{
+        type: String,
+    },
+    distance:{
+        type: String,
+    },
+    duration:{
+        type: String,
+    },
+    cusEmail:{
+        type: String,
+    }
+   
 })
 const order = mongoose.model("order",orderSchema);
 

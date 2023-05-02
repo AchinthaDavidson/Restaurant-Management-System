@@ -39,7 +39,9 @@ const Driver = () => {
         <div>
         <Niv name='Driver'/>
         <Notification/>
+        <div className="data">
         <ToastContainer position="top-right" theme="colored" /> 
+
         <h1 className='title'>Driver Details</h1>
         <div className="tbl-header">
           <a href="Driver/AddDriver">
@@ -53,7 +55,7 @@ const Driver = () => {
                 <th className='menu-th'>Email</th>
                 <th className='menu-th'>Address</th>
                 <th className='menu-th'>Phone Number</th>
-                <th className='menu-th'>Password</th>
+                <th className='menu-th'>Status</th>
                 <th className='menu-th'>Action</th>
                 </tr>
             </thead>
@@ -67,7 +69,7 @@ const Driver = () => {
                 <td>{driver.Email}</td>
                 <td>{driver.address}</td>
                 <td>{driver.phone_no}</td>
-                <td>{driver.password}</td>
+                <td>{driver.status}</td>
                 <td>
                   <Link to={`/Driver/UpdateDriver/${driver._id} `}>
                   <button className='edit'>Edit</button>
@@ -82,6 +84,7 @@ const Driver = () => {
               ))}
             </tbody>
           </table>       
+        </div>
         </div>
 
          

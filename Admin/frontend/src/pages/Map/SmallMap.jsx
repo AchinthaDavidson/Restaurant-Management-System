@@ -38,7 +38,6 @@ const SmallMap = (receviedLocationFromHome) => {
         googleMapsApiKey: process.env.REACT_APP_GOOGLEMAP_API_KEY ,
         libraries:['places']
       });
-
     //  //eslint-disable-next-line no-undef
     //  var geocoder = new google.maps.Geocoder();
     //  //eslint-disable-next-line no-undef
@@ -114,7 +113,7 @@ const SmallMap = (receviedLocationFromHome) => {
             <ToastContainer position="top-right" theme="colored" /> 
           
                
-              <table border={0} style={{paddingTop:"1rem", borderSpacing:"0", margin:"auto auto", backgroundColor:"antiquewhite" , border:"none"}}>
+              <table border={0} style={{paddingTop:"1rem", borderSpacing:"0", margin:"auto auto", border:"none"}}>
                     <tbody>
                         <tr>
                         <td colSpan={3} className="t1" >

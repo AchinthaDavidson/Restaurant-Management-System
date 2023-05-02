@@ -29,8 +29,9 @@ function CreateFoodJS(){
     const validFileTypes = ['image/jpg','image/jpeg','image/png'];
 
     AWS.config.update({
-        accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X' ,
-        secretAccessKey: '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',
+
+        accessKeyId: process.env.REACT_APP_AWS_ACC_KEY,
+        secretAccessKey: process.env.REACT_APP_AWS_SCT_ACC_KEY,
         dirName: 'images',
         region: 'ap-south-1',
         signatureVersion: 'v4',
@@ -95,15 +96,6 @@ function CreateFoodJS(){
 
         dish.dishCategory = selectedCategory;
         event.preventDefault();
-        
-
-        // const [dish,setPost] = useState({       // this may  need to change
-        //     dishTitle : "",
-        //    
-        //  
-        //     dishIngridients : ingredient,
-        //     ImageURL : "",
-        //    
 
         if (!selectedCategory) {
             toast.error("Please select a category for the dish ...");

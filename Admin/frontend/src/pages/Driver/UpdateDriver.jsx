@@ -1,5 +1,5 @@
 import React from "react";
-import Niv from "../../components/Niv";
+import Niv from "../../components/Niv.jsx";
 import "./addDriver.css";
 import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
@@ -27,6 +27,8 @@ const UpdateDriver = () => {
       setpassword(res.data.password)
     })
    } ,[]);
+
+
  
    const driver ={ D_Id , name , Email , phone_no  , address , password }
   
@@ -41,7 +43,7 @@ const UpdateDriver = () => {
 
   return (
     <div>
-      <Niv name="Driver/ Update Driver" />
+      <Niv name="Driver/ Update Driver" /> 
       <div className="data">
       <div className="menuAdd">
         <header>Update Driver</header>

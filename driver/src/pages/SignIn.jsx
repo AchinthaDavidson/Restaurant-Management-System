@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import {Link, useNavigate} from 'react-router-dom';
-
-
 import "../styles/authScreens.css";
-
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignIn() {
   const customStyle = { marginTop: "30px" };
@@ -15,6 +14,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [driver, setdriver] = useState([]);
+  const navigate = useNavigate();
   const handleEmailChange = (e) => {
     setUsername(e.target.value);
   };
@@ -26,31 +26,25 @@ export default function SignIn() {
 
     function getdriver() {
       axios.get("http://localhost:8070/driver/").then((res) => {
-         console.log(res.data);
         setdriver(res.data);
-        // console.log(orders[1]);
       });
     }
     getdriver();
   }, []);
 
-
+  
   function  handleButtonClick  ()  {
  
     if (username.length>=1&& password.length>=1){
-    const logged = "logged"
     driver.filter((val) => {
       if (val.Email.includes(username) && val.password.includes(password)) {
-
-      localStorage.setItem('userNameStorage',JSON.stringify(username))
-      localStorage.setItem('userStatus',JSON.stringify(logged))
-      
-        window.location.href = "/home";
-        // <Navigate to="/home" />
-        // alert("ok")
+        const id = val._id
+        localStorage.setItem('loggedUserID',JSON.stringify(id))
+        navigate('/home',{state: {loggedUserID : id}});
+        setError("Loging in.....");
       }else{
-     
-         setError("Invalid email or password");
+         setError("Waiting......");
+         setTimeout( function() { setError("Looks like credentials are invalid. Please check again.") }, 3000);
       }
     })
   }
@@ -59,7 +53,6 @@ export default function SignIn() {
   }
 
   };
-
 
   useEffect(() => {
     let loginInfo = localStorage.getItem("loginInfo");
@@ -74,8 +67,10 @@ export default function SignIn() {
       );
   }, []);
 
+  
   return (
     <div className="container">
+      <ToastContainer position="top-right" theme="colored" /> 
       <div className="card-wrapper">
         <div className="content-card">
           <div className="side">
@@ -107,7 +102,7 @@ export default function SignIn() {
           <div className="side image-side">
             <div className="image-side-content">
               <span className="title">Sign In</span>
-              
+            
             </div>
           </div>
         </div>
