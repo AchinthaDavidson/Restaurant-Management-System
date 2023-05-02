@@ -2,87 +2,83 @@ import React, { useState, useEffect } from "react";
 import './chatbox.css';
 import Header from "../../components/header";
 import axios from "axios";
-import { makeStyles } from '@material-ui/core/styles';
 import {
-  List, ListItem, ListItemText,
-  Divider, Typography, Paper, Grid, TextareaAutosize, Button
-} from '@material-ui/core';
-import { Send } from '@material-ui/icons';
+  Grid,
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Button,
+  Divider,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Paper,
+} from "@mui/material";
+import styled from 'styled-components';
+// import { Send } from '@material-ui/icons';
 import Footer from "../../components/Footer";
 
-
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: '17vh 10vh 0vh 10vh',
-    display: 'flex',
-    height: '80vh',
-    overflow: 'hidden',
-  },
-  sidebar: {
-    backgroundColor: theme.palette.background.paper,
-    width: 240,
-    borderRight: `1px solid ${theme.palette.divider}`,
-  },
-  container: {
-    flex: 1,
-    padding: theme.spacing(3),
-  },
-  chatContainer: {
-    height: '500px', /* or any desired height */
-    display: "flex",
-    flexDirection: 'column',
-    overflow: 'hidden',
-  },
-  
-  messageContainer: {
-    flex: '1',
-    overflowY: 'scroll',
-    padding: '10px',
-  },
-  
-  messageInputContainer: {
-    height: '80px', /* or any desired height */
-    padding: '1px',
-  }
-
+const MessageWrapper = styled(Box)(({ isSentByCurrentUser }) => ({
+  display: 'flex',
+  flexDirection: isSentByCurrentUser ? 'row-reverse' : 'row',
+  alignItems: 'flex-end',
+  marginBottom: "16px",
 }));
+
+const MessageBubble = styled(Box)(({ isSentByCurrentUser }) => ({
+  maxWidth: '80%',
+  padding: "8px",
+  marginRight: isSentByCurrentUser ? "10px" : "0",
+  borderRadius: isSentByCurrentUser ? '20px 20px 0 20px' : '20px 20px 20px 0',
+  backgroundColor: isSentByCurrentUser ? '#0084ff' : '#f0f0f0',
+  color: isSentByCurrentUser ? '#fff' : '#333',
+  alignSelf: isSentByCurrentUser ? 'flex-end' : 'flex-start',
+  wordWrap: 'break-word',
+  boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
+}));
+
+const MessageHeader = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: "5px",
+}));
+
+const MessageSender = styled(Typography)(() => ({
+  fontSize: '0.8rem',
+  fontWeight: 'bold',
+  marginRight: "8px",
+}));
+
+const MessageTime = styled(Typography)(() => ({
+  fontSize: '0.7rem',
+  color: '#666',
+}));
+
 
 
 function Chat() {
 
 
 
-  const [messageText, setMessageText] = useState('');
-  const [user, setUser] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
 
-  const classes = useStyles();
+  const [message, setmessage] = useState('');
 
-  const [selectedChat, setSelectedChat] = React.useState(null);
+  const currentUser = JSON.parse(localStorage.getItem("userData"));
+
+  const rec = "644df7666512eabcfd11aa19"
+
+
+
+
   const [messages, setMessages] = useState([]);
-
-  const handleChatClick = (chat) => {
-    setSelectedChat(chat);
-  };
-
-
-  useEffect(() => {
-    let res = JSON.parse(localStorage.getItem("userData"));
-    if (!res) {
-    }
-    else {
-      console.log(res);
-      setUser(res);
-      setCurrentUser(res.user._id);
-    }
-  }, []);
-
-
   useEffect(() => {
     axios.get('http://localhost:5000/chat/')
-      .then(response => {
-        setMessages(response.data);
+      .then(res => {
+        setMessages(res.data);
       })
       .catch(error => {
         console.log(error);
@@ -93,122 +89,108 @@ function Chat() {
     event.preventDefault();
 
     const newMessage = {
-      sender: currentUser,
-      message: messageText,
-      createdAt: new Date().toISOString()
+      sender: currentUser.user._id,
+      message: message,
+      reply: rec,
+      createdAt: new Date()
     };
 
+
+
     axios.post('http://localhost:5000/chat/', newMessage)
-      .then(response => {
-        setMessages([...messages, response.data]);
-        setMessageText('');
-      })
-      .catch(error => {
+      .then(() => {
+        window.location.reload(false);
+        setmessage('')
+      }).catch(error => {
         console.log(error);
       });
   };
+
 
   return (
     <>
       <Header />
 
 
-      <div className={classes.root}>
-        <Paper className={classes.sidebar}>
-          <List>
-            <ListItem button onClick={() => handleChatClick('Admin')}>
-              <ListItemText primary="Admin" />
-            </ListItem>
-            <Divider />
-          </List>
-        </Paper>
-        <Paper className={classes.container}>
-          {selectedChat ? (
-            <>
+      <Box sx={{
+        flexGrow: 1,
+        margin: "127px 30px 0 30px",
+        backgroundColor: "#0000",
+        padding: "20px",
+        color: "#ffff",
+        borderRadius: "20px",
+      }}>
 
-<div class="chat-container">
-              <div className="messages-container">
-                <div className="messages-scrollable">
-                  <Typography variant="subtitle1" gutterBottom>
-                    {selectedChat}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-                    mi at mi lobortis, a lacinia lorem lacinia.
-                  </Typography>
-                  <Divider />
-                  <Typography variant="subtitle1" gutterBottom>
-                    {user.user.name}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    Duis sit amet nisl dapibus, suscipit nibh et, suscipit justo. Ut
-                    auctor euismod metus, eget dapibus velit efficitur eu.
-                  </Typography>
-                  <Divider />
-                  <Typography variant="subtitle1" gutterBottom>
-                    {selectedChat}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    Pellentesque faucibus augue vel enim venenatis, id convallis velit
-                    elementum. Nulla nec ultrices mauris, a convallis mauris.
-                  </Typography>
-                  <Divider />
-                  <Typography variant="subtitle1" gutterBottom>
-                    {selectedChat}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    Pellentesque faucibus augue vel enim venenatis, id convallis velit
-                    elementum. Nulla nec ultrices mauris, a convallis mauris.
-                  </Typography>
-                  <Divider />
-                  <Typography variant="subtitle1" gutterBottom>
-                    {selectedChat}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    Pellentesque faucibus augue vel enim venenatis, id convallis velit
-                    elementum. Nulla nec ultrices mauris, a convallis mauris.
-                  </Typography>
-                  <Divider />
-                  <Typography variant="subtitle1" gutterBottom>
-                    {selectedChat}
-                  </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    Pellentesque faucibus augue vel enim venenatis, id convallis velit
-                    elementum. Nulla nec ultrices mauris, a convallis mauris.
-                  </Typography>
-                  <Divider />
-                </div>
+
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <Box sx={{ height: "70vh"}}>
+              <List>
+
+                <Paper variant="outlined" square elevation={0} sx={{backgroundColor: "#d10b0b", marginRight: "10px" }}>
+                  <ListItem  >
+                    <ListItemText primary="Chat with Admin" sx={{ color: "#ffff"}} />
+                  </ListItem>
+                </Paper>
+
+              </List>
+            </Box>
+          </Grid>
+          <Grid item xs={8}>
+            <Box sx={{ height: "calc(70vh - 64px)", overflowY: "scroll" }}>
+
+
+              <div >
+                {messages.filter(
+                  (m) =>
+                    (m.sender === currentUser.user._id && m.reply === rec) ||
+                    (m.reply === currentUser.user._id && m.sender === rec)
+                ).map((message) => (
+                  <MessageWrapper
+                    key={message._id}
+                    isSentByCurrentUser={message.sender === currentUser.user._id}
+                  >
+                    <MessageBubble
+                      isSentByCurrentUser={message.sender === currentUser.user._id}
+                    >
+                      <MessageHeader>
+                        <MessageSender>{message.sender}</MessageSender>
+                        <MessageTime>
+                          {new Date(message.createdAt).toLocaleString()}
+                        </MessageTime>
+                      </MessageHeader>
+                      {message.message}
+                    </MessageBubble>
+                  </MessageWrapper>
+                ))}
               </div>
 
-              <div className={classes.messageInputContainer}>
-                <Grid container alignItems="center">
-                  <Grid item xs={12} md={10}>
-                    <TextareaAutosize
-                      rowsMin={3}
-                      placeholder="Type your message"
-                      fullWidth
-                      value={messageText}
-                      onChange={(e) => setMessageText(e.target.value)}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={2}>
-                    <Button variant="contained" color="primary" onClick={handleSubmit}>
-                      <Send />
-                    </Button>
-                  </Grid>
-                </Grid>
-              </div>
-              </div>
-            </>
-          ) : (
-            <Typography variant="h6" gutterBottom>
-              Please select a chat
-            </Typography>
-          )}
-        </Paper>
-      </div>
+
+            </Box>
+            <Box sx={{ display: "flex", mt: 2 }}>
+              <TextField
+                fullWidth
+                // placeholder={user.user._id}
+                variant="outlined"
+                label="Type your message here"
+                value={message}
+                onChange={(e) => setmessage(e.target.value)}
+                sx={{ mr: 2, backgroundColor: "#8a8a8a" }}
+              />
+              <Button variant="contained" onClick={handleSubmit}>
+                Send
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+
+
+
+      </Box>
 
       <Footer />
+
+
 
     </>
   )
