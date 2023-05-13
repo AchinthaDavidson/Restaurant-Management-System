@@ -27,15 +27,23 @@ router.route("/add").post((req,res)=>{
     const endCode = codeGenarator()
     const deliverCenter = req.body.deliverCenter
     const cusEmail = req.body.email
+
+    // const order_id ="0"
+    // const  w_id    ="req.body.w_id;"
+    // const  cus_id  ="req.body.cus_id;"
+    // const  type     = "req.body.type;"
+    // const  date     ="d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear();"
+    // const  time     ="d.getHours()++d.getMinutes()"
+    // const  amout    = 230
+    // const  status= "pending"
+    // const location = "req.body.address;"
+    // const phnNum = "req.body.phone;"
+    // const startCode = "codeGenarator()"
+    // const endCode = "codeGenarator()"
+    // const deliverCenter =" req.body.deliverCenter"
+    // const cusEmail = "req.body.email"
   
-    // const order_id ='1';
-    // const  w_id     ="vsfgsg"
-    // const  cus_id   ="dfxhfh"
-    // const  type     ="takeaway"
-   
-    // const  date     =d.getUTCDate()+"/"+d.getUTCMonth()+1+"/"+d.getFullYear();
-    // const  time     =d.getHours()+":"+d.getMinutes()
-    // const  amout    = "Number( req.body.total)"
+    
     const neworder =new  order({
 
         order_id,

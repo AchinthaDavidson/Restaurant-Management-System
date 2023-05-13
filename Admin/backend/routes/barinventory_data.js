@@ -38,7 +38,7 @@ router.route("/add").post((req,res)=>{
 
 router.route("/").get((req,res)=>{
 
-    barInv.aggregate([{$group:{_id:"$Product_Code",price:{$min:"$Sell_Price"}}}]).then((bars)=>{
+    barInv.aggregate([{$group:{_id:"$Product_Name",price:{$min:"$Sell_Price"}}}]).then((bars)=>{
         res.json(bars)
     }).catch((err)=>{
         console.log(err);

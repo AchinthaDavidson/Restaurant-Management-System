@@ -51,6 +51,8 @@ function Order() {
   const [isSet, setIsSet] = useState(false)
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("1");
+  const [print, setPrint] = useState(0);
+
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState("");
   const [Iid, setIid] = useState("")
@@ -86,7 +88,7 @@ function Order() {
   useEffect(() => {
     function getbar() {
       axios.get("http://localhost:8070/Bardata").then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setBar(res.data);
         // console.log(orders[1]);
       });
@@ -344,7 +346,12 @@ function handleChange(value){
 
     // document.getElementById('print').disabled=false
 
-      if (total > 0 && address!=null ) {
+      if (total > 0  ) {
+
+        if(staytus === "0" && type ==="Delivery" && !address){
+          toast.error("Please enter the address");
+          return
+        }
  
         const neworder = {
           order_id,
@@ -358,7 +365,7 @@ function handleChange(value){
          
         };
   
-        //console.log(neworder);
+        console.log(neworder);
   
         axios
           .post("http://localhost:8070/order/add", neworder)
@@ -403,10 +410,7 @@ function handleChange(value){
             phone,
           };
 
-        if(!address){
-          toast.error("Please enter the address");
-          return
-        }
+        
           axios
             .post("http://localhost:8070/customer/add", neworder_cus)
             .then(() => {
@@ -1020,21 +1024,43 @@ function handleChange(value){
               overflowY: "auto",
             }}
           >
-            <div onClick={sendorder} id="print1" disabled hidden>
+            <div  id="print1"  onClick={sendorder}>
               <ReactToPrint
                 focus={true}
+                onClick={sendorder}
                 trigger={() => (
+                  
                   <Button
                     // style={{ backgroundColor: "#01BC90", color: "black" }}
                     type="submit"
-                    hidden
+                    
                     id="print"
+                    
                   >
                     Print Bill
                   </Button>
                 )}
-                onBeforePrint={() => null}
+                onBeforePrint={() => {
+                  if (total<=0){
+                    toast.error("Please add food");
+                    throw new Error("Printing is not allowed!");
+                  }
+                  else
+                 if(staytus === "0" && type ==="Delivery" && !address){
+                    toast.error("Please enter the address")
+                    throw new Error("Printing is not allowed!")
+                    
+                  }
+                  else{
+                    setPrint(1)
+                  }
+
+
+
+                }}
                 content={() => componentRef.current}
+
+                
               
               />
          
@@ -1044,13 +1070,20 @@ function handleChange(value){
                   trigger={() => (
                     <Button
                     
-                    hidden
+                    
                     id="print2"
                     >
                       Print KOT
                     </Button>
                   )}
-                  onBeforePrint={() => null}
+                  onBeforePrint={() =>{
+
+                    if (print==0){
+                      toast.error("Please print the bill first");
+                      throw new Error("Printing is not allowed!");
+                    }
+                  
+                  }}
                   content={() => kot.current}
                   onAfterPrint={() => window.location.reload(false)}
                 />
