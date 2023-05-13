@@ -1,4 +1,4 @@
-/* 
+
 import React, { useState, useEffect } from "react";
 import './chatbox.css';
 import Header from "../../components/header";
@@ -199,4 +199,3 @@ function Chat() {
 }
 
 export default Chat;
-*/

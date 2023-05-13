@@ -1,5 +1,5 @@
 exports.MONGO_URL = process.env.MONGO_URI;
-exports.PORT = process.env.PORT || 8070;
+exports.PORT = process.env.PORT || 5000;
 exports.saltRounds = 10;
 exports.jwtSecret = "yourjwtsecret";
 exports.GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;

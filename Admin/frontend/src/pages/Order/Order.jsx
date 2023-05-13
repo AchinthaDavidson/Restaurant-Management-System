@@ -27,7 +27,7 @@ function Order() {
   // const order_id = '008';
   const [w_id, setW_id] = useState("-");
   const [cus_id, setcus_id] = useState("-");
-  const [type, settype] = useState("Takeaway");
+  const [type, settype] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -1045,7 +1045,7 @@ function handleChange(value){
                     toast.error("Please add food");
                     throw new Error("Printing is not allowed!");
                   }
-                  else
+                  else 
                  if(staytus === "0" && type ==="Delivery" && !address){
                     toast.error("Please enter the address")
                     throw new Error("Printing is not allowed!")
