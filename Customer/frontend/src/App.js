@@ -13,6 +13,8 @@ import Homepage from './screens/Homepage/homepage';
 import Menu from './screens/Menu/Menu';
 import FAQ from './screens/FAQ/FAQ';
 import Chat from './screens/Chat/Chat'
+import BarMenu from './screens/BarMenu/BarMenu'
+
 function App() {
   return (
     <div className="App">
@@ -28,6 +30,7 @@ function App() {
           <Route path="/Menu" element={<Menu />} />
           <Route path="/FAQs" element={<FAQ />} />
           <Route path="/Chat" element={<Chat />} />
+          <Route path="/BarMenu" element={<BarMenu />} />
         </Routes>
       </BrowserRouter>
     </div>
