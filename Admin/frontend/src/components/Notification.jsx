@@ -1,20 +1,34 @@
-import React from "react";
-//import "./notification.css"
-import Niv from '../components/Niv';
-import { useState, useRef, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import "./Notification.css";
 
 const Notification = () => {
+  const [items, setItems] = useState([]);
+  const [lowStockItems, setLowStockItems] = useState([]);
 
- 
+  useEffect(() => {
+    axios.get('http://localhost:8070/resInventory/').then((res) => {
+      setItems(res.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const lowStockItems = items.filter((item) => item.Quantity < (item.Re_Order_Level + 10));
+    setLowStockItems(lowStockItems);
+  }, [items]);
+
+  
+
   return (
-    <div  style={{display:"flex",minWidth:"200px",maxWidth:"200px",position:"absolute",background:"white",marginLeft:"75%",zIndex:"1000"}}
-    >
-      <ul hidden  id="notification" ><li>hjgjgj</li>
-      <li>gjvvjhvj</li></ul>
-    </div>
-
+    <div className="Notification">
+  <ul hidden id="notification" >
+    {lowStockItems.map((item) => (
+      <li key={item.Item_Id}>
+        <strong>{item.Item_Name}</strong> is low in stock ({item.Quantity} {item.Unit} left)
+      </li>
+    ))}
+  </ul>
+</div>
   );
 };
 

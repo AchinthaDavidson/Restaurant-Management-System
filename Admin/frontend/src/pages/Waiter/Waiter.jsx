@@ -2,14 +2,15 @@ import React , {useEffect , useState} from 'react';
 import axios from 'axios'
 import Niv from '../../components/Niv';
 import "./waiter.css"
-import { useNavigate , Link} from 'react-router-dom';
+import { useNavigate ,  Link} from 'react-router-dom';
 import Notification from "../../components/Notification";
 
 
 const Waiter = () => {
 
     const [waiter , setWaiter] = useState([]) ;
-    //const history = useNavigate();
+    const [searchTerm, setSearchTerm] = useState("");
+    const history = useNavigate();
    
 
     useEffect(() => {
@@ -23,6 +24,11 @@ const Waiter = () => {
         getWaiter() ;
     },[]);
 
+    function Finddata(index){
+        // document.getElementsByClassName("data")[index].hidden=false
+        document.getElementById(index).hidden=false
+      }
+     
     function DeleteRow(id) {
        
         
@@ -30,10 +36,10 @@ const Waiter = () => {
         const dlt = "http://localhost:8070/waiter/delete/" + id ;
 
         axios.delete(dlt).then(()=>{
-            alert('Deleted Successfully!');
+          
            
             //history('/Waiter/addwaiter')
-            //history('/waiter')
+            history('/waiter')
         })
         .catch(err => {
             alert(err)
@@ -44,8 +50,13 @@ const Waiter = () => {
         <div>
         <Niv name='Waiter'/>
         <Notification/>
-        
+        <div className='data'>
         <h1 className='title'>Waiters</h1>
+
+        <input type="text" style={{ height: "40px"  , marginLeft:"30px" , background:"#edeef1 " , border:"white" , paddingLeft:"10px" }} placeholder=" Search Items..." onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }} />
+       
         <div class="tbl-header">
           <a href="Waiter/AddWaiter">
           <button class="add_waiter">+ New Waiter</button>
@@ -59,21 +70,31 @@ const Waiter = () => {
                 <th className='waiter-th'>Email</th>
                 <th className='waiter-th'>address</th>
                 <th className='waiter-th'>Phone Number</th>
-                <th className='waiter-th'>password</th>
+               
                 <th className='waiter-th'>status</th>
                 <th className='waiter-th'>Action</th>
                 </tr>
             </thead>
 
             <tbody>
-              {waiter.map((waiter) => (
-              <tr>
+                
+            {waiter.filter((val) => {
+              if (searchTerm === "") {
+                return val;
+              } else if (
+                val.name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return val;
+              }
+            }).map((waiter,index) =>(
+              <>
+              <tr  onClick={()=>Finddata(index)}>
               <td>{waiter.W_Id}</td>
               <td>{waiter.name}</td>
               <td>{waiter.Email}</td>
               <td>{waiter.address}</td>
               <td>{waiter.phone_no}</td>
-              <td>{waiter.password}</td>
+              
               <td>{waiter.status}</td>
               <td>
                 <Link to={`/Waiter/UpdateWaiter/${waiter._id} `}>
@@ -84,11 +105,13 @@ const Waiter = () => {
                 </a>
               </td>
               </tr>
-              ))}
+              
+              </>
+            ))}
             </tbody>
           </table>
         </div>
-        
+        </div> 
     </div>
     );
 };
