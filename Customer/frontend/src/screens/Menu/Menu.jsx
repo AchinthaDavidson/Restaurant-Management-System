@@ -155,7 +155,7 @@ function Menu() {
                 {menu.map((menu) => (
                   <div>
                     <div style={{ color: "white" }}>{menu.Name}</div>
-
+ 
                     {products
                       .filter((val) => {
                         if (val.Category.includes(menu.Name)) {
