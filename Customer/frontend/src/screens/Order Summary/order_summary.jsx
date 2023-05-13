@@ -1,6 +1,7 @@
 import "./order_summary.css";
 
-function App() {
+function Order_Summary() {
+	
     return (
         <body>
 		<div className="main-header">
@@ -62,4 +63,4 @@ function App() {
         );
 }
 
-export default App;
+export default Order_Summary;

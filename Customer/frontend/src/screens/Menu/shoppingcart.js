@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./shoppingcart.css";
 import { IoMdCloseCircle } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 function ShoppingCart({
 	visibilty,
@@ -20,6 +21,12 @@ function ShoppingCart({
 
 			}
 	}
+
+	let navigate = useNavigate(); 
+  const routeChange = () =>{ 
+    let path = `/Menu`; 
+    navigate(path);
+  }
 
 	return (
 		<div
@@ -96,7 +103,8 @@ function ShoppingCart({
 						</div>
 					))}
 					{products.length > 0 && (
-						<button className="btn checkout-btn" onClick={handleButtonClick}>
+						<button className="btn checkout-btn"  onClick={routeChange}>  
+						{/* onClick={handleButtonClick} */}
 							Proceed to checkout
 						</button>
 					)}
