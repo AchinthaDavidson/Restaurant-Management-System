@@ -4,6 +4,8 @@ import "./waitercss.css";
 import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddWAiter = () => {
 
@@ -44,6 +46,7 @@ const AddWAiter = () => {
 
   return (
     <div>
+      <ToastContainer position="top-right" theme="colored" />
       <Niv name="Waiter/ AddWaiter" />
       <div className="data">
       <div className="waiterAdd">

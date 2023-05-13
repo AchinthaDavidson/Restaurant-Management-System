@@ -50,7 +50,7 @@ const Waiter = () => {
         <div>
         <Niv name='Waiter'/>
         <Notification/>
-        
+        <div className='data'>
         <h1 className='title'>Waiters</h1>
 
         <input type="text" style={{ height: "40px"  , marginLeft:"30px" , background:"#edeef1 " , border:"white" , paddingLeft:"10px" }} placeholder=" Search Items..." onChange={(event) => {
@@ -111,7 +111,7 @@ const Waiter = () => {
             </tbody>
           </table>
         </div>
-        
+        </div> 
     </div>
     );
 };

@@ -13,7 +13,7 @@ const Notification = () => {
   }, []);
 
   useEffect(() => {
-    const lowStockItems = items.filter((item) => item.Quantity < 0);
+    const lowStockItems = items.filter((item) => item.Quantity < (item.Re_Order_Level + 10));
     setLowStockItems(lowStockItems);
   }, [items]);
 
