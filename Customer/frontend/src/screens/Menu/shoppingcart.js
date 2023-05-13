@@ -103,8 +103,8 @@ function ShoppingCart({
 						</div>
 					))}
 					{products.length > 0 && (
-						<button className="btn checkout-btn"  onClick={routeChange}>  
-						{/* onClick={handleButtonClick} */}
+						<button className="btn checkout-btn"   
+						onClick={handleButtonClick}>
 							Proceed to checkout
 						</button>
 					)}

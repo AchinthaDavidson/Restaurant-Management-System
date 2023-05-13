@@ -531,7 +531,7 @@ function handleChange(value){
                   }}
                   onClick={() => setIstype(true)}
                 >
-                  <b>Resturent</b>
+                  <b>Restaurent</b>
                 </Button>
               </div>
 
@@ -701,7 +701,7 @@ function handleChange(value){
                     onClick={Dining}
                     style={{ marginLeft: "15%" }}
                   />
-                  <label htmlFor="javascript">Dining</label>
+                  <label htmlFor="javascript">Dine-In</label>
                   <input
                     id="Delivery"
                     type="radio"
