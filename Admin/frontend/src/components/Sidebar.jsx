@@ -61,8 +61,8 @@ const Sidebar = ({children}) => {
             icon:<FaCarSide/>
         },
         {
-            path:"/Map",
-            name:"Map",
+            path:"/TrackOrder",
+            name:"Track Orders",
             icon:<FaMap/>
         },
         {

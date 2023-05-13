@@ -180,8 +180,7 @@ router.route("/updateqty").post(async(req,res)=>{
                  Bar.find({Product_Code:Id[i].description}).then((Bar)=>{
                     const  Quantity1 =Bar[0].Quantity
                  
-             
-                     update2(Quantity1,Id[i].quantity,Id[i].description)
+                     update2(Quantity1,Id[i].Quantity,Id[i].description)
                      console.log(Quantity1)
                      
                  }).catch((err)=>{
@@ -191,9 +190,7 @@ router.route("/updateqty").post(async(req,res)=>{
              }  
        
              function update2(qty,Quantity,id){
-                 var Quantity3=Number(qty-Quantity)
-         
-               
+                 var Quantity3=Number(qty-Quantity)       
           
                   Bar.updateOne({Product_Code:id},{$set:{Quantity:Quantity3}})
           

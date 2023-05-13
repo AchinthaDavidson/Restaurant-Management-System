@@ -6,56 +6,6 @@ import { FaShoppingCart } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
 import "./menu.css";
 
-const products = [
-  {
-    id: 1,
-    name: "Tomato and Onion Salad",
-    price: 550,
-    image: require("../../Images/chicken2.png"),
-  },
-  {
-    id: 2,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/beef.png"),
-  },
-  {
-    id: 3,
-    name: "Tomato and Onion Salad",
-    price: 550,
-    image: require("../../Images/pork.png"),
-  },
-  {
-    id: 4,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/chicken.png"),
-  },
-  {
-    id: 5,
-    name: "Tomato and Onion Salad",
-    price: 550,
-    image: require("../../Images/chicken3.png"),
-  },
-  {
-    id: 6,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/pork2.png"),
-  },
-  {
-    id: 7,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/COCA COLA.png"),
-  },
-  {
-    id: 8,
-    name: "Cucumber Salad",
-    price: 500,
-    image: require("../../Images/SPRITE.png"),
-  },
-];
 
 function Menu() {
   const [cartsVisibilty, setCartVisible] = useState(false);
@@ -151,7 +101,7 @@ function Menu() {
                         Add To Cart
                       </button>
                       <fav>
-                        <MdFavorite size={30} />
+                        {/* <MdFavorite size={30} /> */}
                       </fav>
                     </bottom>
                   </div>

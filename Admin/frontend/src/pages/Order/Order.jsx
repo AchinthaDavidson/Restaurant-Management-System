@@ -16,6 +16,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { width } from "@mui/system";
 import Notification from "../../components/Notification";
+import { GoogleMap, Marker, useJsApiLoader, Autocomplete,DirectionsRenderer } from '@react-google-maps/api';
+import SmallMap from "../Map/SmallMap.jsx"
 // import { color } from "@mui/system";
 // import { display } from "@mui/system";
 
@@ -31,6 +33,10 @@ function Order() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [table, settable] = useState("");
+  const {isLoaded} = useJsApiLoader({
+    googleMapsApiKey: 'AIzaSyBv1H_VqIZse7f0hBdvLJThzpB-SaFfkPg',
+    libraries:['places']
+  });
   const invoiceDate = useState(
     d.getDate() +
       "/" +
@@ -42,8 +48,11 @@ function Order() {
       ":" +
       d.getMinutes()
   );
+  const [isSet, setIsSet] = useState(false)
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("1");
+  const [print, setPrint] = useState(0);
+
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState("");
   const [Iid, setIid] = useState("")
@@ -60,9 +69,10 @@ function Order() {
   const [waiter, setwaiter] = useState([]);
   const [porder,setporder]=useState([]);
   const [pbar,setpbar]=useState([]);
+  const [loctype,setLoctype] = useState("default")
   const id1=[]
   const  Quantity1=[]
-
+  
   // must be change for food
   useEffect(() => {
     function getorder() {
@@ -78,7 +88,7 @@ function Order() {
   useEffect(() => {
     function getbar() {
       axios.get("http://localhost:8070/Bardata").then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setBar(res.data);
         // console.log(orders[1]);
       });
@@ -97,6 +107,15 @@ function Order() {
    
     
 
+  }
+
+  function handleLocationInput(addtype){
+    //console.log(addtype)
+   if(addtype=="default"){
+    document.getElementById("locationInputs").hidden=true;
+   }else if(addtype=="custom"){
+    document.getElementById("locationInputs").hidden=false;
+   }
   }
 
   function setSearch() {
@@ -188,7 +207,7 @@ function handleChange(value){
         .post("http://localhost:8070/orderfood/add", neworder_food)
         .then(() => {
           // alert("food add");
-          toast.success("food added");
+          toast.success("Item added to order ");
 
           document.getElementById("print1").hidden = false;
         })
@@ -321,88 +340,108 @@ function handleChange(value){
     window.location.reload(false);
   };
   // save database
-  function sendorder(e) {
+  async function sendorder(e) {
     // alert(cus_id);
     e.preventDefault();
 
     // document.getElementById('print').disabled=false
-    setName("");
-    setAddress("");
-    setEmail("");
-    setPhone("");
-    if (total > 0 ) {
+
+      if (total > 0  ) {
+
+        if(staytus === "0" && type ==="Delivery" && !address){
+          toast.error("Please enter the address");
+          return
+        }
  
-      const neworder = {
-        order_id,
-        w_id,
-        cus_id,
-        type,
-        total,
-        address,
-      };
-      axios
-        .post("http://localhost:8070/order/add", neworder)
-        .then(() => {
-          // alert("order add");
-        })
-        .catch((err) => {
-          alert(err);
-        });
-
-      console.log(list)
-        const qty = {
-         list
-        };
-        axios
-          .post("http://localhost:8070/resInventory/updateqty", qty)
-          .then(() => {
-            // alert("order add");
-          })
-          .catch((err) => {
-            alert(err);
-          });
-          axios
-          .post("http://localhost:8070/BarInventory/updateqty", qty)
-          .then(() => {
-            // alert("order add");
-          })
-          .catch((err) => {
-            alert(err);
-          });
-
-      if (staytus === "0") {
-        const neworder_cus = {
-          name,
-          email,
+        const neworder = {
+          order_id,
+          w_id,
+          cus_id,
+          type,
+          total,
           address,
           phone,
+          email
+         
         };
+  
+        console.log(neworder);
+  
         axios
-          .post("http://localhost:8070/customer/add", neworder_cus)
+          .post("http://localhost:8070/order/add", neworder)
           .then(() => {
-            // alert("cus add");
-            toast.success("customer addes successfull");
+            // alert("order add");
           })
           .catch((err) => {
-            // alert(err);
-            toast.error("customer addes unsuccessfull");
+            alert(err);
           });
-      }
-    }
+  
+          setName("");
+          setAddress("");
+          setEmail("");
+          setPhone("");
+  
+        //console.log(list)
+          const qty = {
+           list
+          };
+          axios
+            .post("http://localhost:8070/resInventory/updateqty", qty)
+            .then(() => {
+              // alert("order add");
+            })
+            .catch((err) => {
+              alert(err);
+            });
+            axios
+            .post("http://localhost:8070/BarInventory/updateqty", qty)
+            .then(() => {
+              // alert("order add");
+            })
+            .catch((err) => {
+              alert(err);
+            });
+  
+        if (staytus === "0") {
+          const neworder_cus = {
+            name,
+            email,
+            address,
+            phone,
+          };
+
+        
+          axios
+            .post("http://localhost:8070/customer/add", neworder_cus)
+            .then(() => {
+              // alert("cus add");
+              toast.success("New customer added");
+            })
+            .catch((err) => {
+              // alert(err);
+              toast.error("Could not add the new customer");
+            });
+        }
+      }  
   
   }
 
   const [orderid, setorder_id] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:8070/order/orderId").then((res) => {
-      console.log(res.data);
+      //console.log(res.data);
       setorder_id(res.data);
     });
   }, []);
 
   let id = orderid.map((item) => item.order_id);
+ 
   //  console.log(id[0]);
   const order_id = Number(id[0]) + 1;
+ //const order_id = 1
+  if( order_id == null || order_id == ""){
+    order_id = 1
+  }
   //get cus details
   const [customer, setcustomer] = useState([]);
 
@@ -434,6 +473,8 @@ function handleChange(value){
       });
     }
   }
+
+
   return (
     <div>
       <ToastContainer position="top-right" theme="colored" />
@@ -474,7 +515,7 @@ function handleChange(value){
               marginTop: "80px",
               flexGrow: "1",
               overflowY: "auto",
-              maxWidth: "50%",
+              maxWidth: "70%",
               // padding: "30px",
             }}
           >
@@ -643,7 +684,7 @@ function handleChange(value){
                     />
                   </div>
                 </div>
-                <hr style={{ borderColor: "black", marginTop: "25px" }}></hr>
+                {/* <hr style={{ borderColor: "black", marginTop: "25px" }}></hr> */}
                 <form action="" style={{ paddingTop: "15px" }} id="radio">
                   <input
                     id="takeaway"
@@ -652,7 +693,7 @@ function handleChange(value){
                     // checked
                     onClick={Takeaway}
                   />
-                  <label for="javascript">Takeaway</label>
+                  <label htmlFor="javascript">Takeaway</label>
                   <input
                     id="dining"
                     type="radio"
@@ -660,7 +701,7 @@ function handleChange(value){
                     onClick={Dining}
                     style={{ marginLeft: "15%" }}
                   />
-                  <label for="javascript">Dining</label>
+                  <label htmlFor="javascript">Dining</label>
                   <input
                     id="Delivery"
                     type="radio"
@@ -668,7 +709,7 @@ function handleChange(value){
                     onClick={delivery}
                     style={{ marginLeft: "15%" }}
                   />
-                  <label for="javascript">Delivery</label>
+                  <label htmlFor="javascript">Delivery</label>
                 </form>
 
                 {isdelivery ? (
@@ -680,61 +721,155 @@ function handleChange(value){
                       // display:"none"
                     }}
                   >
+                    
                     <div id="T_no">
-                      <div style={{ padding: "10px" }}>
-                        <label htmlFor="phone" id="id">
-                          Enter phone :{" "}
-                        </label>
-                        <input
-                          // disabled
-                          className="Delivery"
-                          type="text"
-                          name="phone"
-                          id="phone"
-                          placeholder="Enter your phone"
-                          autoComplete="off"
-                          value={phone}
-                          onChange={(e) => findData(e.target.value)}
-                        />
-                      </div>
-                      <div style={{ padding: "10px" }}>
-                        <label htmlFor="name" id="name">
-                          Enter Name :
-                        </label>
-                        <input
-                          // disabled
+                      <table 
+                        style={{borderSpacing:"0", 
+                          margin:"auto auto",border:"none", 
+                          minWidth:"60rem"}}>
+                        <tbody>
+                        <tr>
+                            <th  style={{textAlign:"center" }} colSpan={5}>Dilivery Details</th>
+                            </tr>
+                          <tr>
+                            <td>
+                              <label htmlFor="phone" id="id">
+                                Enter phone :{" "}
+                                
+                              </label>
+                            </td>
+                            <td>
+                            <input
+                                // disabled
+                                className="Delivery"
+                                type="text"
+                                name="phone"
+                                id="phone"
+                                placeholder="Enter your phone"
+                                autoComplete="off"
+                                value={phone}
+                                onChange={(e) => findData(e.target.value)}
+                                style={{ padding:"1rem" }}
+                              />
+                            </td>
 
-                          className="Delivery"
-                          type="text"
-                          name="text"
-                          id="name"
-                          placeholder="Enter your name"
-                          autoComplete="off"
-                          value={name}
-                          onChange={(e) => (
-                            setName(e.target.value), setcus_id(e.target.value)
-                          )}
-                          style={{ marginLeft: "5px" }}
-                        />
-                      </div>
+                            <td>
+                            <label htmlFor="name" id="name">
+                              Enter Name:
+                            </label>
+                            </td>
 
-                      <div style={{ padding: "10px" }}>
-                        <label htmlFor="email" id="email">
-                          Enter email :{" "}
-                        </label>
-                        <input
-                          // disabled
-                          className="Delivery"
-                          type="email"
-                          name="email"
-                          id="email"
-                          placeholder="Enter your email"
-                          autoComplete="off"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          style={{ marginLeft: "6px" }}
-                        />
-                      </div>
+                            <td>
+                              <input
+                              className="Delivery"
+                              type="text"
+                              name="text"
+                              id="name"
+                              placeholder="Enter your name"
+                              autoComplete="off"
+                              value={name}
+                              onChange={(e) => (
+                                setName(e.target.value), setcus_id(e.target.value)
+                              )}
+                              style={{ marginLeft: "5px", padding:"1rem" }}
+                            />
+
+                            </td>
+
+                           
+                          </tr>
+
+                          <tr>
+                            <td>
+                              <label htmlFor="email" id="email">
+                                Enter email:{" "}
+                              </label>
+                            </td>
+
+                            <td>
+                              <input
+                                // disabled
+                                className="Delivery"
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Enter your email"
+                                autoComplete="off"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                style={{ marginLeft: "6px", padding:"1rem" }}
+                              />
+                                </td>
+                                    <td>
+                                  <p style={{ marginTop:"1rem" }} htmlFor="address" id="address">
+                                    Customer Address : 
+                                  </p> 
+                                  
+                                  </td>
+                                  <td>{address}</td>
+
+                                
+                            </tr>
+                            <tr>
+                            <th  style={{textAlign:"center" }} colSpan={5}>Dilivery Location</th>
+                            </tr>
+                            <tr>
+                                                
+                              <td>
+                                <input
+                                  id="defaultLocation"
+                                  type="radio"
+                                  name="defaultLocation"
+                                  value={"default"}
+                                  onClick={(e)=>handleLocationInput("default")}
+                                  style={{ marginLeft: "15%" }}
+                                /> 
+                                <label  style={{ minWidth:"3rem"}}> Default Address </label>
+                              </td>
+                              <td>
+                                <input
+                                  id="defaultLocation"
+                                  type="radio"
+                                  name="defaultLocation"
+                                  value={"custom"}
+                                  onClick={(e)=>handleLocationInput("custom")}
+                                  style={{ marginLeft: "15%" }}
+                                /> 
+                                <label> Use Custom Location</label>
+
+                                </td>
+                              <td>
+                                <p style={{ marginTop:"1rem" }} htmlFor="address" id="address">
+                                    Set Diliver Location: 
+                                  </p> 
+                                </td>
+
+                              <td>
+                              <Autocomplete  onChange={(e) => setAddress(e.target.value)}>
+                                <input 
+                                    type="text"  
+                                    hidden={true} 
+                                    id="locationInputs"
+                                    style={{padding:"1rem 1rem 1rem 1rem"}}
+                                    placeholder="Enter your drop point..."  
+
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    onClick={(e) => setAddress(e.target.value)}
+                                    onMouseMove={(e) => setAddress(e.target.value)}
+                                    onMouseUp={(e) => setAddress(e.target.value)} 
+                                    value={address}
+                                 
+                                    
+                                   />
+                              </Autocomplete>
+                              </td>
+
+                            
+                            </tr>
+
+                 
+                  </tbody>
+                      </table>
                     </div>
                     {/* <div
                   style={{
@@ -745,11 +880,9 @@ function handleChange(value){
                   id="Address"
                   hidden
                 > */}
-                    <label htmlFor="address" id="address">
-                      Address :
-                    </label>
-
-                    <textarea
+                    
+                  
+                    {/* <textarea
                       className="Delivery"
                       type="text"
                       rows="4"
@@ -761,7 +894,14 @@ function handleChange(value){
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       style={{ paddingTop: "2px" }}
-                    ></textarea>
+                    >
+
+                    </textarea> */}
+
+                    {/* <SmallMap id={address}>
+                    </SmallMap>  */}
+                    
+                   
                     {/* </div> */}
                   </div>
                 ) : null}
@@ -877,33 +1017,50 @@ function handleChange(value){
             style={{
               backgroundColor: "white",
               borderRadius: "9px",
-              marginTop: "80px",
-              right: 0,
-              flexGrow: "1",
-              marginLeft: "15%",
-              maxWidth: "20%",
-              minWidth: "10%",
-              padding: "25px",
-              paddingLeft: "4%",
+              marginTop:"5rem",    
+              margin:"auto auto",
+              padding:"3rem 3rem",
               whiteSpace: "nowrap",
               overflowY: "auto",
             }}
           >
-            <div onClick={sendorder} id="print1" disabled hidden>
+            <div  id="print1"  onClick={sendorder}>
               <ReactToPrint
                 focus={true}
+                onClick={sendorder}
                 trigger={() => (
+                  
                   <Button
                     // style={{ backgroundColor: "#01BC90", color: "black" }}
                     type="submit"
-                    hidden
+                    
                     id="print"
+                    
                   >
                     Print Bill
                   </Button>
                 )}
-                onBeforePrint={() => null}
+                onBeforePrint={() => {
+                  if (total<=0){
+                    toast.error("Please add food");
+                    throw new Error("Printing is not allowed!");
+                  }
+                  else
+                 if(staytus === "0" && type ==="Delivery" && !address){
+                    toast.error("Please enter the address")
+                    throw new Error("Printing is not allowed!")
+                    
+                  }
+                  else{
+                    setPrint(1)
+                  }
+
+
+
+                }}
                 content={() => componentRef.current}
+
+                
               
               />
          
@@ -913,13 +1070,20 @@ function handleChange(value){
                   trigger={() => (
                     <Button
                     
-                    hidden
+                    
                     id="print2"
                     >
                       Print KOT
                     </Button>
                   )}
-                  onBeforePrint={() => null}
+                  onBeforePrint={() =>{
+
+                    if (print==0){
+                      toast.error("Please print the bill first");
+                      throw new Error("Printing is not allowed!");
+                    }
+                  
+                  }}
                   content={() => kot.current}
                   onAfterPrint={() => window.location.reload(false)}
                 />

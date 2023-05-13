@@ -10,9 +10,10 @@ body{
 }
 
 .menu{
-  padding: 0;
+  padding: 30px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px,1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(350px,1fr)); */
+  grid-template-columns: 30% 30% 30%;
   grid-gap: 20px 20px;
 }
 
@@ -41,11 +42,12 @@ body{
 .food-items{
   display: grid;
   position: relative;
-  grid-template-rows: auto 150px;
+  grid-template-rows: 200px 150px;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   margin: 0 20px;
   background-color: #f3f3f3;
+  margin-top: 20px;
 }
 
 .food-items img{

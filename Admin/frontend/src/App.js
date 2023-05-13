@@ -25,6 +25,7 @@ import History from'./pages/Order/history.jsx';
 import ViewDish from './pages/Food/ViewDish.jsx';
 import DriverMap from './pages/Map/map.jsx'
 import Notification from './components/Notification'
+import TrackOrder from './pages/TrackOrder/TrackOrder.jsx'
 
 // import Loginfrom from './components/logn';
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/Notification" element={<Notification />} />
           <Route path="/Order" element={<Order />} />
+          <Route path="/Order/updateOrderRecord/:id" element={<Order />} />
           <Route path="/Order/history" element={<History />} />
 
           <Route path="/Bar" element={<Bar />} />
@@ -57,14 +59,17 @@ const App = () => {
           <Route path="/Waiter/UpdateWaiter/:id" element={<UpdateWaiter />} />
 
           <Route path="/QandA" element={<QandA />} />
-          <Route path="/QandA/chat" element={<Chat />} />
+          <Route path="/QandA/chat" element={<Chat />} /> 
+
           <Route path="/Menu" element={<Menu />} />
           <Route path="/Menu/addMenu" element={<AddMenu/>} />
           <Route path="/Driver" element={<Driver />} />
           <Route path="/Driver/AddDriver" element={<AddDriver/>} />
           <Route path="/Driver/UpdateDriver/:id" element={<UpdateDriver/>} />
+          <Route path="/Driver/getNewData/:id" element={<UpdateDriver/>} />
 
           <Route path="/Map" element={<DriverMap/>} />
+          <Route path="/TrackOrder" element={<TrackOrder/>} />
 
           <Route path='/somewhere' render={() => <h2>You Are Somewhere</h2>} />
         </Routes>

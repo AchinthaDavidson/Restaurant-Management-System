@@ -1,16 +1,33 @@
-.container1{
-    height: 75vh;
-    background-color: aliceblue;
-    margin: 20vh 40vh 10vh 40vh;
-    border: none;
-    border-radius: 20px;
-    display: flex;
+.root {
+  margin: '17vh 10vh 0vh 10vh';
+  display: 'flex';
+  height: '60vh';
+  overflow: 'hidden';
+}
+.sidebar{
+  border-color: #d10b0b;
+  background-color: "red";
+  width: 240;
+  border-right: 1px solid ;
+}
+.container{
+  flex: 1;
+  padding: 3;
+}
+.chatContainer {
+  height: '500px'; /* or any desired height */
+  display: "flex";
+  flex-direction: 'column';
+  overflow: 'hidden';
 }
 
-.sideb{
-    background-color: rgb(192, 192, 192);
-    border-radius: 20px 0 0 20px;
-    height: 75vh;
-    border: none;
-    
+.messageContainer {
+  flex: '1';
+  overflow-y: 'scroll';
+  padding: '10px';
+}
+
+.messageInputContainer {
+  height: '80px'; /* or any desired height */
+  padding: '1px';
 }

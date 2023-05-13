@@ -84,7 +84,7 @@ const AddDriver = () => {
                 <span>Add</span>
               </button>
         </form>
-          <a href="/Menu">
+          <a href="/driver">
           <button class="Menubtn">
             <span>Cancel</span>
           </button>

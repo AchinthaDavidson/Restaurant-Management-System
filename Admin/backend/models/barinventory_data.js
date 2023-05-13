@@ -32,6 +32,10 @@ const BarInvSchema = new Schema({
     time:{
         type:String,
         // required:true
+    },
+    name:{
+        type:String,
+        // required:true
     }
 });
 
