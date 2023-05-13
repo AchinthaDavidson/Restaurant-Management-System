@@ -9,9 +9,10 @@ router.route("/add").post((req,res)=>{
     const Expire_Date = req.body.Expiredate;
     const Unit_Cost = Number(req.body.Unitcost);
     const Sell_Price = req.body.Sellprice;
+    
     const Buy_Date = d.getDate() +"-" + (d.getMonth() + 1) +"-" +d.getFullYear() ;
     const time=d.getHours() + ":" + d.getMinutes() 
-
+    const name=req.body.name;
     // const Product_Code = 'req.body.code';
     // const Quantity = 'req.body.quantity';
     // const Expire_Date = 'req.body.Expiredate';
@@ -26,7 +27,8 @@ router.route("/add").post((req,res)=>{
         Unit_Cost,
         Sell_Price,
         Buy_Date,
-        time
+        time,
+        name
     })
 
     newbar.save().then(()=>{
@@ -38,7 +40,7 @@ router.route("/add").post((req,res)=>{
 
 router.route("/").get((req,res)=>{
 
-    barInv.aggregate([{$group:{_id:"$Product_Name",price:{$min:"$Sell_Price"}}}]).then((bars)=>{
+    barInv.aggregate([{$group:{_id:"$name",price:{$min:"$Sell_Price"}}}]).then((bars)=>{
         res.json(bars)
     }).catch((err)=>{
         console.log(err);

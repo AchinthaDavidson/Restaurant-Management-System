@@ -77,7 +77,7 @@ function BarAdd() {
   //start coding
   const show = async (e) => {
 
-    const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice};
+    const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice,name};
     //console.log(Bardata);
     // console.log(isEditing);
     axios.post("http://localhost:8070/Bardata/add", Bardata)
