@@ -22,12 +22,6 @@ function ShoppingCart({
 			}
 	}
 
-	let navigate = useNavigate(); 
-  const routeChange = () =>{ 
-    let path = `/Menu`; 
-    navigate(path);
-  }
-
 	return (
 		<div
 			className="model"
@@ -82,9 +76,7 @@ function ShoppingCart({
 								) => {
 									onQuantityChange(
 										product.id,
-										event
-											.target
-											.value
+										event.target.value
 									);
 								}}>
 								
@@ -103,10 +95,11 @@ function ShoppingCart({
 						</div>
 					))}
 					{products.length > 0 && (
-						<button className="btn checkout-btn"   
-						onClick={handleButtonClick}>
+						<a href="/OrderSummary">
+						<button className="btn checkout-btn" onClick={handleButtonClick}>
 							Proceed to checkout
 						</button>
+						</a>
 					)}
 				</div>
 			</div>
