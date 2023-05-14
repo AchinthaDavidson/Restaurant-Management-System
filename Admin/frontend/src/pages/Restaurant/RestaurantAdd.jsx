@@ -3,6 +3,8 @@ import Niv from "../../components/Niv";
 import "./ResturantAdd.css";
 import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { toast, ToastContainer } from "react-toastify";
 
 const RestaurantAdd = () => {
   const [id , setid] = useState("");
@@ -26,10 +28,14 @@ const RestaurantAdd = () => {
 
   const show = ()=>{
 
+    if(!id || !name || !unit || !quantity || !buydate || !unitPrice || !totalCost || !supplier || !reorderlevel || !expiredate){
+      toast.error("Please fill all the required fields");
+      return
+    }
+
     const Inventoryfood = {id,quantity,unitPrice,supplier,expiredate};
     axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood)
     .then(()=>{
-      alert("data added inventoryfood");
     })
     .catch((err)=>{
       alert(err);
@@ -42,7 +48,7 @@ const RestaurantAdd = () => {
      };
      axios.post("http://localhost:8070/resInventory/add",newres_add)
      .then(()=>{
-      alert("data added successfully");
+      toast.success("Item added to the inventory");
      })
      .catch((err)=>{
        alert(err);
@@ -55,7 +61,7 @@ const RestaurantAdd = () => {
       const url="http://localhost:8070/resInventory/update/" + Item_Id1
     axios.put(url,Inventoryfood)
     .then(()=>{
-      alert("data updated");
+      toast.success("Item added to the inventory");
     })
     .catch((err)=>{
       alert(err);
@@ -96,12 +102,13 @@ const [items, setItems] = useState([]);
 
   return (
     <div>
+    <ToastContainer position="top-right" theme="colored" />
       <Niv name="Restaurant Inventory/ Add Items" />
       <div className="data">
       <div className="cardAdd">
         <header>Add Items</header>
 
-        <form onSubmit={show} className="ResturantaddForm">
+  <form className="ResturantaddForm">
           <div className="form first">
             <div class="add detail">
               <div class="fields">
@@ -109,13 +116,15 @@ const [items, setItems] = useState([]);
                 <div class="input-field">
                   <label className="ResturantaddProductCode">Item Id</label>
                   <input type="text" placeholder="Item Id" value={id}
-                  onChange={(e) => findid(e.target.value)}/>
+                  onChange={(e) => findid(e.target.value)} pattern="[0-9]{4}"
+                  title="Product Code should be 4-digit number"/>
                 </div>
 
                 <div class="input-field">
                   <label className="ResturantaddProductName">Item Name</label>
                   <input type="text" placeholder="Item Name" value={name}
-                  onChange={(e) => setname(e.target.value)}/>
+                  onChange={(e) => setname(e.target.value)} pattern="[a-zA-Z]{1,30}"
+                  title="Name can only contain A-Z charactors and should be less than or equal to 30 characters"/>
                 </div>
 
                 <div class="input-field">
@@ -128,7 +137,8 @@ const [items, setItems] = useState([]);
                 <div className="field2">
                   <label className="ResturantaddQuantity">Quantity</label><br/>
                   <input type="number" placeholder="Quantity" value={quantity}
-                  onChange={(e) => setquantity(e.target.value)}/>
+                  onChange={(e) => setquantity(e.target.value)} min={1}
+                  title="Value must be greater than or equal to 1"/>
                   <select name="unit" id="format" value={unit} onChange={(e) => setunit(e.target.value)}>
                     <option selected >Select Unit</option>
                     <option>Kg</option>
@@ -155,13 +165,15 @@ const [items, setItems] = useState([]);
                 <div class="input-field">
                   <label className="ResturantaddSupplier">Supplier</label>
                   <input type="text" placeholder="Supplier" value={supplier}
-                  onChange={(e) => setsupplier(e.target.value)}/>
+                  onChange={(e) => setsupplier(e.target.value)} pattern="[a-zA-Z]{1,30}"
+                  title="Contain A-Z charactors"/>
                 </div>
 
                 <div class="input-field">
                   <label className="ResturantaddReOrderLevel">Re-order level</label>
-                  <input type="text" placeholder="Re-order level" value={reorderlevel}
-                  onChange={(e) => setreorderlevel(e.target.value)}/>
+                  <input type="number" placeholder="Re-order level" value={reorderlevel}
+                  onChange={(e) => setreorderlevel(e.target.value)} min={1}
+                  title="Value must be greater than or equal to 1"/>
                 </div>
 
                 <div class="input-field">
@@ -170,13 +182,12 @@ const [items, setItems] = useState([]);
                   onChange={(e) => setexpiredate(e.target.value)}/>
                 </div>
               </div>
-
-              <button class="Resturantbtn" type="submit" onClick={() => settotalCost(quantity*unitPrice)}>
+              <button class="Resturantbtn" onClick={() => (show(),settotalCost(quantity*unitPrice))}>
                 <span>{isEditing ? "Edit" : "Add "}</span>
               </button>
             </div>
           </div>
-        </form>
+         </form>
           <a href="/Restaurant">
           <button class="Resturantbtn">
             <span>Go Back</span>

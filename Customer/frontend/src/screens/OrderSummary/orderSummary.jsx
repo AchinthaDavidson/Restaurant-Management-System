@@ -1,7 +1,6 @@
-import "./order_summary.css";
+import "./orderSummary.css";
 
-function Order_Summary() {
-	
+function OrderSummary() {
     return (
         <body>
 		<div className="main-header">
@@ -63,4 +62,4 @@ function Order_Summary() {
         );
 }
 
-export default Order_Summary;
+export default OrderSummary;

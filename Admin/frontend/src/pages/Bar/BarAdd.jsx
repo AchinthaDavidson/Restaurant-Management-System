@@ -77,6 +77,17 @@ function BarAdd() {
   //start coding
   const show = async (e) => {
 
+    if (!code || !name || !type || !catogary || !quantity || !newTotCost || !Reorderlevel || !Location) {
+      toast.error("Please ente All the required fields");
+      return;
+    }else if( !name ){
+      toast.error("Please enter a valid name...");
+      return;
+    } if( !file ){
+      toast.error("Please select an image of JPG or PNG file type...");
+      return;
+
+    }
     const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice,name};
     //console.log(Bardata);
     // console.log(isEditing);
@@ -87,14 +98,7 @@ function BarAdd() {
     const newTotCost = quantity * Unitcost
 
     if (isEditing===false) {
-      if (!file) {
-        toast.error("Please select an image of JPG or PNG file type...");
-        return;
-      }
-      if (!name) {
-        toast.error("Please ente a valid name...");
-        return;
-      }
+      
       const params = { 
         Bucket: 'paladiumdishes', 
         Key: `${Date.now()}.${name}`, 
@@ -113,7 +117,7 @@ function BarAdd() {
     else {
       const quantity2=Number(quantity)+Number(Quantity1)
       const Totalcost2=Number(Total+newTotCost)
-      alert(Totalcost2)
+      //alert(Totalcost2)
       const url = "http://localhost:8070/BarInventory/update/"+ Product_Code1 ; 
       const BarInventory = { code,name , type, catogary, quantity2,Totalcost2,Reorderlevel};
       axios.put(url, BarInventory)
@@ -164,7 +168,7 @@ function BarAdd() {
         <div className="cardadd">
           <header className="baraddheader">Add Details</header>
 
-          {/* <form onSubmit={show} className="BaraddForm"> */}
+          {/*<form onSubmit={show} className="BaraddForm">*/}
           <div className="BaraddForm">
             <div className="form first">
               <div class="add detail">
@@ -176,8 +180,9 @@ function BarAdd() {
                       placeholder="Product code"
                       value={code}
                       onChange={(e) => findcode(e.target.value)}
-                    />
-                    {/* <input type="submit"  ></input> */}
+                      pattern="[0-9]{4}" 
+                      title="prodduct code should be 4 digit no"/>
+                   
                   </div>
 
                   <div class="input-field">
@@ -187,6 +192,9 @@ function BarAdd() {
                       placeholder="Product name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      pattern="[a-zA-Z]{1,30}"
+                      title="Name can only contain A-Z characters and should be less than or equal to 30 characters"
+                      required
                     />
                   </div>
 
@@ -197,6 +205,9 @@ function BarAdd() {
                       placeholder="Product Type"
                       value={type}
                       onChange={(e) => setType(e.target.value)}
+                      pattern="[a-zA-Z]{1,30}"
+                      title="Name can only contain A-Z characters and should be less than or equal to 30 characters"
+                      required
                     />
                   </div>
 
@@ -207,6 +218,9 @@ function BarAdd() {
                       placeholder="Catogary"
                       value={catogary}
                       onChange={(e) => setcatogary(e.target.value)}
+                      pattern="[a-zA-Z]{1,30}"
+                      title="Name can only contain A-Z characters and should be less than or equal to 30 characters"
+                      required
                     />
                   </div>
 
@@ -217,31 +231,39 @@ function BarAdd() {
                       placeholder="unit cost"
                       value={Unitcost}
                       onChange={(e) => setUnitcost(e.target.value)}
+                      pattern="[0-9]"
+                      required
                     />
                   </div>
 
                   <div class="input-field">
                     <label className="BaraddQuantity">Quantity</label>
                     <input
-                      type="text"
+                      type="Number"
                       placeholder="Quantity"
                       value={quantity}
                       onChange={(e) => setquantity(e.target.value)}
+                      min={1}
+                      required
                     />
                   </div>
 
-                  <div class="input-field">
+                  {/*<div class="input-field">
                     <label className="BaraddBuyDate">Buy date</label>
-                    <input type="date" />
-                  </div>
+                    <input type="date" 
+                      required
+                      title="must add the date"
+                    />
+                  </div>*/}
 
                   <div class="input-field">
                     <label className="BaraddBuyCost">Total cost</label>
                     <input
-                      type="text"
+                      type="number"
                       placeholder="ttotal cost"
                       value={(quantity*Unitcost)||0}
                       onChange={(e) => setTotalcost(e.target.value)}
+                      readOnly
                     />
                   </div>
 
@@ -250,10 +272,11 @@ function BarAdd() {
                       Re order level
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       placeholder="Re order level"
                       value={Reorderlevel}
                       onChange={(e) => setReorderlevel(e.target.value)}
+                      required
                     />
                   </div>
 
@@ -264,6 +287,7 @@ function BarAdd() {
                       placeholder="sell price"
                       value={Sellprice}
                       onChange={(e) => setSellprice(e.target.value)}
+                      required
                     />
                   </div>
 
@@ -273,6 +297,7 @@ function BarAdd() {
                       type="date"
                       value={Expiredate}
                       onChange={(e) => setExpiredate(e.target.value)}
+                      required
                     />
                   </div>
 
