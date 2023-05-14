@@ -53,7 +53,7 @@ function Menu() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/food/")
+      .get("http://localhost:8070/food/")
       .then((res) => {
         setproducts(res.data);
 
@@ -66,7 +66,7 @@ function Menu() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/menu/")
+      .get("http://localhost:8070/menu/")
       .then((res) => {
         setmenu(res.data);
 
@@ -133,8 +133,7 @@ function Menu() {
             <div className="navbar">
               <button
                 className="btn-shopping-cart-btn"
-                onClick={() => setCartVisible(true)}
-              >
+                onClick={() => setCartVisible(true)}>
                 <FaShoppingCart size={35} />
                 {productsInCart.length > 0 && (
                   <span className="product-count">{productsInCart.length}</span>
@@ -143,8 +142,7 @@ function Menu() {
             </div>
 
             <input
-              type="search"
-              placeholder="search food....."
+              type="text" style={{height:'40px',borderRadius:"5px",marginLeft:"20px",border:"none"}} placeholder=" Search food....."
               // onChange={(event) => {setSearchTerm(event.target.value),{handlePasswordChange}} }
               onChange={handlePasswordChange}
               // setSearchTerm(event.target.value)

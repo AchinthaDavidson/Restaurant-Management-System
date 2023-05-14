@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./shoppingcart.css";
 import { IoMdCloseCircle } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 function ShoppingCart({
 	visibilty,
@@ -75,9 +76,7 @@ function ShoppingCart({
 								) => {
 									onQuantityChange(
 										product.id,
-										event
-											.target
-											.value
+										event.target.value
 									);
 								}}>
 								
