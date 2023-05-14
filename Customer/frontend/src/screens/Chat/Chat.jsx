@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+{/*import React, { useState, useEffect } from "react";
 import './chatbox.css';
 import Header from "../../components/header";
 import axios from "axios";
@@ -198,4 +198,4 @@ function Chat() {
 
 }
 
-export default Chat;
+export default Chat;*/}

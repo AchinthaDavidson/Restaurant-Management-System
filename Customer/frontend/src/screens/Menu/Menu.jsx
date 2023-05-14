@@ -143,8 +143,7 @@ function Menu() {
             </div>
 
             <input
-              type="search"
-              placeholder="search food....."
+              type="text" style={{height:'40px',borderRadius:"5px",marginLeft:"20px",border:"none"}} placeholder=" Search food....."
               // onChange={(event) => {setSearchTerm(event.target.value),{handlePasswordChange}} }
               onChange={handlePasswordChange}
               // setSearchTerm(event.target.value)
