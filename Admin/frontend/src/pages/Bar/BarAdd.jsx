@@ -76,18 +76,11 @@ function BarAdd() {
 
   //start coding
   const show = async (e) => {
-
-    if (!code || !name || !type || !catogary || !quantity || !newTotCost || !Reorderlevel || !Location) {
-      toast.error("Please ente All the required fields");
-      return;
-    }else if( !name ){
-      toast.error("Please enter a valid name...");
-      return;
-    } if( !file ){
-      toast.error("Please select an image of JPG or PNG file type...");
-      return;
-
-    }
+    /* if (!code || !name || !type || !catogary || !quantity || !newTotCost || !Reorderlevel || !Location) {
+        toast.error("Please enter All the required fields");
+        return;
+      } */
+   
     const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice,name};
     //console.log(Bardata);
     // console.log(isEditing);
@@ -97,8 +90,36 @@ function BarAdd() {
 
     const newTotCost = quantity * Unitcost
 
+    //validations for input fields
     if (isEditing===false) {
-      
+     if( !name ){
+        toast.error("Please enter a valid name...");
+        return;
+      } 
+      if(!type){
+        toast.error("Please enter a valid type...");
+        return;
+      }
+      if(!catogary){
+        toast.error("Please enter a valid catogary...");
+        return;
+      }
+      if(!quantity){
+        toast.error("Please enter a valid quantity...");
+        return;
+      }
+      if(!Reorderlevel){
+        toast.error("Please enter a valid ReOrderLevel...");
+        return;
+      }
+      if(!Unitcost){
+        toast.error("Please enter a valid unitcost...");
+        return;
+      }
+      if( !file ){
+        toast.error("Please select an image of JPG or PNG file type...");
+        return;
+      }
       const params = { 
         Bucket: 'paladiumdishes', 
         Key: `${Date.now()}.${name}`, 
