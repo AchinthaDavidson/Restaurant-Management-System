@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 // import React, { useState, useEffect } from "react";
 // import './chatbox.css';
 // import Header from "../../components/header";
@@ -22,7 +21,7 @@
 // import styled from 'styled-components';
 // // import { Send } from '@material-ui/icons';
 // import Footer from "../../components/Footer";
-=======
+
 {/*import React, { useState, useEffect } from "react";
 import './chatbox.css';
 import Header from "../../components/header";
@@ -223,8 +222,4 @@ import Footer from "../../components/Footer";
 
 // }
 
-<<<<<<< HEAD
-// export default Chat;
-=======
-export default Chat;*/}
->>>>>>> d8509b720cb8b859feb416324126df67412fc8a9
+// export default Chat;*/}
