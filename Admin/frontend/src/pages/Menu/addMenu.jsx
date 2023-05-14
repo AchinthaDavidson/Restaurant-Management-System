@@ -3,6 +3,8 @@ import Niv from "../../components/Niv";
 import "./addMenu.css";
 import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddMenu = () => {
 
@@ -10,11 +12,17 @@ const AddMenu = () => {
   const [name , setname] = useState("");
 
   const handleSubmit=(e)=>{
+
+    if(!id || !name){
+      toast.error("Please fill all the required fields");
+      return
+    }
+
     e.preventDefault();
   const Menu = {id,name,Image};
     axios.post("http://localhost:8070/menu/add",Menu)
     .then(()=>{
-      alert("Added successfully");
+      toast.success("Added successfully")
       setid('')
       setname('')
     })
@@ -25,6 +33,7 @@ const AddMenu = () => {
 
   return (
     <div>
+      <ToastContainer position="top-right" theme="colored" />
       <Niv name="Menu/ Add Menu" />
       <div className="data">
       <div className="menuAdd">
@@ -35,13 +44,15 @@ const AddMenu = () => {
                 <div class="input-field">
                   <label className="Cat_Id">Category Id</label>
                   <input type="text" placeholder="Category Id" value={id}
-                  onChange={(e) => setid(e.target.value)}/>
+                  onChange={(e) => setid(e.target.value)} pattern="[0-9]{4}"
+                  title="Category Id should be a 4-digit number"/>
                 </div>
 
                 <div class="input-field">
                   <label className="Cat_Name">Category Name</label>
                   <input type="text" placeholder="Category Name" value={name}
-                  onChange={(e) => setname(e.target.value)}/>
+                  onChange={(e) => setname(e.target.value)} pattern="[a-zA-Z]{1,10}"
+                  title="Name can only contain A-Z characters"/>
                 </div>
             </div>
 

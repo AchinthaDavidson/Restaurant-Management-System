@@ -96,9 +96,11 @@ function ShoppingCart({
 						</div>
 					))}
 					{products.length > 0 && (
+						<a href="/OrderSummary">
 						<button className="btn checkout-btn" onClick={handleButtonClick}>
 							Proceed to checkout
 						</button>
+						</a>
 					)}
 				</div>
 			</div>

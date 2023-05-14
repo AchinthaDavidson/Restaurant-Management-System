@@ -1,6 +1,6 @@
-import "./order_summary.css";
+import "./orderSummary.css";
 
-function App() {
+function OrderSummary() {
     return (
         <body>
 		<div className="main-header">
@@ -62,4 +62,4 @@ function App() {
         );
 }
 
-export default App;
+export default OrderSummary;
