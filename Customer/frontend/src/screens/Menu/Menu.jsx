@@ -245,46 +245,6 @@ import { FaShoppingCart } from "react-icons/fa";
 import "./menu.css";
 import MenuItem from '../../components/MenuItem';
 
-// const products = [
-// 	{
-// 		id: 1,
-// 		name: "Tomato and Onion Salad",
-// 		price: 550,
-// 		image: require("../../Images/1.png"),
-// 	},
-// 	{
-// 		id: 2,
-// 		name: "Cucumber Salad",
-// 		price: 500,
-// 		image: require("../../Images/2.png"),
-// 	},
-// 	{
-// 		id: 3,
-// 		name: "Tomato and Onion Salad",
-// 		price: 550,
-// 		image: require("../../Images/3.png"),
-// 	},
-// 	{
-// 		id: 4,
-// 		name: "Cucumber Salad",
-// 		price: 500,
-// 		image: require("../../Images/6.png"),
-// 	},
-// 	{
-// 		id: 5,
-// 		name: "Tomato and Onion Salad",
-// 		price: 550,
-// 		image: require("../../Images/beef.png"),
-// 	},
-// 	{
-// 		id: 6,
-// 		name: "Cucumber Salad",
-// 		price: 500,
-// 		image: require("../../Images/chicken.png"),
-// 	},
-// ];
-
-
 function Menu() {
 	const [products, setproducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -314,10 +274,11 @@ function Menu() {
 		console.log(newProduct)
 		setProducts([
 			...productsInCart,
-			newProduct,
+			newProduct
 		]);
 	};
-
+	  
+	
 	const onQuantityChange = (
 		productId,
 		count
@@ -428,5 +389,3 @@ function Menu() {
 }
 
 export default Menu;
-
-		

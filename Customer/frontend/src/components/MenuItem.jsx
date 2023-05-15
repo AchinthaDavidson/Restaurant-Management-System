@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { MdFavorite } from 'react-icons/md';
 
-export default function MenuItem({product, addProductToCart, productsInCart}) {
+export default 
+function MenuItem({product, addProductToCart, productsInCart}) {
     // console.log(productsInCart);
     const [inCart, setInCart] = useState(false)
 
@@ -13,6 +14,8 @@ export default function MenuItem({product, addProductToCart, productsInCart}) {
            setInCart(false)
         }
     }, [productsInCart])
+
+   
 
   return (
     <div className="food-items">
