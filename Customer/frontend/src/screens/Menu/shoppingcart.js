@@ -152,9 +152,11 @@ function ShoppingCart({
 						<CartItem product={product} onQuantityChange={onQuantityChange} onProductRemove={onProductRemove}/>
 					))}
 					{products.length > 0 && (
+						<a href="/OrderSummary">
 						<button className="btn checkout-btn">
 							Proceed to checkout
 						</button>
+						</a>
 					)}
 				</div>
 			</div>
