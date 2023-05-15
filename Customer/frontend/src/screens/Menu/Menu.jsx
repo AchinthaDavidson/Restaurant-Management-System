@@ -245,47 +245,48 @@ import { FaShoppingCart } from "react-icons/fa";
 import "./menu.css";
 import MenuItem from '../../components/MenuItem';
 
-const products = [
-	{
-		id: 1,
-		name: "Tomato and Onion Salad",
-		price: 550,
-		image: require("../../Images/1.png"),
-	},
-	{
-		id: 2,
-		name: "Cucumber Salad",
-		price: 500,
-		image: require("../../Images/2.png"),
-	},
-	{
-		id: 3,
-		name: "Tomato and Onion Salad",
-		price: 550,
-		image: require("../../Images/3.png"),
-	},
-	{
-		id: 4,
-		name: "Cucumber Salad",
-		price: 500,
-		image: require("../../Images/6.png"),
-	},
-	{
-		id: 5,
-		name: "Tomato and Onion Salad",
-		price: 550,
-		image: require("../../Images/beef.png"),
-	},
-	{
-		id: 6,
-		name: "Cucumber Salad",
-		price: 500,
-		image: require("../../Images/chicken.png"),
-	},
-];
+// const products = [
+// 	{
+// 		id: 1,
+// 		name: "Tomato and Onion Salad",
+// 		price: 550,
+// 		image: require("../../Images/1.png"),
+// 	},
+// 	{
+// 		id: 2,
+// 		name: "Cucumber Salad",
+// 		price: 500,
+// 		image: require("../../Images/2.png"),
+// 	},
+// 	{
+// 		id: 3,
+// 		name: "Tomato and Onion Salad",
+// 		price: 550,
+// 		image: require("../../Images/3.png"),
+// 	},
+// 	{
+// 		id: 4,
+// 		name: "Cucumber Salad",
+// 		price: 500,
+// 		image: require("../../Images/6.png"),
+// 	},
+// 	{
+// 		id: 5,
+// 		name: "Tomato and Onion Salad",
+// 		price: 550,
+// 		image: require("../../Images/beef.png"),
+// 	},
+// 	{
+// 		id: 6,
+// 		name: "Cucumber Salad",
+// 		price: 500,
+// 		image: require("../../Images/chicken.png"),
+// 	},
+// ];
 
 
 function Menu() {
+	const [products, setproducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [search, setSearch] = useState(true);
 	const [cartsVisibilty, setCartVisible] = useState(false);
@@ -310,6 +311,7 @@ function Menu() {
 			...product,
 			count: 1,
 		};
+		console.log(newProduct)
 		setProducts([
 			...productsInCart,
 			newProduct,
@@ -334,6 +336,17 @@ function Menu() {
 		});
 	};
 	  
+	useEffect(() => {
+		    axios
+		      .get("http://localhost:8090/food/")
+		      .then((res) => {
+		        setproducts(res.data);
+		
+		        // setDishes(res.data);
+		      })
+		      .catch((err) => console.log(err));
+		  });
+		
 
 	const onProductRemove = (product) => {
 		console.log(product);
@@ -375,6 +388,10 @@ function Menu() {
 
           <div className="navbar">
 
+		  <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",margin:"20px",color:"black" }} placeholder=" Search job" onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }} />
+
             <button
               className="btn-shopping-cart-btn"
               onClick={() => setCartVisible(true)}>
@@ -390,7 +407,15 @@ function Menu() {
           </div>
 
           <div className="menu">
-            {products.map((product) => (
+            {products.filter((val) => {
+              if (searchTerm === "") {
+                return val;
+              } else if (
+                val.Name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return val;
+              }
+            }).map((product) => (
               <MenuItem product={product} addProductToCart={addProductToCart} productsInCart={productsInCart} />
             ))}
           </div>

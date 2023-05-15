@@ -7,16 +7,16 @@ export default function CartItem({product, onProductRemove, onQuantityChange}) {
         key={product.id}>
         <img
             src={
-                product.image
+                product.ImageURL
             }
-            alt={product.name}
+            alt={product.Name}
         />
         <div className="product-info">
             <h3>
-                {product.name}
+                {product.Name}
             </h3>
             <span className="product-price">
-                Rs. {product.price *
+                Rs. {product.Price *
                     product.count}
                 
             </span>
