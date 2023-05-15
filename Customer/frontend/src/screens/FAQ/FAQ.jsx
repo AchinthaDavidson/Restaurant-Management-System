@@ -18,7 +18,7 @@ function FAQ() {
     const [filteredFaq, setFilteredFaq] = useState([]);
     useEffect(() => {
         function getFaq() {
-            axios.get("http://localhost:5000/faq/").then((res) => {
+            axios.get("http://localhost:8090/faq/").then((res) => {
                 setFaq(res.data);
             }).catch((err) => {
                 alert(err);

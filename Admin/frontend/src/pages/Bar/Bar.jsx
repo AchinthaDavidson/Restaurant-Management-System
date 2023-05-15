@@ -41,10 +41,10 @@ const Bar = () => {
           <div style={{flexGrow: '1' ,paddingTop:"5px",paddingLeft:"5px",fontSize:'30px'}}>Stock Summary</div>
           <div style={{flexGrow: '1',textAlign:'center' ,padding:'6px' ,borderLeft:"5px solid #dcdcdc"}}>
             <div style={{fontSize:'30px'}}>{count}</div>
-            <div style={{fontSize:'10px'}}> Available Product In Stock</div>
+            <div style={{fontSize:'10px'}}>Product are Availabale In Stock</div>
           </div>
         </div>
-        <input type="text" style={{ height: "40px" }} placeholder=" Search Items..." onChange={(event) => {
+        <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",margin:"20px" }} placeholder=" Search Inventory" onChange={(event) => {
             setSearchTerm(event.target.value);
           }} />
         <a href="Bar/BarAdd">
