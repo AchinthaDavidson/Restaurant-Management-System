@@ -53,7 +53,7 @@ function Menu() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8070/food/")
+      .get("http://localhost:8090/food/")
       .then((res) => {
         setproducts(res.data);
 
@@ -66,7 +66,7 @@ function Menu() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8070/menu/")
+      .get("http://localhost:8090/menu/")
       .then((res) => {
         setmenu(res.data);
 
