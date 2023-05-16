@@ -170,11 +170,12 @@ function BarAdd() {
     });
   },[]);
 
-  console.log(Btlcode[0])
+  // console.log(Btlcode[0])
+  let id = Btlcode.map((item) => item.Product_Code);
   //let product_id = btlcode.map((btlcode)=>btlcode.code);
   
-  // console.log(id);
-  //const Bid = Number(btlcode.Product_Code[0])+1;
+  
+  const Bid = Number(id)+1;
 
   // if (Bid == null || Bid == ""){
   //   Bid = 1
@@ -217,13 +218,13 @@ function BarAdd() {
                   <div class="input-field">
                     <label className="BaraddProductCode">
                       Product Code : </label>
-                    {/*<input
+                    <input
                       type="text" 
                       placeholder="Product code"
                       value={Bid}
                       onChange={(e) => findcode(e.target.value)}
                       pattern="[0-9]{4}" 
-                      title="prodduct code should be 4 digit no"/>*/}
+                      title="prodduct code should be 4 digit no"/>
                    
                   </div>
 
