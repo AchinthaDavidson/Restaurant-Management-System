@@ -161,6 +161,26 @@ function BarAdd() {
     getbarval();
   },[])
 
+  //auto increment
+  const [Btlcode, setBtlCode_id] = useState([]);
+  useEffect(()=>{
+    axios.get("http://localhost:8070/barInventory/barId").then((res)=>{
+      console.log(res.data)
+      setBtlCode_id(res.data)
+    });
+  },[]);
+
+  console.log(Btlcode[0])
+  //let product_id = btlcode.map((btlcode)=>btlcode.code);
+  
+  // console.log(id);
+  //const Bid = Number(btlcode.Product_Code[0])+1;
+
+  // if (Bid == null || Bid == ""){
+  //   Bid = 1
+  // }
+  //alert(Bid)
+
   function findcode(code){
     setCode(code);
     if(code.length === 3 || code.length === 2){
@@ -195,14 +215,15 @@ function BarAdd() {
               <div class="add detail">
                 <div class="fields">
                   <div class="input-field">
-                    <label className="BaraddProductCode">Product Code</label>
-                    <input
-                      type="text"
+                    <label className="BaraddProductCode">
+                      Product Code : </label>
+                    {/*<input
+                      type="text" 
                       placeholder="Product code"
-                      value={code}
+                      value={Bid}
                       onChange={(e) => findcode(e.target.value)}
                       pattern="[0-9]{4}" 
-                      title="prodduct code should be 4 digit no"/>
+                      title="prodduct code should be 4 digit no"/>*/}
                    
                   </div>
 
