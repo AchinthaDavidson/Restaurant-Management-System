@@ -277,7 +277,6 @@ function Menu() {
 			newProduct
 		]);
 	};
-	  
 	
 	const onQuantityChange = (
 		productId,
@@ -287,7 +286,7 @@ function Menu() {
 			const productsIndex =
 				oldState.findIndex(
 					(item) =>
-						item.id === productId
+						item._id === productId
 				);
 			if (productsIndex !== -1) {
 				oldState[productsIndex].count =
@@ -306,7 +305,7 @@ function Menu() {
 		        // setDishes(res.data);
 		      })
 		      .catch((err) => console.log(err));
-		  });
+		  },[]);
 		
 
 	const onProductRemove = (product) => {
@@ -315,7 +314,7 @@ function Menu() {
 			const productsIndex =
 				oldState.findIndex(
 					(item) =>
-						item.id === product
+						item._id === product
 				);
 			if (productsIndex !== -1) {
 				oldState.splice(productsIndex, 1);
@@ -323,6 +322,9 @@ function Menu() {
 			return [...oldState];
 		});
 	};
+
+
+	
 
   return (
     <><Header />
@@ -349,7 +351,7 @@ function Menu() {
 
           <div className="navbar">
 
-		  <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",margin:"20px",color:"black" }} placeholder=" Search job" onChange={(event) => {
+		  <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",margin:"20px",color:"black" }} placeholder=" Search Food..." onChange={(event) => {
             setSearchTerm(event.target.value);
           }} />
 

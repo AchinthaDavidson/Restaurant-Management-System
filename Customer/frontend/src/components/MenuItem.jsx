@@ -8,7 +8,7 @@ function MenuItem({product, addProductToCart, productsInCart}) {
 
     useEffect(()=> {
         if(productsInCart.length > 0){
-            setInCart(productsInCart.some(cartItem => cartItem.id === product.id));
+            setInCart(productsInCart.some(cartItem => cartItem._id === product._id));
         }
         else{
            setInCart(false)

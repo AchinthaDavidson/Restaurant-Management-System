@@ -4,7 +4,7 @@ export default function CartItem({product, onProductRemove, onQuantityChange}) {
   return (
     <div
         className="cart-product"
-        key={product.id}>
+        key={product._id}>
         <img
             src={
                 product.ImageURL
@@ -29,7 +29,7 @@ export default function CartItem({product, onProductRemove, onQuantityChange}) {
                 event
             ) => {
                 onQuantityChange(
-                    product.id,
+                    product._id,
                     event
                         .target
                         .value
@@ -41,7 +41,7 @@ export default function CartItem({product, onProductRemove, onQuantityChange}) {
             className="btn remove-btn"
             onClick={() =>
                 {onProductRemove(
-                    product.id
+                    product._id
                 )}
             }>
             <RiDeleteBin6Line
