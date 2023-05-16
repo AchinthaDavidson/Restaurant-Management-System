@@ -9,6 +9,7 @@ import MenuItem from '../../components/MenuItem';
 
 function Menu() {
 const [products, setproducts] = useState([]);
+const [menu, setMenu] = useState([]);
 const [searchTerm, setSearchTerm] = useState("");
 const [search, setSearch] = useState(true);
 const [cartsVisibilty, setCartVisible] = useState(false);
@@ -68,6 +69,18 @@ const [productsInCart, setProducts] = useState(
 		      })
 		      .catch((err) => console.log(err));
 		  },[]);
+
+		  useEffect(() => {
+
+			axios.get("http://localhost:8090/menu/")
+				.then((res) => {
+					setMenu(res.data);
+			// setDishes(res.data);
+			
+		 })
+	.catch((err) => console.log(err));
+			
+			});
 		
 
 	const onProductRemove = (product) => {
@@ -132,6 +145,9 @@ const [productsInCart, setProducts] = useState(
           </div>
 
           <div className="menu">
+		  {menu.map((product) => (
+              <>
+			  <p style={{color:"white"}}>{product.Name}</p>
             {products.filter((val) => {
               if (searchTerm === "") {
                 return val;
@@ -143,6 +159,8 @@ const [productsInCart, setProducts] = useState(
             }).map((product) => (
               <MenuItem product={product} addProductToCart={addProductToCart} productsInCart={productsInCart} />
             ))}
+			</>
+			))}
           </div>
         </body>
       </div>
