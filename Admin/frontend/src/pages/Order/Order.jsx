@@ -1056,8 +1056,13 @@ function handleChange(value){
                     toast.error("Please enter the address")
                     throw new Error("Printing is not allowed!")
                     
+                  }else 
+                  if(type==""){
+                    toast.error("Please set order type")
+                    throw new Error("Printing is not allowed!")
                   }
-                  else{
+                  else
+                  {
                     setPrint(1)
                   }
 
