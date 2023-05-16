@@ -132,7 +132,13 @@ router.route("/update1/:id").post(async(req,res)=>{
     }
 })
 
-
+router.route("/barId").get((req,res)=>{
+    Bar.find({},{Product_Code:1}).sort({_id:-1}).limit(1).then((btls)=>{
+        res.json(btls)
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
 
 /* display*/
 

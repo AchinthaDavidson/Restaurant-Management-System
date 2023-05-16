@@ -76,18 +76,11 @@ function BarAdd() {
 
   //start coding
   const show = async (e) => {
-
-    if (!code || !name || !type || !catogary || !quantity || !newTotCost || !Reorderlevel || !Location) {
-      toast.error("Please ente All the required fields");
-      return;
-    }else if( !name ){
-      toast.error("Please enter a valid name...");
-      return;
-    } if( !file ){
-      toast.error("Please select an image of JPG or PNG file type...");
-      return;
-
-    }
+    /* if (!code || !name || !type || !catogary || !quantity || !newTotCost || !Reorderlevel || !Location) {
+        toast.error("Please enter All the required fields");
+        return;
+      } */
+   
     const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice,name};
     //console.log(Bardata);
     // console.log(isEditing);
@@ -97,8 +90,36 @@ function BarAdd() {
 
     const newTotCost = quantity * Unitcost
 
+    //validations for input fields
     if (isEditing===false) {
-      
+     if( !name ){
+        toast.error("Please enter a valid name...");
+        return;
+      } 
+      if(!type){
+        toast.error("Please enter a valid type...");
+        return;
+      }
+      if(!catogary){
+        toast.error("Please enter a valid catogary...");
+        return;
+      }
+      if(!quantity){
+        toast.error("Please enter a valid quantity...");
+        return;
+      }
+      if(!Reorderlevel){
+        toast.error("Please enter a valid ReOrderLevel...");
+        return;
+      }
+      if(!Unitcost){
+        toast.error("Please enter a valid unitcost...");
+        return;
+      }
+      if( !file ){
+        toast.error("Please select an image of JPG or PNG file type...");
+        return;
+      }
       const params = { 
         Bucket: 'paladiumdishes', 
         Key: `${Date.now()}.${name}`, 
@@ -140,6 +161,27 @@ function BarAdd() {
     getbarval();
   },[])
 
+  //auto increment
+  const [Btlcode, setBtlCode_id] = useState([]);
+  useEffect(()=>{
+    axios.get("http://localhost:8070/barInventory/barId").then((res)=>{
+      console.log(res.data)
+      setBtlCode_id(res.data)
+    });
+  },[]);
+
+  // console.log(Btlcode[0])
+  let id = Btlcode.map((item) => item.Product_Code);
+  //let product_id = btlcode.map((btlcode)=>btlcode.code);
+  
+  
+  const Bid = Number(id)+1;
+
+  // if (Bid == null || Bid == ""){
+  //   Bid = 1
+  // }
+  //alert(Bid)
+
   function findcode(code){
     setCode(code);
     if(code.length === 3 || code.length === 2){
@@ -174,11 +216,12 @@ function BarAdd() {
               <div class="add detail">
                 <div class="fields">
                   <div class="input-field">
-                    <label className="BaraddProductCode">Product Code</label>
+                    <label className="BaraddProductCode">
+                      Product Code : </label>
                     <input
-                      type="text"
+                      type="text" 
                       placeholder="Product code"
-                      value={code}
+                      value={Bid}
                       onChange={(e) => findcode(e.target.value)}
                       pattern="[0-9]{4}" 
                       title="prodduct code should be 4 digit no"/>

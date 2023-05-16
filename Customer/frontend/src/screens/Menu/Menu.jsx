@@ -1,243 +1,320 @@
 import React, { useEffect, useState } from "react";
+
 import Header from "../../components/header";
+
 import axios from "axios";
+
 import Footer from "../../components/Footer";
+
 import ShoppingCart from "./shoppingcart";
+
 import { FaShoppingCart } from "react-icons/fa";
-import { MdFavorite } from "react-icons/md";
+
 import "./menu.css";
-import { dish } from "../../api/api";
+
+import MenuItem from '../../components/MenuItem';
+
+
+
 
 function Menu() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [cartsVisibilty, setCartVisible] = useState(false);
-  const [search, setSearch] = useState(true);
-  const [productsInCart, setProducts] = useState(
-    JSON.parse(localStorage.getItem("shopping-cart")) || []
-  );
-  useEffect(() => {
-    localStorage.setItem("shopping-cart", JSON.stringify(productsInCart));
-  }, [productsInCart]);
-  const addProductToCart = (product) => {
-    const newProduct = {
-      ...product,
-      count: 1,
-    };
-    setProducts([...productsInCart, newProduct]);
-  };
 
-  const onQuantityChange = (productId, count) => {
-    setProducts((oldState) => {
-      const productsIndex = oldState.findIndex((item) => item.id === productId);
-      if (productsIndex !== -1) {
-        oldState[productsIndex].count = count;
-      }
-      return [...oldState];
-    });
-  };
+const [products, setproducts] = useState([]);
 
-  const onProductRemove = (product) => {
-    setProducts((oldState) => {
-      const productsIndex = oldState.findIndex(
-        (item) => item.id === product.id
-      );
-      if (productsIndex !== -1) {
-        oldState.splice(productsIndex, 1);
-      }
-      return [...oldState];
-    });
-  };
+const [searchTerm, setSearchTerm] = useState("");
 
-  {/*const onProductRemove = (product) => {
-      setProducts((oldState) =>
-      oldState.filter((item) =>
-      item.id !== product.id));
-    };*/}
+const [search, setSearch] = useState(true);
 
-  const [products, setproducts] = useState([]);
-  const [menu, setmenu] = useState([]);
+const [cartsVisibilty, setCartVisible] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/food/")
-      .then((res) => {
-        setproducts(res.data);
+const [productsInCart, setProducts] = useState(
 
-        // setDishes(res.data);
-      })
-      .catch((err) => console.log(err));
-  });
+                                            JSON.parse(
+
+                                                localStorage.getItem(
+
+                                                    "shopping-cart"
+
+                                                )
+
+                                            ) || []
+
+                                        );
+
+        /*approach - When the items in the state are updated the local storage is simultaneously updated*/
+
+    useEffect(() => {
+
+        localStorage.setItem(
+
+            "shopping-cart",
+
+            JSON.stringify(productsInCart)
+
+        );
+
+    }, [productsInCart]);
 
 
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/menu/")
-      .then((res) => {
-        setmenu(res.data);
 
-        // setDishes(res.data);
-      })
-      .catch((err) => console.log(err));
-  });
+    
+
+    const addProductToCart = (product) => {
+
+        const newProduct = {
+
+            ...product,
+
+            count: 1,
+
+        };
+
+        console.log(newProduct)
+
+        setProducts([
+
+            ...productsInCart,
+
+            newProduct
+
+        ]);
+
+    };
+
+    
+
+    const onQuantityChange = (
+
+        productId,
+
+        count
+
+    ) => {
+
+        setProducts((oldState) => {
+
+            const productsIndex =
+
+                oldState.findIndex(
+
+                    (item) =>
+
+                        item._id === productId
+
+                );
+
+            if (productsIndex !== -1) {
+
+                oldState[productsIndex].count =
+
+                    count;
+
+            }
+
+            return [...oldState];
+
+        });
+
+    };
+
+      
+
+    useEffect(() => {
+
+            axios
+
+              .get("http://localhost:8090/food/")
+
+              .then((res) => {
+
+                setproducts(res.data);
+
+        
+
+                // setDishes(res.data);
+
+              })
+
+              .catch((err) => console.log(err));
+
+          },[]);
+
+        
 
 
-  const handlePasswordChange = (e) => {
-    setSearchTerm(e.target.value);
 
-    if (searchTerm.length >=0 ){
-      setSearch(false)
-      // alert(searchTerm.length)
-      // alert(searchTerm)
-    }
- if (searchTerm.length ==0 ){
-      setSearch(true)
-      // alert(searchTerm.length)
-      // alert(searchTerm)
-    }
-  };
 
-  // function searchdata(){
+    const onProductRemove = (product) => {
 
-  
-  // if (search.length > 0){
-  //   setSearch(false)
-  //   alert(search)
-  // }
-  // else{
-  //   setSearch(true)
-  //   alert("da")
-  // }
-  // }
-  return (
-    <>
-      <Header />
-      <div className="cont">
-        <div className="App">
-          <ShoppingCart
-            visibilty={cartsVisibilty}
-            products={productsInCart}
-            onClose={() => setCartVisible(false)}
-            onQuantityChange={onQuantityChange}
-            onProductRemove={onProductRemove}
-          />
+        console.log(product);
 
-          <head>
-            <title>Food Menu</title>
-            <link
-              href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap%22"
-              rel="stylesheet"
-            />
-          </head>
+        setProducts((oldState) => {
 
-          <body>
-            <div className="heading">
-              <h1>PALLADIUM RESTAURANT & BAR</h1>
-              <h3>&mdash; OUR MENU &mdash;</h3>
-            </div>
+            const productsIndex =
 
-            <div className="navbar">
-              <button
-                className="btn-shopping-cart-btn"
-                onClick={() => setCartVisible(true)}
-              >
-                <FaShoppingCart size={35} />
-                {productsInCart.length > 0 && (
-                  <span className="product-count">{productsInCart.length}</span>
-                )}
-              </button>
-            </div>
+                oldState.findIndex(
 
-            <input
-              type="text" style={{height:'40px',borderRadius:"5px",marginLeft:"20px",border:"none"}} placeholder=" Search food....."
-              // onChange={(event) => {setSearchTerm(event.target.value),{handlePasswordChange}} }
-              onChange={handlePasswordChange}
-              // setSearchTerm(event.target.value)
-            />
+                    (item) =>
 
-            {search ? (
-              <div className="menu">
-                {menu.map((menu) => (
-                  <div>
-                    <div style={{ color: "white" }}>{menu.Name}</div>
- 
-                    {products
-                      .filter((val) => {
-                        if (val.Category.includes(menu.Name)) {
-                          return val;
-                        }
-                      })
+                        item._id === product
 
-                      .map((product) => (
-                        <div className="food-items">
-                          <div className="image">
-                            <img src={product.ImageURL} alt="menu" />
-                          </div>
-                          <div className="details">
-                            <div className="details-sub">
-                              <h5>{product.Name}</h5>
-                              <h5 class="price">Rs.{product.Price}</h5>
-                            </div>
+                );
 
-                            <bottom>
-                              <button onClick={() => addProductToCart(product)}>
-                                Add To Cart
-                              </button>
-                              {/*<fav>
-                                <MdFavorite size={30} />
-                              </fav>*/}
-                            </bottom>
-                          </div>
-                        </div>
-                      ))}
-                    <br />
-                  </div>
-                ))}
-              </div>
-            ) :(
-              <div className="menu">
-              {products
-                .filter((val) => {
-                  if (searchTerm === "") {
-                    return val;
-                  } else if (
-                    val.Name.toLowerCase().includes(searchTerm.toLowerCase())
-                  ) {
-                    return val;
-                  }
-                })
+            if (productsIndex !== -1) {
 
-                .map((product) => (
-                  <div className="food-items">
-                    <div className="image">
-                      <img src={product.ImageURL} alt="menu" />
-                    </div>
-                    <div className="details">
-                      <div className="details-sub">
-                        <h5>{product.Name}</h5>
-                        <h5 class="price">Rs.{product.Price}</h5>
-                      </div>
+                oldState.splice(productsIndex, 1);
 
-                      <bottom>
-                        <button onClick={() => addProductToCart(product)}>
-                          Add To Cart
-                        </button>
-                        <fav>
-                          <MdFavorite size={30} />
-                        </fav>
-                      </bottom>
-                    </div>
-                  </div>
-                  
-                ))}
-                </div>
-            )}
-          </body>
-        </div>
-      </div>
-      <Footer />
-    </>
-  );
+            }
+
+            return [...oldState];
+
+        });
+
+    };
+
+
+
+
+
+    
+
+
+
+
+  return (
+
+    <><Header />
+
+    <div className="cont">
+
+      <div className='App'>
+
+        <ShoppingCart
+
+          visibilty={cartsVisibilty}
+
+          products={productsInCart}
+
+          onClose={() => setCartVisible(false)}
+
+          onQuantityChange={onQuantityChange}
+
+          onProductRemove={onProductRemove} />
+
+
+
+
+        <head>
+
+          <title>Food Menu</title>
+
+          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap%22" rel="stylesheet" />
+
+        </head>
+
+
+
+
+
+        <body>
+
+          <div className="heading">
+
+            <h1>PALLADIUM RESTAURANT & BAR</h1>
+
+            <h3>&mdash; OUR MENU &mdash;</h3>
+
+          </div>
+
+
+
+
+          <div className="navbar">
+
+
+
+
+          <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",marginTop:"20px",marginLeft:"40px",color:"black",borderRadius:"15px" }} placeholder=" Search..." onChange={(event) => {
+
+            setSearchTerm(event.target.value);
+
+          }} />
+
+
+
+
+            <button
+
+              className="btn-shopping-cart-btn"
+
+              onClick={() => setCartVisible(true)}>
+
+
+
+
+              <FaShoppingCart size={50} />
+
+              {productsInCart.length >
+
+                0 && (
+
+                  <span className="product-count">
+
+                    {productsInCart.length}
+
+                  </span>
+
+                )}
+
+            </button>
+
+          </div>
+
+
+
+
+          <div className="menu">
+
+            {products.filter((val) => {
+
+              if (searchTerm === "") {
+
+                return val;
+
+              } else if (
+
+                val.Name.toLowerCase().includes(searchTerm.toLowerCase())
+
+              ) {
+
+                return val;
+
+              }
+
+            }).map((product) => (
+
+              <MenuItem product={product} addProductToCart={addProductToCart} productsInCart={productsInCart} />
+
+            ))}
+
+          </div>
+
+        </body>
+
+      </div>
+
+    </div>
+
+    <Footer/>
+
+    </>
+
+  );
+
 }
+
+
+
 
 export default Menu;

@@ -531,7 +531,7 @@ function handleChange(value){
                   }}
                   onClick={() => setIstype(true)}
                 >
-                  <b>Resturent</b>
+                  <b>Restaurent</b>
                 </Button>
               </div>
 
@@ -666,6 +666,7 @@ function handleChange(value){
                       name="quantity"
                       id="quantity"
                       placeholder="Quantity"
+                      min={1}
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                       style={{ marginLeft: "25px" }}
@@ -701,7 +702,7 @@ function handleChange(value){
                     onClick={Dining}
                     style={{ marginLeft: "15%" }}
                   />
-                  <label htmlFor="javascript">Dining</label>
+                  <label htmlFor="javascript">Dine-In</label>
                   <input
                     id="Delivery"
                     type="radio"
@@ -1045,8 +1046,13 @@ function handleChange(value){
                     toast.error("Please add food");
                     throw new Error("Printing is not allowed!");
                   }
-                  else 
-                 if(staytus === "0" && type ==="Delivery" && !address){
+                  else
+                   if(type=="Dining" && table=="" ){
+                    toast.error("Please select table ")
+                    throw new Error("Printing is not allowed!")
+
+                  }else 
+                  if(staytus === "0" && type ==="Delivery" && !address){
                     toast.error("Please enter the address")
                     throw new Error("Printing is not allowed!")
                     

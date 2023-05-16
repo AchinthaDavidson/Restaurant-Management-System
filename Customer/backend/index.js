@@ -53,8 +53,8 @@ app.use("/faq", faqRouter);
 const menurout = require("./src/routes/menu");
 app.use("/menu", menurout);
 
-const chatRouter = require("./src/routes/chat");
-app.use("/chat", chatRouter);
+// const chatRouter = require("./src/routes/chat");
+// app.use("/chat", chatRouter);
 
 app.listen(port, () => {
   console.log(`server started in port ${port}`);

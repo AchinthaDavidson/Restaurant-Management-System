@@ -35,7 +35,7 @@
 }
 
 .header h2{
-    padding-left: 40%;
+    padding-left: 30%;
 }
 
 .close-btn {
@@ -99,10 +99,10 @@
 	padding: 10px 20px;
 	font-size: 1rem;
 	color: rgb(0, 0, 0);
-	align-self: center;
-	margin: 2rem 0;
+	margin-left: 100%;
     border-radius: 10px;
     cursor: pointer;
+	width: 100%;
 }
 
 input[type='number']{
