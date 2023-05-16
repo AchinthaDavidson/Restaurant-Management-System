@@ -8,11 +8,11 @@ import "./menu.css";
 import MenuItem from '../../components/MenuItem';
 
 function Menu() {
-	const [products, setproducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [search, setSearch] = useState(true);
-	const [cartsVisibilty, setCartVisible] = useState(false);
-	const [productsInCart, setProducts] = useState(
+const [products, setproducts] = useState([]);
+const [searchTerm, setSearchTerm] = useState("");
+const [search, setSearch] = useState(true);
+const [cartsVisibilty, setCartVisible] = useState(false);
+const [productsInCart, setProducts] = useState(
 											JSON.parse(
 												localStorage.getItem(
 													"shopping-cart"
@@ -113,7 +113,7 @@ function Menu() {
 
           <div className="navbar">
 
-		  <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",margin:"20px",color:"black" }} placeholder=" Search Food..." onChange={(event) => {
+		  <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",marginTop:"20px",marginLeft:"40px",color:"black",borderRadius:"15px" }} placeholder=" Search..." onChange={(event) => {
             setSearchTerm(event.target.value);
           }} />
 
