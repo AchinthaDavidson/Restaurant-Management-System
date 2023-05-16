@@ -48,6 +48,12 @@ function Menu() {
     });
   };
 
+  {/*const onProductRemove = (product) => {
+      setProducts((oldState) =>
+      oldState.filter((item) =>
+      item.id !== product.id));
+    };*/}
+
   const [products, setproducts] = useState([]);
   const [menu, setmenu] = useState([]);
 
