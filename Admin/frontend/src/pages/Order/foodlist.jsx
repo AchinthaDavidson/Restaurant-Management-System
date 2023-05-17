@@ -23,7 +23,7 @@ return (
     <div>
             {foodlists.map((foodlists, index) => (
                  <>
-                     <p>{foodlists.food_id}{foodlists.qty}</p>
+                     <p>{foodlists.food_id} - {foodlists.qty}</p>
                      
                      <br/>
                      </>

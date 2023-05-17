@@ -18,6 +18,7 @@ import { useState, useRef, useEffect } from "react";
 
 
 
+
 const slidecard = { margin: "1em" };
 
 const Dashboard = () => {

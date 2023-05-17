@@ -1016,6 +1016,7 @@ function handleChange(value){
           </div>
           <div
             style={{
+
               backgroundColor: "white",
               borderRadius: "9px",
               marginTop:"5rem",    
@@ -1025,10 +1026,11 @@ function handleChange(value){
               overflowY: "auto",
             }}
           >
-            <div  id="print1"  onClick={sendorder}>
+            <div  id="print1"  style={{display:"flex"}}>
+              <div  onClick={sendorder}>
               <ReactToPrint
                 focus={true}
-                onClick={sendorder}
+               
                 trigger={() => (
                   
                   <Button
@@ -1074,8 +1076,8 @@ function handleChange(value){
                 
               
               />
-         
-
+         </div>
+<div>
               <ReactToPrint
                   focus={true}
                   trigger={() => (
@@ -1098,6 +1100,7 @@ function handleChange(value){
                   content={() => kot.current}
                   onAfterPrint={() => window.location.reload(false)}
                 />
+                </div>
             </div>
 
             <div id="printdata" ref={componentRef} className="p-5">
