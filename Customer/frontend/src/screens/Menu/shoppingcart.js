@@ -53,19 +53,6 @@ function ShoppingCart({
 					<div className="input-field">
 						<label className="Address">Current Address</label>
 
-						<Autocomplete onChange={(e) => setAddress(e.target.value)}>
-						
-
-						<input type="text" hidden={true} id="locationInputs" 
-						style={{padding:"1rem 1rem 1rem 1rem"}} 
-						placeholder="Enter your drop point..." 
-						onChange={(e) => setAddress(e.target.value)}
-						onClick={(e) => setAddress(e.target.value)}
-						onMouseMove={(e) => setAddress(e.target.value)}
-						onMouseUp={(e) => setAddress(e.target.value)}
-						value={address}
-						/>
-						</Autocomplete>
 					</div>
 
 					{products.length > 0 && (
