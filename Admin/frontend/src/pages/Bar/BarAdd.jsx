@@ -220,6 +220,7 @@ function BarAdd() {
                       Product Code : </label>
                     <input
                       type="text" 
+                      disabled
                       placeholder="Product code"
                       value={Bid}
                       onChange={(e) => findcode(e.target.value)}
