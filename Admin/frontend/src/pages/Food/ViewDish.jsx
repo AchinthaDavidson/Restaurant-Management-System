@@ -11,7 +11,8 @@ import Notification from "../../components/Notification";
 
    
 const ViewDish = () => {
-    
+
+    const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
     const [dishes, setDishes] = useState([]);
     const [show, setShow] = useState(false);
@@ -23,7 +24,7 @@ const ViewDish = () => {
         axios
         .get("http://localhost:8070/food/viewDish")
         .then((res) => {
-           // console.log(res.data);
+            console.log(res.data);
             setDishes(res.data);
         })
         .catch((err) =>console.log(err))
@@ -73,9 +74,18 @@ const ViewDish = () => {
             <Notification/>
             {/* <h1>View all avaliable Dishes</h1> */}
             <div className='data'>
+                <div>
                 <Button className='middlebtns' onClick={ () => navigate("/food")}>
                     Click here to add more Dishes
                 </Button>
+                <input
+                    placeholder="Enter a dish name to search..."
+                    autoComplete="off"
+                    onChange={(e)=>setSearchTerm(e.target.value)}
+                    style={{ padding:"1rem" , width:"30%", marginBottom:"1rem"}}
+                    />
+                </div>
+                
             
             <Modal show={show} onHide={handleClose} className="theModal" >
                 <Modal.Header closeButton>
@@ -130,9 +140,6 @@ const ViewDish = () => {
                                     </td>
                                 </tr>
                             </table>
-
-                    
-
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -148,7 +155,15 @@ const ViewDish = () => {
             
             {dishes ? (
                 <div>
-                    {dishes.map(dish => {
+                    {dishes.filter((dish) =>{
+                        if (searchTerm === "") {
+                            return (dish);
+                            } else if (
+                                dish.Name.toLowerCase().includes(searchTerm.toLowerCase())
+                            ) {
+                                return dish;
+                            }                  
+                    }).map(dish => {
                         return(
                             <div key={dish._id} className="dishDataDiv " >
                                 
