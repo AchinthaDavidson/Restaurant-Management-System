@@ -25,7 +25,7 @@ const Sidebar = ({children}) => {
         },
         {
             path:"/Menu",
-            name:"Menu",
+            name:"Menu Categories",
             icon:<BiFoodMenu/>
         },
         {

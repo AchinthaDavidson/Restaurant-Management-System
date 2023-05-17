@@ -25,7 +25,7 @@ main{
     background: rgb(244, 240, 240);
     /* background: rgb(42, 13, 60); */
     overflow-y: scroll;
-    height: 93vh;
+    height: 96vh;
     font-family: "Poppins", sans-serif;
 }
 /* width */

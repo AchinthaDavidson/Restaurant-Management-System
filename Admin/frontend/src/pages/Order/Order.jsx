@@ -27,7 +27,7 @@ function Order() {
   // const order_id = '008';
   const [w_id, setW_id] = useState("-");
   const [cus_id, setcus_id] = useState("-");
-  const [type, settype] = useState("Takeaway");
+  const [type, settype] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -352,7 +352,7 @@ function handleChange(value){
           toast.error("Please enter the address");
           return
         }
- 
+       
         const neworder = {
           order_id,
           w_id,
@@ -531,7 +531,7 @@ function handleChange(value){
                   }}
                   onClick={() => setIstype(true)}
                 >
-                  <b>Resturent</b>
+                  <b>Restaurent</b>
                 </Button>
               </div>
 
@@ -666,6 +666,7 @@ function handleChange(value){
                       name="quantity"
                       id="quantity"
                       placeholder="Quantity"
+                      min={1}
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                       style={{ marginLeft: "25px" }}
@@ -701,7 +702,7 @@ function handleChange(value){
                     onClick={Dining}
                     style={{ marginLeft: "15%" }}
                   />
-                  <label htmlFor="javascript">Dining</label>
+                  <label htmlFor="javascript">Dine-In</label>
                   <input
                     id="Delivery"
                     type="radio"
@@ -1015,6 +1016,7 @@ function handleChange(value){
           </div>
           <div
             style={{
+
               backgroundColor: "white",
               borderRadius: "9px",
               marginTop:"5rem",    
@@ -1024,10 +1026,11 @@ function handleChange(value){
               overflowY: "auto",
             }}
           >
-            <div  id="print1"  onClick={sendorder}>
+            <div  id="print1"  style={{display:"flex"}}>
+              <div  onClick={sendorder}>
               <ReactToPrint
                 focus={true}
-                onClick={sendorder}
+               
                 trigger={() => (
                   
                   <Button
@@ -1046,12 +1049,22 @@ function handleChange(value){
                     throw new Error("Printing is not allowed!");
                   }
                   else
-                 if(staytus === "0" && type ==="Delivery" && !address){
+                   if(type=="Dining" && table=="" ){
+                    toast.error("Please select table ")
+                    throw new Error("Printing is not allowed!")
+
+                  }else 
+                  if(staytus === "0" && type ==="Delivery" && !address){
                     toast.error("Please enter the address")
                     throw new Error("Printing is not allowed!")
                     
+                  }else 
+                  if(type==""){
+                    toast.error("Please set order type")
+                    throw new Error("Printing is not allowed!")
                   }
-                  else{
+                  else
+                  {
                     setPrint(1)
                   }
 
@@ -1063,8 +1076,8 @@ function handleChange(value){
                 
               
               />
-         
-
+         </div>
+<div>
               <ReactToPrint
                   focus={true}
                   trigger={() => (
@@ -1087,6 +1100,7 @@ function handleChange(value){
                   content={() => kot.current}
                   onAfterPrint={() => window.location.reload(false)}
                 />
+                </div>
             </div>
 
             <div id="printdata" ref={componentRef} className="p-5">

@@ -14,8 +14,6 @@ import Food from './pages/Food/Food.jsx';
 import Waiter from './pages/Waiter/Waiter.jsx';
 import AddWaiter from './pages/Waiter/AddWaiter.jsx';
 import UpdateWaiter from './pages/Waiter/UpdateWaiter.jsx';
-import QandA from './pages/Q&A/QandA.jsx';
-import Chat from './pages/Q&A/Chat';
 import Menu from './pages/Menu/Menu';
 import AddMenu from './pages/Menu/addMenu';
 import Driver from './pages/Driver/Driver.jsx';
@@ -58,8 +56,7 @@ const App = () => {
           <Route path="/Waiter/AddWaiter" element={<AddWaiter />} />
           <Route path="/Waiter/UpdateWaiter/:id" element={<UpdateWaiter />} />
 
-          <Route path="/QandA" element={<QandA />} />
-          <Route path="/QandA/chat" element={<Chat />} /> 
+        
 
           <Route path="/Menu" element={<Menu />} />
           <Route path="/Menu/addMenu" element={<AddMenu/>} />

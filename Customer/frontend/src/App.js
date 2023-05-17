@@ -11,8 +11,9 @@ import ResetPass from "./screens/ResetPass";
 import Dashboard from "./screens/Dashboard";
 import Homepage from './screens/Homepage/homepage';
 import Menu from './screens/Menu/Menu';
+import OrderSummary from "./screens/OrderSummary/orderSummary";
 import FAQ from './screens/FAQ/FAQ';
-import Chat from './screens/Chat/Chat'
+// import Chat from './screens/Chat/Chat'
 import BarMenu from './screens/BarMenu/BarMenu'
 
 function App() {
@@ -28,8 +29,9 @@ function App() {
           <Route path="/forgot-password/reset" element={<ResetPass />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/Menu" element={<Menu />} />
+          <Route path="/OrderSummary" element={<OrderSummary/>}/>
           <Route path="/FAQs" element={<FAQ />} />
-          <Route path="/Chat" element={<Chat />} />
+          {/* <Route path="/Chat" element={<Chat />} /> */}
           <Route path="/BarMenu" element={<BarMenu />} />
         </Routes>
       </BrowserRouter>
