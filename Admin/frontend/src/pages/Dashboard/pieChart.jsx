@@ -8,7 +8,7 @@ Title
 } from '@devexpress/dx-react-chart-material-ui';
 
 
-const App = () => {
+const Piechart = () => {
 
 // Catogories data
 const data = [
@@ -30,4 +30,4 @@ return (
 );
 }
 
-export default App;
+export default Piechart;

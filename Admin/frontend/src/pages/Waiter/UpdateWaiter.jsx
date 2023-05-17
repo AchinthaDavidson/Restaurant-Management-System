@@ -4,6 +4,8 @@ import Niv from "../../components/Niv";
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import { useParams , useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { toast, ToastContainer } from "react-toastify";
 
 
 const UpdateWaiter = () => {
@@ -15,8 +17,7 @@ const UpdateWaiter = () => {
     const [Email , setEmail] = useState("");
     const [address , setAddress] = useState("");
     const [phone_no , setPhone] = useState("");
-    const [password , setPassword] = useState("");
-    const [status , setStatus] = useState("");
+    
     const history = useNavigate();
 
    const{id} = useParams();
@@ -32,8 +33,7 @@ const UpdateWaiter = () => {
       setEmail(res.data.Email)
       setAddress(res.data.address)
       setPhone(res.data.phone_no)
-      setPassword(res.data.password)
-      setStatus(res.data.status)
+      
     })
    } ,[]);
    
@@ -45,19 +45,24 @@ const UpdateWaiter = () => {
   function Update(e) {
     e.preventDefault();
     
-    const waiter = { W_Id, name, Email, phone_no, address, password, status };
+    const waiter = { W_Id, name, Email, phone_no, address};
   
     if (window.confirm("Are you sure you want to update this waiter?")) {
       axios.put(`http://localhost:8070/waiter/update/${id}`, waiter).then(() => {
-        history("/waiter");
+        toast.success("updated  successfully!");
+        
+        
+      
       });
     }
+    history("/waiter");
   }
 
 
 
   return (
     <div>
+      <ToastContainer position="top-right" theme="colored" />
     <Niv name="Waiter/ UpdateWaiter" />
     <div className="data">
     <div className="waiterAdd">
@@ -101,12 +106,7 @@ const UpdateWaiter = () => {
 
               
 
-              <div class="input-field">
-                <label className="status">Status</label>
-                <input type="text" value={status} placeholder="Status"
-                onChange={(e) => setStatus(e.target.value)} pattern="[a-zA-Z]{1,50}" 
-                title="Status should contain only alphabetic characters" required/>
-              </div>
+              
 
           </div>
 
