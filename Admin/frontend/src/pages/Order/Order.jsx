@@ -352,7 +352,7 @@ function handleChange(value){
           toast.error("Please enter the address");
           return
         }
- 
+       
         const neworder = {
           order_id,
           w_id,
