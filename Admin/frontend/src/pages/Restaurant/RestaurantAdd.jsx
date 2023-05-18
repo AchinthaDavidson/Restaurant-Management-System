@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
+import {useNavigate} from 'react-router-dom';
 
 const RestaurantAdd = () => {
   const [id , setid] = useState("");
@@ -18,6 +19,7 @@ const RestaurantAdd = () => {
   const [reorderlevel, setreorderlevel] = useState("");
   const [expiredate, setexpiredate] = useState("");
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [Item_Id1,setItem_Id1]=useState("");
   const [Item_Name1,setItem_Name1]=useState("");
   const [Stock,setstock]=useState();
@@ -26,23 +28,72 @@ const RestaurantAdd = () => {
   const [isEditing, setIsEditing] = useState(false);
   
 
+  const navigate = useNavigate();
+
+
+  const [Btlcode, setBtlCode_id] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:8070/resInventory/resId").then((res) => {
+      console.log(res.data);
+      setBtlCode_id(res.data);
+    });
+  }, []);
+  const id1 = Btlcode.map((item) => item.Item_Id);
+  const Bid = Number(id1) + 1;
+
   const show = ()=>{
 
-    if(!id || !name || !unit || !quantity || !buydate || !unitPrice || !totalCost || !supplier || !reorderlevel || !expiredate){
-      toast.error("Please fill all the required fields");
-      return
+    
+
+    if(!name){
+      toast.error("Please enter the item name");
+      return;
+    }
+    
+
+    if(!unit){
+      toast.error("Please enter unit type");
+      return;
     }
 
-    const Inventoryfood = {id,quantity,unitPrice,supplier,expiredate};
-    axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood)
-    .then(()=>{
-    })
-    .catch((err)=>{
-      alert(err);
-    })
+    if(!quantity){
+      toast.error("Please enter quantity");
+      return;
+    }
+
+    // if(!supplier){
+    //   toast.error("Please enter supplier");
+    //   return
+    // }
+    
+    if(!reorderlevel){
+      toast.error("Please enter re-order level");
+      return;
+    }
+
+    if(!expiredate){
+      toast.error("Please enter expiredate");
+      return;
+    }
+
+   
 
 /*add*/
     if (isEditing===false){
+
+      let id=Bid
+
+      const Inventoryfood1 = {id,quantity,unitPrice,supplier,expiredate};
+      axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood1)
+      .then(()=>{
+      })
+      .catch((err)=>{
+        alert(err);
+      })
+
+
+
+
      const newres_add = {
        id,name,quantity,totalCost,reorderlevel,unit
      };
@@ -54,6 +105,26 @@ const RestaurantAdd = () => {
        alert(err);
      });
     }else{
+
+
+
+
+      let id=Item_Id1
+      const Inventoryfood1 = {id,quantity,unitPrice,supplier,expiredate};
+      axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood1)
+      .then(()=>{
+
+        toast.success("Item added to the inventory");
+      })
+      .catch((err)=>{
+        toast.success("Item added to the inventory");
+        alert(err);
+      })
+  
+
+
+
+      
 
     var qty=Number(quantity)+Number(Stock)
     var totalCost1=(Number(Total))+totalCost
@@ -81,10 +152,17 @@ const [items, setItems] = useState([]);
       getItems();
     }, []);
 
-  function findid(id){
-    setid(id);
-    if (id.length===4){
+  function findcode(name, id){
+    
      
+    console.log(id);
+    setname(name);
+
+    document.getElementById("Iname").style.visibility = "hidden";
+    // document.getElementById("radio").style.visibility = "visible";
+    document.getElementById("Bname").value = name;
+
+
       items.map((items)=>{
         if(items.Item_Id.includes(id)===true){
           setItem_Id1(items.Item_Id);
@@ -97,6 +175,18 @@ const [items, setItems] = useState([]);
           setIsEditing(true);
         }
       })
+    
+  }
+
+
+  function setSearch() {
+    // // alert('ho')
+    if (document.getElementById("Iname").style.visibility === "visible") {
+      document.getElementById("Iname").style.visibility = "hidden";
+      document.getElementById("radio").style.visibility = "visible";
+    } else {
+      document.getElementById("Iname").style.visibility = "visible";
+      document.getElementById("radio").style.visibility = "hidden";
     }
   }
 
@@ -108,12 +198,12 @@ const [items, setItems] = useState([]);
       <div className="cardAdd">
         <header>Add Items</header>
 
-  <form className="ResturantaddForm">
+  <div className="ResturantaddForm">
           <div className="form first">
             <div class="add detail">
               <div class="fields">
 
-                <div class="input-field">
+                {/* <div class="input-field">
                   <label className="ResturantaddProductCode">Item Id</label>
                   <input type="text" placeholder="Item Id" value={id}
                   onChange={(e) => findid(e.target.value)} pattern="[0-9]{4}"
@@ -125,8 +215,80 @@ const [items, setItems] = useState([]);
                   <input type="text" placeholder="Item Name" value={name}
                   onChange={(e) => setname(e.target.value)} pattern="[a-zA-Z]{1,30}"
                   title="Name can only contain A-Z charactors and should be less than or equal to 30 characters"/>
-                </div>
+                </div> */}
 
+<div class="input-field">
+                    <label className="BaraddProductCode">Item Name</label>
+                    
+                    <input
+                      id="Bname"
+                      type="text"
+                      placeholder="  Item Name"
+                      style={{ padding: "5px", minWidth: "92%" }}
+                      onChange={(event) => {
+                        setSearchTerm(event.target.value);
+                        setname(event.target.value);
+                      }}
+                      pattern="[a-zA-Z]{1,30}"
+                      title="Name can only contain A-Z characters"
+                      // value={description}
+
+                      onClick={() => {
+                        setSearch();
+                      }}
+                    />
+
+                    <div
+                      style={{
+                        maxHeight: "100px",
+                        background: "#F4F0F0",
+                        overflowY: "auto",
+                        position: "absolute",
+                        // position: "relative",
+                        opacity: "0.85",
+                        visibility: "hidden",
+                        minWidth: "40%",
+                        marginTop: "5%",
+                      }}
+                      id="Iname"
+                    >
+                      {items
+                        .filter((val) => {
+                          if (searchTerm === "") {
+                            // setIsEditing(false);
+                            return val;
+                          } else if (
+                            val.Item_Name.toLowerCase().includes(
+                              searchTerm.toLowerCase()
+                            )
+                          ) {
+                            document.getElementById("Iname").style.visibility =
+                              "visible";
+                            return val;
+                          }
+                          // else{
+                          //   setIsEditing(false);
+                          //   return val;
+                          // }
+                        })
+                        .map((item, index) => (
+                          <p
+                            className="fooddata"
+                            key={index}
+                            onClick={(e) =>
+                              findcode(item.Item_Name, item.Item_Id)
+                            }
+
+                            // onClick={() => (
+
+                            //   setdata(bar.price, bar._id)
+                            // )}
+                          >
+                            {item.Item_Name}
+                          </p>
+                        ))}
+                    </div>
+                  </div>
                 <div class="input-field">
                   <label className="ResturantaddBuyDate">Buy Date</label>
                   <input type="date" value={buydate}
@@ -187,7 +349,7 @@ const [items, setItems] = useState([]);
               </button>
             </div>
           </div>
-         </form>
+         </div>
           <a href="/Restaurant">
           <button class="Resturantbtn">
             <span>Go Back</span>

@@ -4,20 +4,26 @@ import ReactToPrint from "react-to-print";
 import Button from "@mui/material/Button";
 import Niv from "../../components/Niv";
 import Table from "./Table";
-import Kot from"./kot";
+import Kot from "./kot";
 import axios from "axios";
 import "./Order.css";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { width } from "@mui/system";
 import Notification from "../../components/Notification";
-import { GoogleMap, Marker, useJsApiLoader, Autocomplete,DirectionsRenderer } from '@react-google-maps/api';
-import SmallMap from "../Map/SmallMap.jsx"
+import {
+  GoogleMap,
+  Marker,
+  useJsApiLoader,
+  Autocomplete,
+  DirectionsRenderer,
+} from "@react-google-maps/api";
+import SmallMap from "../Map/SmallMap.jsx";
 // import { color } from "@mui/system";
 // import { display } from "@mui/system";
 
@@ -33,9 +39,9 @@ function Order() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [table, settable] = useState("");
-  const {isLoaded} = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyBv1H_VqIZse7f0hBdvLJThzpB-SaFfkPg',
-    libraries:['places']
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyBv1H_VqIZse7f0hBdvLJThzpB-SaFfkPg",
+    libraries: ["places"],
   });
   const invoiceDate = useState(
     d.getDate() +
@@ -48,18 +54,18 @@ function Order() {
       ":" +
       d.getMinutes()
   );
-  const [isSet, setIsSet] = useState(false)
+  const [isSet, setIsSet] = useState(false);
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("1");
   const [print, setPrint] = useState(0);
 
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState("");
-  const [Iid, setIid] = useState("")
+  const [Iid, setIid] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [staytus, setstaytus] = useState("0");
   const componentRef = useRef();
-  const kot=useRef();
+  const kot = useRef();
   const [isEditing, setIsEditing] = useState(false);
   const [istype, setIstype] = useState(true);
   const [list, setList] = useState([]);
@@ -67,12 +73,12 @@ function Order() {
   const [orders, setOrders] = useState([]);
   const [bar, setBar] = useState([]);
   const [waiter, setwaiter] = useState([]);
-  const [porder,setporder]=useState([]);
-  const [pbar,setpbar]=useState([]);
-  const [loctype,setLoctype] = useState("default")
-  const id1=[]
-  const  Quantity1=[]
-  
+  const [porder, setporder] = useState([]);
+  const [pbar, setpbar] = useState([]);
+  const [loctype, setLoctype] = useState("default");
+  const id1 = [];
+  const Quantity1 = [];
+
   // must be change for food
   useEffect(() => {
     function getorder() {
@@ -96,26 +102,23 @@ function Order() {
     getbar();
   }, []);
 
-  function setdata(fprice, fname,fID) {
+  function setdata(fprice, fname, fID) {
     // alert(fname + " " + fprice);
     document.getElementById("Iname").style.visibility = "hidden";
     document.getElementById("radio").style.visibility = "visible";
     document.getElementById("Fname").value = fname;
     setDescription(fname);
     setPrice(fprice);
-   setIid(fID);
-   
-    
-
+    setIid(fID);
   }
 
-  function handleLocationInput(addtype){
+  function handleLocationInput(addtype) {
     //console.log(addtype)
-   if(addtype=="default"){
-    document.getElementById("locationInputs").hidden=true;
-   }else if(addtype=="custom"){
-    document.getElementById("locationInputs").hidden=false;
-   }
+    if (addtype == "default") {
+      document.getElementById("locationInputs").hidden = true;
+    } else if (addtype == "custom") {
+      document.getElementById("locationInputs").hidden = false;
+    }
   }
 
   function setSearch() {
@@ -133,60 +136,54 @@ function Order() {
   const [isdelivery, setDelivery] = useState(false);
   const [isdining, setDining] = useState(false);
   const delivery = () => {
-   
-    ordertype()
+    ordertype();
     setDining(false);
-    setDelivery(true)
-    setTakeaway(false)
+    setDelivery(true);
+    setTakeaway(false);
     settype("Delivery");
-    
   };
   const Dining = () => {
-   
-    ordertype()
+    ordertype();
     settype("Dining");
     setDining(true);
-    setDelivery(false)
-    setTakeaway(false)
-    
-    
+    setDelivery(false);
+    setTakeaway(false);
   };
 
   const Takeaway = () => {
-   
-    ordertype()
+    ordertype();
     settype("Takeaway");
     setDining(false);
-    setDelivery(false)
-    setTakeaway(true)
-  
+    setDelivery(false);
+    setTakeaway(true);
   };
-  function ordertype(){
-  if (document.getElementById('takeaway').checked||(document.getElementById('dining').checked && (w_id !="-"))||document.getElementById('Delivery').checked){
-   
-    document.getElementById("print1").disabled=false;
-    document.getElementById("print").hidden=false;
-    document.getElementById("print2").hidden=false;
+  function ordertype() {
+    if (
+      document.getElementById("takeaway").checked ||
+      (document.getElementById("dining").checked && w_id != "-") ||
+      document.getElementById("Delivery").checked
+    ) {
+      document.getElementById("print1").disabled = false;
+      document.getElementById("print").hidden = false;
+      document.getElementById("print2").hidden = false;
+    }
   }
-}
 
-function handleChange(value){
-  // alert(value)
-  settable(value)
-}
-
+  function handleChange(value) {
+    // alert(value)
+    settable(value);
+  }
 
   // Submit form function
   const handleSubmit = (e) => {
     e.preventDefault();
-   
-//  console.log(Ingridients);
-  
+
+    //  console.log(Ingridients);
 
     if (!description || !quantity || !price) {
       toast.error("Please fill in all inputs");
     } else {
-      setporder(current=>[...current,description])
+      setporder((current) => [...current, description]);
       // toast.success("data added");
       const newItems = {
         id: uuidv4(),
@@ -194,7 +191,7 @@ function handleChange(value){
         quantity,
         price,
         amount,
-        Iid
+        Iid,
       };
       // alert(price);
 
@@ -264,20 +261,19 @@ function handleChange(value){
   // Edit function
 
   const editRow = (id) => {
-   
     const editingRow = list.find((row) => row.id === id);
-    document.getElementById("Fname").value =editingRow.description
+    document.getElementById("Fname").value = editingRow.description;
     setList(list.filter((row) => row.id !== id));
     setIsEditing(true);
     setDescription(editingRow.description);
     setQuantity(editingRow.quantity);
     setPrice(editingRow.price);
 
-    const index= porder.indexOf(editingRow.description)
-    porder.splice(index,1);
-  
-    const index1=pbar.indexOf(editingRow.description)
-    pbar.splice(index1,1);
+    const index = porder.indexOf(editingRow.description);
+    porder.splice(index, 1);
+
+    const index1 = pbar.indexOf(editingRow.description);
+    pbar.splice(index1, 1);
 
     const deletee =
       "http://localhost:8070/orderfood/delete/" +
@@ -301,11 +297,11 @@ function handleChange(value){
     const editingRow = list.find((row) => row.id === id);
     setList(list.filter((row) => row.id !== id));
 
-    const index= porder.indexOf(editingRow.description)
-    porder.splice(index,1);
-  
-    const index1=pbar.indexOf(editingRow.description)
-    pbar.splice(index1,1);
+    const index = porder.indexOf(editingRow.description);
+    porder.splice(index, 1);
+
+    const index1 = pbar.indexOf(editingRow.description);
+    pbar.splice(index1, 1);
 
     const deletee =
       "http://localhost:8070/orderfood/delete/" +
@@ -346,84 +342,80 @@ function handleChange(value){
 
     // document.getElementById('print').disabled=false
 
-      if (total > 0  ) {
+    if (total > 0) {
+      if (staytus === "0" && type === "Delivery" && !address) {
+        toast.error("Please enter the address");
+        return;
+      }
 
-        if(staytus === "0" && type ==="Delivery" && !address){
-          toast.error("Please enter the address");
-          return
-        }
- 
-        const neworder = {
-          order_id,
-          w_id,
-          cus_id,
-          type,
-          total,
+      const neworder = {
+        order_id,
+        w_id,
+        cus_id,
+        type,
+        total,
+        address,
+        phone,
+        email,
+      };
+
+      console.log(neworder);
+
+      axios
+        .post("http://localhost:8070/order/add", neworder)
+        .then(() => {
+          // alert("order add");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+
+      setName("");
+      setAddress("");
+      setEmail("");
+      setPhone("");
+
+      //console.log(list)
+      const qty = {
+        list,
+      };
+      axios
+        .post("http://localhost:8070/resInventory/updateqty", qty)
+        .then(() => {
+          // alert("order add");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+      axios
+        .post("http://localhost:8070/BarInventory/updateqty", qty)
+        .then(() => {
+          // alert("order add");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+
+      if (staytus === "0") {
+        const neworder_cus = {
+          name,
+          email,
           address,
           phone,
-          email
-         
         };
-  
-        console.log(neworder);
-  
+
         axios
-          .post("http://localhost:8070/order/add", neworder)
+          .post("http://localhost:8070/customer/add", neworder_cus)
           .then(() => {
-            // alert("order add");
+            // alert("cus add");
+            toast.success("New customer added");
           })
           .catch((err) => {
-            alert(err);
+            // alert(err);
+            toast.error("Could not add the new customer");
           });
-  
-          setName("");
-          setAddress("");
-          setEmail("");
-          setPhone("");
-  
-        //console.log(list)
-          const qty = {
-           list
-          };
-          axios
-            .post("http://localhost:8070/resInventory/updateqty", qty)
-            .then(() => {
-              // alert("order add");
-            })
-            .catch((err) => {
-              alert(err);
-            });
-            axios
-            .post("http://localhost:8070/BarInventory/updateqty", qty)
-            .then(() => {
-              // alert("order add");
-            })
-            .catch((err) => {
-              alert(err);
-            });
-  
-        if (staytus === "0") {
-          const neworder_cus = {
-            name,
-            email,
-            address,
-            phone,
-          };
-
-        
-          axios
-            .post("http://localhost:8070/customer/add", neworder_cus)
-            .then(() => {
-              // alert("cus add");
-              toast.success("New customer added");
-            })
-            .catch((err) => {
-              // alert(err);
-              toast.error("Could not add the new customer");
-            });
-        }
-      }  
-  
+      }
+    }
   }
 
   const [orderid, setorder_id] = useState([]);
@@ -435,12 +427,12 @@ function handleChange(value){
   }, []);
 
   let id = orderid.map((item) => item.order_id);
- 
+
   //  console.log(id[0]);
   const order_id = Number(id[0]) + 1;
- //const order_id = 1
-  if( order_id == null || order_id == ""){
-    order_id = 1
+  //const order_id = 1
+  if (order_id == null || order_id == "") {
+    order_id = 1;
   }
   //get cus details
   const [customer, setcustomer] = useState([]);
@@ -474,12 +466,11 @@ function handleChange(value){
     }
   }
 
-
   return (
     <div>
       <ToastContainer position="top-right" theme="colored" />
       <Niv name="Order" />
-      <Notification/>
+      <Notification />
       <div className="data">
         <div style={{ display: "flex", position: "relative" }}>
           <div>
@@ -666,6 +657,7 @@ function handleChange(value){
                       name="quantity"
                       id="quantity"
                       placeholder="Quantity"
+                      min={1}
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                       style={{ marginLeft: "25px" }}
@@ -721,25 +713,29 @@ function handleChange(value){
                       // display:"none"
                     }}
                   >
-                    
                     <div id="T_no">
-                      <table 
-                        style={{borderSpacing:"0", 
-                          margin:"auto auto",border:"none", 
-                          minWidth:"60rem"}}>
+                      <table
+                        style={{
+                          borderSpacing: "0",
+                          margin: "auto auto",
+                          border: "none",
+                          minWidth: "60rem",
+                        }}
+                      >
                         <tbody>
-                        <tr>
-                            <th  style={{textAlign:"center" }} colSpan={5}>Dilivery Details</th>
-                            </tr>
+                          <tr>
+                            <th style={{ textAlign: "center" }} colSpan={5}>
+                              Dilivery Details
+                            </th>
+                          </tr>
                           <tr>
                             <td>
                               <label htmlFor="phone" id="id">
                                 Enter phone :{" "}
-                                
                               </label>
                             </td>
                             <td>
-                            <input
+                              <input
                                 // disabled
                                 className="Delivery"
                                 type="text"
@@ -749,34 +745,32 @@ function handleChange(value){
                                 autoComplete="off"
                                 value={phone}
                                 onChange={(e) => findData(e.target.value)}
-                                style={{ padding:"1rem" }}
+                                style={{ padding: "1rem" }}
                               />
                             </td>
 
                             <td>
-                            <label htmlFor="name" id="name">
-                              Enter Name:
-                            </label>
+                              <label htmlFor="name" id="name">
+                                Enter Name:
+                              </label>
                             </td>
 
                             <td>
                               <input
-                              className="Delivery"
-                              type="text"
-                              name="text"
-                              id="name"
-                              placeholder="Enter your name"
-                              autoComplete="off"
-                              value={name}
-                              onChange={(e) => (
-                                setName(e.target.value), setcus_id(e.target.value)
-                              )}
-                              style={{ marginLeft: "5px", padding:"1rem" }}
-                            />
-
+                                className="Delivery"
+                                type="text"
+                                name="text"
+                                id="name"
+                                placeholder="Enter your name"
+                                autoComplete="off"
+                                value={name}
+                                onChange={(e) => (
+                                  setName(e.target.value),
+                                  setcus_id(e.target.value)
+                                )}
+                                style={{ marginLeft: "5px", padding: "1rem" }}
+                              />
                             </td>
-
-                           
                           </tr>
 
                           <tr>
@@ -797,78 +791,83 @@ function handleChange(value){
                                 autoComplete="off"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                style={{ marginLeft: "6px", padding:"1rem" }}
+                                style={{ marginLeft: "6px", padding: "1rem" }}
                               />
-                                </td>
-                                    <td>
-                                  <p style={{ marginTop:"1rem" }} htmlFor="address" id="address">
-                                    Customer Address : 
-                                  </p> 
-                                  
-                                  </td>
-                                  <td>{address}</td>
+                            </td>
+                            <td>
+                              <p
+                                style={{ marginTop: "1rem" }}
+                                htmlFor="address"
+                                id="address"
+                              >
+                                Customer Address :
+                              </p>
+                            </td>
+                            <td>{address}</td>
+                          </tr>
+                          <tr>
+                            <th style={{ textAlign: "center" }} colSpan={5}>
+                              Dilivery Location
+                            </th>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input
+                                id="defaultLocation"
+                                type="radio"
+                                name="defaultLocation"
+                                value={"default"}
+                                onClick={(e) => handleLocationInput("default")}
+                                style={{ marginLeft: "15%" }}
+                              />
+                              <label style={{ minWidth: "3rem" }}>
+                                {" "}
+                                Default Address{" "}
+                              </label>
+                            </td>
+                            <td>
+                              <input
+                                id="defaultLocation"
+                                type="radio"
+                                name="defaultLocation"
+                                value={"custom"}
+                                onClick={(e) => handleLocationInput("custom")}
+                                style={{ marginLeft: "15%" }}
+                              />
+                              <label> Use Custom Location</label>
+                            </td>
+                            <td>
+                              <p
+                                style={{ marginTop: "1rem" }}
+                                htmlFor="address"
+                                id="address"
+                              >
+                                Set Diliver Location:
+                              </p>
+                            </td>
 
-                                
-                            </tr>
-                            <tr>
-                            <th  style={{textAlign:"center" }} colSpan={5}>Dilivery Location</th>
-                            </tr>
-                            <tr>
-                                                
-                              <td>
+                            <td>
+                              <Autocomplete
+                                onChange={(e) => setAddress(e.target.value)}
+                              >
                                 <input
-                                  id="defaultLocation"
-                                  type="radio"
-                                  name="defaultLocation"
-                                  value={"default"}
-                                  onClick={(e)=>handleLocationInput("default")}
-                                  style={{ marginLeft: "15%" }}
-                                /> 
-                                <label  style={{ minWidth:"3rem"}}> Default Address </label>
-                              </td>
-                              <td>
-                                <input
-                                  id="defaultLocation"
-                                  type="radio"
-                                  name="defaultLocation"
-                                  value={"custom"}
-                                  onClick={(e)=>handleLocationInput("custom")}
-                                  style={{ marginLeft: "15%" }}
-                                /> 
-                                <label> Use Custom Location</label>
-
-                                </td>
-                              <td>
-                                <p style={{ marginTop:"1rem" }} htmlFor="address" id="address">
-                                    Set Diliver Location: 
-                                  </p> 
-                                </td>
-
-                              <td>
-                              <Autocomplete  onChange={(e) => setAddress(e.target.value)}>
-                                <input 
-                                    type="text"  
-                                    hidden={true} 
-                                    id="locationInputs"
-                                    style={{padding:"1rem 1rem 1rem 1rem"}}
-                                    placeholder="Enter your drop point..."  
-
-                                    onChange={(e) => setAddress(e.target.value)}
-                                    onClick={(e) => setAddress(e.target.value)}
-                                    onMouseMove={(e) => setAddress(e.target.value)}
-                                    onMouseUp={(e) => setAddress(e.target.value)} 
-                                    value={address}
-                                 
-                                    
-                                   />
+                                  type="text"
+                                  hidden={true}
+                                  id="locationInputs"
+                                  style={{ padding: "1rem 1rem 1rem 1rem" }}
+                                  placeholder="Enter your drop point..."
+                                  onChange={(e) => setAddress(e.target.value)}
+                                  onClick={(e) => setAddress(e.target.value)}
+                                  onMouseMove={(e) =>
+                                    setAddress(e.target.value)
+                                  }
+                                  onMouseUp={(e) => setAddress(e.target.value)}
+                                  value={address}
+                                />
                               </Autocomplete>
-                              </td>
-
-                            
-                            </tr>
-
-                 
-                  </tbody>
+                            </td>
+                          </tr>
+                        </tbody>
                       </table>
                     </div>
                     {/* <div
@@ -880,8 +879,7 @@ function handleChange(value){
                   id="Address"
                   hidden
                 > */}
-                    
-                  
+
                     {/* <textarea
                       className="Delivery"
                       type="text"
@@ -900,8 +898,7 @@ function handleChange(value){
 
                     {/* <SmallMap id={address}>
                     </SmallMap>  */}
-                    
-                   
+
                     {/* </div> */}
                   </div>
                 ) : null}
@@ -922,67 +919,66 @@ function handleChange(value){
                     <br />
                     Set Table number:
                     <br />
-                    <RadioGroup 
-                    row >
+                    <RadioGroup row>
                       <FormControlLabel
                         value="1"
                         control={<Radio />}
                         label="1"
-                        onChange={()=>handleChange(1)}
+                        onChange={() => handleChange(1)}
                       />
                       <FormControlLabel
                         value="2"
                         control={<Radio />}
                         label="2"
-                        onChange={()=>handleChange(2)}
+                        onChange={() => handleChange(2)}
                       />
                       <FormControlLabel
                         value="3"
                         control={<Radio />}
                         label="3"
-                        onChange={()=>handleChange(3)}
+                        onChange={() => handleChange(3)}
                       />
                       <FormControlLabel
                         value="4"
                         control={<Radio />}
                         label="4"
-                        onChange={()=>handleChange(4)}
+                        onChange={() => handleChange(4)}
                       />{" "}
                       <FormControlLabel
                         value="5"
                         control={<Radio />}
                         label="5"
-                        onChange={()=>handleChange(5)}
+                        onChange={() => handleChange(5)}
                       />
                       <FormControlLabel
                         value="6"
                         control={<Radio />}
                         label="6"
-                        onChange={()=>handleChange(6)}
+                        onChange={() => handleChange(6)}
                       />{" "}
                       <FormControlLabel
                         value="7"
                         control={<Radio />}
                         label="7"
-                        onChange={()=>handleChange(7)}
+                        onChange={() => handleChange(7)}
                       />
                       <FormControlLabel
                         value="8"
                         control={<Radio />}
                         label="8"
-                        onChange={()=>handleChange(8)}
+                        onChange={() => handleChange(8)}
                       />{" "}
                       <FormControlLabel
                         value="9"
                         control={<Radio />}
                         label="9"
-                        onChange={()=>handleChange(9)}
+                        onChange={() => handleChange(9)}
                       />
                       <FormControlLabel
                         value="10"
                         control={<Radio />}
                         label="10"
-                        onChange={()=>handleChange(10)}
+                        onChange={() => handleChange(10)}
                       />
                     </RadioGroup>
                   </div>
@@ -1017,76 +1013,64 @@ function handleChange(value){
             style={{
               backgroundColor: "white",
               borderRadius: "9px",
-              marginTop:"5rem",    
-              margin:"auto auto",
-              padding:"3rem 3rem",
+              marginTop: "5rem",
+              margin: "auto auto",
+              padding: "3rem 3rem",
               whiteSpace: "nowrap",
               overflowY: "auto",
             }}
           >
-            <div  id="print1"  onClick={sendorder}>
-              <ReactToPrint
-                focus={true}
-                onClick={sendorder}
-                trigger={() => (
-                  
-                  <Button
-                    // style={{ backgroundColor: "#01BC90", color: "black" }}
-                    type="submit"
-                    
-                    id="print"
-                    
-                  >
-                    Print Bill
-                  </Button>
-                )}
-                onBeforePrint={() => {
-                  if (total<=0){
-                    toast.error("Please add food");
-                    throw new Error("Printing is not allowed!");
-                  }
-                  else 
-                 if(staytus === "0" && type ==="Delivery" && !address){
-                    toast.error("Please enter the address")
-                    throw new Error("Printing is not allowed!")
-                    
-                  }
-                  else{
-                    setPrint(1)
-                  }
-
-
-
-                }}
-                content={() => componentRef.current}
-
-                
-              
-              />
-         
-
-              <ReactToPrint
+            <div id="print1" style={{ display: "flex" }}>
+              <div onClick={sendorder}>
+                <ReactToPrint
                   focus={true}
                   trigger={() => (
                     <Button
-                    
-                    
-                    id="print2"
+                      // style={{ backgroundColor: "#01BC90", color: "black" }}
+                      type="submit"
+                      id="print"
                     >
-                      Print KOT
+                      Print Bill
                     </Button>
                   )}
-                  onBeforePrint={() =>{
-
-                    if (print==0){
+                  onBeforePrint={() => {
+                    if (total <= 0) {
+                      toast.error("Please add food");
+                      throw new Error("Printing is not allowed!");
+                    } else if (type == "Dining" && table == "") {
+                      toast.error("Please select table ");
+                      throw new Error("Printing is not allowed!");
+                    } else if (
+                      staytus === "0" &&
+                      type === "Delivery" &&
+                      !address
+                    ) {
+                      toast.error("Please enter the address");
+                      throw new Error("Printing is not allowed!");
+                    } else if (type == "") {
+                      toast.error("Please set order type");
+                      throw new Error("Printing is not allowed!");
+                    } else {
+                      setPrint(1);
+                    }
+                  }}
+                  content={() => componentRef.current}
+                />
+              </div>
+              <div>
+                <ReactToPrint
+                  focus={true}
+                  trigger={() => <Button id="print2">Print KOT</Button>}
+                  onBeforePrint={() => {
+                    if (print == 0) {
                       toast.error("Please print the bill first");
                       throw new Error("Printing is not allowed!");
                     }
-                  
                   }}
                   content={() => kot.current}
                   onAfterPrint={() => window.location.reload(false)}
                 />
+              </div>
             </div>
 
             <div id="printdata" ref={componentRef} className="p-5">
@@ -1103,20 +1087,19 @@ function handleChange(value){
                 setTotal={setTotal}
               />
             </div>
-            <div  ref={kot}>
-             
-                    <Kot
-                       invoiceNumber={order_id}
-                       invoiceDate={invoiceDate}
-                       description={description}
-                       quantity={quantity}
-                       list={list}
-                       setList={setList}
-                       setTotal={setTotal}
-                       type={type}
-                       table={table}
-                    />
-           </div>
+            <div ref={kot}>
+              <Kot
+                invoiceNumber={order_id}
+                invoiceDate={invoiceDate}
+                description={description}
+                quantity={quantity}
+                list={list}
+                setList={setList}
+                setTotal={setTotal}
+                type={type}
+                table={table}
+              />
+            </div>
           </div>
         </div>
         <div

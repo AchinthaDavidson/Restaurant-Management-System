@@ -9,8 +9,7 @@ router.route("/add").post((req,res)=>{
     const  Email    = req.body.email
     const  address  = req.body.address
     const  phone_no     = req.body.phone
-    const  password     = req.body.password
-    const  status    = req.body.status
+    
 
     const newwaiter =new  waiter({
         W_Id,
@@ -19,8 +18,7 @@ router.route("/add").post((req,res)=>{
         Email,   
         address, 
         phone_no,
-        password,
-        status     
+           
     })
 
     newwaiter.save().then(()=>{
@@ -50,11 +48,10 @@ router.put("/update/:id" , async(req,res)=>{
          Email,   
         address, 
         phone_no,
-        password,
-        status } = req.body
+         } = req.body
 
     const updateWaiter = {
-        name,Email,address, phone_no, password, status ,  W_Id
+        name,Email,address, phone_no ,  W_Id
     }
 
     const update = await waiter.findByIdAndUpdate(userID , updateWaiter)

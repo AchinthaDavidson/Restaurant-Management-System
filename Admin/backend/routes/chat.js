@@ -18,12 +18,13 @@ router.route('/').get(async (req, res) => {
 // Endpoint for customers to send a message to the admin
 router.post('/', async (req, res) => {
 
-  const {sender, message, reply, createdAt } = req.body;
+  const {message, sender,  reply, createdAt } = req.body;
 
   try {
     const newMessage = new chat({
-      sender: sender,
+    
       message: message,
+      sender: sender,
       reply: reply,
       createdAt: createdAt
     });
@@ -37,5 +38,39 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-  
+
+router.route("/delete/:id").delete(async (req, res) => {
+
+  let fid = req.params.id;
+
+  await chat.findByIdAndDelete(fid).then(() => {
+      res.status(200).send({ status: "FAQ delete" });
+  }).catch((err) => {
+      console.log(err.message);
+      res.status(500).send({ status: "Failed to delete FAQ" });
+  })
+})
+
+router.put('/update', async (req, res) => {
+  try {
+    const { sender, reply } = req.body;
+    await chat.updateMany({ sender:sender, reply: reply }, { read: true });
+    res.json({ success: true, message: 'Read status updated successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to update read status' });
+  }
+});
+
+router.get('/admin', async (req, res) => {
+  try {
+    const receiverId = req.query.receiver;
+    const messages = await chat.find({ reply: receiverId });
+    res.json(messages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Failed to fetch message data' });
+  }
+});
+
   module.exports = router;

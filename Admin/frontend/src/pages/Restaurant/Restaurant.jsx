@@ -48,7 +48,7 @@ const [searchTerm, setSearchTerm] = useState("");
     </div>  
       </div>
       <div>
-      <input type="text" style={{ height: "40px" }} placeholder=" Search Items..." onChange={(event) => {
+      <input type="text" style={{ height: "40px", borderColor:"rgb(0,46,99)",margin:"20px" }} placeholder=" Search Items..." onChange={(event) => {
             setSearchTerm(event.target.value);
           }} />
       <a href="/Restaurant/RestaurantDelete">
@@ -60,10 +60,10 @@ const [searchTerm, setSearchTerm] = useState("");
 
     </div>
         <div class="table1">
-          <div class="header_fixed">
-            <table className="stk-table">
+          <div class="header_fixed" >
+            <table className="stk-table"  >
               <thead className="stk-tbl-head">
-                <tr className="">
+                <tr>
                   <th className="stk-view-tbl">Item Id</th>
                   <th className="stk-view-tbl">Item Name</th>
                   <th className="stk-view-tbl">Current Stock</th>
@@ -72,7 +72,7 @@ const [searchTerm, setSearchTerm] = useState("");
                   <th className="stk-view-tbl">Status</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 {items.filter((val) => {
               if (searchTerm === "") {
                 return val;

@@ -30,7 +30,7 @@ const Menu = () => {
     axios
       .delete(dlte)
       .then(() => {
-        alert("deleted successfully");
+        toast.success("deleted successfully");
         window.location.reload()
       })
       .catch(err => {
@@ -70,7 +70,7 @@ function editrow(index ,id){
         <div className="data">
          <h1 className='title'></h1>
         <div class="tbl-header">
-        <input type="text" style={{ height: "40px" }} placeholder=" Search Items..." onChange={(event) => {
+        <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",margin:"20px" }} placeholder=" Search Categories..." onChange={(event) => {
             setSearchTerm(event.target.value);
           }} />
           <a href="Menu/addMenu">

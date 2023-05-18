@@ -4,52 +4,48 @@ import axios from "axios";
 import Footer from "../../components/Footer";
 import ShoppingCart from "./shoppingcart";
 import { FaShoppingCart } from "react-icons/fa";
-import { MdFavorite } from "react-icons/md";
 import "./menu.css";
-import { dish } from "../../api/api";
+import MenuItem from "../../components/MenuItem";
 
 function Menu() {
+  const [products, setproducts] = useState([]);
+  const [menu, setmenu] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [cartsVisibilty, setCartVisible] = useState(false);
   const [search, setSearch] = useState(true);
+  const [cartsVisibilty, setCartVisible] = useState(false);
+
   const [productsInCart, setProducts] = useState(
     JSON.parse(localStorage.getItem("shopping-cart")) || []
-  );
+  ); /*approach - When the items in the state are updated the local storage is simultaneously updated*/
+
   useEffect(() => {
-    localStorage.setItem("shopping-cart", JSON.stringify(productsInCart));
+    localStorage.setItem(
+      "shopping-cart",
+
+      JSON.stringify(productsInCart)
+    );
   }, [productsInCart]);
+
   const addProductToCart = (product) => {
     const newProduct = {
       ...product,
       count: 1,
     };
+    console.log(newProduct);
     setProducts([...productsInCart, newProduct]);
   };
 
   const onQuantityChange = (productId, count) => {
     setProducts((oldState) => {
-      const productsIndex = oldState.findIndex((item) => item.id === productId);
+      const productsIndex = oldState.findIndex(
+        (item) => item._id === productId
+      );
       if (productsIndex !== -1) {
         oldState[productsIndex].count = count;
       }
       return [...oldState];
     });
   };
-
-  const onProductRemove = (product) => {
-    setProducts((oldState) => {
-      const productsIndex = oldState.findIndex(
-        (item) => item.id === product.id
-      );
-      if (productsIndex !== -1) {
-        oldState.splice(productsIndex, 1);
-      }
-      return [...oldState];
-    });
-  };
-
-  const [products, setproducts] = useState([]);
-  const [menu, setmenu] = useState([]);
 
   useEffect(() => {
     axios
@@ -60,9 +56,7 @@ function Menu() {
         // setDishes(res.data);
       })
       .catch((err) => console.log(err));
-  });
-
-
+  }, []);
 
   useEffect(() => {
     axios
@@ -75,37 +69,35 @@ function Menu() {
       .catch((err) => console.log(err));
   });
 
-
+  const onProductRemove = (product) => {
+    console.log(product);
+    setProducts((oldState) => {
+      const productsIndex = oldState.findIndex((item) => item._id === product);
+      if (productsIndex !== -1) {
+        oldState.splice(productsIndex, 1);
+      }
+      return [...oldState];
+    });
+  };
   const handlePasswordChange = (e) => {
     setSearchTerm(e.target.value);
 
-    if (searchTerm.length >=0 ){
-      setSearch(false)
+    if (searchTerm.length >= 0) {
+      setSearch(false);
       // alert(searchTerm.length)
       // alert(searchTerm)
     }
- if (searchTerm.length ==0 ){
-      setSearch(true)
+    if (searchTerm.length == 0) {
+      setSearch(true);
       // alert(searchTerm.length)
       // alert(searchTerm)
     }
   };
 
-  // function searchdata(){
-
-  
-  // if (search.length > 0){
-  //   setSearch(false)
-  //   alert(search)
-  // }
-  // else{
-  //   setSearch(true)
-  //   alert("da")
-  // }
-  // }
   return (
     <>
       <Header />
+
       <div className="cont">
         <div className="App">
           <ShoppingCart
@@ -118,6 +110,7 @@ function Menu() {
 
           <head>
             <title>Food Menu</title>
+
             <link
               href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap%22"
               rel="stylesheet"
@@ -131,64 +124,48 @@ function Menu() {
             </div>
 
             <div className="navbar">
+              {/* <input
+                type="text"
+                style={{
+                  height: "40px",
+                  borderColor: "rgba(53, 39, 68, 1)",
+                  marginTop: "20px",
+                  marginLeft: "40px",
+                  color: "black",
+                  borderRadius: "15px",
+                }}
+                placeholder=" Search..."
+                onChange={(event) => {
+                  setSearchTerm(event.target.value);
+                }}
+              /> */}
+
+              <input
+                type="text"
+                style={{
+                  height: "40px",
+                  borderRadius: "5px",
+                  marginLeft: "20px",
+                  border: "none",
+                }}
+                placeholder=" Search food....."
+                // onChange={(event) => {setSearchTerm(event.target.value),{handlePasswordChange}} }
+                onChange={handlePasswordChange}
+                // setSearchTerm(event.target.value)
+              />
+
               <button
                 className="btn-shopping-cart-btn"
-                onClick={() => setCartVisible(true)}>
-                <FaShoppingCart size={35} />
+                onClick={() => setCartVisible(true)}
+              >
+                <FaShoppingCart size={50} />
+
                 {productsInCart.length > 0 && (
                   <span className="product-count">{productsInCart.length}</span>
                 )}
               </button>
             </div>
-
-            <input
-              type="text" style={{height:'40px',borderRadius:"5px",marginLeft:"20px",border:"none"}} placeholder=" Search food....."
-              // onChange={(event) => {setSearchTerm(event.target.value),{handlePasswordChange}} }
-              onChange={handlePasswordChange}
-              // setSearchTerm(event.target.value)
-            />
-
-            {search ? (
-              <div className="menu">
-                {menu.map((menu) => (
-                  <div>
-                    <div style={{ color: "white" }}>{menu.Name}</div>
- 
-                    {products
-                      .filter((val) => {
-                        if (val.Category.includes(menu.Name)) {
-                          return val;
-                        }
-                      })
-
-                      .map((product) => (
-                        <div className="food-items">
-                          <div className="image">
-                            <img src={product.ImageURL} alt="menu" />
-                          </div>
-                          <div className="details">
-                            <div className="details-sub">
-                              <h5>{product.Name}</h5>
-                              <h5 class="price">Rs.{product.Price}</h5>
-                            </div>
-
-                            <bottom>
-                              <button onClick={() => addProductToCart(product)}>
-                                Add To Cart
-                              </button>
-                              {/*<fav>
-                                <MdFavorite size={30} />
-                              </fav>*/}
-                            </bottom>
-                          </div>
-                        </div>
-                      ))}
-                    <br />
-                  </div>
-                ))}
-              </div>
-            ) :(
-              <div className="menu">
+            {/* <div className="menu">
               {products
                 .filter((val) => {
                   if (searchTerm === "") {
@@ -199,32 +176,63 @@ function Menu() {
                     return val;
                   }
                 })
-
                 .map((product) => (
-                  <div className="food-items">
-                    <div className="image">
-                      <img src={product.ImageURL} alt="menu" />
-                    </div>
-                    <div className="details">
-                      <div className="details-sub">
-                        <h5>{product.Name}</h5>
-                        <h5 class="price">Rs.{product.Price}</h5>
-                      </div>
-
-                      <bottom>
-                        <button onClick={() => addProductToCart(product)}>
-                          Add To Cart
-                        </button>
-                        <fav>
-                          <MdFavorite size={30} />
-                        </fav>
-                      </bottom>
-                    </div>
-                  </div>
-                  
+                  <MenuItem
+                    product={product}
+                    addProductToCart={addProductToCart}
+                    productsInCart={productsInCart}
+                  />
                 ))}
+            </div> */}
+
+            {menu.map((menu) => (
+              <div>
+                <div style={{ color: "white" }} className="menutitle1">
+                  {menu.Name}
                 </div>
-            )}
+
+                <div className="menu">
+                  {products
+                    .filter((val) => {
+                      if (searchTerm === "") {
+                        const boxes =
+                          document.getElementsByClassName("menutitle1");
+
+                        for (const box of boxes) {
+                          box.style.visibility = "visible";
+                        }
+                        if (val.Category.includes(menu.Name)) {
+                          return val;
+                        }
+                      } else if (
+                        val.Name.toLowerCase().includes(
+                          searchTerm.toLowerCase()
+                        )
+                      ) {
+                        const boxes =
+                          document.getElementsByClassName("menutitle1");
+
+                        for (const box of boxes) {
+                          box.style.visibility = "hidden";
+                        }
+                        // document.getElementsByClassName("menutitle1")[0].style.visibility = 'hidden';
+                        if (val.Category.includes(menu.Name)) {
+                          return val;
+                        }
+                      }
+                    })
+
+                    .map((product) => (
+                      <MenuItem
+                        product={product}
+                        addProductToCart={addProductToCart}
+                        productsInCart={productsInCart}
+                      />
+                    ))}
+                  <br />
+                </div>
+              </div>
+            ))}
           </body>
         </div>
       </div>

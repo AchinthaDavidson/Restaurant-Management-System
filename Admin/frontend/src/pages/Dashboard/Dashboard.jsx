@@ -13,12 +13,16 @@ import Enventory from "./enventory";
 import Barchart from "./barChart.jsx";
 import Topsales from "./Topsales.jsx";
 import Notification from "../../components/Notification";
+import { GoogleMap, Marker, useJsApiLoader, Autocomplete,DirectionsRenderer } from '@react-google-maps/api';
+import { useState, useRef, useEffect } from "react";
+
 
 
 
 const slidecard = { margin: "1em" };
 
 const Dashboard = () => {
+  const [address, setAddress] = useState("");
   return (
     <div style={{}}>
       <Niv name="Dashboard" />
@@ -154,6 +158,7 @@ const Dashboard = () => {
             <Card.Body>
               <h1>Top sales</h1>
               <Topsales />
+
             </Card.Body>
           </Card>
         </div>

@@ -6,11 +6,11 @@ import { useState, useRef, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
-import AWS from 'aws-sdk';
+import AWS from "aws-sdk";
+// import 'react-select-search/style.css'
+
 import Notification from "../../components/Notification";
 window.Buffer = window.Buffer || require("buffer").Buffer;
-
-
 
 function BarAdd() {
   const d = new Date();
@@ -24,32 +24,31 @@ function BarAdd() {
   const [Unitcost, setUnitcost] = useState("");
   const [Reorderlevel, setReorderlevel] = useState("");
   const [Sellprice, setSellprice] = useState("");
-  const[ImageURL,setImageURL]=useState("");
+  const [ImageURL, setImageURL] = useState("");
 
-  const s3 = new AWS.S3(); 
+  const s3 = new AWS.S3();
   const [file, setFile] = useState(null);
-  const validFileTypes = ['image/jpg','image/jpeg','image/png'];
+  const validFileTypes = ["image/jpg", "image/jpeg", "image/png"];
   AWS.config.update({
-    accessKeyId: 'AKIAV3TWWOPNV5Z3UJ6X' ,
-    secretAccessKey: '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',
-    dirName: 'images',
-    region: 'ap-south-1',
-    signatureVersion: 'v4',
+    accessKeyId: "AKIAV3TWWOPNV5Z3UJ6X",
+    secretAccessKey: "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",
+    dirName: "images",
+    region: "ap-south-1",
+    signatureVersion: "v4",
   });
 
   const handleFileSelect = (e) => {
-  
-
     const file_ = e.target.files[0];
 
-    if (!validFileTypes.find(type => type === file_.type)) {
-    
-        toast.error("Enter the dish Name first. Then select an JPG/PNG file type.");
-        return;
-    }else{
-        setFile(e.target.files[0]);
-    }   
-  }
+    if (!validFileTypes.find((type) => type === file_.type)) {
+      toast.error(
+        "Enter the dish Name first. Then select an JPG/PNG file type."
+      );
+      return;
+    } else {
+      setFile(e.target.files[0]);
+    }
+  };
 
   const [Buydate, setBuydate] = useState(
     d.getUTCDate() +
@@ -63,128 +62,183 @@ function BarAdd() {
       ":" +
       d.getMinutes()
   );
-  const[Product_Code1, setproduct_code1] = useState("");
-  const[Product_Name1, setproduct_Name1] = useState("");
-  const[Product_Type1, setproduct_Type1] = useState("");
-  const [Stock,setstock]=useState();
-  const [Total,setTotal] = useState("");
-  const[Expire_Date1, setExpire_Date1] = useState("");
-  const[Quantity1, setQuantity1] = useState("");
-  const[Re_Order_Level1, setRe_Order_Level1] = useState("");
+  const [Product_Code1, setproduct_code1] = useState("");
+  const [Product_Name1, setproduct_Name1] = useState("");
+  const [Product_Type1, setproduct_Type1] = useState("");
+  const [Stock, setstock] = useState();
+  const [Total, setTotal] = useState("");
+  const [Expire_Date1, setExpire_Date1] = useState("");
+  const [Quantity1, setQuantity1] = useState("");
+  const [Re_Order_Level1, setRe_Order_Level1] = useState("");
   // const[Stock,setstock]=useState("");
-  const[isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [Btlcode, setBtlCode_id] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:8070/barInventory/barId").then((res) => {
+      console.log(res.data);
+      setBtlCode_id(res.data);
+    });
+  }, []);
+  const id = Btlcode.map((item) => item.Product_Code);
+  const Bid = Number(id) + 1;
 
   //start coding
   const show = async (e) => {
-    /* if (!code || !name || !type || !catogary || !quantity || !newTotCost || !Reorderlevel || !Location) {
-        toast.error("Please enter All the required fields");
-        return;
-      } */
-   
-    const Bardata = {code,quantity,Expiredate,Unitcost,Sellprice,name};
-    //console.log(Bardata);
-    // console.log(isEditing);
-    axios.post("http://localhost:8070/Bardata/add", Bardata)
-      .then(() => {  toast.success("Bar Item added succesfully");})
-      .catch((err) => { alert(err); })
-
-    const newTotCost = quantity * Unitcost
+    const newTotCost = quantity * Unitcost;
 
     //validations for input fields
-    if (isEditing===false) {
-     if( !name ){
-        toast.error("Please enter a valid name...");
-        return;
-      } 
-      if(!type){
-        toast.error("Please enter a valid type...");
-        return;
-      }
-      if(!catogary){
-        toast.error("Please enter a valid catogary...");
-        return;
-      }
-      if(!quantity){
-        toast.error("Please enter a valid quantity...");
-        return;
-      }
-      if(!Reorderlevel){
-        toast.error("Please enter a valid ReOrderLevel...");
-        return;
-      }
-      if(!Unitcost){
-        toast.error("Please enter a valid unitcost...");
-        return;
-      }
-      if( !file ){
-        toast.error("Please select an image of JPG or PNG file type...");
-        return;
-      }
-      const params = { 
-        Bucket: 'paladiumdishes', 
-        Key: `${Date.now()}.${name}`, 
-        Body: file 
+    if (isEditing === false) {
+      setCode(Bid);
+
+      let code = Bid;
+      alert(code);
+      const Bardata = { code, quantity, Expiredate, Unitcost, Sellprice, name };
+      //console.log(Bardata);
+      // console.log(isEditing);
+      axios
+        .post("http://localhost:8070/Bardata/add", Bardata)
+        .then(() => {
+          toast.success("Bar Item added succesfully");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+
+      const params = {
+        Bucket: "paladiumdishes",
+        Key: `${Date.now()}.${name}`,
+        Body: file,
       };
-        const { Location } = await s3.upload(params).promise();
-        setImageURL(Location);
-      
-      
-      const BarInventory = { code,name , type, catogary, quantity,newTotCost,Reorderlevel,Location};
-      axios.post("http://localhost:8070/BarInventory/add", BarInventory)
-        .then(() => {  toast.success("Item added succesfully"); })
-        .catch((err) => { toast.error("Item add operation failed") });
-    
-    }
-    else {
-      const quantity2=Number(quantity)+Number(Quantity1)
-      const Totalcost2=Number(Total+newTotCost)
+      const { Location } = await s3.upload(params).promise();
+      setImageURL(Location);
+
+      const BarInventory = {
+        code,
+        name,
+        type,
+        catogary,
+        quantity,
+        newTotCost,
+        Reorderlevel,
+        Location,
+      };
+      axios
+        .post("http://localhost:8070/BarInventory/add", BarInventory)
+        .then(() => {
+          toast.success("Item added succesfully");
+        })
+        .catch((err) => {
+          toast.error("Item add operation failed");
+        });
+    } else {
+      const Bardata = { code, quantity, Expiredate, Unitcost, Sellprice, name };
+      //console.log(Bardata);
+      // console.log(isEditing);
+      axios
+        .post("http://localhost:8070/Bardata/add", Bardata)
+        .then(() => {
+          toast.success("Bar Item added succesfully");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+
+      const quantity2 = Number(quantity) + Number(Quantity1);
+      const Totalcost2 = Number(Total + newTotCost);
       //alert(Totalcost2)
-      const url = "http://localhost:8070/BarInventory/update/"+ Product_Code1 ; 
-      const BarInventory = { code,name , type, catogary, quantity2,Totalcost2,Reorderlevel};
-      axios.put(url, BarInventory)
-        .then(() => {  toast.success("Item updated succesfully"); })
-        .catch((err) => { toast.error("Item update operation failed") });
+      const url = "http://localhost:8070/BarInventory/update/" + Product_Code1;
+      const BarInventory = {
+        code,
+        name,
+        type,
+        catogary,
+        quantity2,
+        Totalcost2,
+        Reorderlevel,
+      };
+      axios
+        .put(url, BarInventory)
+        .then(() => {
+          toast.success("Item updated succesfully");
+        })
+        .catch((err) => {
+          toast.error("Item update operation failed");
+        });
     }
+  };
+
+  const [items, setbar] = useState([]);
+
+  useEffect(() => {
+    const getbarval = () => {
+      axios
+        .get("http://localhost:8070/barInventory/")
+        .then((barinventories) => {
+          setbar(barinventories.data);
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    };
+    getbarval();
+  }, []);
+
+  const [code1, setCode1] = useState();
+  //auto increment
+
+  const [searchTerm, setSearchTerm] = useState("");
+  // setCode(Bid)
+  // if (Bid == null || Bid == ""){
+  //   Bid = 1
+  // }
+  //alert(Bid)
+
+  function findcode(name, id) {
+    console.log(id);
+    setName(name);
+
+    document.getElementById("Iname").style.visibility = "hidden";
+    // document.getElementById("radio").style.visibility = "visible";
+    document.getElementById("Bname").value = name;
+
+    items.map((items) => {
+      if (items.Product_Code.includes(id) === true) {
+        // alert("gg")
+        setType(items.Product_Type);
+        setcatogary(items.Catogary);
+        setReorderlevel(Number(items.Re_Order_Level));
+        setCode(items.Product_Code);
+        setproduct_code1(items.Product_Code);
+        setproduct_Name1(items.Product_Name);
+        setproduct_Type1(items.Product_Type);
+        setQuantity1(items.Quantity);
+        setTotal(items.Total_Cost);
+        setExpire_Date1(items.Expire_Date);
+        setRe_Order_Level1(items.Re_Order_Level);
+        setIsEditing(true);
+      } else {
+        // setIsEditing(false);
+      }
+    });
   }
 
-  const[items, setbar] = useState([]);
-
-  useEffect(()=>{
-    const getbarval = () =>{
-      axios.get("http://localhost:8070/barInventory/")
-      .then((barinventories)=>{
-        setbar(barinventories.data);
-      }).catch((err)=>{
-        alert(err);
-      })
-    }
-    getbarval();
-  },[])
-
-  function findcode(code){
-    setCode(code);
-    if(code.length === 3 || code.length === 2){
-      
-      items.map((items)=>{
-        if(items.Product_Code.includes(code)===true){
-          setproduct_code1(items.Product_Code);
-          setproduct_Name1(items.Product_Name); 
-          setproduct_Type1(items.Product_Type);
-          setQuantity1(items.Quantity);
-          setTotal(items.Total_Cost);
-          setExpire_Date1(items.Expire_Date);
-          setRe_Order_Level1(items.Re_Order_Level);
-          setIsEditing(true);
-        }
-      })
+  function setSearch() {
+    // // alert('ho')
+    if (document.getElementById("Iname").style.visibility === "visible") {
+      document.getElementById("Iname").style.visibility = "hidden";
+      document.getElementById("radio").style.visibility = "visible";
+    } else {
+      document.getElementById("Iname").style.visibility = "visible";
+      document.getElementById("radio").style.visibility = "hidden";
     }
   }
 
   return (
     <div>
       <Niv name="Bar Inventory" />
-      <Notification/>
-      <ToastContainer position="top-right" theme="colored" /> 
+      <Notification />
+      <ToastContainer position="top-right" theme="colored" />
       <div className="data">
         <div className="cardadd">
           <header className="baraddheader">Add Details</header>
@@ -195,29 +249,96 @@ function BarAdd() {
               <div class="add detail">
                 <div class="fields">
                   <div class="input-field">
-                    <label className="BaraddProductCode">Product Code</label>
-                    <input
-                      type="text"
+                    <label className="BaraddProductCode">Product Name : </label>
+                    {/* <input
+                      type="text" 
+                      disabled
                       placeholder="Product code"
                       value={code}
-                      onChange={(e) => findcode(e.target.value)}
+                      // onChange={(e) => findcode(e.target.value)}
+                      // onChange={(e) => }
                       pattern="[0-9]{4}" 
-                      title="prodduct code should be 4 digit no"/>
-                   
+                      title="prodduct code should be 4 digit no"/> */}
+                    <input
+                      id="Bname"
+                      type="text"
+                      placeholder="search food....."
+                      style={{ padding: "5px", minWidth: "92%" }}
+                      onChange={(event) => {
+                        setSearchTerm(event.target.value);
+                        setName(event.target.value);
+                      }}
+                      // value={description}
+
+                      onClick={() => {
+                        setSearch();
+                      }}
+                    />
+
+                    <div
+                      style={{
+                        maxHeight: "100px",
+                        background: "#F4F0F0",
+                        overflowY: "auto",
+                        position: "absolute",
+                        // position: "relative",
+                        opacity: "0.85",
+                        visibility: "hidden",
+                        minWidth: "40%",
+                        marginTop: "5%",
+                      }}
+                      id="Iname"
+                    >
+                      {items
+                        .filter((val) => {
+                          if (searchTerm === "") {
+                            // setIsEditing(false);
+                            return val;
+                          } else if (
+                            val.Product_Name.toLowerCase().includes(
+                              searchTerm.toLowerCase()
+                            )
+                          ) {
+                            document.getElementById("Iname").style.visibility =
+                              "visible";
+                            return val;
+                          }
+                          // else{
+                          //   setIsEditing(false);
+                          //   return val;
+                          // }
+                        })
+                        .map((bar, index) => (
+                          <p
+                            className="fooddata"
+                            key={index}
+                            onClick={(e) =>
+                              findcode(bar.Product_Name, bar.Product_Code)
+                            }
+
+                            // onClick={() => (
+
+                            //   setdata(bar.price, bar._id)
+                            // )}
+                          >
+                            {bar.Product_Name}
+                          </p>
+                        ))}
+                    </div>
                   </div>
 
-                  <div class="input-field">
+                  {/* <div class="input-field">
                     <label className="BaraddProductName">Product Name</label>
                     <input
                       type="text"
                       placeholder="Product name"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => findcode(e.target.value)}
                       pattern="[a-zA-Z]{1,30}"
                       title="Name can only contain A-Z characters and should be less than or equal to 30 characters"
                       required
                     />
-                  </div>
+                  </div> */}
 
                   <div class="input-field">
                     <label className="BaraddProductType">Product Type</label>
@@ -282,7 +403,7 @@ function BarAdd() {
                     <input
                       type="number"
                       placeholder="ttotal cost"
-                      value={(quantity*Unitcost)||0}
+                      value={quantity * Unitcost || 0}
                       onChange={(e) => setTotalcost(e.target.value)}
                       readOnly
                     />
@@ -329,10 +450,14 @@ function BarAdd() {
                   </div>
                 </div>
 
-                <button class="BarAdd" type="submit" onClick={(e)=>{
-                 setTotalcost(quantity*Unitcost)
-                  show(e)
-                  }}>
+                <button
+                  class="BarAdd"
+                  type="submit"
+                  onClick={(e) => {
+                    setTotalcost(quantity * Unitcost);
+                    show(e);
+                  }}
+                >
                   <span class="addbtn">{isEditing ? "Edit" : "Add"}</span>
                 </button>
               </div>

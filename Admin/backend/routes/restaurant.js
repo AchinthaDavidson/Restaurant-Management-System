@@ -87,6 +87,14 @@ router.route("/").get((req,res)=>{
     })
 })
 
+router.route("/resId").get((req,res)=>{
+    Restaurant.find({},{Item_Id:1}).sort({_id:-1}).limit(1).then((resls)=>{
+        res.json(resls)
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
+
 //  router.route("/update/:id").put(async (req, res) => {
   
 //     let userId = req.params.id;
