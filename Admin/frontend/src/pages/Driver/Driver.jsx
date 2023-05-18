@@ -3,12 +3,15 @@ import axios from "axios";
 import Niv from '../../components/Niv';
 import "./driver.css"
 import { useNavigate , Link} from 'react-router-dom';
+import { v4 as uuidv4 } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Notification from "../../components/Notification";
+//import soup from './soup.jpeg'
 
 const Driver = () => {
   const [driver, setdriver] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const history = useNavigate();
+
   useEffect(() => {
     function getdriver() {
       axios.get("http://localhost:8070/driver/").then((res) => {
@@ -20,6 +23,11 @@ const Driver = () => {
     getdriver();
   }, []);
 
+  function Finddata(index){
+    // document.getElementsByClassName("data")[index].hidden=false
+    document.getElementById(index).hidden=false
+  }
+
   function deleteRow(D_Id){
     const dlte =
     "http://localhost:8070/driver/delete/" + D_Id ;
@@ -28,69 +36,84 @@ const Driver = () => {
     axios
       .delete(dlte)
       .then(() => {
-        toast.success("Deleted successfully");
+        
       })
       .catch(err => {
-        toast.err("Operation failed");
+        alert("error deleting");
     });
+    toast.success("Deleted successfully!");
   };
 
-    return (
-        <div>
-        <Niv name='Driver'/>
-        <Notification/>
-        <div className="data">
-        <ToastContainer position="top-right" theme="colored" /> 
+  return (
+    <div>
+    <ToastContainer position="top-right" theme="colored" />
+    <Niv name='Driver'/>
+    
+    <div className='data'>
+    <h1 className='title'>Drivers</h1>
 
-        <h1 className='title'>Driver Details</h1>
-        <div className="tbl-header">
-          <a href="Driver/AddDriver">
-          <button className="add_drvr">+ New Driver</button>
-          </a>
-          <table className="menu-tbl" cellPadding="0" cellSpacing="0" border="0">
-            <thead>
-                <tr>
-                <th className='menu-th'>Driver Id</th>
-                <th className='menu-th'>Driver Name</th>
-                <th className='menu-th'>Email</th>
-                <th className='menu-th'>Address</th>
-                <th className='menu-th'>Phone Number</th>
-                <th className='menu-th'>Status</th>
-                <th className='menu-th'>Action</th>
-                </tr>
-            </thead>
+    <input type="text" style={{ height: "40px"  , marginLeft:"30px" , background:"#edeef1 " , border:"white" , paddingLeft:"10px" }} placeholder=" Search Drivers..." onChange={(event) => {
+        setSearchTerm(event.target.value);
+      }} />
+   
+    <div class="tbl-header">
+      <a href="Driver/AddDriver">
+      <button class="add_driver">+ New Driver</button>
+      </a>
 
-            <tbody>
-              {driver.map((driver,index) => (
-             
-              <tr key={index}>
-                <td>{driver.D_Id}</td>
-                <td>{driver.name}</td>
-                <td>{driver.Email}</td>
-                <td>{driver.address}</td>
-                <td>{driver.phone_no}</td>
-                <td>{driver.status}</td>
-                <td>
-                  <Link to={`/Driver/UpdateDriver/${driver._id} `}>
-                  <button className='edit'>Edit</button>
-                  </Link>
-                  <a href = "/driver">
-                    <button className='del' onClick={(e)=> deleteRow(driver._id)}>Delete</button>
-                  </a>
-                  
-                </td>
-              </tr>
+      <table className="driver-tbl" cellpadding="0" cellspacing="0" border="0">
+        <thead>
+            <tr>
+            <th className='driver-th'>Driver ID </th>
+            <th className='driver-th'>Name</th>
+            <th className='driver-th'>Email</th>
+            <th className='driver-th'>Address</th>
+            <th className='driver-th'>Phone Number</th>
+            <th className='driver-th'>Password</th>
+           
             
-              ))}
-            </tbody>
-          </table>       
-        </div>
-        </div>
+            <th className='driver-th'>Action</th>
+            </tr>
+        </thead>
 
-         
-
-  </div>
-    );
+        <tbody>
+            
+        {driver.filter((val) => {
+          if (searchTerm === "") {
+            return val;
+          } else if (
+            val.name.toLowerCase().includes(searchTerm.toLowerCase())
+          ) {
+            return val;
+          }
+        }).map((driver,index) =>(
+          <>
+          <tr  onClick={()=>Finddata(index)}>
+          <td>{driver.D_Id}</td>
+          <td>{driver.name}</td>
+          <td>{driver.Email}</td>
+          <td>{driver.address}</td>
+          <td>{driver.phone_no}</td>
+          <td>{driver.password}</td>
+          
+          <td>
+            <Link to={`/Driver/UpdateDriver/${driver._id} `}>
+            <button className='edit'>Edit</button>
+            </Link>
+            <a href = "/driver" >
+            <button className='del' onClick={(e)=> deleteRow(driver._id)}>Delete</button>
+            </a>
+          </td>
+          </tr>
+          
+          </>
+        ))}
+        </tbody>
+      </table>
+    </div>
+    </div> 
+</div>
+);
 };
 
 export default Driver;

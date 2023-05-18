@@ -1,9 +1,11 @@
 import React from "react";
-import Niv from "../../components/Niv.jsx";
+import Niv from "../../components/Niv";
 import "./addDriver.css";
 import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
 import { useParams , useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { toast, ToastContainer } from "react-toastify";
 
 const UpdateDriver = () => {
 
@@ -27,23 +29,22 @@ const UpdateDriver = () => {
       setpassword(res.data.password)
     })
    } ,[]);
-
-
  
    const driver ={ D_Id , name , Email , phone_no  , address , password }
   
   function Update(e){
       e.preventDefault()
       axios.put(`http://localhost:8070/driver/update/${id} ` ,driver ).then(()=>{
-
-      history('/driver')
+        toast.success("Driver Updated successfully!");
+     
       })
+      history('/driver')
   }
 
 
   return (
     <div>
-      <Niv name="Driver/ Update Driver" /> 
+      <Niv name="Driver/ Update Driver" />
       <div className="data">
       <div className="menuAdd">
         <header>Update Driver</header>
@@ -53,7 +54,7 @@ const UpdateDriver = () => {
                 <div class="input-field">
                   <label className="D_Id">Driver Id</label>
                   <input type="text" placeholder="Driver Id" value={D_Id}
-                  onChange={(e) => setid(e.target.value)}/>
+                  onChange={(e) => setid(e.target.value)} readOnly/>
                 </div>
 
                 <div class="input-field">

@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from 'prop-types'
 import	SmallMap from '../Map/SmallMap'
+import Notification from "../../components/Notification";
 
 const TrackOrder = props => {
   const [orders, setOrders] = useState([]);
@@ -53,6 +54,7 @@ const TrackOrder = props => {
 
     <div>
       <Niv name="Order History" />
+      <Notification/>
       <div className="data">
       <ToastContainer position="top-right" theme="colored" /> 
         <table className="ResDelDesc">
