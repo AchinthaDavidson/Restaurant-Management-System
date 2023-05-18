@@ -27,24 +27,40 @@ const RestaurantAdd = () => {
   const [isEditing, setIsEditing] = useState(false);
   
 
+
+
+
+  const [Btlcode, setBtlCode_id] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:8070/barInventory/barId").then((res) => {
+      console.log(res.data);
+      setBtlCode_id(res.data);
+    });
+  }, []);
+  const id1 = Btlcode.map((item) => item.Product_Code);
+  const Bid = Number(id1) + 1;
+
   const show = ()=>{
 
-    if( !name || !unit || !quantity || !buydate || !unitPrice || !totalCost || !supplier || !reorderlevel || !expiredate){
-      toast.error("Please fill all the required fields");
-      return
-    }
+    // if(  !unit || !quantity || !buydate || !unitPrice || !totalCost || !supplier || !reorderlevel || !expiredate){
+    //   toast.error("Please fill all the required fields");
+    //   return
+    // }
 
-    const Inventoryfood = {id,quantity,unitPrice,supplier,expiredate};
-    axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood)
-    .then(()=>{
-    })
-    .catch((err)=>{
-      alert(err);
-    })
+
+  
+   
 
 /*add*/
     if (isEditing===false){
 
+      const Inventoryfood1 = {id,quantity,unitPrice,supplier,expiredate};
+      axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood1)
+      .then(()=>{
+      })
+      .catch((err)=>{
+        alert(err);
+      })
 
 
 
@@ -62,6 +78,17 @@ const RestaurantAdd = () => {
     }else{
 
 
+
+
+      let id=Item_Id1
+      const Inventoryfood1 = {id,quantity,unitPrice,supplier,expiredate};
+      axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood1)
+      .then(()=>{
+      })
+      .catch((err)=>{
+        alert(err);
+      })
+  
 
 
 
