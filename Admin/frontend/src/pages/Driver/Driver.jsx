@@ -69,7 +69,7 @@ const Driver = () => {
             <th className='driver-th'>Email</th>
             <th className='driver-th'>Address</th>
             <th className='driver-th'>Phone Number</th>
-            <th className='driver-th'>Password</th>
+            
            
             
             <th className='driver-th'>Action</th>
@@ -94,7 +94,7 @@ const Driver = () => {
           <td>{driver.Email}</td>
           <td>{driver.address}</td>
           <td>{driver.phone_no}</td>
-          <td>{driver.password}</td>
+         
           
           <td>
             <Link to={`/Driver/UpdateDriver/${driver._id} `}>
