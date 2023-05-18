@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const apiURL = process.env.BACKEND_URL || "http://localhost:8090";
 
 export function signIn(formData) {
@@ -106,6 +107,28 @@ export function restPass(formData) {
       });
   });
 }
+export function deleteUser(token) {
+  return new Promise((resolve, reject) => {
+    axios({
+      url: `${apiURL}/user/delete`,
+      method: "DELETE",
+      headers: {
+        Authorization: "bearer " + token,
+      },
+    })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
+}
+
+
+
+
 
 
 // export function dish() {
@@ -120,3 +143,5 @@ export function restPass(formData) {
 //     .catch((err) =>console.log(err))
 //   });
 // }
+
+
