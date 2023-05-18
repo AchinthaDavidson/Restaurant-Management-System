@@ -53,9 +53,6 @@ const BarChart = () => {
         name="Most Ordered"
         color="#01BC90"
       />
-      {/* <Series valueField="Dining" name="Dining" color="#00A0AC" />
-      <Series valueField="Delivery" name="Delivery" color="#0083BB" />
-      <Legend verticalAlignment="bottom" horizontalAlignment="center" /> */}
       <Export enabled={true} />
     </Chart>
   );

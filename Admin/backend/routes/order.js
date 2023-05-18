@@ -62,10 +62,11 @@ router.route("/add").post((req,res)=>{
    
  
     })
-  //  console.log(neworder.deliverCenter)
+    console.log(neworder)
    
     neworder.save().then(()=>{
         res.json("save details")
+        console.log("Order Saved")
     }).catch((err)=>{
         console.log(err);
     })
