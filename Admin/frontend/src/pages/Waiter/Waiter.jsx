@@ -4,6 +4,9 @@ import Niv from '../../components/Niv';
 import "./waiter.css"
 import { useNavigate ,  Link} from 'react-router-dom';
 import Notification from "../../components/Notification";
+import { v4 as uuidv4 } from "uuid";
+import { toast, ToastContainer } from "react-toastify";
+
 
 
 const Waiter = () => {
@@ -37,23 +40,25 @@ const Waiter = () => {
 
         axios.delete(dlt).then(()=>{
           
+          
            
-            //history('/Waiter/addwaiter')
-            history('/waiter')
         })
         .catch(err => {
             alert(err)
         });
+        toast.success("Deleted successfully!");
+            //history('/Waiter/addwaiter')
     };
 
     return (
         <div>
+        <ToastContainer position="top-right" theme="colored" />
         <Niv name='Waiter'/>
         <Notification/>
         <div className='data'>
         <h1 className='title'>Waiters</h1>
 
-        <input type="text" style={{ height: "40px"  , marginLeft:"30px" , background:"#edeef1 " , border:"white" , paddingLeft:"10px" }} placeholder=" Search Items..." onChange={(event) => {
+        <input type="text" style={{ height: "40px"  , marginLeft:"30px" , background:"#edeef1 " , border:"white" , paddingLeft:"10px" }} placeholder=" Search Waiter..." onChange={(event) => {
             setSearchTerm(event.target.value);
           }} />
        
@@ -68,10 +73,10 @@ const Waiter = () => {
                 <th className='waiter-th'>Waiter ID </th>
                 <th className='waiter-th'>Name</th>
                 <th className='waiter-th'>Email</th>
-                <th className='waiter-th'>address</th>
+                <th className='waiter-th'>Address</th>
                 <th className='waiter-th'>Phone Number</th>
                
-                <th className='waiter-th'>status</th>
+                
                 <th className='waiter-th'>Action</th>
                 </tr>
             </thead>
@@ -95,7 +100,7 @@ const Waiter = () => {
               <td>{waiter.address}</td>
               <td>{waiter.phone_no}</td>
               
-              <td>{waiter.status}</td>
+              
               <td>
                 <Link to={`/Waiter/UpdateWaiter/${waiter._id} `}>
                 <button className='edit'>Edit</button>

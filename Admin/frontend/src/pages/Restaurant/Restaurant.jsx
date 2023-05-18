@@ -60,10 +60,10 @@ const [searchTerm, setSearchTerm] = useState("");
 
     </div>
         <div class="table1">
-          <div class="header_fixed">
-            <table className="stk-table">
+          <div class="header_fixed" >
+            <table className="stk-table"  >
               <thead className="stk-tbl-head">
-                <tr className="">
+                <tr>
                   <th className="stk-view-tbl">Item Id</th>
                   <th className="stk-view-tbl">Item Name</th>
                   <th className="stk-view-tbl">Current Stock</th>
@@ -72,7 +72,7 @@ const [searchTerm, setSearchTerm] = useState("");
                   <th className="stk-view-tbl">Status</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 {items.filter((val) => {
               if (searchTerm === "") {
                 return val;

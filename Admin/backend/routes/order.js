@@ -10,7 +10,7 @@ function codeGenarator() {
   }
 // ADD coustomer
 router.route("/add").post((req,res)=>{
-
+    const d=new Date();
    // console.log("hi");
 
     const order_id =req.body.order_id;
