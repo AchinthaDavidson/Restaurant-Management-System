@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Chart, Series, CommonSeriesSettings, Title, Legend, ArgumentAxis, ValueAxis } from 'devextreme-react/chart';
+import { Chart, Series, CommonSeriesSettings, Title, Legend, ArgumentAxis, ValueAxis, Export } from 'devextreme-react/chart';
 import axios from 'axios';
+import Niv from '../../components/Niv';
+import Notification from "../../components/Notification";
 
 const MessageChart = () => {
   const [messageData, setMessageData] = useState([]);
@@ -12,7 +14,7 @@ const MessageChart = () => {
 
   const fetchMessageData = () => {
     // Make an API request to fetch the message data for the current user
-    axios.get('http://localhost:8070/chat/admin',{
+    axios.get('http://localhost:8070/chat/admin', {
       params: {
         receiver: currentUser
       }
@@ -45,18 +47,27 @@ const MessageChart = () => {
   };
 
   return (
-    <Chart dataSource={messageData}>
-      <Title text="Number of Messages Received per Day" />
-      <CommonSeriesSettings argumentField="date" type="bar" />
-      <Series valueField="count" name="Messages" />
-      <ArgumentAxis>
-        <Title text="Date" />
-      </ArgumentAxis>
-      <ValueAxis>
-        <Title text="Message Count" />
-      </ValueAxis>
-      <Legend visible={false} />
-    </Chart>
+    <div>
+      <Niv name='Customer Support' />
+      <Notification />
+
+      <div className='data'>
+        <Chart dataSource={messageData}>
+          <Title text="Number of Messages Received per Day" />
+          <CommonSeriesSettings argumentField="date" type="bar" />
+          <Series valueField="count" name="Messages" />
+          <ArgumentAxis>
+            <Title text="Date" />
+          </ArgumentAxis>
+          <ValueAxis>
+            <Title text="Message Count" />
+          </ValueAxis>
+          <Legend visible={false} />
+          <Export enabled={true} />
+        </Chart>
+      </div>
+    </div>
+
   );
 };
 

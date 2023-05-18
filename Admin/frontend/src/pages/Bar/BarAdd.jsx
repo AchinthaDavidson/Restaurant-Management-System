@@ -87,7 +87,41 @@ function BarAdd() {
   const show = async (e) => {
     const newTotCost = quantity * Unitcost;
 
-    //validations for input fields
+     //validations for input fields
+    if(!name){
+      toast.error("Enter Product Name");
+      return;
+    }
+    if(!type){
+      toast.error("Enter Product Type");
+      return;
+    }
+    if(!catogary){
+      toast.error("Enter Product Catgary");
+      return;
+    }
+    if(!Unitcost){
+      toast.error("Enter Product Unitcost");
+      return;
+    }
+    if(!quantity){
+      toast.error("Enter Product quantity");
+      return;
+    }
+    if(!Reorderlevel){
+      toast.error("Enter Product Reorderlevel");
+      return;
+    }
+    if(!Sellprice){
+      toast.error("Enter Product sellprice");
+      return;
+    }
+    if(!file){
+      toast.error("please selct an image of JPG or PNG file type..");
+      return;
+    }
+
+   // addng items if iseditiong false
     if (isEditing === false) {
       setCode(Bid);
 
@@ -96,6 +130,7 @@ function BarAdd() {
       const Bardata = { code, quantity, Expiredate, Unitcost, Sellprice, name };
       //console.log(Bardata);
       // console.log(isEditing);
+
       axios
         .post("http://localhost:8070/Bardata/add", Bardata)
         .then(() => {
@@ -144,6 +179,7 @@ function BarAdd() {
           alert(err);
         });
 
+        // update the values 
       const quantity2 = Number(quantity) + Number(Quantity1);
       const Totalcost2 = Number(Total + newTotCost);
       //alert(Totalcost2)
@@ -194,6 +230,7 @@ function BarAdd() {
   // }
   //alert(Bid)
 
+  // find by name to upadte data
   function findcode(name, id) {
     console.log(id);
     setName(name);
@@ -262,12 +299,14 @@ function BarAdd() {
                     <input
                       id="Bname"
                       type="text"
-                      placeholder="search food....."
+                      placeholder="search bottles....."
                       style={{ padding: "5px", minWidth: "92%" }}
                       onChange={(event) => {
                         setSearchTerm(event.target.value);
                         setName(event.target.value);
                       }}
+                      pattern="[a-zA-Z]{1,30}"
+                      title="Name can only contain A-Z characters and should be less than or equal to 30 characters"
                       // value={description}
 
                       onClick={() => {

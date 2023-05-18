@@ -1017,7 +1017,7 @@ function Order() {
               margin: "auto auto",
               padding: "3rem 3rem",
               whiteSpace: "nowrap",
-              overflowY: "auto",
+              overflowY:"auto"
             }}
           >
             <div id="print1" style={{ display: "flex" }}>

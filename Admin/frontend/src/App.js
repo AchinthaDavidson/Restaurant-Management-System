@@ -24,9 +24,9 @@ import ViewDish from './pages/Food/ViewDish.jsx';
 import DriverMap from './pages/Map/map.jsx'
 import Notification from './components/Notification'
 import TrackOrder from './pages/TrackOrder/TrackOrder.jsx'
-// import QandA from './pages/Q&A/QandA';
-// import Chat from './pages/Q&A/Chat'
-// import MessageChart from './pages/Q&A/Stat'
+import QandA from './pages/Q&A/QandA';
+import Chat from './pages/Q&A/Chat'
+import MessageChart from './pages/Q&A/Stat'
 
 // import Loginfrom from './components/logn';
 const App = () => {
@@ -70,9 +70,9 @@ const App = () => {
 
           <Route path="/Map" element={<DriverMap/>} />
           <Route path="/TrackOrder" element={<TrackOrder/>} />
-          {/* <Route path="/QandA" element={<QandA />} />
+          <Route path="/QandA" element={<QandA />} />
           <Route path="/QandA/chat" element={<Chat />} />
-          <Route path="/QandA/chat/stat" element={<MessageChart />} /> */}
+          <Route path="/QandA/chat/stat" element={<MessageChart />} />
           
 
           <Route path='/somewhere' render={() => <h2>You Are Somewhere</h2>} />

@@ -6,7 +6,7 @@ import logo from '../Images/logo.png';
 // import { Outlet, Link } from "react-router-dom";
 
 
-console.log(logo);
+//console.log(logo);
 
 
 function Header(){
@@ -28,13 +28,13 @@ function Header(){
       else{
 
       setprofil(true)
-      console.log(res);
+      //console.log(res);
       setUser(res);
       }
     }, []);
 
 
-    console.log()
+    //console.log()
 
     return(
      
@@ -50,7 +50,8 @@ function Header(){
             <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                 <div class="navbar-nav" style={{marginLeft:"2%"}}>
                     <a href="/" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}}><b>HOME</b></a>
-                    <a href="/Menu" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}} ><b>MENU</b></a>
+                    <a href="/Menu" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}} ><b>FOOD MENU</b></a>
+                    <a href="/BarMenu" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}}><b>BAR MENU</b></a>
                     <a href="/FAQs" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}}><b>FAQs</b></a>
                 </div>
 

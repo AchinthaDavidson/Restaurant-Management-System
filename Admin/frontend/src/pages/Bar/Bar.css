@@ -52,6 +52,28 @@
     background-color: #ff8243;
 }
 
+.graph{
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 25%;
+    border: none;
+    outline: none;
+    color: White;
+    background-color: #352744;
+    border-radius: 5px;
+    margin: 25px 0;
+    transition: 0.3s ease-out;
+    cursor: pointer;
+    font-size: 15px;
+    float: right;
+}
+.graph:hover{
+    background-color: #ff8243;
+}
+
+
 .barstatus{
     border-collapse: collapse;
     width: 100%;
