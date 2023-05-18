@@ -55,6 +55,7 @@ export default function Dashboard() {
     });
   };
   
+  
   const updateUser = () => {
     updateData(
       { name, email, phoneNumber, address, gender },
@@ -107,7 +108,8 @@ export default function Dashboard() {
               />
               <TextInput
                 label="Phone Number"
-                placeholder={phoneNumber ? phoneNumber : ""}
+                placeholder={phoneNumber ? phoneNumber : "0772567389"}
+                
                 action={handlePhoneNumberChange}
               />
               <TextArea

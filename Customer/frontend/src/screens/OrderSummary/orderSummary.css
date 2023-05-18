@@ -55,7 +55,9 @@ body {
 
 .order-no>h3 {
 	padding-left: 20px;
-	font-size: 25px;
+	font-size: 30px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 800;
 }
 
 .btn-invoice {
@@ -211,4 +213,15 @@ tbody tr {
 	margin-top: 5%;
 	margin-left: 3%;
 	padding-bottom: 5%;
+}
+
+.ordersummary-heading>a {
+  background-color: #b61d12;
+  color: white;
+  padding: 14px 25px;
+  text-align: center; 
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 15px;
 }

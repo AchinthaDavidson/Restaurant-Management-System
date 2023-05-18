@@ -49,7 +49,7 @@ const AddMenu = () => {
       <Niv name="Menu" />
       <div className="data">
       <div className="menuAdd">
-        <header>Add Categorie</header>
+        <header>Add Category</header>
 
         <form className="MenuaddForm" onSubmit={handleSubmit}>
         <div class="fields">

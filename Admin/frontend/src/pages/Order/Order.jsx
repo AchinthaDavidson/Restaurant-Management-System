@@ -738,9 +738,10 @@ function Order() {
                               <input
                                 // disabled
                                 className="Delivery"
-                                type="text"
+                                type="number"
                                 name="phone"
                                 id="phone"
+                                pattern="[0-9]{10}"
                                 placeholder="Enter your phone"
                                 autoComplete="off"
                                 value={phone}

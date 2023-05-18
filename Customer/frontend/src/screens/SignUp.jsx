@@ -134,7 +134,7 @@ export default function SignIn() {
               <div className="flexRow">
                 <TextInput
                   label="Phone Number"
-                  type="tel"
+                  
                   placeholder="0711234567"
                   action={handlePhoneNumberChange}
                 />
