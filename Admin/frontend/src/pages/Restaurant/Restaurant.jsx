@@ -48,7 +48,7 @@ const [searchTerm, setSearchTerm] = useState("");
     </div>  
       </div>
       <div>
-      <input type="text" style={{ height: "40px" }} placeholder=" Search Items..." onChange={(event) => {
+      <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",margin:"20px" }} placeholder=" Search Items..." onChange={(event) => {
             setSearchTerm(event.target.value);
           }} />
       <a href="/Restaurant/RestaurantDelete">

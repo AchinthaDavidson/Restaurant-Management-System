@@ -31,6 +31,16 @@ const AddMenu = () => {
     })
   }
 
+  const [CatId, setCategory_id] = useState([]);
+  useEffect(()=>{
+    axios.get("http://localhost:8070/menu/CatId").then((res)=>{
+      console.log(res.data)
+      setCategory_id(res.data)
+    });
+  },[]);
+
+  let Id = CatId.map((item) => item.category_Id);
+  const Cat_Id = Number(Id)+1;
 
   return (
     <div>
@@ -44,7 +54,7 @@ const AddMenu = () => {
         <div class="fields">
                 <div class="input-field">
                   <label className="Cat_Id">Category Id</label>
-                  <input type="text" placeholder="Category Id" value={id}
+                  <input type="text" placeholder="Category Id" value={Cat_Id}
                   onChange={(e) => setid(e.target.value)} pattern="[0-9]{4}"
                   title="Category Id should be a 4-digit number"/>
                 </div>
