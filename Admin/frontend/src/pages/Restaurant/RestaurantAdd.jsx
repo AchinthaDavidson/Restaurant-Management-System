@@ -18,6 +18,7 @@ const RestaurantAdd = () => {
   const [reorderlevel, setreorderlevel] = useState("");
   const [expiredate, setexpiredate] = useState("");
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [Item_Id1,setItem_Id1]=useState("");
   const [Item_Name1,setItem_Name1]=useState("");
   const [Stock,setstock]=useState();
@@ -28,7 +29,7 @@ const RestaurantAdd = () => {
 
   const show = ()=>{
 
-    if(!id || !name || !unit || !quantity || !buydate || !unitPrice || !totalCost || !supplier || !reorderlevel || !expiredate){
+    if( !name || !unit || !quantity || !buydate || !unitPrice || !totalCost || !supplier || !reorderlevel || !expiredate){
       toast.error("Please fill all the required fields");
       return
     }
@@ -43,6 +44,11 @@ const RestaurantAdd = () => {
 
 /*add*/
     if (isEditing===false){
+
+
+
+
+
      const newres_add = {
        id,name,quantity,totalCost,reorderlevel,unit
      };
@@ -54,6 +60,12 @@ const RestaurantAdd = () => {
        alert(err);
      });
     }else{
+
+
+
+
+
+      
 
     var qty=Number(quantity)+Number(Stock)
     var totalCost1=(Number(Total))+totalCost
@@ -81,10 +93,17 @@ const [items, setItems] = useState([]);
       getItems();
     }, []);
 
-  function findid(id){
-    setid(id);
-    if (id.length===4){
+  function findcode(name, id){
+    
      
+    console.log(id);
+    setname(name);
+
+    document.getElementById("Iname").style.visibility = "hidden";
+    // document.getElementById("radio").style.visibility = "visible";
+    document.getElementById("Bname").value = name;
+
+
       items.map((items)=>{
         if(items.Item_Id.includes(id)===true){
           setItem_Id1(items.Item_Id);
@@ -97,6 +116,18 @@ const [items, setItems] = useState([]);
           setIsEditing(true);
         }
       })
+    
+  }
+
+
+  function setSearch() {
+    // // alert('ho')
+    if (document.getElementById("Iname").style.visibility === "visible") {
+      document.getElementById("Iname").style.visibility = "hidden";
+      document.getElementById("radio").style.visibility = "visible";
+    } else {
+      document.getElementById("Iname").style.visibility = "visible";
+      document.getElementById("radio").style.visibility = "hidden";
     }
   }
 
@@ -113,7 +144,7 @@ const [items, setItems] = useState([]);
             <div class="add detail">
               <div class="fields">
 
-                <div class="input-field">
+                {/* <div class="input-field">
                   <label className="ResturantaddProductCode">Item Id</label>
                   <input type="text" placeholder="Item Id" value={id}
                   onChange={(e) => findid(e.target.value)} pattern="[0-9]{4}"
@@ -125,7 +156,110 @@ const [items, setItems] = useState([]);
                   <input type="text" placeholder="Item Name" value={name}
                   onChange={(e) => setname(e.target.value)} pattern="[a-zA-Z]{1,30}"
                   title="Name can only contain A-Z charactors and should be less than or equal to 30 characters"/>
-                </div>
+                </div> */}
+
+
+
+
+
+
+
+
+
+
+
+<div class="input-field">
+                    <label className="BaraddProductCode">Product Name : </label>
+                    
+                    <input
+                      id="Bname"
+                      type="text"
+                      placeholder="search food....."
+                      style={{ padding: "5px", minWidth: "92%" }}
+                      onChange={(event) => {
+                        setSearchTerm(event.target.value);
+                        setname(event.target.value);
+                      }}
+                      // value={description}
+
+                      onClick={() => {
+                        setSearch();
+                      }}
+                    />
+
+                    <div
+                      style={{
+                        maxHeight: "100px",
+                        background: "#F4F0F0",
+                        overflowY: "auto",
+                        position: "absolute",
+                        // position: "relative",
+                        opacity: "0.85",
+                        visibility: "hidden",
+                        minWidth: "40%",
+                        marginTop: "5%",
+                      }}
+                      id="Iname"
+                    >
+                      {items
+                        .filter((val) => {
+                          if (searchTerm === "") {
+                            // setIsEditing(false);
+                            return val;
+                          } else if (
+                            val.Item_Name.toLowerCase().includes(
+                              searchTerm.toLowerCase()
+                            )
+                          ) {
+                            document.getElementById("Iname").style.visibility =
+                              "visible";
+                            return val;
+                          }
+                          // else{
+                          //   setIsEditing(false);
+                          //   return val;
+                          // }
+                        })
+                        .map((item, index) => (
+                          <p
+                            className="fooddata"
+                            key={index}
+                            onClick={(e) =>
+                              findcode(item.Item_Name, item.Item_Id)
+                            }
+
+                            // onClick={() => (
+
+                            //   setdata(bar.price, bar._id)
+                            // )}
+                          >
+                            {item.Item_Name}
+                          </p>
+                        ))}
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 <div class="input-field">
                   <label className="ResturantaddBuyDate">Buy Date</label>
