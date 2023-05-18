@@ -13,12 +13,13 @@ const AddMenu = () => {
 
   const handleSubmit=(e)=>{
 
-    if(!id || !name){
+    if(!name){
       toast.error("Please fill all the required fields");
       return
     }
 
     e.preventDefault();
+    let id=Cat_Id
   const Menu = {id,name,Image};
     axios.post("http://localhost:8070/menu/add",Menu)
     .then(()=>{
@@ -50,11 +51,11 @@ const AddMenu = () => {
       <div className="menuAdd">
         <header>Add Product</header>
 
-        <div className="MenuaddForm" onSubmit={handleSubmit}>
+        <form className="MenuaddForm" onSubmit={handleSubmit}>
         <div class="fields">
                 <div class="input-field">
                   <label className="Cat_Id">Category Id</label>
-                  <input type="text" placeholder="Category Id" value={Cat_Id}
+                  <input type="text" placeholder="Category Id" disabled value={Cat_Id}
                   onChange={(e) => setid(e.target.value)} />
                 </div>
 
@@ -69,7 +70,7 @@ const AddMenu = () => {
               <button class="Menubtn" type="submit" >
                 <span>Add</span>
               </button>
-        </div>
+        </form>
           <a href="/Menu">
           <button class="Menubtn">
             <span>Cancel</span>
