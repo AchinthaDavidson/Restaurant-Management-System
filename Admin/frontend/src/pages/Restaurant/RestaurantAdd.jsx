@@ -86,12 +86,13 @@ const RestaurantAdd = () => {
       const Inventoryfood1 = {id,quantity,unitPrice,supplier,expiredate};
       axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood1)
       .then(()=>{
+        settotalCost(quantity*unitPrice)
       })
       .catch((err)=>{
         alert(err);
       })
-      settotalCost(quantity*unitPrice)
-
+      
+alert(totalCost)
 
 
      const newres_add = {
