@@ -48,14 +48,14 @@ const UpdateWaiter = () => {
     
     const waiter = { W_Id, name, Email, phone_no, address};
   
-    if (window.confirm("Are you sure you want to update this waiter?")) {
+    
       axios.put(`http://localhost:8070/waiter/update/${id}`, waiter).then(() => {
         toast.success("updated  successfully!");
         
         
       
       });
-    }
+    
     history("/waiter");
   }
 
