@@ -23,3 +23,7 @@
   text-align: center;
   min-width: 60px;
 }
+
+.btnup:hover{
+  background-color:#ff9c08;
+}

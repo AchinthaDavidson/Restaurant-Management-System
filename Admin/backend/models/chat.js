@@ -7,13 +7,11 @@ const chatSchema = new Schema({
     required: true,
   },
   sender: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true
   },
   reply: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true
     
   },
@@ -21,6 +19,10 @@ const chatSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  read:{
+    type:Boolean,
+    default:false
+  }
 
 });
 

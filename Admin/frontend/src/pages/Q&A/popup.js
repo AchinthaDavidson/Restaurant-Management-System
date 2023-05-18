@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './style.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditRowPopup = ({rowData, onSave, onClose}) => {
   const [question, setQuestion] = useState(rowData.question);
@@ -7,6 +9,10 @@ const EditRowPopup = ({rowData, onSave, onClose}) => {
   const [category, setCategory] = useState(rowData.category);
 
   const handleSave = () => {
+    if (!category || !question || !answer) {
+      toast.error("Fields cannot be empty!")
+      return;
+    }
     onSave({id:rowData._id, category, question, answer});
     onClose();
   }
@@ -51,6 +57,7 @@ const EditRowPopup = ({rowData, onSave, onClose}) => {
           <button class="btnup" onClick={handleSave}>Save</button>
           <button class="btnup" onClick={onClose}>Cancel</button>
         </div>
+        {/* <ToastContainer theme="colored"/> */}
       </div>
     </div>
   );

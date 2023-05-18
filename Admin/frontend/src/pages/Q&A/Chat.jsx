@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Niv from '../../components/Niv';
 import Notification from "../../components/Notification";
 import axios from 'axios';
 import {
   Avatar,
   Grid,
+  Badge,
   Box,
   List,
   ListItem,
@@ -20,6 +21,9 @@ import {
 } from "@mui/material";
 import { HiReply } from "react-icons/hi";
 import styled from 'styled-components';
+import CircularProgress from '@mui/material/CircularProgress';
+
+
 
 const MessageWrapper = styled(Box)(({ isSentByCurrentUser }) => ({
   display: 'flex',
@@ -66,14 +70,53 @@ const Chat = () => {
   const [selectedChat, setSelectedChat] = React.useState(null);
   const [receiverId, setReceiverId] = useState(null);
   const currentUser = '644df7666512eabcfd11aa19'
+  const name = "Palladium"
 
-  const handleSelectChat = (sender) => {
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [selectedChat]);
+
+  const handleSelectChat = async (sender) => {
+    console.log('selected chat:', sender);
     setSelectedChat(sender);
     setReceiverId(sender)
+
+    console.log('current user:', currentUser);
+
+    // Update the read status of all the messages where sender is `selectedChat` and receiver is the current user
+    try {
+      const response = await axios.put('http://localhost:8070/chat/update', {
+        sender: selectedChat,
+        reply: currentUser,
+      });
+      console.log('update response:', response.data);
+
+      // Remove the dot for the selected chat
+      setMessages((messages) =>
+        messages.map((message) => {
+          if (
+            message.sender === selectedChat &&
+            message.reply === currentUser &&
+            !message.read
+          ) {
+            return { ...message, read: true };
+          }
+          return message;
+        })
+      );
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const [messages, setMessages] = useState([]);
-  useEffect(() => {
+
+  const fetchMessages = useCallback(() => {
     axios.get('http://localhost:8070/chat/')
       .then(res => {
         setMessages(res.data);
@@ -83,8 +126,23 @@ const Chat = () => {
       });
   }, []);
 
+  useEffect(() => {
+    fetchMessages();
+    const interval = setInterval(fetchMessages, 2000); // request to server every 2 seconds
+    return () => clearInterval(interval);
+  }, [fetchMessages]);
+
+  const [isSending, setIsSending] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (!message) {
+      // If message is empty, do not send
+      return;
+    }
+
+    setIsSending(true);
 
     const newMessage = {
 
@@ -98,27 +156,70 @@ const Chat = () => {
 
     axios.post('http://localhost:8070/chat/', newMessage)
       .then(() => {
-        window.location.reload(false);
+        //window.location.reload(false);
+        setMessages((messages) => [...messages, newMessage]);
         setmessage('')
+        setIsSending(false)
       }).catch(error => {
         console.log(error);
       });
   };
 
-  const uniqueSenders = Array.from(new Set(messages
-    .filter((m) => m.sender !== currentUser) // exclude "Admin"
-    .map((m) => m.sender)
-  ));
+  const uniqueSenders = Array.from(
+    new Set(
+      messages
+        .filter((m) => m.sender !== currentUser)
+        .map((m) => m.sender)
+    ));
+
+  const [senderNames, setSenderNames] = useState([]);
+
+  useEffect(() => {
+    const fetchSenderNames = async () => {
+      const names = await Promise.all(uniqueSenders.map(async (sender) => {
+        const response = await fetch(`http://localhost:8070/users/${sender}`);
+        const senderData = await response.json();
+        return { id: sender, name: senderData.name };
+      }));
+      setSenderNames(names);
+    };
+    fetchSenderNames();
+  }, [uniqueSenders]);
 
 
+  const senderObjects = uniqueSenders.map((sender, index) => {
+    const senderName = senderNames[index]?.name || '';
+    const messagesForSender = messages.filter(
+      (message) => (message.sender === sender && message.reply === currentUser) || (message.sender === currentUser && message.reply === sender)
+    );
+    const latestTimestamp = messagesForSender.reduce(
+      (latestTimestamp, message) => {
+        const messageTimestamp = new Date(message.createdAt).getTime();
+        return messageTimestamp > latestTimestamp ? messageTimestamp : latestTimestamp;
+      },
+      0
+    );
+    return {
+      id: sender,
+      name: senderName,
+      latestTimestamp: latestTimestamp,
+    };
+  });
 
+  // Sorting the chat list
+  const sortedSenders = senderObjects.sort(
+    (senderObjA, senderObjB) => senderObjB.latestTimestamp - senderObjA.latestTimestamp
+  );
 
 
   return (
     <div>
       <Niv name='Customer Support' />
       <Notification />
+
       <div className='data'>
+
+        <a href='/QandA/chat/stat'><Button>Customer Stats</Button></a>
 
         <Box sx={{
           flexGrow: 1,
@@ -134,22 +235,44 @@ const Chat = () => {
             <Grid item xs={4}>
               <Box sx={{ height: "70vh", overflowY: "scroll" }}>
                 <List>
-                  {uniqueSenders.map((sender) => (
+                  {sortedSenders.map((senderObj) => (
+
+
                     <Paper variant="outlined"
+                      key={senderObj.id}
                       square elevation={0}
                       sx={{
-                        backgroundColor: "#2f0048",
-                        margin: "10px",
-                        borderRadius: "10px"
+                        padding: "10px",
+                        backgroundColor: selectedChat === senderObj.id ? "#506de0" : "#2f0048",
+                        margin: "5px",
+                        borderRadius: "10px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+
                       }}
-                      onClick={() => handleSelectChat(sender)}>
-                      <ListItem key={sender} >
+
+                      onClick={() => handleSelectChat(senderObj.id)}>
+                      <ListItem key={senderObj.id}
+                      >
+
                         <Avatar
-                          alt={sender}
+                          alt={senderObj.name}
                           src="/static/images/avatar/1.jpg"
                           sx={{ width: 40, height: 40, marginRight: "10px" }}
                         />
-                        <ListItemText primary={sender} sx={{ color: "#ffff" }} />
+
+                        <ListItemText primary={senderObj.name} sx={{ color: "#ffff" }} />
+
+                        {messages.some(
+                          (message) =>
+                            message.sender === senderObj.id &&
+                            message.reply === currentUser &&
+                            !message.read
+                        ) && selectedChat !== senderObj.id && (
+                            <span style={{ color: "red" }}>●</span>
+                          )}
+
                       </ListItem>
                     </Paper>
                   ))}
@@ -157,14 +280,14 @@ const Chat = () => {
               </Box>
             </Grid>
             <Grid item xs={8}>
-              <Box sx={{ height: "calc(70vh - 64px)", overflowY: "scroll" }}>
+              <Box ref={chatContainerRef} sx={{ height: "calc(70vh - 64px)", overflowY: "scroll" }}>
                 {selectedChat && (
 
-                  <div >
+                  <div>
                     {messages.filter((m) => m.sender === selectedChat || m.reply === selectedChat)
                       .map((messages) => (
                         <>
-                         
+
                           <MessageWrapper
                             key={messages._id}
                             isSentByCurrentUser={messages.sender === currentUser}
@@ -173,7 +296,7 @@ const Chat = () => {
                               isSentByCurrentUser={messages.sender === currentUser}
                             >
                               <MessageHeader>
-                                <MessageSender>{messages.sender}</MessageSender>
+                                <MessageSender></MessageSender>
                                 <MessageTime>
                                   {new Date(messages.createdAt).toLocaleString()}
                                 </MessageTime>
@@ -182,9 +305,9 @@ const Chat = () => {
                             </MessageBubble>
                             <HiReply />
                           </MessageWrapper>
-
                         </>
                       ))}
+
                   </div>
 
                 )}
@@ -198,12 +321,16 @@ const Chat = () => {
                   value={message}
                   onChange={(e) => setmessage(e.target.value)}
                   sx={{ mr: 2, }}
+                  error={message.trim().length === 0 && isSending}
+                  helperText={message.trim().length === 0 && isSending && "Message cannot be empty"}
+                  disabled={!selectedChat}
                 />
                 <Button variant="contained"
                   onClick={handleSubmit}
                   sx={{ backgroundColor: "#2f0048" }}
+                  disabled={message.trim().length === 0 || isSending}
                 >
-                  Send
+                  {isSending ? <CircularProgress size={24} /> : "Send"}
                 </Button>
               </Box>
             </Grid>

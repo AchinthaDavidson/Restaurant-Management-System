@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Niv from '../../components/Niv';
 import "./faq.css";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+// import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { BsEnvelope, BsPlusLg } from 'react-icons/bs';
 import axios from "axios";
 import EditRowPopup from './popup';
 import Notification from "../../components/Notification";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const QandA = () => {
 
@@ -61,7 +63,8 @@ const QandA = () => {
 
   const validateForm = () => {
     if (!category || !question || !answer) {
-      alert('Please select a Category and include the FAQ and Answer');
+      //alert('Please select a Category and include the FAQ and Answer');
+      toast.error("Please select a Category and include the FAQ and Answer");
       return false;
     }
     return true;
@@ -75,6 +78,7 @@ const QandA = () => {
 
       axios.post("http://localhost:8070/faq/add/", faq).then(() => {
         alert("New FAQ added!");
+        toast.success("FAQ added!")
         window.location.reload(false);
         setcategory('')
         setquestion('')
@@ -90,6 +94,7 @@ const QandA = () => {
 
     axios.delete(del).then(() => {
       alert("FAQ Deleted");
+      toast.success("FAQ deleted!")
       window.location.reload(false);
     }).catch(err => {
       alert("Could not Delete");
@@ -103,6 +108,7 @@ const QandA = () => {
 
   return (
     <div>
+      <ToastContainer position="top-right" theme="colored" />
       <Niv name='Frquently Asked Questions' />
       <Notification/>
       <div className='data'>
@@ -175,8 +181,8 @@ const QandA = () => {
                   <td >{faq.question}</td>
                   <td >{faq.answer}</td>
 
-                  <td><button class="btn1" onClick={() => handleEditClick(faq, index)}><AiFillEdit /></button></td>
-                  <td><button class="btn1" onClick={(e) => deleteFaq(faq._id)}><AiFillDelete /></button></td>
+                  <td><button class="edit" onClick={() => handleEditClick(faq, index)}>Edit</button></td>
+                  <td><button class="edit" onClick={(e) => deleteFaq(faq._id)}>Delete</button></td>
                   {popupRowIndex === index && showPopup && <EditRowPopup key={faq._id} rowData={faq} onSave={handleSave} onClose={handleClose} />}
                 </tr>
               ))}
