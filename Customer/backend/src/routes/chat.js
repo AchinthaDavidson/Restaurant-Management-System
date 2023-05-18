@@ -30,15 +30,43 @@ router.get('/', async (req, res) => {
   try {
     //const senderId = req.query.senderId;
     const messages = await chat.find({})
-    
-    
-    // Send the messages back to the client
+  
     res.json(messages);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+router.put('/mark-read', async (req, res) => {
+  try {
+    const { messageIds } = req.body;
+
+    // Update the messages with the provided IDs and set read to true
+    await chat.updateMany({ _id: { $in: messageIds } }, { read: true });
+
+    res.status(200).json({ message: 'Messages marked as read' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// router.get('/chat/unreadCount', (req, res) => {
+//   const currentUser = req.query.userId;
+  
+//   chat.countDocuments({ reply: currentUser, read: false })
+//     .then((unreadCount) => {
+//       res.json({ unreadCount });
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//     });
+// });
+
+
 
 
 

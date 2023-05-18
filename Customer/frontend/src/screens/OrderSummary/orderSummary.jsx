@@ -1,9 +1,39 @@
 import "./orderSummary.css";
 import Footer from "../../components/Footer";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function OrderSummary() {
+
+	const [orders,setOrders] = useState("")
+	const [products, setProducts] = useState([])
+
+	useEffect(() => {
+		const order = JSON.parse(localStorage.getItem('AllOrderDetails'));
+		if(order !=null  ){
+			//console.log(order);
+			setOrders(order)
+		}
+
+		
+	
+	}, []);
+
+
+	useEffect(() => {
+		axios
+		  .get("http://localhost:8070/orderfood/viewAllOrder")
+		  .then((res) => {
+			//	console.log(res.data)
+			setProducts(res.data)
+		  })
+		  .catch((err) => console.log(err));
+		
+	  }, []);
+
     return (
-        <><body>
+        <>
 			<div className="main-header">
 				<h1>PALLADIUM RESTAURANT & BAR</h1>
 			</div>
@@ -14,7 +44,7 @@ function OrderSummary() {
 				</div>
 				<div className="order-summary">
 					<div className="order-no">
-						<h3>Order No: [#74832986428]</h3>
+						<h3>Order No: {orders.order_id }</h3>
 						<button className="btn-invoice">Print Invoice</button>
 						{/*<button className="btn-track">Track Order</button>*/}
 					</div>
@@ -22,44 +52,33 @@ function OrderSummary() {
 						<table>
 							<thead>
 								<tr>
-									<th>Item No</th>
 									<th>Item Name</th>
 									<th>Quantity</th>
-									<th>Unit Price</th>
-									<th>Total</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>R0001</td>
-									<td>Chicken Fried Rice</td>
-									<td>2</td>
-									<td>Rs.900.00</td>
-									<td>Rs.1800.00</td>
+									
+							{products
+							.filter((val)=>{
+								if(val.order_id == orders.order_id){
+									return val
+								}
+							})
+							.map((val,index)=>(
+								<tr key={index}>
+									<td>{val.food_id}</td>
+									<td>{val.qty}</td>
 								</tr>
-								<tr>
-									<td>R0465</td>
-									<td>Pizza Margerita</td>
-									<td>1</td>
-									<td>Rs.1300.00</td>
-									<td>Rs.1300.00</td>
-								</tr>
-								<tr>
-									<td>B1118</td>
-									<td>Eristoff Vodka</td>
-									<td>2</td>
-									<td>Rs.4300.00</td>
-									<td>Rs.8600.00</td>
-								</tr>
+							))}
 							</tbody>
 						</table>
 						<div className="total">
-							<h3>Grand Total: </h3>
+							<h3>Grand Total: {orders.total}</h3>
 						</div>
 					</div>
 				</div>
 			</div>
-		</body><Footer /></>
+		<Footer /></>
         );
 }
 

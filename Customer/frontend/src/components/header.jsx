@@ -6,7 +6,7 @@ import logo from '../Images/logo.png';
 // import { Outlet, Link } from "react-router-dom";
 
 
-console.log(logo);
+//console.log(logo);
 
 
 function Header(){
@@ -28,13 +28,13 @@ function Header(){
       else{
 
       setprofil(true)
-      console.log(res);
+      //console.log(res);
       setUser(res);
       }
     }, []);
 
 
-    console.log()
+    //console.log()
 
     return(
      
