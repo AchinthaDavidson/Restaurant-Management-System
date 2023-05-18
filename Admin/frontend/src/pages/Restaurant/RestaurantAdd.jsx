@@ -118,15 +118,11 @@ alert(totalCost)
         toast.success("Item added to the inventory");
       })
       .catch((err)=>{
-        toast.success("Item added to the inventory");
+        //toast.success("Item added to the inventory");
         alert(err);
       })
   
-
-
-
       
-
     var qty=Number(quantity)+Number(Stock)
     var totalCost1=(Number(Total))+totalCost
       const Inventoryfood = {name,qty,totalCost1,reorderlevel,unit};
