@@ -47,7 +47,7 @@ const RestaurantAdd = () => {
     //   return
     // }
 
-alert(Bid)
+
   
    
 
@@ -86,8 +86,11 @@ alert(Bid)
       const Inventoryfood1 = {id,quantity,unitPrice,supplier,expiredate};
       axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood1)
       .then(()=>{
+
+        toast.success("Item added to the inventory");
       })
       .catch((err)=>{
+        toast.success("Item added to the inventory");
         alert(err);
       })
   

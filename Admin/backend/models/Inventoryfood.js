@@ -6,7 +6,7 @@ const InventoryfoodSchema = new Schema({
     
     Item_Id: { 
         type: String, 
-        required: true 
+        // required: true 
     },
     Quantity: { 
         type: Number, 
