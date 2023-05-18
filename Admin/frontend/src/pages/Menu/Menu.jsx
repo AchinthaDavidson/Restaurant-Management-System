@@ -65,7 +65,7 @@ function editrow(index ,id){
 }
     return (
         <div>
-        <Niv name='Menu'/>
+        <Niv name='Category'/>
         <Notification/>
         <div className="data">
          <h1 className='title'></h1>
@@ -74,7 +74,7 @@ function editrow(index ,id){
             setSearchTerm(event.target.value);
           }} />
           <a href="Menu/addMenu">
-          <button class="add_pdct">+ New Product</button>
+          <button class="add_pdct">+ New Category</button>
           </a>
 
           <table className="menu-tbl" cellpadding="0" cellspacing="0" border="0">

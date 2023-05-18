@@ -71,10 +71,10 @@ const RestaurantAdd = () => {
       return;
     }
 
-    if(!expiredate){
-      toast.error("Please enter expiredate");
-      return;
-    }
+    // if(!expiredate){
+    //   toast.error("Please enter expiredate");
+    //   return;
+    // }
 
    
 
@@ -86,12 +86,13 @@ const RestaurantAdd = () => {
       const Inventoryfood1 = {id,quantity,unitPrice,supplier,expiredate};
       axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood1)
       .then(()=>{
+        settotalCost(quantity*unitPrice)
       })
       .catch((err)=>{
         alert(err);
       })
-
-
+      
+alert(totalCost)
 
 
      const newres_add = {
@@ -289,11 +290,11 @@ const [items, setItems] = useState([]);
                         ))}
                     </div>
                   </div>
-                <div class="input-field">
+                {/*<div class="input-field">
                   <label className="ResturantaddBuyDate">Buy Date</label>
                   <input type="date" value={buydate}
                   onChange={(e) => setbuydate(e.target.value)}/>
-                </div>
+                          </div>*/}
 
                 <div class="input-field">
                 <div className="field2">
@@ -321,6 +322,7 @@ const [items, setItems] = useState([]);
                 <div class="input-field">
                   <label className="ResturantaddBuyCost">Total Cost</label>
                   <input type="text" placeholder="Total Cost" value={(quantity*unitPrice)||0}
+                  onMouseOver={(e)=>settotalCost(quantity*unitPrice)}
                   />
                 </div>
 

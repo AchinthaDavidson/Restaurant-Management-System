@@ -20,6 +20,18 @@ useEffect(()=>{
     getbarval();
 },[]);
 
+/*useEffect(()=>{
+  const getbarvals = () =>{
+    axios.get("http://localhost:8070/Bardata/")
+    .then((barinventories)=>{
+      setbarData(barinventories.data);
+    }).catch((err)=>{
+      alert(err);
+    })
+  }
+  getbarvals();
+},[]);*/
+
   return (
     <>
       <Header />
@@ -40,7 +52,7 @@ useEffect(()=>{
                         <div className="details">
                             <div className="details-sub">
                                 <h5>{bardata.Product_Name}</h5>
-                                <h5 class="price">Rs.{bardata.Price}</h5>
+                                {/*<h5 class="price">Rs.{bardata.Sell_Price}</h5>*/}
                             </div>
                         </div>
                     </div>

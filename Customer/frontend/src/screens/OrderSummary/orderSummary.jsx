@@ -14,8 +14,9 @@ function OrderSummary() {
 		if(order !=null  ){
 			//console.log(order);
 			setOrders(order)
+			console.log(order)
 		}
-
+		localStorage.setItem("shopping-cart", JSON.stringify(null));
 		
 	
 	}, []);
@@ -41,6 +42,8 @@ function OrderSummary() {
 			<div className="content">
 				<div className="ordersummary-heading">
 					<h2>Order Summary</h2>
+
+					<a href="/">Back to Home</a>
 				</div>
 				<div className="order-summary">
 					<div className="order-no">

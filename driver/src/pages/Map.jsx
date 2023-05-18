@@ -341,7 +341,7 @@ export default function DriverMap() {
 
                         <tr>
                             <td id="trs"  colSpan={2} style={{ textAlign:"left"}}>
-                            <p>Dilivery Location ; {orderDetails.location}</p>
+                            <p>Delivery Location ; {orderDetails.location}</p>
                             {/* <Autocomplete>
                                 <input type="text"  
                                 placeholder="Enter your drop point..."  
@@ -391,7 +391,7 @@ export default function DriverMap() {
                                 <button 
                                     onClick={(e)=> upDateDriverOrderDilEnd(e)}  
                                     className="middlebtns" >   
-                                    Dilivered
+                                    Delivered
                                 </button>  
                             </td>
                             <td>

@@ -50,13 +50,13 @@ function Header(){
             <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                 <div class="navbar-nav" style={{marginLeft:"2%"}}>
                     <a href="/" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}}><b>HOME</b></a>
-                    <a href="/Menu" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}} ><b>FOOD MENU</b></a>
-                    <a href="/BarMenu" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}}><b>BAR MENU</b></a>
+                    <a href="/Menu" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}} ><b>RESTAURANT</b></a>
+                    <a href="/BarMenu" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}}><b>BAR </b></a>
                     <a href="/FAQs" class="nav-item nav-link"style={{paddingLeft:"20%", paddingRight:"20%", color:"white"}}><b>FAQs</b></a>
                 </div>
 
                 
-                <div class="navbar-nav" style={{marginLeft:"65%"}}>
+                <div class="navbar-nav" style={{marginLeft:"45%"}}>
                   {/* {isprofile?user.user.name:(<a href="/Signin" class="nav-item nav-link" ><button class="lgBtn">Login</button></a>)} */}
                   {isprofile?(
                   

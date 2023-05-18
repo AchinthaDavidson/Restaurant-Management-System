@@ -725,7 +725,7 @@ function Order() {
                         <tbody>
                           <tr>
                             <th style={{ textAlign: "center" }} colSpan={5}>
-                              Dilivery Details
+                              Delivery Details
                             </th>
                           </tr>
                           <tr>
@@ -807,7 +807,7 @@ function Order() {
                           </tr>
                           <tr>
                             <th style={{ textAlign: "center" }} colSpan={5}>
-                              Dilivery Location
+                              Delivery Location
                             </th>
                           </tr>
                           <tr>
@@ -842,7 +842,7 @@ function Order() {
                                 htmlFor="address"
                                 id="address"
                               >
-                                Set Diliver Location:
+                                Set Delivery Location:
                               </p>
                             </td>
 

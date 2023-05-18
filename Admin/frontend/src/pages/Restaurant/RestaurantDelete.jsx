@@ -21,7 +21,7 @@ const RestaurantDelete = () => {
   function Find(id){
     setid(id);
     
-      if (id.length===4){
+      
        
           function getItems() {
             const url="http://localhost:8070/Inventoryfood/find/"+id;
@@ -34,7 +34,7 @@ const RestaurantDelete = () => {
           }
           getItems();
         
-      }
+      
   }
 
   function handlesubmit(index,id,qty,cost1){
