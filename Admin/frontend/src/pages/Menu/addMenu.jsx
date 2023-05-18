@@ -13,11 +13,11 @@ const AddMenu = () => {
 
   const handleSubmit=(e)=>{
 
-    if(!id || !name){
+    if(!Cat_Id || !name){
       toast.error("Please fill all the required fields");
       return
     }
-
+let id = Cat_Id
     e.preventDefault();
   const Menu = {id,name,Image};
     axios.post("http://localhost:8070/menu/add",Menu)
