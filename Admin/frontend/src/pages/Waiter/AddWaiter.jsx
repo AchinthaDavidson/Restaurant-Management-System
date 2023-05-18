@@ -57,8 +57,9 @@ const AddWAiter = () => {
   return (
     <div>
       <ToastContainer position="top-right" theme="colored" />
-      <Notification/>
+      
       <Niv name="Waiter/ AddWaiter" />
+      <Notification/>
       <div className="data">
       <div className="waiterAdd">
         <header>Add Waiter</header>

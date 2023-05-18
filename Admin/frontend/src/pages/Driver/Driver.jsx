@@ -5,6 +5,7 @@ import "./driver.css"
 import { useNavigate , Link} from 'react-router-dom';
 import { v4 as uuidv4 } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
+import Notification from "../../components/Notification";
 //import soup from './soup.jpeg'
 
 const Driver = () => {
@@ -47,8 +48,9 @@ const Driver = () => {
   return (
     <div>
     <ToastContainer position="top-right" theme="colored" />
-    <Niv name='Driver'/>
     
+    <Niv name='Driver'/>
+    <Notification/>
     <div className='data'>
     <h1 className='title'>Drivers</h1>
 
@@ -69,7 +71,7 @@ const Driver = () => {
             <th className='driver-th'>Email</th>
             <th className='driver-th'>Address</th>
             <th className='driver-th'>Phone Number</th>
-            <th className='driver-th'>Password</th>
+            
            
             
             <th className='driver-th'>Action</th>
@@ -94,7 +96,7 @@ const Driver = () => {
           <td>{driver.Email}</td>
           <td>{driver.address}</td>
           <td>{driver.phone_no}</td>
-          <td>{driver.password}</td>
+         
           
           <td>
             <Link to={`/Driver/UpdateDriver/${driver._id} `}>
