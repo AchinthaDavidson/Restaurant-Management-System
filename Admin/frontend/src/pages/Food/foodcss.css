@@ -77,6 +77,23 @@ body {
   cursor: pointer;
 }
 
+.editbtn{
+  background-color: #2f0273;
+      border-radius: 5px;
+      box-shadow: rgba(181, 179, 179, 0.2) 0 -25px 18px -14px inset, rgba(44, 139, 187, 0.15) 0 1px 2px, rgba(49, 83, 106, 0.15) 0 2px 4px, rgba(52, 7, 164, 0.15) 0 4px 8px, rgba(9, 30, 188, 0.15) 0 8px 5px, rgba(25, 40, 211, 0.15) 0 10px 10px;
+      color: rgb(242, 244, 242);
+      cursor: pointer;
+      font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+      padding: 7px 20px;
+      text-align: center;
+      text-decoration: none;
+      transition: all 100ms;
+      border: 0;
+      font-size: 16px;
+      margin-right: 1rem;
+      margin-left: 1rem;
+      margin-bottom: 1rem;
+}
 
 
 .middlebtns2{
