@@ -8,6 +8,14 @@ import React, { useEffect, useState } from "react";
 import Modal from 'react-bootstrap/Modal';
 import { Prev } from "react-bootstrap/esm/PageItem";
 import Notification from "../../components/Notification";
+import TheChart from './chart.jsx'
+import {
+    Chart,
+    Series,
+    CommonSeriesSettings,
+    Legend,
+    Export,
+  } from "devextreme-react/chart";
 
    
 const ViewDish = () => {
@@ -15,21 +23,26 @@ const ViewDish = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
     const [dishes, setDishes] = useState([]);
+    const [orderDishes, setOrderDishes] = useState([]);
+    const [reportData, setReportData] = useState([]);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [updatedDish, setupdatedDish] = useState({});
+    const [showChart, setShowChart] = useState(false);
 
     useEffect(() =>{
         axios
         .get("http://localhost:8070/food/viewDish")
         .then((res) => {
-            console.log(res.data);
+           // console.log(res.data);
             setDishes(res.data);
         })
         .catch((err) =>console.log(err))
-    }, []);
-
+    }, 
+    
+    []);
+    
     const deleteDish = (id) => {
 
       axios.delete(`http://localhost:8070/food/delete/${id}`)
@@ -66,6 +79,9 @@ const ViewDish = () => {
         window.location.reload();
 
     };
+    const toggleChart = () => {
+        setShowChart(!showChart);
+      };
 
     return(
 
@@ -75,15 +91,19 @@ const ViewDish = () => {
             {/* <h1>View all avaliable Dishes</h1> */}
             <div className='data'>
                 <div>
-                <Button className='middlebtns' onClick={ () => navigate("/food")}>
-                    Click here to add more Dishes
-                </Button>
-                <input
-                    placeholder="Enter a dish name to search..."
-                    autoComplete="off"
-                    onChange={(e)=>setSearchTerm(e.target.value)}
-                    style={{ padding:"1rem" , width:"30%", marginBottom:"1rem"}}
-                    />
+                    <Button className='editbtn' onClick={ () => navigate("/food")}>
+                        Add More Dishes
+                    </Button>
+                    <input
+                        placeholder="Enter a dish name to search..."
+                        autoComplete="off"
+                        onChange={(e)=>setSearchTerm(e.target.value)}
+                        style={{ padding:"1rem" , width:"30%", marginBottom:"0.5rem",marginRight:"0.5rem"}}
+                        />
+                    <Button className='editbtn' onClick={toggleChart}>
+                    {showChart ? "Hide Chart" : " See the Favorites"}
+                    </Button>
+                    {showChart && <TheChart />}
                 </div>
                 
             
@@ -144,10 +164,10 @@ const ViewDish = () => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className='middlebtns' onClick={handleClose}>
+                    <Button className='editbtn' onClick={handleClose}>
                          Close
                     </Button>
-                    <Button className='middlebtns' onClick={saveUpdatedDish}>
+                    <Button className='editbtn' onClick={saveUpdatedDish}>
                          Save Changes
                     </Button>
                 </Modal.Footer>
@@ -206,7 +226,7 @@ const ViewDish = () => {
                                         <td> 
                                         <table  style={{width:"100%" , padding:"0 0 0 0" , margin:"0 0 0 0"}}>
                                          <tbody>
-                                                <tr><th colSpan={4}>Ingredients </th></tr>
+                                                <tr><td colSpan={4}>Ingredients </td></tr>
                                                 <tr>
                                                     <td>ID</td>
                                                     <td>Name</td>
@@ -241,7 +261,7 @@ const ViewDish = () => {
                                         <td>
                                     
                                                 <Button 
-                                                    className='middlebtns' 
+                                                    className='editbtn' 
                                                     onClick={() => updateDish(dish)} 
                                                     style={{marginRight:"20px"}} >
                                                         UPDATE
@@ -249,7 +269,7 @@ const ViewDish = () => {
                                         </td>
                                         <td>
                                                 <Button 
-                                                    className='middlebtns' 
+                                                    className='editbtn' 
                                                    
                                                     onClick ={() => deleteDish(dish._id)} 
                                                     style={{marginRight:"20px"}}>

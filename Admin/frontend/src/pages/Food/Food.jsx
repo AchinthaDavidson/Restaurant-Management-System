@@ -348,7 +348,7 @@ function CreateFoodJS(){
                                         <td  style={{width:"20%"} }>
 
                                             <button 
-                                                className="middlebtns2"
+                                                className="editbtn"
                                                 onClick={()=>{
                                                     if(!name == "" && unit !="" && quantity != ""){
                                                         setName('');
@@ -386,13 +386,13 @@ function CreateFoodJS(){
                     
                     <div className="btns" style={{width:"73%" , marginTop:"2rem" , marginLeft:"auto" ,marginRight:"auto" }}>
 
-                        <button className="add_new"
+                        <button className="editbtn"
                             onClick={ () => navigate(-1)}
                             >Go Back
                         </button>
 
                         <button 
-                            className="add_new"
+                            className="editbtn"
                           
                             onClick={ () => navigate("ViewDish")}  
                             >View Dishes
@@ -404,7 +404,7 @@ function CreateFoodJS(){
                         </div>
                        
 
-                        <button className="add_new"
+                        <button className="editbtn"
                             onClick={(handleClick)}
                             style={{marginLeft:"2rem"}}
                             >+ Add Dish
@@ -441,7 +441,7 @@ function CreateFoodJS(){
                                             <td> 
 
                                                 <button 
-                                                    className="middlebtns2" onClick={()=>removeIng(ings)}>   
+                                                    className="editbtn" onClick={()=>removeIng(ings)}>   
                                                     Remove
                                                 </button>  
                                                                     

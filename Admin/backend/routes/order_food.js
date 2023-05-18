@@ -67,4 +67,14 @@ router.route("/findone/:id").get((req,res)=>{
         console.log(err)
     })
 })
+
+router.route("/viewAllOrder").get(async(req,res)=>{
+
+    order_food
+        .find()
+        .then((items) => res.json(items))
+        .catch((err) => console.log(err))
+});
+
+
 module.exports=router;

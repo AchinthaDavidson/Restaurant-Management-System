@@ -81,7 +81,8 @@
 .logoutbtn{
 
     padding: 1rem 1rem;
-    margin: auto auto;
+    margin-left: "3rem";
+    margin-right: "3rem";
     float: center;
     color: #ffffff;
     font-family: "Poppins", sans-serif;
@@ -89,6 +90,7 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    width: 70%;
+    font-weight: bold;
+
 }
 

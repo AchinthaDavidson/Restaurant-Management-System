@@ -6,6 +6,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {useLocation} from 'react-router-dom';
+import MyHistory from "./MyHistory";
 //import { Toast } from "react-toastify/dist/components";
 
 const Home = () => {
@@ -14,6 +15,7 @@ const [orders, setOrders] = useState([]);
 const navigate = useNavigate();
 const user = useLocation();
 const [loggedUser,setLoggedUser] = useState("")
+const [showHistory, setShowHistory] = useState(false);
 
 
 useEffect(() => {
@@ -80,7 +82,6 @@ function logOut () {
   window.location.href = "/sign";
 };
 
-
 async function navigateToMap  (order) {
   const id2 = JSON.parse(localStorage.getItem('loggedUserID'));
   const id1 = order._id
@@ -88,6 +89,9 @@ async function navigateToMap  (order) {
   await toast.success("Redirecting");
   setTimeout( function() {  navigate('/map',{state: {loggedUserID:{id2}, orderID:{id1}}}); }, 10);
  
+};
+const toggleHistory = () => {
+  setShowHistory(!showHistory);
 };
 
 
@@ -99,15 +103,27 @@ return (
   
   <div className="mainPage">
       <ToastContainer position="top-right" theme="colored" /> 
-      <button 
-          onClick={()=>logOut()} 
-          className="logoutbtn"
-          style={{ width:"9rem", margin:"Auto Auto"}}>   
-          LOG OUT  : 
-          <div style={{   backgroundColor:"orange" , padding:"0.5rem"}}>
-            {loggedUser.Email} 
-          </div>
-      </button>
+      <div>
+      <div style={{ marginBottom:"0.5rem", backgroundColor:"orange" , padding:"0.3rem"}}>
+          <h3> Welcome {loggedUser.Email} here are the pending orders </h3> 
+        </div>
+        <button 
+            onClick={()=>logOut()} 
+            className="logoutbtn"
+            style={{  marginRight:"3rem", width:"10rem", margin:"Auto Auto"}}>   
+            LOG OUT   
+        </button>
+
+        <button 
+            onClick={toggleHistory} 
+            className="logoutbtn"
+            style={{ marginLeft:"3rem", width:"10rem",margin:"Auto Auto"}}>   
+          {showHistory ? "HIDE HISTORY" : "MY HISTORY"}
+        </button>
+        {showHistory &&  <MyHistory id={loggedUser}></MyHistory>}
+
+      </div>
+     
       <table className="mainTable">
           <thead>
             <tr>
