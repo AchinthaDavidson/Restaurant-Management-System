@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
 import AWS from 'aws-sdk';
 import 'react-select-search/style.css'
-import SelectSearch from 'react-select-search';
+
 import Notification from "../../components/Notification";
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
