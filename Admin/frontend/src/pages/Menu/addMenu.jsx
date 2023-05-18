@@ -13,11 +13,11 @@ const AddMenu = () => {
 
   const handleSubmit=(e)=>{
 
-    if(!Cat_Id || !name){
+    if(!id || !name){
       toast.error("Please fill all the required fields");
       return
     }
-let id = Cat_Id
+
     e.preventDefault();
   const Menu = {id,name,Image};
     axios.post("http://localhost:8070/menu/add",Menu)
@@ -50,13 +50,12 @@ let id = Cat_Id
       <div className="menuAdd">
         <header>Add Product</header>
 
-        <form className="MenuaddForm" onSubmit={handleSubmit}>
+        <div className="MenuaddForm" onSubmit={handleSubmit}>
         <div class="fields">
                 <div class="input-field">
                   <label className="Cat_Id">Category Id</label>
                   <input type="text" placeholder="Category Id" value={Cat_Id}
-                  onChange={(e) => setid(e.target.value)} pattern="[0-9]{4}"
-                  title="Category Id should be a 4-digit number"/>
+                  onChange={(e) => setid(e.target.value)} />
                 </div>
 
                 <div class="input-field">
@@ -70,7 +69,7 @@ let id = Cat_Id
               <button class="Menubtn" type="submit" >
                 <span>Add</span>
               </button>
-        </form>
+        </div>
           <a href="/Menu">
           <button class="Menubtn">
             <span>Cancel</span>
