@@ -1,4 +1,5 @@
 import React from "react";
+import { IoRestaurantSharp } from "react-icons/io5";
 import pic4 from '../../Images/chicken2.png';
 import pic3 from '../../Images/3.png';
 import pic2 from '../../Images/beef.png';
@@ -91,9 +92,22 @@ function Homepage(){
 <div class="media" style={{margin:"4% 5%"}}>
   {/* <img class="rounded float-right" src={logo} style={{height:"200px"}} alt="Generic placeholder image"/> */}
   <div class="media-body">
-    <h5 class="mt-0" style={{color:"white", fontSize:"35px"}}><b>About Us</b></h5>
-    <p style={{color:"white", fontSize:"25px"}}>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-    <p class="mb-0" style={{color:"white", fontSize:"25px"}}>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+    <h5 class="mt-0" style={{color:"white", fontSize:"35px"}}><b>About Us</b></h5><br></br>
+    <p style={{color:"white", fontSize:"25px", textAlign: "center", fontFamily: "Apple Chancery, cursive"}}>Welcome to Palladium Restaurant! We are a passionate team dedicated to providing exceptional dining experiences to our valued customers. With our commitment to quality, innovation, and customer satisfaction, we strive to be the go-to destination for food enthusiasts.
+
+<br></br>At Palladium Restaurant, we believe that great food goes beyond just taste. It is an art that encompasses flavors, textures, and presentation. Our talented chefs meticulously craft each dish using the finest ingredients, ensuring a harmonious blend of flavors that tantalize the taste buds.
+
+Our vision is to create a warm and inviting atmosphere where guests can relax, indulge, and create lasting memories. Whether you're looking for a cozy dinner with loved ones, a business lunch, or a celebration with friends, our restaurant offers a versatile space suitable for any occasion.
+
+We take pride in our excellent customer service. <br></br>Our friendly and attentive staff members are dedicated to providing a personalized dining experience, catering to your preferences and dietary needs. We value your feedback and continuously strive to exceed your expectations.
+
+Furthermore, we embrace technology to enhance your dining experience. Our user-friendly online ordering system allows you to conveniently place orders for takeout, delivery, or make reservations for a delightful dine-in experience. We are committed to making your experience seamless and enjoyable from start to finish.</p>
+  
+
+<p class="mb-0" style={{color:"white", fontSize:"25px", textAlign: "center", fontFamily: "Apple Chancery, cursive"}}>Palladium is more than just a place to eat; it's a culinary journey where flavors come alive, and memories are made.Join us and embark on a gastronomic adventure that will delight your senses and leave you craving for more.
+
+<br></br><br></br>Thank you for choosing Palladium Restaurant. We look forward to serving you and creating unforgettable moments together.</p>
+<div class="cutleryicon" style={{textAlign: "center", marginTop: "3%"}}><IoRestaurantSharp color={"white"} size={50}/></div>
   </div>
 </div>
 

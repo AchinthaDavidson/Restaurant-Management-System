@@ -141,7 +141,7 @@ return (
                     maxHeight:"20rem", minWidth:"20rem", 
                     margin:"Auto Auto", margin:"Auto Auto",
                     maxWidth:"20rem",minHeight:"20rem"}}>Customer Location</th>
-                <th className="del-tbl-head">Take Dilivery</th>
+                <th className="del-tbl-head">Take Delivery</th>
                 
             </tr> 
           </thead>

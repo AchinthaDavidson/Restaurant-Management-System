@@ -160,7 +160,7 @@ const SmallMap = (receviedLocationFromHome) => {
                         </tr>
                         <tr>
                         <td colSpan={2} style={{paddingTop:"1rem",paddingLeft:"1rem", textAlign:"left"}}>
-                            Diliver To : {receviedLocation}</td>                     
+                            Deliver To : {receviedLocation}</td>                     
                         </tr>
                         {/* <tr>  
                             <td style={{textAlign:"center"}}>

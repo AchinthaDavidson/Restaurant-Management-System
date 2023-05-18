@@ -187,7 +187,7 @@ function Menu() {
 
             {menu.map((menu) => (
               <div>
-                <div style={{ color: "white" }} className="menutitle1">
+                <div style={{ color: "white", marginLeft: "50px", fontSize: "25px", fontFamily: "Courier-Oblique", textAlign: "center", textTransform: "uppercase" }} className="menutitle1">
                   {menu.Name}
                 </div>
 
