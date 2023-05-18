@@ -181,8 +181,8 @@ const QandA = () => {
                   <td >{faq.question}</td>
                   <td >{faq.answer}</td>
 
-                  <td><button class="edit" onClick={() => handleEditClick(faq, index)}>Edit</button></td>
-                  <td><button class="edit" onClick={(e) => deleteFaq(faq._id)}>Delete</button></td>
+                  <td><button class="editf" onClick={() => handleEditClick(faq, index)}>Edit</button></td>
+                  <td><button class="deletef" onClick={(e) => deleteFaq(faq._id)}>Delete</button></td>
                   {popupRowIndex === index && showPopup && <EditRowPopup key={faq._id} rowData={faq} onSave={handleSave} onClose={handleClose} />}
                 </tr>
               ))}
