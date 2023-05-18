@@ -48,6 +48,14 @@ router.route("/update/:id").put(async(req,res)=>{
     })
 })
 
+router.route("/CatId").get((req,res)=>{
+    Menu.find({},{category_Id:1}).sort({_id:-1}).limit(1).then((categorie)=>{
+        res.json(categorie)
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
+
 /*display*/
 router.route("/").get((req,res)=>{
 
