@@ -12,11 +12,15 @@ const BarChart=()=>{
     const [reportData, setReportData] = useState([]);
 
     useEffect(()=>{
-        axios.get("http://localhost:8070/barInventory/")
-        .then((res)=>{
-            
-        })
-    })
+        function sd(){
+            axios.get("http://localhost:8070/barInventory/")
+            .then((res)=>{
+                console.log(res)
+                setReportData(res.data)
+            })
+        }
+      sd(); 
+    },[]);
 
     return(
         <Chart id="chart" dataSource={reportData}>
@@ -28,8 +32,15 @@ const BarChart=()=>{
                 selectionMode="allArgumentPoints"
             />
 
-            <Export enabled={true} />
+            <Series
+                argumentField="state"
+                valueField="qwe"
+                name="Most Ordered"
+                color="#01BC90"
 
+            />
+
+            <Export enabled={true} />
         </Chart>
     );
 };
