@@ -71,10 +71,10 @@ const RestaurantAdd = () => {
       return;
     }
 
-    if(!expiredate){
-      toast.error("Please enter expiredate");
-      return;
-    }
+    // if(!expiredate){
+    //   toast.error("Please enter expiredate");
+    //   return;
+    // }
 
    
 
@@ -290,11 +290,11 @@ const [items, setItems] = useState([]);
                         ))}
                     </div>
                   </div>
-                <div class="input-field">
+                {/*<div class="input-field">
                   <label className="ResturantaddBuyDate">Buy Date</label>
                   <input type="date" value={buydate}
                   onChange={(e) => setbuydate(e.target.value)}/>
-                </div>
+                          </div>*/}
 
                 <div class="input-field">
                 <div className="field2">
