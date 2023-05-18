@@ -42,11 +42,11 @@ header {
 
 .MenuaddForm .fields .input-field {
     display: flex;
-    width: calc(100% / 3 - 15px);
+    width: calc(100% / 2 - 15px);
     flex-direction: column;
 }
 
-.input-field .D_Id .D_name .D_email .D_address .D_phone .D_password {
+.input-field .D_Id .D_name .D_email .D_address .D_phone  {
     font-size: 15px;
     font-weight: 500;
 }

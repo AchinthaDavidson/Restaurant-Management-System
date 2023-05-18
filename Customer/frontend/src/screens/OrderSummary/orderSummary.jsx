@@ -3,6 +3,8 @@ import Footer from "../../components/Footer";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {MdOutlineKeyboardBackspace} from "react-icons/md";
+import {MdHome} from "react-icons/md";
 
 function OrderSummary() {
 
@@ -14,8 +16,9 @@ function OrderSummary() {
 		if(order !=null  ){
 			//console.log(order);
 			setOrders(order)
+			console.log(order)
 		}
-
+		localStorage.setItem("shopping-cart", JSON.stringify(null));
 		
 	
 	}, []);
@@ -41,12 +44,13 @@ function OrderSummary() {
 			<div className="content">
 				<div className="ordersummary-heading">
 					<h2>Order Summary</h2>
+
+					<a href="/"><MdOutlineKeyboardBackspace size={30}/> Back to Home <MdHome size={35}/></a>
 				</div>
 				<div className="order-summary">
 					<div className="order-no">
 						<h3>Order No: {orders.order_id }</h3>
 						<button className="btn-invoice">Print Invoice</button>
-						{/*<button className="btn-track">Track Order</button>*/}
 					</div>
 					<div className="item-details">
 						<table>
@@ -73,8 +77,9 @@ function OrderSummary() {
 							</tbody>
 						</table>
 						<div className="total">
-							<h3>Grand Total: {orders.total}</h3>
+							<h3><b>Grand Total: </b> Rs.{orders.total}/-</h3>
 						</div>
+						<label style={{marginLeft: "35%", marginRight: "35%", fontSize: "20px", marginBottom: "5%", fontWeight: "700"}}>Thank you for ordering with us!</label>
 					</div>
 				</div>
 			</div>

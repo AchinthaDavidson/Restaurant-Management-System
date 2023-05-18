@@ -322,6 +322,7 @@ const [items, setItems] = useState([]);
                 <div class="input-field">
                   <label className="ResturantaddBuyCost">Total Cost</label>
                   <input type="text" placeholder="Total Cost" value={(quantity*unitPrice)||0}
+                  onMouseOver={(e)=>settotalCost(quantity*unitPrice)}
                   />
                 </div>
 
