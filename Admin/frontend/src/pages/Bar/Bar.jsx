@@ -6,11 +6,14 @@ import axios from "axios";
 import Bardata from "./Bardata.jsx";
 import { useState,useEffect } from "react";
 import Notification from "../../components/Notification";
+import TheChart from './chart.jsx'
 
 const Bar = () => {
 
   const[barinv, setbar] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showChart,setshowchart] = useState(false);
+
   useEffect(()=>{
     const getbarval = () =>{
       axios.get("http://localhost:8070/barInventory/")
@@ -32,6 +35,11 @@ const Bar = () => {
 
   var count = 0;for (var k in barinv) if (barinv.hasOwnProperty(k)) ++count;
 
+  const toggleChart = () => {
+    setshowchart(!showChart);
+  };
+
+
   return (
     <div>
       <Niv name="Bar Inventory" />
@@ -44,6 +52,14 @@ const Bar = () => {
             <div style={{fontSize:'10px'}}>Product are Availabale In Stock</div>
           </div>
         </div>
+
+        <div>
+          <button className="graph" onClick={toggleChart}>
+          {showChart ? "Hide chart" : "Show Chart"}
+          </button>
+          {showChart && <TheChart/>}
+        </div>
+
         <input type="text" style={{ height: "40px", borderColor:"rgba(53, 39, 68, 1)",margin:"20px" }} placeholder=" Search Inventory" onChange={(event) => {
             setSearchTerm(event.target.value);
           }} />
