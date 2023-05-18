@@ -108,16 +108,16 @@ function Menu() {
             onProductRemove={onProductRemove}
           />
 
-          <head>
+          <div>
             <title>Food Menu</title>
 
             <link
               href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap%22"
               rel="stylesheet"
             />
-          </head>
+          </div>
 
-          <body>
+          <div>
             <div className="heading">
               <h1>PALLADIUM RESTAURANT & BAR</h1>
               <h3>&mdash; OUR MENU &mdash;</h3>
@@ -185,8 +185,8 @@ function Menu() {
                 ))}
             </div> */}
 
-            {menu.map((menu) => (
-              <div>
+            {menu.map((menu,index) => (
+              <div key={index}>
                 <div style={{ color: "white" }} className="menutitle1">
                   {menu.Name}
                 </div>
@@ -222,8 +222,9 @@ function Menu() {
                       }
                     })
 
-                    .map((product) => (
+                    .map((product,index) => (
                       <MenuItem
+                      key={index}
                         product={product}
                         addProductToCart={addProductToCart}
                         productsInCart={productsInCart}
@@ -233,7 +234,7 @@ function Menu() {
                 </div>
               </div>
             ))}
-          </body>
+          </div>
         </div>
       </div>
       <Footer />

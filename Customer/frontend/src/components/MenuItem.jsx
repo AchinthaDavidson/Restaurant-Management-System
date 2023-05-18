@@ -25,12 +25,14 @@ function MenuItem({product, addProductToCart, productsInCart}) {
         <div className="details">
             <div className="details-sub">
             <h5>{product.Name}</h5>
-            <h5 class="price">Rs.{product.Price}</h5>
+            <h5 className="price">Rs.{product.Price}</h5>
             </div>
 
-            <bottom>
-                <button onClick={() =>{!inCart ? addProductToCart(product) : console.log("hey");}}>Add To Cart</button>
-            </bottom>
+            <div  style={{textAlign:"center"}}>
+                <button 
+                style={{backgroundColor:"red", padding:"0.3rem", margin:"auto auto"}}
+                onClick={() =>{!inCart ? addProductToCart(product) : console.log("hey");}}>Add To Cart</button>
+            </div>
         </div>
     </div>
   )

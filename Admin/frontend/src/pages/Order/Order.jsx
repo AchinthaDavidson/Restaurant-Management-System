@@ -39,9 +39,9 @@ function Order() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [table, settable] = useState("");
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBv1H_VqIZse7f0hBdvLJThzpB-SaFfkPg",
-    libraries: ["places"],
+  const {isLoaded} = useJsApiLoader({  
+    googleMapsApiKey: process.env.REACT_APP_GOOGLEMAP_API_KEY ,
+    libraries:['places']
   });
   const invoiceDate = useState(
     d.getDate() +
