@@ -51,7 +51,7 @@ function ShoppingCart({
 	useEffect(() => {
 		let res = JSON.parse(localStorage.getItem("userData"));
 		if (!res) {
-		  alert("Please Log in to continue!")
+		//   alert("Please Login")
 		}
 		else{
 			setprofil(true)

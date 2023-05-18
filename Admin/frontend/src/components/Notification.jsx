@@ -6,6 +6,8 @@ import Table from './kot';
 import Button from "@mui/material/Button";
 import { margin } from '@mui/system';
 
+
+
 // const print
 
 const Notification = () => {
@@ -13,6 +15,24 @@ const Notification = () => {
   const [lowStockItems, setLowStockItems] = useState([]);
   const [deliveryOrders, setDeliveryOrders] = useState([]);
   const [type, setType] = useState(false);
+  const [barInventory, setBarInventory] = useState([]);
+
+  const [lowStockBar, setLowStockBar] = useState([]);
+  
+
+
+  useEffect(() => {
+    axios.get('http://localhost:8070/barInventory/').then((response) => {
+      setBarInventory(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const lowStockBar = barInventory.filter(
+      (item) => parseInt(item.Quantity )< parseInt(item.Re_Order_Level)+12
+    );
+    setLowStockBar(lowStockBar);
+  }, [barInventory]);
 
 
   useEffect(() => {
@@ -22,7 +42,7 @@ const Notification = () => {
   }, []);
 
   useEffect(() => {
-    const lowStockItems = items.filter((item) => item.Quantity <= 0);
+    const lowStockItems = items.filter((item) => item.Quantity <= parseInt(item.Re_Order_Level)+10);
     setLowStockItems(lowStockItems);
   }, [items]);
 
@@ -104,11 +124,19 @@ const Notification = () => {
           <li key={item._id} className="notification-item low-stock">
             <span className="notification-message">
               <strong>{item.Item_Name}</strong> is low in stock ({item.Quantity}{" "}
-              {item.Unit} left)
+              {item.unit} left)
             </span>
           </li>
         ))}
-      </ul>
+
+        {lowStockBar.map((item) => (
+                  <li key={item._id} className="notification-item low-stockbar">
+                    <span className="notification-message">
+                      <strong>{item.Product_Name}</strong> is low in stock ({item.Quantity}  left)
+                    </span>
+                  </li>
+                ))}
+              </ul>
 
 
       
