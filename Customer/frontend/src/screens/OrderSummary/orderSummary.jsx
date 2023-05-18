@@ -51,7 +51,6 @@ function OrderSummary() {
 					<div className="order-no">
 						<h3>Order No: {orders.order_id }</h3>
 						<button className="btn-invoice">Print Invoice</button>
-						{/*<button className="btn-track">Track Order</button>*/}
 					</div>
 					<div className="item-details">
 						<table>
@@ -78,8 +77,9 @@ function OrderSummary() {
 							</tbody>
 						</table>
 						<div className="total">
-							<h3>Grand Total: {orders.total}</h3>
+							<h3><b>Grand Total: </b> Rs.{orders.total}/-</h3>
 						</div>
+						<label style={{marginLeft: "35%", marginRight: "35%", fontSize: "20px", marginBottom: "5%", fontWeight: "700"}}>Thank you for ordering with us!</label>
 					</div>
 				</div>
 			</div>
