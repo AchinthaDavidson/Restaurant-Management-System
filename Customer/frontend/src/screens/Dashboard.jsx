@@ -7,7 +7,7 @@ import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 import Select from "../components/Select";
 import TextArea from "../components/TextArea";
-import { updateData } from "../api/api";
+import {  updateData,deleteUser } from "../api/api";
 
 const genderOptions = [
   { key: "Male", value: "male" },
@@ -46,6 +46,15 @@ export default function Dashboard() {
   const changePassword = () => {
     window.location.href = "/forgot-password";
   };
+  const handleDeleteUser = () => {
+    deleteUser(user?.Authorization).then((response) => {
+      if (response) {
+        localStorage.setItem("userData",null);
+        window.location.href = "/";
+      }
+    });
+  };
+  
   const updateUser = () => {
     updateData(
       { name, email, phoneNumber, address, gender },
@@ -87,7 +96,7 @@ export default function Dashboard() {
               />
 
               <Button text="Change Password" action={changePassword} />
-              <Button text="Delete Account" />
+              <Button text="Delete Account" action={handleDeleteUser}/>
               <Button text="Update Details" action={updateUser} />
             </div>
             <div className="personal-details-side">
