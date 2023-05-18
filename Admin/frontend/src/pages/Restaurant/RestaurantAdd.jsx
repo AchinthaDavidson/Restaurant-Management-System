@@ -32,12 +32,12 @@ const RestaurantAdd = () => {
 
   const [Btlcode, setBtlCode_id] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:8070/barInventory/barId").then((res) => {
+    axios.get("http://localhost:8070/resInventory/resId").then((res) => {
       console.log(res.data);
       setBtlCode_id(res.data);
     });
   }, []);
-  const id1 = Btlcode.map((item) => item.Product_Code);
+  const id1 = Btlcode.map((item) => item.Item_Id);
   const Bid = Number(id1) + 1;
 
   const show = ()=>{
@@ -47,12 +47,14 @@ const RestaurantAdd = () => {
     //   return
     // }
 
-
+alert(Bid)
   
    
 
 /*add*/
     if (isEditing===false){
+
+      let id=Bid
 
       const Inventoryfood1 = {id,quantity,unitPrice,supplier,expiredate};
       axios.post("http://localhost:8070/Inventoryfood/add",Inventoryfood1)
