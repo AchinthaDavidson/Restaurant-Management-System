@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useState, useRef, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
+import {useNavigate} from 'react-router-dom';
 
 const RestaurantAdd = () => {
   const [id , setid] = useState("");
@@ -27,7 +28,7 @@ const RestaurantAdd = () => {
   const [isEditing, setIsEditing] = useState(false);
   
 
-
+  const navigate = useNavigate();
 
 
   const [Btlcode, setBtlCode_id] = useState([]);
@@ -42,13 +43,39 @@ const RestaurantAdd = () => {
 
   const show = ()=>{
 
-    // if(  !unit || !quantity || !buydate || !unitPrice || !totalCost || !supplier || !reorderlevel || !expiredate){
-    //   toast.error("Please fill all the required fields");
+    
+
+    if(!name){
+      toast.error("Please enter the item name");
+      return;
+    }
+    
+
+    if(!unit){
+      toast.error("Please enter unit type");
+      return;
+    }
+
+    if(!quantity){
+      toast.error("Please enter quantity");
+      return;
+    }
+
+    // if(!supplier){
+    //   toast.error("Please enter supplier");
     //   return
     // }
+    
+    if(!reorderlevel){
+      toast.error("Please enter re-order level");
+      return;
+    }
 
+    if(!expiredate){
+      toast.error("Please enter expiredate");
+      return;
+    }
 
-  
    
 
 /*add*/
@@ -171,7 +198,7 @@ const [items, setItems] = useState([]);
       <div className="cardAdd">
         <header>Add Items</header>
 
-  <form className="ResturantaddForm">
+  <div className="ResturantaddForm">
           <div className="form first">
             <div class="add detail">
               <div class="fields">
@@ -190,28 +217,20 @@ const [items, setItems] = useState([]);
                   title="Name can only contain A-Z charactors and should be less than or equal to 30 characters"/>
                 </div> */}
 
-
-
-
-
-
-
-
-
-
-
 <div class="input-field">
-                    <label className="BaraddProductCode">Product Name : </label>
+                    <label className="BaraddProductCode">Item Name</label>
                     
                     <input
                       id="Bname"
                       type="text"
-                      placeholder="search food....."
+                      placeholder="  Item Name"
                       style={{ padding: "5px", minWidth: "92%" }}
                       onChange={(event) => {
                         setSearchTerm(event.target.value);
                         setname(event.target.value);
                       }}
+                      pattern="[a-zA-Z]{1,30}"
+                      title="Name can only contain A-Z characters"
                       // value={description}
 
                       onClick={() => {
@@ -330,7 +349,7 @@ const [items, setItems] = useState([]);
               </button>
             </div>
           </div>
-         </form>
+         </div>
           <a href="/Restaurant">
           <button class="Resturantbtn">
             <span>Go Back</span>
