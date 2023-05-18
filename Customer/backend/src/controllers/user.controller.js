@@ -275,3 +275,20 @@ exports.getdish=(req, res) => {
 })
 
 }
+
+exports.deleteUser = (req,res)=>{
+  User.findOneAndDelete({_id:req.user_id})
+  .then((user) =>{
+    if(user) {
+      res.status(200).json({message:"success"});
+
+    }else{
+      res.status(400).json({message:"failed"});
+    }
+
+  })
+  .catch((err) =>{
+    console.log(err);
+    res.status(500).json({message:"server error"});
+  });
+};
