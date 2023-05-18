@@ -212,3 +212,14 @@ tbody tr {
 	margin-left: 3%;
 	padding-bottom: 5%;
 }
+
+.ordersummary-heading>a {
+  background-color: #b61d12;
+  color: white;
+  padding: 14px 25px;
+  text-align: center; 
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 15px;
+}

@@ -3,6 +3,8 @@ import Footer from "../../components/Footer";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {MdOutlineKeyboardBackspace} from "react-icons/md";
+import {MdHome} from "react-icons/md";
 
 function OrderSummary() {
 
@@ -43,7 +45,7 @@ function OrderSummary() {
 				<div className="ordersummary-heading">
 					<h2>Order Summary</h2>
 
-					<a href="/">Back to Home</a>
+					<a href="/"><MdOutlineKeyboardBackspace size={30}/> Back to Home <MdHome size={35}/></a>
 				</div>
 				<div className="order-summary">
 					<div className="order-no">
