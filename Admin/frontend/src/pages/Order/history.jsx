@@ -18,8 +18,20 @@ const Order = () => {
     getorder();
   }, []);
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [Term, setTerm] = useState(true);
 
+  function show(id){
+  if(Term==true){
+      document.getElementById(id).hidden=false
+      setTerm(false)
+      return
+  }else{
+    document.getElementById(id).hidden=true
+      setTerm(true)
+      return
+  }
+
+  }
   return (
     <div>
       <Niv name="Order History" />
@@ -37,7 +49,7 @@ const Order = () => {
             <thead>
               <tr className="tbl-head">
                 <td className="del-tbl-head">Order ID</td>
-                <td className="del-tbl-head">foods</td>
+              
                 <td className="del-tbl-head">amount</td>
                 <td className="del-tbl-head">Date/time</td>
                 <td className="del-tbl-head">Waiter Name</td>
@@ -49,7 +61,7 @@ const Order = () => {
 
             {orders.map((order, index) => (
               <>
-              <tr key={index}>
+              <tr key={index} onClick={()=>show(index)}>
                 <td>{order.order_id}</td>
                
                 <td>{order.amout}</td>
@@ -61,7 +73,7 @@ const Order = () => {
                 <td>{order.type}</td>
                 <td>{order.cus_id}</td>
               </tr>
-              <tr  hidden>
+              <tr id={index} hidden >
                  <td colSpan={6} id="his">
                   <Foodlist id={order.order_id} />
                 </td>
