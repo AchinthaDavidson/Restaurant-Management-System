@@ -270,29 +270,6 @@ const [items, setItems] = useState([]);
                         ))}
                     </div>
                   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <div class="input-field">
                   <label className="ResturantaddBuyDate">Buy Date</label>
                   <input type="date" value={buydate}
