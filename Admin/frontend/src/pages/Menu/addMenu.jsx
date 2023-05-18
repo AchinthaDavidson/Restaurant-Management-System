@@ -46,10 +46,10 @@ const AddMenu = () => {
   return (
     <div>
       <ToastContainer position="top-right" theme="colored" />
-      <Niv name="Menu/ Add Menu" />
+      <Niv name="Menu" />
       <div className="data">
       <div className="menuAdd">
-        <header>Add Product</header>
+        <header>Add Categorie</header>
 
         <form className="MenuaddForm" onSubmit={handleSubmit}>
         <div class="fields">
