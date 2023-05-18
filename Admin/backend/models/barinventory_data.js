@@ -6,7 +6,7 @@ const BarInvSchema = new Schema({
 
     Product_Code:{
         type:String,
-        required:true
+        // required:true
     },
     Quantity:{
         type:Number,
