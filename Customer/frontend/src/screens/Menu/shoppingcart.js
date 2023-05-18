@@ -62,17 +62,17 @@ function ShoppingCart({
 
 	function addOrder(event){
 		if(address==null || phone==null){
-			toast.error("Please fill all the fileds")
+			toast.error("Please fill all the fields!")
 			return
 		}
 
 		if(address=="" || phone==""){
-			toast.error("Please fill all the fileds")
+			toast.error("Please fill all the fields!")
 			return
 		}
 
 		if(phone.length<9 || phone.length>12 ){
-			toast.error("Invalid phone number")
+			toast.error("Invalid phone number!")
 			return
 		}
 		if(address.length<5){
@@ -154,7 +154,7 @@ function ShoppingCart({
 	if(!isLoaded) return <div><h1>Loading</h1></div>;
 	return (
 		<div
-			className="modal"
+			className="model"
 			style={{
 				display: visibilty
 					? "block"
@@ -185,11 +185,13 @@ function ShoppingCart({
 					<hr/>
 				<div style={{textAlign:"center",margin:"auto auto"}}>
 						
+					<label style={{color: "white"}}>Enter your phone no:</label><br></br>	
 					<input 
-						style={{ padding: "1rem" , backgroundColor:"white", color:"black" , margin:"auto auto"}}
+						style={{ padding: "1rem" , backgroundColor:"white", color:"black" , margin:"auto auto", borderRadius: "10px", marginBottom: "5%"}}
 						type="text" placeholder="Enter Your Phone Number" pattern="[0-9]{10}" maxLength={15}
-						title="Enter valid phone number" onChange={(e)=>setPhone(e.target.value)}/>
+						title="Enter valid phone number" onChange={(e)=>setPhone(e.target.value)}/> <br></br><br></br>
 
+					<label style={{color: "white"}}>Pick your drop-off location:</label><br></br>
 					 <Autocomplete		
 						z-index={50}
 						onChange={(e) => setAddress(e.target.value)}
@@ -202,7 +204,7 @@ function ShoppingCart({
                                   type="text"
                                   hidden={false}
                                   id="locationInputs"
-                                  style={{ padding: "1rem" , backgroundColor:"white", color:"black"}}
+                                  style={{ padding: "1rem" , backgroundColor:"white", color:"black", borderRadius: "10px", marginBottom: "5%"}}
                                   placeholder="Enter your Drop Point..."
                                   onClick={(e) => setAddress(e.target.value)}  
 								  onChange={(e) => setAddress(e.target.value)}  

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Niv from "../../components/Niv";
 import Foodlist from "./foodlist";
+import Notification from "../../components/Notification";
 
 import "./Order.css";
 
@@ -35,6 +36,7 @@ const Order = () => {
   return (
     <div>
       <Niv name="Order History" />
+      <Notification/>
       <div className="data">
         
         <div

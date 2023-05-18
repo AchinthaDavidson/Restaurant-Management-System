@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useParams , useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { toast, ToastContainer } from "react-toastify";
+import Notification from "../../components/Notification";
 
 
 const UpdateWaiter = () => {
@@ -63,7 +64,9 @@ const UpdateWaiter = () => {
   return (
     <div>
       <ToastContainer position="top-right" theme="colored" />
+      
     <Niv name="Waiter/ UpdateWaiter" />
+    <Notification/>
     <div className="data">
     <div className="waiterAdd">
       <header>Update Waiter</header>
