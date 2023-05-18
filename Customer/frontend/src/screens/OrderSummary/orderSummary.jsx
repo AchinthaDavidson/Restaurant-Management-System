@@ -8,32 +8,42 @@ import {MdHome} from "react-icons/md";
 
 function OrderSummary() {
 
-	const [orders,setOrders] = useState("")
+	const [orders,setOrders] = useState([])
 	const [products, setProducts] = useState([])
 
 	useEffect(() => {
-		const order = JSON.parse(localStorage.getItem('AllOrderDetails'));
+		const order = JSON.parse(localStorage.getItem('shopping-cart'));
 		if(order !=null  ){
 			//console.log(order);
 			setOrders(order)
-			console.log(order)
+			// console.log(orders)
 		}
 		localStorage.setItem("shopping-cart", JSON.stringify(null));
 		
 	
 	}, []);
-
-
 	useEffect(() => {
-		axios
-		  .get("http://localhost:8070/orderfood/viewAllOrder")
-		  .then((res) => {
-			//	console.log(res.data)
-			setProducts(res.data)
-		  })
-		  .catch((err) => console.log(err));
+		const Products = JSON.parse(localStorage.getItem('AllOrderDetails'));
+		if(Products !=null  ){
+			console.log(Products);
+			setProducts(Products)
+			
+		}
+		// localStorage.setItem("shopping-cart", JSON.stringify(null));
 		
-	  }, []);
+	
+	}, []);
+
+	// useEffect(() => {
+	// 	axios
+	// 	  .get("http://localhost:8070/orderfood/viewAllOrder")
+	// 	  .then((res) => {
+	// 		//	console.log(res.data)
+	// 		setProducts(res.data)
+	// 	  })
+	// 	  .catch((err) => console.log(err));
+		
+	//   }, []);
 
     return (
         <>
@@ -59,26 +69,23 @@ function OrderSummary() {
 								<tr>
 									<th>Item Name</th>
 									<th>Quantity</th>
+									<th>Unit Price</th>
 								</tr>
 							</thead>
 							<tbody>
 									
-							{products
-							.filter((val)=>{
-								if(val.order_id == orders.order_id){
-									return val
-								}
-							})
+							{orders
 							.map((val,index)=>(
 								<tr key={index}>
-									<td>{val.food_id}</td>
-									<td>{val.qty}</td>
+									<td>{val.Name}</td>
+									<td>{val.count}</td>
+									<td>{val.Price}</td>
 								</tr>
 							))}
 							</tbody>
 						</table>
 						<div className="total">
-							<h3>Grand Total: {orders.total}</h3>
+							<h3>Grand Total: {products.total}</h3>
 						</div>
 					</div>
 				</div>
