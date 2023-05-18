@@ -6,6 +6,6 @@ const userController = require("../controllers/user.controller");
 router.get("/details", userController.getUser);
 router.put("/details", userController.updateUser);
 router.get("/dish", userController.getdish);
-
+router.delete("/delete",userController.deleteUser)
 
 module.exports = router;

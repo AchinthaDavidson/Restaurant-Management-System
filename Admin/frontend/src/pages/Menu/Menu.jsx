@@ -30,7 +30,7 @@ const Menu = () => {
     axios
       .delete(dlte)
       .then(() => {
-        alert("deleted successfully");
+        toast.success("deleted successfully");
         window.location.reload()
       })
       .catch(err => {
