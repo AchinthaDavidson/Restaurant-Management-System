@@ -90,7 +90,7 @@ const RestaurantAdd = () => {
       .catch((err)=>{
         alert(err);
       })
-
+      settotalCost(quantity*unitPrice)
 
 
 
