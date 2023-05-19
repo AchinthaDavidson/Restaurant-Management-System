@@ -13,7 +13,7 @@ const Resturantdata = (props) => {
         const url="http://localhost:8070/Inventoryfood/find/"+id;
   
         axios.get(url).then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setdata(res.data);
           // console.log(orders[1]);
         });

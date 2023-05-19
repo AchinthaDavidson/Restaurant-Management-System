@@ -24,6 +24,7 @@ import Notification from "../../components/Notification";
 function Finddata(index){
   // document.getElementsByClassName("data")[index].hidden=false
   document.getElementById(index).hidden=false
+// alert(index)
  
 }
 function close(id){
@@ -83,9 +84,9 @@ const [searchTerm, setSearchTerm] = useState("");
               }
             }).map((items, index) => (
                   
-                  <>
+                  < >
                 
-                  <tr onClick={()=>Finddata(index)}>
+                  <tr onClick={()=>Finddata(items.Item_Id)} key={index}>
                     <td>{items.Item_Id}</td>
                     <td>{items.Item_Name}</td>
                     <td>{items.Quantity}{items.Unit}</td>
@@ -95,10 +96,10 @@ const [searchTerm, setSearchTerm] = useState("");
                     <td>{items.Re_Order_Level<items.Quantity ? "good" : "bad "}</td>
                   
                   </tr>
-                  <tr id={index} hidden>
+                  <tr id={items.Item_Id} hidden>
                   <td colSpan={6}>
                   <Resdata id={items.Item_Id}/><br/>
-                  <label onClick={()=>close(index)} ><BsArrowUpCircle fontSize={20}/></label>
+                  <label onClick={()=>close(items.Item_Id)} ><BsArrowUpCircle fontSize={20}/></label>
                   </td>
                   </tr>
                   </> 

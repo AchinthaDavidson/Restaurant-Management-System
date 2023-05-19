@@ -21,17 +21,17 @@ useEffect(()=>{
     getbarval();
 },[]);
 
-// useEffect(()=>{
-//     const getbarpriceval = () =>{
-//       axios.get("http://localhost:8070/Bardata/")
-//       .then((barprices)=>{
-//         setbarpriceData(barprices.data);
-//       }).catch((err)=>{
-//         alert(err);
-//       })
-//     }
-//     getbarpriceval();
-// },[]);
+useEffect(()=>{
+    const getbarpriceval = () =>{
+      axios.get("http://localhost:8070/Bardata/")
+      .then((barprices)=>{
+        setbarpriceData(barprices.data);
+      }).catch((err)=>{
+        alert(err);
+      })
+    }
+    getbarpriceval();
+},[]);
 
 
   const brprice = barpricedata.map((item)=>item.Sellprice)
@@ -56,7 +56,47 @@ useEffect(()=>{
                         <div className="details">
                             <div className="details-sub">
                                 <h5>{bardata.Product_Name}</h5>
-                                {/* <h5 class="price">Rs.{brprice}</h5> */}
+                                <h5 class="price">Rs.
+
+
+
+
+
+          {barpricedata.filter((val) => {
+             if (
+                val._id.toLowerCase().includes(bardata.Product_Name.toLowerCase())
+              ) {
+                return val;
+              }
+            }).map((items, index) => (
+                  
+                  < >
+                {items.price}./=
+                 
+                  </> 
+                ))}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+                                
+                                
+                                
+                                
+                                </h5>
                             </div>
                         </div>
                     </div>

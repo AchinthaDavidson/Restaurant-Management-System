@@ -22,10 +22,11 @@ main{
     padding-left: 20px;
     padding-top: 20px;
     padding-right: 20px;
+    padding-bottom: 20px;
     background: rgb(244, 240, 240);
     /* background: rgb(42, 13, 60); */
     overflow-y: scroll;
-    height: 96vh;
+    height: 95vh;
     font-family: "Poppins", sans-serif;
 }
 /* width */

@@ -12,7 +12,7 @@ export default function Table({  invoiceNumber, invoiceDate ,time}) {
     useEffect(() => {
         function getfoodlist(){
             axios.get(url).then(res=>{
-              console.log(res.data);
+              // console.log(res.data);
               setFoodlists(res.data);
             // console.log (orders[1])
               
