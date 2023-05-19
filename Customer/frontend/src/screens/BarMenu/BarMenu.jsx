@@ -7,6 +7,7 @@ import "./Bar menu.css";
 function Barmenu() {
 
     const [bardata, setbarData] = useState([]);
+    const [barpricedata, setbarpriceData] = useState([]);
 
 useEffect(()=>{
     const getbarval = () =>{
@@ -20,17 +21,20 @@ useEffect(()=>{
     getbarval();
 },[]);
 
-/*useEffect(()=>{
-  const getbarvals = () =>{
-    axios.get("http://localhost:8070/Bardata/")
-    .then((barinventories)=>{
-      setbarData(barinventories.data);
-    }).catch((err)=>{
-      alert(err);
-    })
-  }
-  getbarvals();
-},[]);*/
+// useEffect(()=>{
+//     const getbarpriceval = () =>{
+//       axios.get("http://localhost:8070/Bardata/")
+//       .then((barprices)=>{
+//         setbarpriceData(barprices.data);
+//       }).catch((err)=>{
+//         alert(err);
+//       })
+//     }
+//     getbarpriceval();
+// },[]);
+
+
+  const brprice = barpricedata.map((item)=>item.Sellprice)
 
   return (
     <>
@@ -52,7 +56,7 @@ useEffect(()=>{
                         <div className="details">
                             <div className="details-sub">
                                 <h5>{bardata.Product_Name}</h5>
-                                {/*<h5 class="price">Rs.{bardata.Sell_Price}</h5>*/}
+                                {/* <h5 class="price">Rs.{brprice}</h5> */}
                             </div>
                         </div>
                     </div>

@@ -78,6 +78,7 @@ body{
 .details-sub h5{
   font-weight: 600;
   font-size: 18px;
+  text-transform: capitalize;
 }
 
 .price{
