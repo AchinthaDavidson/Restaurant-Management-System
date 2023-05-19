@@ -22,12 +22,10 @@ const driverSchema=new Schema({
         type: String,
         required: true
     },
-    
-    status:{
+    password:{
         type: String,
         
     }
-
 })
 const driver = mongoose.model("driver",driverSchema);
 

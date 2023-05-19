@@ -14,7 +14,7 @@ const AddDriver = () => {
   const [email , setemail] = useState("");
   const [address , setaddress] = useState("");
   const [phone_no , setphone_no] = useState("");
-  
+  const [password , setpassword] = useState("");
   const history = useNavigate();
 
   
@@ -25,10 +25,10 @@ const AddDriver = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
 
-    if (!id || !name || !email||!address|| !phone_no) {
+    if (!id || !name || !email||!address|| !phone_no|| !password ) {
       toast.error("Please fill in all inputs");}
     else{
-      const Driver = {id,name,email,address,phone_no};
+      const Driver = {id,name,email,address,phone_no,password};
     axios.post("http://localhost:8070/driver/add",Driver)
     .then(()=>{
       toast.success("Driver added successfully!");
@@ -37,7 +37,7 @@ const AddDriver = () => {
       setemail('')
       setaddress('')
       setphone_no('')
-      
+      setpassword('')
       
     })
     .catch((err)=>{
@@ -91,7 +91,11 @@ const AddDriver = () => {
                   title="Please enter a valid 10-digit phone number" />
                 </div>
 
-                
+                <div class="input-field">
+                  <label className="D_password">Password</label>
+                  <input type="text" placeholder="Password" value={password}
+                  onChange={(e) => setpassword(e.target.value)}/>
+                </div>
 
             </div>
 

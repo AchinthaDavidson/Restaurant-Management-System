@@ -14,7 +14,7 @@ const UpdateDriver = () => {
   const [Email , setemail] = useState("");
   const [address , setaddress] = useState("");
   const [phone_no , setphone_no] = useState("");
-  
+  const [password , setpassword] = useState("");
   const history = useNavigate();
 
   const{id} = useParams();
@@ -26,11 +26,11 @@ const UpdateDriver = () => {
       setemail(res.data.Email)
       setaddress(res.data.address)
       setphone_no(res.data.phone_no)
-      
+      setpassword(res.data.password)
     })
    } ,[]);
  
-   const driver ={ D_Id , name , Email , phone_no  , address  }
+   const driver ={ D_Id , name , Email , phone_no  , address , password }
   
   function Update(e){
       e.preventDefault()
@@ -81,7 +81,11 @@ const UpdateDriver = () => {
                   onChange={(e) => setphone_no(e.target.value)}/>
                 </div>
 
-                
+                <div class="input-field">
+                  <label className="D_password">Password</label>
+                  <input type="text" placeholder="Password" value={password}
+                  onChange={(e) => setpassword(e.target.value)}/>
+                </div>
 
             </div>
 
