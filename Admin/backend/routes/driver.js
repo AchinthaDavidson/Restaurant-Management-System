@@ -8,7 +8,7 @@ router.route("/add").post((req,res)=>{
     const  Email    =req.body.email
     const  address  =req.body.address
     const  phone_no     = req.body.phone_no
-    
+    const  password     =req.body.password
 
     // const order_id ='1';
     // const  w_id     ="vsfgsg"
@@ -24,7 +24,7 @@ router.route("/add").post((req,res)=>{
         Email,   
         address, 
         phone_no,
-          
+        password  
     })
 
     newdriver.save().then(()=>{
@@ -50,10 +50,10 @@ router.put("/update/:id" , async(req,res)=>{
         Email,   
         address, 
         phone_no,
-         } = req.body
+        password } = req.body
 
     const updatedriver = {
-        name,Email,address, phone_no
+        name,Email,address, phone_no, password
     }
 
     const update = await driver.findByIdAndUpdate(userID , updatedriver)
